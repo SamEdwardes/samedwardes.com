@@ -1,2 +1,3 @@
-# personal-blog
-My personal blog at samedwardes.com
+# blog-development
+
+The development repo for my blog [samedwardes.com](samedwardes.com).
