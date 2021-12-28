@@ -19,7 +19,6 @@ description = "Real Sam I Am - a blog by Sam Edwardes"
 profilePicture = "img/profile.png"
 keywords = ["sam edwardes", "blog", "outdoors", "data-science", "cycling"]
 favicon = "favicons/"
-customCss = ["css/table.css"]
 mainSections = ["post"]
 
 ## Math settings
