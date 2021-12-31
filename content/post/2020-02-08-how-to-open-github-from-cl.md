@@ -18,7 +18,7 @@ Here is how to do it:
 - Open your `.bash_profile` or `.zshrc` file.
 - Copy and paste the code below into the file
 
-```bash
+```bash {linenos=table}
 gopen(){
     # open the current repo in browser
     # https://stackoverflow.com/questions/4089430/how-can-i-determine-the-url-that-a-local-git-repository-was-originally-cloned-fr

@@ -33,7 +33,7 @@ After I have miniconda installed I then work on setting up my python environment
 1. Follow the [official instructions](https://docs.conda.io/en/latest/miniconda.html) to install miniconda.
 2. Create a new conda environment. You can either add packages as you wish, or get started by basing your data science environment off of my own. Run one of the following commands in your shell.
 
-```bash
+```bash {linenos=table}
 # option 1: start from scratch 
 conda create -name ds_base
 
@@ -60,7 +60,7 @@ Below is a complete list of packages in my environment
 
 **Steps to install Homebrew:**
 
-```bash
+```bash {linenos=table}
 # download and install homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 # install some of my favourite packages
@@ -89,7 +89,7 @@ Lastly I customize ZSH with another tool called [Oh My ZSH](https://ohmyz.sh/). 
 
 3. Install Oh My ZSH using:
 
-   ```bash
+   ```bash {linenos=table}
    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
    ```
 
@@ -99,7 +99,7 @@ Lastly I customize ZSH with another tool called [Oh My ZSH](https://ohmyz.sh/). 
 
 5. I also add the following lines to the file to enable my desired theme and plugins:
 
-```bash
+```bash {linenos=table}
 plugins=(git autojump)
 ZSH_THEME="blinks"
 ```

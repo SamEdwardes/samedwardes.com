@@ -5,6 +5,8 @@ title = "Real Sam I Am"
 theme = "anatole"
 summarylength = 10
 enableEmoji = true
+pygmentsCodeFences = true
+pygmentsUseClasses = true
 
 # Enable Disqus
 #disqusShortname = ""
@@ -21,6 +23,8 @@ keywords = ["sam edwardes", "blog", "outdoors", "data-science", "cycling"]
 favicon = "favicons/"
 mainSections = ["post"]
 contentratio = 0.8
+doNotLoadAnimations = true
+customCss = ["css/syntax.css", "css/table.css"]
 
 ## Math settings
 [params.math]
