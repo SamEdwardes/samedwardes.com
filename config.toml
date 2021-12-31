@@ -20,6 +20,7 @@ profilePicture = "img/profile.png"
 keywords = ["sam edwardes", "blog", "outdoors", "data-science", "cycling"]
 favicon = "favicons/"
 mainSections = ["post"]
+contentratio = 0.8
 
 ## Math settings
 [params.math]
@@ -28,27 +29,27 @@ use = "katex"  # options: "katex", "mathjax". default is "katex".
 
 ## Social links
 [[params.socialIcons]]
-icon = "fa-github"
+icon = "fab fa-github"
 title = "GitHub"
 url = "https://github.com/SamEdwardes"
 
 [[params.socialIcons]]
-icon = "fa-twitter"
+icon = "fab fa-twitter"
 title = "Twitter"
 url = "https://twitter.com/TheReaLSamlam"
 
 [[params.socialIcons]]
-icon = "fa-linkedin"
+icon = "fab fa-linkedin"
 title = "Linkedin"
 url = "https://www.linkedin.com/in/samedwardes/"
 
 [[params.socialIcons]]
-icon = "fa-youtube"
+icon = "fab fa-youtube"
 title = "YouTube"
 url = "https://www.youtube.com/channel/UCkXD_pR2bYGOyf8Eh6T_BNw"
 
 [[params.socialIcons]]
-icon = "fa-envelope"
+icon = "fas fa-envelope"
 title = "e-mail"
 url = "mailto:edwardes.s@gmail.com"
 
