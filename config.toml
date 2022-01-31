@@ -24,7 +24,7 @@ favicon = "favicons/"
 mainSections = ["post"]
 contentratio = 0.8
 doNotLoadAnimations = true
-customCss = ["css/syntax.css", "css/table.css"]
+customCss = ["css/syntax.css", "css/table.css", "css/notices.css"]
 
 ## Math settings
 [params.math]
