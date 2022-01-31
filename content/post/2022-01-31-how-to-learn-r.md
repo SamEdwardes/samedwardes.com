@@ -7,9 +7,7 @@ date: "2022-01-31"
 type: "post"
 ---
 
-{{% notice note %}}
-This blog post is a work in progress and will be updated!
-{{% /notice %}}
+> ⚠ This blog post is a work in progress and will be updated!
 
 As a data scientest one of the most common questions I get from colleagues and clients is how to get started on learning R. There is a plethora of great options out there today. Some of which are paid, and some of which are free.
 

@@ -1,4 +1,4 @@
-baseURL = 'http://samedwardes.netlify.app/'
+baseURL = 'https://samedwardes.com/'
 languageCode = "en"
 DefaultContentLanguage = "en"
 title = "Real Sam I Am"
