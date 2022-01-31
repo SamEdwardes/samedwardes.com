@@ -1,5 +1,7 @@
 # blog-development
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f842119c-ee2a-4b18-9658-befe42fe8a2a/deploy-status)](https://app.netlify.com/sites/samedwardes/deploys)
+
 The development repo for my blog [https://samedwardes.com/](https://samedwardes.com/).
 
 ## Test locally
