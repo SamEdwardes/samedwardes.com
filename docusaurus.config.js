@@ -45,7 +45,7 @@ const config = {
       navbar: {
         title: 'Sam Edwardes',
         logo: {
-          alt: 'Sam I Am Circle Picture',
+          alt: 'logo',
           src: 'img/profile.png',
         },
         items: [

@@ -3,7 +3,7 @@ title: Data Science and Open Source
 hide_table_of_contents: true
 ---
 
-Hi, I'm Sam! I am a Data Scientist in Vancouver, BC. I love using Python, R, and all things open source.
+I love using Python, R, and all things open source.
 
 **Links**
 
