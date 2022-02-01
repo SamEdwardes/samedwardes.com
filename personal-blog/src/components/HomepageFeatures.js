@@ -4,17 +4,17 @@ import styles from './HomepageFeatures.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
+    title: 'Open source',
     Svg: require('../../static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Sam is passionate about data science. He loves all things R, Python, and
+        open source.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Outdoors',
     Svg: require('../../static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
@@ -24,7 +24,7 @@ const FeatureList = [
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Get in touch',
     Svg: require('../../static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
