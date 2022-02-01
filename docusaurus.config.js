@@ -23,13 +23,14 @@ const config = {
       ({
         docs: false,
         blog: {
+          routeBasePath: '/', // Serve the blog at the site's root
           blogTitle: 'Blog',
           blogDescription: 'Sam Edwardes personal blog',
           postsPerPage: 'ALL',
           showReadingTime: true,
-          blogSidebarTitle: 'All posts',
-          blogSidebarCount: 'ALL',
-          editUrl: 'https://github.com/SamEdwardes/personal-website/tree/main/packages/create-docusaurus/templates/shared/',
+          // blogSidebarTitle: 'All posts',
+          blogSidebarCount: 0,
+          editUrl: 'https://github.com/SamEdwardes/personal-blog/tree/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -48,7 +49,7 @@ const config = {
           src: 'img/profile.png',
         },
         items: [
-          {to: '/blog', label: 'Blog', position: 'left'},
+          {to: '/', label: 'Blog', position: 'left'},
           {to: '/data-science', label: 'Data Science', position: 'left'},
           {to: '/outdoors', label: 'Outdoors', position: 'left'},
           // {type: 'doc', docId: 'intro', position: 'left', label: 'Other Stuff',},
