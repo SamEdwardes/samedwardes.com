@@ -46,7 +46,7 @@ Create a new directory in your computer and create the following file structure:
 
 ### Step 2: `app.py`
 
-Create your dash app. See [app.py](app.py) for complete details. A few important things to note:
+Create your dash app. See **app.py** for complete details. A few important things to note:
 
 ```python
 port: int(os.environ.get("PORT", 5000))
