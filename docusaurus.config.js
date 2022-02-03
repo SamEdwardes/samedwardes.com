@@ -43,7 +43,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Sam Edwardes',
+        title: "Sam's Blog",
         logo: {
           alt: 'logo',
           src: 'img/profile.png',
