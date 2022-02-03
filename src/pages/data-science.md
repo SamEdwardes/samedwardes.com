@@ -5,13 +5,13 @@ hide_table_of_contents: true
 
 I love using Python, R, and all things open source.
 
-**Links**
+## Links
 
 - 📂 [GitHub](https://github.com/SamEdwardes)
 - 💻 [SamEdwardes.com](https://samedwardes.com/)
 - 📧 [Twitter](https://twitter.com/TheReaLSamlam)
 
-**Open source packages / libraries**
+## Open source packages / libraries
 
 | Package / Library                                                      | Description                                                  | Type |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ---- |
@@ -22,7 +22,7 @@ I love using Python, R, and all things open source.
 | [prettynum](https://github.com/SamEdwardes/prettynum)    | Simple number formatting for python inspired by the [scales](https://scales.r-lib.org/index.html) package in R. | 🐍    |
 | [safejoin](https://github.com/SamEdwardes/safejoin)    | Perform "safe" table joins in R. | **R**    |
 
-**Projects and Apps**
+## Other fun stuff
 
 | Name                                                      | Links |Details                                                      |
 | ------------------------------------------------------------ | ----- |------------------------------------------------------------ |
@@ -31,4 +31,3 @@ I love using Python, R, and all things open source.
 | Canadian 2019 Election Twitter Sentiment Analysis | [App](https://cdn-election-sent-app.herokuapp.com/) / [GitHub](https://github.com/SamEdwardes/sentiment-cdn-election) | Uses Python, Heroku, and TextBlob to create a sentiment analysis for the 2019 Canadian election.<br /><br />[Python, Dash, Heroku, TextBlob] |
 | Canvas discussion board tool | [App](https://ubc-canvas-discussion-board.herokuapp.com/) / [GitHub](https://github.com/SamEdwardes/MDS_Learning_Analytics)<br /> | Submission for the 2019 UBC [Learning Analytics Hackathon](https://learninganalytics.ubc.ca/for-students/hackathons/). A tool to help improve the student experience on canvas discussion boards by providing suggests to similar questions before posting.<br /><br />[Python, Dash, Docker, Heroku, nltk, gensim] |
 | Tableau | [Tableau Public Profile](https://public.tableau.com/profile/sam.edwardes#!/) | My public profile of Tableau visualizations. |
-
