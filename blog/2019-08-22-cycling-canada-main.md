@@ -21,7 +21,7 @@ Click on one of the links below to jump to a specific section:
 
 ## Video
 
-{{< youtube 3YpODZVO5wY >}}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3YpODZVO5wY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 *You can also find a longer video [here](https://youtu.be/MxRifZOeY4Y), but YouTube deleted all of the audio.*
 

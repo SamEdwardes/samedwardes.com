@@ -25,7 +25,7 @@ Click on one of the links below to jump to a specific section:
 
 Scroll past the video and pictures below to read more about the trip.
 
-{{< youtube eH_wRd9wvEo >}}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eH_wRd9wvEo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ![coffee](https://i.imgur.com/LQrDGEk.jpg)
 
