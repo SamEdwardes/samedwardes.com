@@ -1,6 +1,6 @@
 ---
 title: Outdoors
-hide_table_of_contents: true
+hide_table_of_contents: false
 ---
 
 I have a passion for the outdoors. Here are a few of the highlights:

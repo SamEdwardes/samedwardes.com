@@ -5,7 +5,7 @@ hide_table_of_contents: false
 
 I love using Python, R, and all things open source. Find me on [GitHub](https://github.com/SamEdwardes) and [Twitter](https://twitter.com/TheReaLSamlam).
 
-## Open source packages / libraries
+## Open source
 
 | Package / Library                                                      | Description                                                  | Type |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ---- |
