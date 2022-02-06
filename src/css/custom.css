@@ -39,10 +39,17 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 }
 
 .img-circle{
-  width: 300px;
-  height: 300px;
+  /* width: 300px;
+  height: 300px; */
+  max-width: 250px;
   object-fit: cover;
   border-radius: 50%;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .about-text{
