@@ -95,7 +95,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Sam Edwardes. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
