@@ -52,7 +52,7 @@ mas install 441258766  # Magnet
 
 </details>
 
-## Package managers
+## Homebrew
 
 Using a package manager is an easy to keep tools up to date, and forces a consistent approach for downloading and installing new tools. When ever possible, I try to `brew` install tools / software using [**Homebrew**](https://brew.sh/). To install homebrew run the following command:
 
@@ -102,7 +102,7 @@ To install starship run the following command:
 brew install starship
 ```
 
-## Developer tools
+## Command line tools
 
 ### exa
 
@@ -138,6 +138,8 @@ From the [just repo](https://github.com/casey/just):
 brew install just
 ```
 
+## Apps
+
 ### Docker desktop
 
 ```bash
@@ -146,9 +148,7 @@ brew install --cask docker
 
 ### Typora
 
-### Fonts
-
-
+## Fonts
 
 ## VS Code
 
