@@ -37,6 +37,7 @@ brew install bat
 
 # Install others tools using Homebrew cask
 brew install --cask docker
+brew install --cask iterm2
 
 # Fonts
 # brew tap homebrew/cask-fonts 
@@ -65,17 +66,51 @@ Throughout this blog post we will use `brew install` where ever possible to inst
 
 Every nerds favourite place to be... the terminal. As a data scientist / developer your terminal setup is a great way to express yourself. Do you like to get crazy and customize everything? Do you keep it simple and stick to the defaults? I like to take a middle ground approach. I want things to look pretty, but I also do not want to waste too much time configuring things.
 
-### Iterm2
+### iTerm2
+
+[iTerm2](https://iterm2.com/index.html) is a replacement for the default terminal app that comes with your mac. It includes some nice features such as tabs and split panes.
+
+![iterm2-screenshot](https://iterm2.com/img/screenshots/split_panes.png)
+
+*Image from https://iterm2.com/features.html*
+
+To install run the following command:
+
+```bash
+brew install --cask iterm2
+```
 
 ### Starship
 
-[Starship.rs] 
+[starship](https://starship.rs/) is a cross-shell prompt. According to their website:
+
+> The minimal, blazing-fast, and infinitely customizable prompt for any shell!
+
+![starship-gif](https://raw.githubusercontent.com/starship/starship/master/media/demo.gif)
+
+*Gif from https://starship.rs/guide/*
+
+I really like starship because:
+
+- I think the defaults look good and are reasonable.
+- I can easily have a consistent prompt across all of my devices.
+- When needed, starship also has lots of customization options.
+
+To install starship run the following command:
+
+```bash
+brew install starship
+```
 
 ## Developer tools
 
 ### exa
 
-https://the.exa.website/ a modern replacement for `ls`.
+https://the.exa.website/ a modern replacement for `ls`. It has defaults that I prefer, and has a nice coloured output.
+
+![exa-image](https://github.com/ogham/exa/raw/master/screenshots.png)
+
+*Image from https://github.com/ogham/exa*
 
 ```bash
 brew install exa
