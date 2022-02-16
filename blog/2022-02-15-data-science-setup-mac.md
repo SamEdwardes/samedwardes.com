@@ -179,11 +179,44 @@ curl -sSL https://install.python-poetry.org | python3 -
 
 ### pipx
 
-### Most used packages
+### Python packages
 
-#### typer
+Below is a collection of my favourite Python packages.
+
+```bash
+# Data
+pip install pandas
+
+# Nautal langague processing (NLP)
+pip install spacy
+
+# Visualization
+pip install
+
+# Fun stuff
+pip install rich         # Beautiful command line outputs
+pip install typer        # Create command line applicatons
+```
 
 ## R
+
+### Installing R
+
+### RStudio
+
+If you use R, you are probably already using RStudio.
+
+### R packages
+
+Below is a collection of my favourite R packges.
+
+```r
+install.packges("tidyverse")
+```
+
+#### Tidyverse
+
+The tidyverse is a collection of packages that follow a common design langague. The tidyverse is my favourite part of R!
 
 ## Inspiration and reference
 
