@@ -10,15 +10,15 @@ I love using Python, R, and all things open source. Find me on [GitHub](https://
 | Package / Library                                                      | Description                                                  | Type |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ---- |
 | [sqlcli](https://github.com/SamEdwardes/sqlcli) | A command line interface (CLI) for interacting with SQLModel.  | 🐍    |
-| [spaCyTextBlob](https://github.com/SamEdwardes/spaCyTextBlob) | A TextBlob sentiment analysis pipeline component for spaCy.  | 🐍    |
+| [spacytextblob](https://github.com/SamEdwardes/spacytextblob) | A TextBlob sentiment analysis pipeline component for spaCy.  | 🐍    |
 | [spacypdfreader](https://github.com/SamEdwardes/spacypdfreader) | A PDF to text extraction pipeline component for spaCy. | 🐍    |
 | [pydatafaker](https://github.com/SamEdwardes/pydatafaker)    | A python package to create fake data with relationships between tables. | 🐍    |
 | [prettynum](https://github.com/SamEdwardes/prettynum)    | Simple number formatting for python inspired by the [scales](https://scales.r-lib.org/index.html) package in R. | 🐍    |
 | [safejoin](https://github.com/SamEdwardes/safejoin)    | Perform "safe" table joins in R. | **R**    |
 
-## Python web apps
+## Python apps
 
-**GitHub Search tool for UBC**  ([App](https://ubc-mds-github-search.herokuapp.com/) / [GitHub](https://github.com/SamEdwardes/ubc-mds-github-search))
+**GitHub Search tool for UBC** ([App](https://ubc-mds-github-search.herokuapp.com/) / [GitHub](https://github.com/SamEdwardes/ubc-mds-github-search))
 
 A python web application for finding lecture content from the UBC Masters of Data Science Program. Built using Dash and deployed with Docker on Heroku.
 
@@ -30,7 +30,7 @@ Submission for the 2019 UBC [Learning Analytics Hackathon](https://learninganaly
 
 Uses Python, Heroku, and TextBlob to create a sentiment analysis for the 2019 Canadian election. Built using Dash and deployed with Docker on Heroku.
 
-## R web apps
+## R apps
 
 **Text Prediction Model** ([App](https://samedwardes.shinyapps.io/text-prediction-model/) / [GitHub](https://github.com/SamEdwardes/predictive-text-model-swift-key))
 
