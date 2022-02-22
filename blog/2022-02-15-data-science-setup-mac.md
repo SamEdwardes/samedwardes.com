@@ -202,13 +202,27 @@ pip install typer        # Create command line applicatons
 
 ### Installing R
 
+Install the latest version of R from CRAN:
+
+![cran-homepage](https://imgur.com/kLHQ02Q.png)
+
+*Select "Download R for macOS.*
+
+![download-correct-version-of-r](https://imgur.com/y4akbAT.png)
+
+*If you are using a newer Mac with an M1 chip select the second option for **Apple silicon arm64**. Otherwise, choose the first option for **Intel 64-bit**.*
+
+![installer-r](https://imgur.com/sbOiv8K.png)
+
+*Click on the link and follow the instructions as prompted. Select all of the default configuration options.*
+
 ### RStudio
 
 If you use R, you are probably already using RStudio.
 
 ### R packages
 
-Below is a collection of my favourite R packges.
+Below is a collection of my favourite R packages.
 
 ```r
 install.packges("tidyverse")
