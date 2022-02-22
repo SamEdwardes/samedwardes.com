@@ -195,7 +195,7 @@ pip install
 
 # Fun stuff
 pip install rich         # Beautiful command line outputs
-pip install typer        # Create command line applicatons
+pip install typer        # Create command line applications
 ```
 
 ## R
@@ -225,12 +225,12 @@ If you use R, you are probably already using RStudio.
 Below is a collection of my favourite R packages.
 
 ```r
-install.packges("tidyverse")
+install.packages("tidyverse")
 ```
 
 #### Tidyverse
 
-The tidyverse is a collection of packages that follow a common design langague. The tidyverse is my favourite part of R!
+The tidyverse is a collection of packages that follow a common design language. The tidyverse is my favourite part of R!
 
 ## Inspiration and reference
 
