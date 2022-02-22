@@ -3,7 +3,7 @@ title: Data Science and Open Source
 hide_table_of_contents: false
 ---
 
-I love using Python, R, and all things open source. Find me on [GitHub](https://github.com/SamEdwardes) and [Twitter](https://twitter.com/TheReaLSamlam).
+I love using Python, R, and all things open source. Find me on [GitHub](https://github.com/SamEdwardes) and [Twitter](https://twitter.com/TheReaLSamlam). See some of open source work below:
 
 ## Open source
 
