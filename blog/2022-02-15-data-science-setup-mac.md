@@ -25,6 +25,10 @@ Feeling bold and want to completely clone my setup? Just run the following scrip
 # Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+# Install python tools
+curl https://pyenv.run | bash
+curl -sSL https://install.python-poetry.org | python3 -
+
 # Install cli tools with Homebrew
 brew install just
 brew install starship
@@ -160,22 +164,356 @@ brew install --cask docker
 
 Search *how to install python* on Google and you will find many differing opinions. My current approach is:
 
-- Use pyenv to manage your python versions
-- Use venv for creating virtual environments
-- Use poetry for managing dependencies in projects
-- Use pipx to install system wide packages and command line tools
+- Use pyenv to manage my python versions (e.g. enables me to have both Python `3.9` and `3.10` on my computer).
+- Use venv for creating virtual environments.
+- Use poetry for managing dependencies in projects.
+- Use pipx to install system wide packages and command line tools.
 
 ### pyenv
 
+#### Installation
+
+pyenv ([https://github.com/pyenv/pyenv](https://github.com/pyenv/pyenv)) allows you to manage multiple versions of Python on your computer. To install I like to use the pyenv install script from [https://github.com/pyenv/pyenv-installer](https://github.com/pyenv/pyenv-installer):
+
+```bash
+curl https://pyenv.run | bash
+```
+
+The script install "*pyenv and friends*" which includes:
+
+- pyenv
+- pyenv-doctor
+- pyenv-installer
+- pyenv-update
+- pyenv-virtualenv
+- pyenv-which-ext
+
+#### Using pyenv
+
+Now that pyenv is installed, you can start to install different versions of python. Check all of the available versions using the `pyenv install --list` command:
+
+```bash
+pyenv install --list
+```
+
+```bash
+Available versions:
+  2.1.3
+  2.2.3
+  ...
+  3.9.1
+  3.9.2
+  3.9.4
+  3.9.5
+  3.9.6
+  3.9.7
+  3.10.0
+  ...
+```
+
+As of writing this blog post `3.10.0` is the most current version of Python. You can install it using:
+
+```bash
+pyenv install 3.10.0
+```
+
+And then validate that the installation worked:
+
+```bash
+pyenv versions
+```
+
+```bash
+  system
+  3.10.0
+  3.7.10
+* 3.9.4 (set by /Users/samedwardes/.pyenv/version)
+```
+
+#### Global pyenv
+
+I want to make the latest version of Python as my default. To do so I run the following command:
+
+```bash
+pyenv global 3.10.0
+pyenv versions
+```
+
+```bash
+  system
+* 3.10.0 (set by /Users/samedwardes/.pyenv/version)
+  3.7.10
+  3.9.4
+```
+
+#### Local pyenv
+
+For some projects I may want to use a different version of Python then my default `3.10.0`. To change the default version for a specific project I can use the `local` command.
+
+```bash
+mkdir old-py-project
+cd old-py-project
+pyenv local 3.7.10
+pyenv versions
+```
+
+```bash
+  system
+  3.10.0
+* 3.7.10 (set by /Users/samedwardes/tmp/old-py-project/.python-version)
+  3.9.4
+```
+
+As soon as I navigate away from the project, my python version changes back to my global default.
+
+```bash
+cd ..
+pyenv versions
+```
+
+```bash
+  system
+* 3.10.0 (set by /Users/samedwardes/.pyenv/version)
+  3.7.10
+  3.9.4
+```
+
 ### venv
+
+#### Creating a new virtual environment
+
+`venv` comes built into Python. It is used to create virtual environments. Every time I start a new project I create a new virtual environment. Lets demonstrate by creating a new project:
+
+```bash
+mkdir toy-project
+cd toy-project
+```
+
+To create a new virtual environment run the following command:
+
+```bash
+python -m venv venv
+```
+
+Lets break down the command above:
+
+- `python -m venv` runs the `venv` program from the command line.
+- The last part of the command, the second `venv` is the positional argument for `ENV_DIR`. Run `python -m venv --help` to see all the arguments and options for the `venv program.
+- By convention, I always name the `ENV_DIR` as `venv`. However, you can name it anything you like (e.g. `python -m venv my-virtual-environment` would also work).
+
+The `python -m venv venv` create a new directory in our current project named `venv`. Lets take a look inside:
+
+```bash
+tree venv -L 2
+```
+
+```bash
+venv
+├── bin
+│   ├── Activate.ps1
+│   ├── activate
+│   ├── activate.csh
+│   ├── activate.fish
+│   ├── pip
+│   ├── pip3
+│   ├── pip3.10
+│   ├── python -> /Users/samedwardes/.pyenv/versions/3.10.0/bin/python
+│   ├── python3 -> python
+│   └── python3.10 -> python
+├── include
+├── lib
+│   └── python3.10
+└── pyvenv.cfg
+```
+
+Inside the `venv/bin/` directory are several files and scripts. These are used to activate the virtual environment. Run the following command to activate your virtual environment:
+
+```bash
+source venv/bin/activate
+```
+
+If you are using [starship](https://starship.rs/) your command line will now have a nice indicator letting you know that you are using a virtual environment:
+
+```bash
+~/tmp/toy-project via 🐍 pyenv 3.10.0 (venv)
+```
+
+You can prove to yourself that you are in a brand new isolated Python environment by running:
+
+```bash
+pip list
+```
+
+```bash
+Package    Version
+---------- -------
+pip        21.2.3
+setuptools 57.4.0
+WARNING: You are using pip version 21.2.3; however, version 22.0.3 is available.
+You should consider upgrading via the '/Users/samedwardes/tmp/toy-project/venv/bin/python -m pip install --upgrade pip' command.
+```
+
+Nice! You have a brand new canvas to start  your next python project on. While the virtual environment is activated, anything you pip install will only be installed into the virtual environment.
+
+First I will update pip to the most current version.
+
+```bash
+python -m pip install --upgrade pip
+```
+
+Then lets install a package:
+
+```bash
+pip install wheel
+pip list
+```
+
+```bash
+Package    Version
+---------- -------
+pip        22.0.3
+setuptools 57.4.0
+wheel      0.37.1
+```
+
+#### Using with pyenv
+
+When you run the command `python -m venv venv` the virtual environment will automatically be created using which ever version of python you currently have activated. If you are unsure, run the following command to check before creating a new virtual environment:
+
+```bash
+pyenv versions
+```
+
+```bash
+  system
+* 3.10.0 (set by /Users/samedwardes/.pyenv/version)
+  3.7.10
+  3.9.4
+```
+
+I can see that Python `3.10.0` is currently active. I can double check by just running:
+
+```bash
+python --version
+```
+
+```bash
+Python 3.10.0
+```
+
+If I want to create my virtual environment using a different python version I must first activate the other version using pyenv:
+
+```bash
+pyenv local 3.9.4
+```
+
+Then I can create my virtual environment:
+
+```bash
+python -m venv venv-394
+```
+
+Lets compare the two different virtual environments we created:
+
+```bash
+tree -L 3
+```
+
+```bash
+.
+├── venv
+│   ├── bin
+│   │   ├── Activate.ps1
+│   │   ├── activate
+│   │   ├── activate.csh
+│   │   ├── activate.fish
+│   │   ├── pip
+│   │   ├── pip3
+│   │   ├── pip3.10
+│   │   ├── python -> /Users/samedwardes/.pyenv/versions/3.10.0/bin/python
+│   │   ├── python3 -> python
+│   │   ├── python3.10 -> python
+│   │   └── wheel
+│   ├── include
+│   ├── lib
+│   │   └── python3.10
+│   └── pyvenv.cfg
+└── venv-394
+    ├── bin
+    │   ├── Activate.ps1
+    │   ├── activate
+    │   ├── activate.csh
+    │   ├── activate.fish
+    │   ├── easy_install
+    │   ├── easy_install-3.9
+    │   ├── pip
+    │   ├── pip3
+    │   ├── pip3.9
+    │   ├── python -> /Users/samedwardes/.pyenv/versions/3.9.4/bin/python
+    │   ├── python3 -> python
+    │   └── python3.9 -> python
+    ├── include
+    ├── lib
+    │   └── python3.9
+    └── pyvenv.cfg
+
+10 directories, 25 files
+```
+
+You can see that the first one we created (`venv`) is using `python3.10`, and the second one we created (`venv-394`) is using `python3.9`.
+
+#### venv vs. pyenv
+
+When I first started using these tools I would often get mixed up. What is venv doing? What is pyenv doing? Do I need both?
+
+- `pyenv` controls your python version (e.g. 3.10 vs. 3.9).
+- `venv` isolates your project dependencies (the things you pip install).
 
 ### poetry
 
-[https://python-poetry.org/](https://python-poetry.org/).
+poetry is a tool for python dependency management and packing. From their website [https://python-poetry.org/](https://python-poetry.org/):
+
+> *Python packaging and dependency management made easy*
+
+#### Installation
+
+To install poetry run the following command:
 
 ```bash
 curl -sSL https://install.python-poetry.org | python3 -
 ```
+
+Follow the instructions from the terminal output to configure poetry. For me, I added the following line to my `~/.zshrc` file:
+
+```bash title="~/.zshrc"
+export PATH="$HOME/.poetry/bin:$PATH"
+```
+
+Verify that the installation worked by running:
+
+```bash
+poetry --version
+```
+
+```bash
+Poetry version 1.1.12
+```
+
+#### Using poetry
+
+:::caution
+
+*In progress*
+
+:::
+
+#### poetry vs pyenv
+
+:::caution
+
+*In progress*
+
+:::
 
 ### pipx
 
@@ -187,7 +525,7 @@ Below is a collection of my favourite Python packages.
 # Data
 pip install pandas
 
-# Nautal langague processing (NLP)
+# Natural language processing (NLP)
 pip install spacy
 
 # Visualization
