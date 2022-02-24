@@ -32,6 +32,10 @@ Uses Python, Heroku, and TextBlob to create a sentiment analysis for the 2019 Ca
 
 ## R apps
 
+**Random stretch generator** ([GitHub](https://github.com/SamEdwardes/random-rom))
+
+Randomly generate stretches to perform. Built with Shiny.
+
 **Text Prediction Model** ([App](https://samedwardes.shinyapps.io/text-prediction-model/) / [GitHub](https://github.com/SamEdwardes/predictive-text-model-swift-key))
 
 The text prediction model uses the so called "Stupid Backoff" to predict what the next word you wish to type is based on the previously typed words. Built with Shiny.

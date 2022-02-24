@@ -350,9 +350,14 @@ I can see that Python `3.10.0` is currently active. I can double check by just r
 python --version
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
 Python 3.10.0
 ```
+
+</details>
 
 If I want to create my virtual environment using a different python version I must first activate the other version using pyenv:
 
@@ -453,9 +458,14 @@ Verify that the installation worked by running:
 poetry --version
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
 Poetry version 1.1.12
 ```
+
+</details>
 
 #### Starting a new project with poetry
 
