@@ -104,6 +104,9 @@ Now that pyenv is installed, you can start to install different versions of pyth
 pyenv install --list
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
 Available versions:
   2.1.3
@@ -119,6 +122,8 @@ Available versions:
   ...
 ```
 
+</details>
+
 As of writing this blog post `3.10.0` is the most current version of Python. You can install it using:
 
 ```bash
@@ -131,12 +136,17 @@ And then validate that the installation worked:
 pyenv versions
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
   system
   3.10.0
   3.7.10
 * 3.9.4 (set by /Users/samedwardes/.pyenv/version)
 ```
+
+</details>
 
 #### Global pyenv
 
@@ -147,12 +157,17 @@ pyenv global 3.10.0
 pyenv versions
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
   system
 * 3.10.0 (set by /Users/samedwardes/.pyenv/version)
   3.7.10
   3.9.4
 ```
+
+</details>
 
 #### Local pyenv
 
@@ -165,12 +180,17 @@ pyenv local 3.7.10
 pyenv versions
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
   system
   3.10.0
 * 3.7.10 (set by /Users/samedwardes/tmp/old-py-project/.python-version)
   3.9.4
 ```
+
+</details>
 
 As soon as I navigate away from the project, my python version changes back to my global default.
 
@@ -179,12 +199,17 @@ cd ..
 pyenv versions
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
   system
 * 3.10.0 (set by /Users/samedwardes/.pyenv/version)
   3.7.10
   3.9.4
 ```
+
+</details>
 
 ### venv
 
@@ -215,6 +240,9 @@ The `python -m venv venv` create a new directory in our current project named `v
 tree venv -L 2
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
 venv
 ├── bin
@@ -234,6 +262,8 @@ venv
 └── pyvenv.cfg
 ```
 
+</details>
+
 Inside the `venv/bin/` directory are several files and scripts. These are used to activate the virtual environment. Run the following command to activate your virtual environment:
 
 ```bash
@@ -252,6 +282,9 @@ You can prove to yourself that you are in a brand new isolated Python environmen
 pip list
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
 Package    Version
 ---------- -------
@@ -260,6 +293,8 @@ setuptools 57.4.0
 WARNING: You are using pip version 21.2.3; however, version 22.0.3 is available.
 You should consider upgrading via the '/Users/samedwardes/tmp/toy-project/venv/bin/python -m pip install --upgrade pip' command.
 ```
+
+</details>
 
 Nice! You have a brand new canvas to start  your next python project on. While the virtual environment is activated, anything you pip install will only be installed into the virtual environment.
 
@@ -276,6 +311,9 @@ pip install wheel
 pip list
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
 Package    Version
 ---------- -------
@@ -283,6 +321,8 @@ pip        22.0.3
 setuptools 57.4.0
 wheel      0.37.1
 ```
+
+</details>
 
 #### Using with pyenv
 
@@ -292,12 +332,17 @@ When you run the command `python -m venv venv` the virtual environment will auto
 pyenv versions
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
   system
 * 3.10.0 (set by /Users/samedwardes/.pyenv/version)
   3.7.10
   3.9.4
 ```
+
+</details>
 
 I can see that Python `3.10.0` is currently active. I can double check by just running:
 
@@ -326,6 +371,9 @@ Lets compare the two different virtual environments we created:
 ```bash
 tree -L 3
 ```
+
+<details>
+<summary><i>show output</i></summary>
 
 ```bash
 .
@@ -367,6 +415,8 @@ tree -L 3
 
 10 directories, 25 files
 ```
+
+</details>
 
 You can see that the first one we created (`venv`) is using `python3.10`, and the second one we created (`venv-394`) is using `python3.9`.
 
@@ -418,6 +468,9 @@ poetry init -n    # The `-n` flag tells poetry to not ask any questions interact
 tree
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
 .
 └── pyproject.toml
@@ -425,11 +478,16 @@ tree
 0 directories, 1 file
 ```
 
+</details>
+
 Your directory now has a new file, *pyproject.toml*. This file is used to keep track of the dependencies required for your project.
 
 ```bash
 cat pyproject.toml
 ```
+
+<details>
+<summary><i>show output</i></summary>
 
 ```toml
 [tool.poetry]
@@ -447,6 +505,8 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 ```
 
+</details>
+
 Go ahead and manually update the projects description in *pyproject.toml*. Too add a dependency use the `poetry add` command. When using poetry this command essentially replaces `pip install`. When you use `poetry add` a few things happen:
 
 - The new package is added to your *pyproject.toml* file.
@@ -456,6 +516,9 @@ Go ahead and manually update the projects description in *pyproject.toml*. Too a
 ```bash
 poetry add requests
 ```
+
+<details>
+<summary><i>show output</i></summary>
 
 ```bash
 Creating virtualenv new-project-ubTVXCow-py3.9 in /Users/samedwardes/Library/Caches/pypoetry/virtualenvs
@@ -475,11 +538,16 @@ Package operations: 5 installs, 0 updates, 0 removals
   • Installing requests (2.27.1)
 ```
 
+</details>
+
 Take a look at your project, you will notice a new file:
 
 ```bash
 tree
 ```
+
+<details>
+<summary><i>show output</i></summary>
 
 ```bash
 .
@@ -489,11 +557,16 @@ tree
 0 directories, 2 files
 ```
 
+</details>
+
 The new *poetry.lock* file contains a detailed description of all the packages you are using (this includes requests, and all of the packages that requests depends on). The *pyproject.toml* file has been automatically updated to include requests as a dependency.
 
 ```bash
 cat pyproject.toml
 ```
+
+<details>
+<summary><i>show output</i></summary>
 
 ```toml
 [tool.poetry]
@@ -513,6 +586,8 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 ```
 
+</details>
+
 #### Using the poetry virtual environment
 
 In order to isolate your package poetry creates a virtual environment. To access this virtual environment you can prefix any command with `poetry run` and it will run inside the virtual environment.
@@ -521,6 +596,9 @@ In order to isolate your package poetry creates a virtual environment. To access
 poetry run pip list
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
 Package            Version
 ------------------ ---------
@@ -533,6 +611,8 @@ setuptools         58.3.0
 urllib3            1.26.8
 wheel              0.37.0
 ```
+
+</details>
 
 It can be annoying to prefix every command with `poetry run`. Alternatively, you can run all commands in the poetry virtual environment with `poetry shell`.
 
@@ -541,6 +621,9 @@ poetry shell
 pip list
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```bash
 Package            Version
 ------------------ ---------
@@ -553,6 +636,8 @@ setuptools         58.3.0
 urllib3            1.26.8
 wheel              0.37.0
 ```
+
+</details>
 
 #### Adding development dependencies
 
@@ -604,7 +689,7 @@ If you are unsure about which tool to use, just choose one and get started! You 
 
 ### pipx
 
-
+> in progress...
 
 ### Python packages
 
@@ -704,7 +789,11 @@ brew install starship
 
 ### exa
 
-https://the.exa.website/ a modern replacement for `ls`. It has defaults that I prefer, and has a nice coloured output.
+From the exa website ([https://the.exa.website/](https://the.exa.website/)) 
+
+> *A modern replacement for `ls`.* 
+
+It has defaults that I prefer, and has a nice coloured output.
 
 ![exa-image](https://github.com/ogham/exa/raw/master/screenshots.png)
 
@@ -716,9 +805,9 @@ brew install exa
 
 ### bat
 
-https://github.com/sharkdp/bat
+From the bat repo [https://github.com/sharkdp/bat](https://github.com/sharkdp/bat):
 
-> A cat(1) clone with wings.
+> *A cat clone with wings.*
 
 ```bash
 brew install bat
@@ -726,15 +815,21 @@ brew install bat
 
 ### just
 
-From the [just repo](https://github.com/casey/just):
+From the just repo ([https://github.com/casey/just](https://github.com/casey/just)):
 
-> `just` is a handy way to save and run project-specific commands.
+> *`just` is a handy way to save and run project-specific commands.*
 
 `just` is very similar to the ubiquitous `make` command. It is inspired by `make`, but focuses on just being a command runner as opposed to a build tool. To install just run the following command:
 
 ```bash
 brew install just
 ```
+
+## VS Code
+
+### Python plugins
+
+### R plugins
 
 ## Apps
 
@@ -747,12 +842,6 @@ brew install --cask docker
 ### Typora
 
 ## Fonts
-
-## VS Code
-
-### Python plugins
-
-### R plugins
 
 ## Inspiration and reference
 
