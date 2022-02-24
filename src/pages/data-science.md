@@ -32,7 +32,7 @@ Uses Python, Heroku, and TextBlob to create a sentiment analysis for the 2019 Ca
 
 ## R apps
 
-**Random stretch generator** ([GitHub](https://github.com/SamEdwardes/random-rom))
+**Random ROM** ([App](https://samedwardes.shinyapps.io/random-rom/) / [GitHub](https://github.com/SamEdwardes/random-rom))
 
 Randomly generate stretches to perform. Built with Shiny.
 
