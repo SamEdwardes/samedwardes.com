@@ -38,6 +38,7 @@ brew install pyenv
 brew install mas
 brew install exa
 brew install bat
+brew install xclip
 
 # Install others tools using Homebrew cask
 brew install --cask docker
@@ -499,21 +500,195 @@ poetry --version
 Poetry version 1.1.12
 ```
 
-#### Using poetry
+#### Starting a new project with poetry
 
-:::caution
+I use poetry for almost every new project that I start. Lets create an example project to demonstrate:
 
-*In progress*
+```bash
+mkdir new-project
+cd new-project
+poetry init -n    # The `-n` flag tells poetry to not ask any questions interactively.
+tree
+```
 
-:::
+```bash
+.
+└── pyproject.toml
 
-#### poetry vs pyenv
+0 directories, 1 file
+```
 
-:::caution
+Your directory now has a new file, *pyproject.toml*. This file is used to keep track of the dependencies required for your project.
 
-*In progress*
+```bash
+cat pyproject.toml
+```
 
-:::
+```toml
+[tool.poetry]
+name = "new-project"
+version = "0.1.0"
+description = ""
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+```
+
+Go ahead and manually update the projects description in *pyproject.toml*. Too add a dependency use the `poetry add` command. When using poetry this command essentially replaces `pip install`. When you use `poetry add` a few things happen:
+
+- The new package is added to your *pyproject.toml* file.
+- The poetry dependency resolver verifies the version requirements.
+- A virtual environment is created by poetry.
+
+```bash
+poetry add requests
+```
+
+```bash
+Creating virtualenv new-project-ubTVXCow-py3.9 in /Users/samedwardes/Library/Caches/pypoetry/virtualenvs
+Using version ^2.27.1 for requests
+
+Updating dependencies
+Resolving dependencies... (3.1s)
+
+Writing lock file
+
+Package operations: 5 installs, 0 updates, 0 removals
+
+  • Installing certifi (2021.10.8)
+  • Installing charset-normalizer (2.0.12)
+  • Installing idna (3.3)
+  • Installing urllib3 (1.26.8)
+  • Installing requests (2.27.1)
+```
+
+Take a look at your project, you will notice a new file:
+
+```bash
+tree
+```
+
+```bash
+.
+├── poetry.lock
+└── pyproject.toml
+
+0 directories, 2 files
+```
+
+The new *poetry.lock* file contains a detailed description of all the packages you are using (this includes requests, and all of the packages that requests depends on). The *pyproject.toml* file has been automatically updated to include requests as a dependency.
+
+```bash
+cat pyproject.toml
+```
+
+```toml
+[tool.poetry]
+name = "new-project"
+version = "0.1.0"
+description = ""
+authors = ["SamEdwardes <edwardes.s@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.27.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+```
+
+#### Using the poetry virtual environment
+
+In order to isolate your package poetry creates a virtual environment. To access this virtual environment you can prefix any command with `poetry run` and it will run inside the virtual environment.
+
+```bash
+poetry run pip list
+```
+
+```bash
+Package            Version
+------------------ ---------
+certifi            2021.10.8
+charset-normalizer 2.0.12
+idna               3.3
+pip                21.3.1
+requests           2.27.1
+setuptools         58.3.0
+urllib3            1.26.8
+wheel              0.37.0
+```
+
+It can be annoying to prefix every command with `poetry run`. Alternatively, you can run all commands in the poetry virtual environment with `poetry shell`.
+
+```bash
+poetry shell
+pip list
+```
+
+```bash
+Package            Version
+------------------ ---------
+certifi            2021.10.8
+charset-normalizer 2.0.12
+idna               3.3
+pip                21.3.1
+requests           2.27.1
+setuptools         58.3.0
+urllib3            1.26.8
+wheel              0.37.0
+```
+
+#### Adding development dependencies
+
+When creating a python package it is common that you as the developer will need a particular package (e.g. like [black](https://github.com/psf/black) for code formatting), but that the end user will not require that same package to run the program. poetry has a mechanism to handle this by allowing you to specify development dependencies with the `--dev` option.
+
+```bash
+poetry add --dev black
+cat pyproject.toml
+```
+
+```toml
+[tool.poetry]
+name = "new-project"
+version = "0.1.0"
+description = ""
+authors = ["SamEdwardes <edwardes.s@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.27.1"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+```
+
+As you can see, black has been added as *dev-dependency*. When you publish your package to PyPi it will not include black as a requirement, but it will include requests.
+
+### poetry vs venv
+
+It may not be clear when you should use poetry, vs. when you should us venv. There is not correct answer, but in general I use **poetry** when:
+
+- I am creating a python package that I will share with others via PyPi and/or GitHub.
+
+I use **venv** when:
+
+- I do not think that I will be sharing the code with anyone.
+- I want to quickly experiment
+
+If you are unsure about which tool to use, just choose one and get started! You can always change your mind later on the. The important thing is that you are using a virtual environment!
 
 ### pipx
 
