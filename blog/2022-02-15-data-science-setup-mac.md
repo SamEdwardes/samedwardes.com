@@ -67,99 +67,6 @@ Using a package manager is an easy to keep tools up to date, and forces a consis
 
 Throughout this blog post we will use `brew install` where ever possible to install our tools.
 
-## Terminal
-
-Every nerds favourite place to be... the terminal. As a data scientist / developer your terminal setup is a great way to express yourself. Do you like to get crazy and customize everything? Do you keep it simple and stick to the defaults? I like to take a middle ground approach. I want things to look pretty, but I also do not want to waste too much time configuring things.
-
-### iTerm2
-
-[iTerm2](https://iterm2.com/index.html) is a replacement for the default terminal app that comes with your mac. It includes some nice features such as tabs and split panes.
-
-![iterm2-screenshot](https://iterm2.com/img/screenshots/split_panes.png)
-
-*Image from https://iterm2.com/features.html*
-
-To install run the following command:
-
-```bash
-brew install --cask iterm2
-```
-
-### Starship
-
-[starship](https://starship.rs/) is a cross-shell prompt. According to their website:
-
-> The minimal, blazing-fast, and infinitely customizable prompt for any shell!
-
-![starship-gif](https://raw.githubusercontent.com/starship/starship/master/media/demo.gif)
-
-*Gif from https://starship.rs/guide/*
-
-I really like starship because:
-
-- I think the defaults look good and are reasonable.
-- I can easily have a consistent prompt across all of my devices.
-- When needed, starship also has lots of customization options.
-
-To install starship run the following command:
-
-```bash
-brew install starship
-```
-
-## Command line tools
-
-### exa
-
-https://the.exa.website/ a modern replacement for `ls`. It has defaults that I prefer, and has a nice coloured output.
-
-![exa-image](https://github.com/ogham/exa/raw/master/screenshots.png)
-
-*Image from https://github.com/ogham/exa*
-
-```bash
-brew install exa
-```
-
-### bat
-
-https://github.com/sharkdp/bat
-
-> A cat(1) clone with wings.
-
-```bash
-brew install bat
-```
-
-### just
-
-From the [just repo](https://github.com/casey/just):
-
-> `just` is a handy way to save and run project-specific commands.
-
-`just` is very similar to the ubiquitous `make` command. It is inspired by `make`, but focuses on just being a command runner as opposed to a build tool. To install just run the following command:
-
-```bash
-brew install just
-```
-
-## Apps
-
-### Docker desktop
-
-```bash
-brew install --cask docker
-```
-
-### Typora
-
-## Fonts
-
-## VS Code
-
-### Python plugins
-
-### R plugins
 
 ## Python
 
@@ -656,6 +563,9 @@ poetry add --dev black
 cat pyproject.toml
 ```
 
+<details>
+<summary><i>show output</i></summary>
+
 ```toml
 [tool.poetry]
 name = "new-project"
@@ -675,6 +585,8 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 ```
 
+</details>
+
 As you can see, black has been added as *dev-dependency*. When you publish your package to PyPi it will not include black as a requirement, but it will include requests.
 
 ### poetry vs venv
@@ -691,6 +603,8 @@ I use **venv** when:
 If you are unsure about which tool to use, just choose one and get started! You can always change your mind later on the. The important thing is that you are using a virtual environment!
 
 ### pipx
+
+
 
 ### Python packages
 
@@ -744,6 +658,101 @@ install.packages("tidyverse")
 #### Tidyverse
 
 The tidyverse is a collection of packages that follow a common design language. The tidyverse is my favourite part of R!
+
+
+## Terminal
+
+Every nerds favourite place to be... the terminal. As a data scientist / developer your terminal setup is a great way to express yourself. Do you like to get crazy and customize everything? Do you keep it simple and stick to the defaults? I like to take a middle ground approach. I want things to look pretty, but I also do not want to waste too much time configuring things.
+
+### iTerm2
+
+[iTerm2](https://iterm2.com/index.html) is a replacement for the default terminal app that comes with your mac. It includes some nice features such as tabs and split panes.
+
+![iterm2-screenshot](https://iterm2.com/img/screenshots/split_panes.png)
+
+*Image from https://iterm2.com/features.html*
+
+To install run the following command:
+
+```bash
+brew install --cask iterm2
+```
+
+### Starship
+
+[starship](https://starship.rs/) is a cross-shell prompt. According to their website:
+
+> The minimal, blazing-fast, and infinitely customizable prompt for any shell!
+
+![starship-gif](https://raw.githubusercontent.com/starship/starship/master/media/demo.gif)
+
+*Gif from https://starship.rs/guide/*
+
+I really like starship because:
+
+- I think the defaults look good and are reasonable.
+- I can easily have a consistent prompt across all of my devices.
+- When needed, starship also has lots of customization options.
+
+To install starship run the following command:
+
+```bash
+brew install starship
+```
+
+## Command line tools
+
+### exa
+
+https://the.exa.website/ a modern replacement for `ls`. It has defaults that I prefer, and has a nice coloured output.
+
+![exa-image](https://github.com/ogham/exa/raw/master/screenshots.png)
+
+*Image from https://github.com/ogham/exa*
+
+```bash
+brew install exa
+```
+
+### bat
+
+https://github.com/sharkdp/bat
+
+> A cat(1) clone with wings.
+
+```bash
+brew install bat
+```
+
+### just
+
+From the [just repo](https://github.com/casey/just):
+
+> `just` is a handy way to save and run project-specific commands.
+
+`just` is very similar to the ubiquitous `make` command. It is inspired by `make`, but focuses on just being a command runner as opposed to a build tool. To install just run the following command:
+
+```bash
+brew install just
+```
+
+## Apps
+
+### Docker desktop
+
+```bash
+brew install --cask docker
+```
+
+### Typora
+
+## Fonts
+
+## VS Code
+
+### Python plugins
+
+### R plugins
 
 ## Inspiration and reference
 
