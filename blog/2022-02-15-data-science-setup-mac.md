@@ -29,7 +29,7 @@ Feeling bold and want to completely clone my setup? Just run the following scrip
 curl https://pyenv.run | bash
 curl -sSL https://install.python-poetry.org | python3 -
 
-# Install cli tools with Homebrew
+# Command line tools
 brew install just
 brew install starship
 brew install git
@@ -39,14 +39,15 @@ brew install mas
 brew install exa
 brew install bat
 brew install xclip
+pipx install pls
 
 # Install others tools using Homebrew cask
 brew install --cask docker
 brew install --cask iterm2
 
 # Fonts
-# brew tap homebrew/cask-fonts 
-brew install --cask font-fira-code
+brew tap homebrew/cask-fonts
+brew install --cask font-fira-code-nerd-font
 
 # Install other tools
 
@@ -808,6 +809,12 @@ It has defaults that I prefer, and has a nice coloured output.
 ![exa-image](https://github.com/ogham/exa/raw/master/screenshots.png)
 
 *Image from https://github.com/ogham/exa*
+
+### pls
+
+https://github.com/dhruvkb/pls
+
+![pls-screenshot](https://raw.githubusercontent.com/dhruvkb/pls/main/readme_assets/demo.png)
 
 ```bash
 brew install exa
