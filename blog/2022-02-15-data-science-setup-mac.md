@@ -40,6 +40,7 @@ brew install exa
 brew install bat
 brew install xclip
 pipx install pls
+pipx install bpytop
 
 # Install others tools using Homebrew cask
 brew install --cask docker
@@ -841,6 +842,12 @@ From the just repo ([https://github.com/casey/just](https://github.com/casey/jus
 ```bash
 brew install just
 ```
+
+### bpytop
+
+https://github.com/aristocratos/bpytop
+
+![bpytop-screenshot](https://github.com/aristocratos/bpytop/raw/master/Imgs/main.png)
 
 ## VS Code
 
