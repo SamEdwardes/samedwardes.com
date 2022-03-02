@@ -771,9 +771,9 @@ Install the latest version of R from [CRAN](https://cran.r-project.org/):
 
 ### Installing XQaurtz
 
-In order to use R on your Mac OS you will also need to install *XQuartz* [https://www.xquartz.org/](https://www.xquartz.org/). From R for macOS page on CRAN:
+In order to use R on your Mac OS you will also need to install *XQuartz* ([https://www.xquartz.org/](https://www.xquartz.org/)). From R for macOS page on CRAN:
 
-> Note: the use of X11 (including tcltk) requires XQuartz to be installed since it is no longer part of OS X. Always re-install XQuartz when upgrading your macOS to a new major version.
+> *Note: the use of X11 (including tcltk) requires XQuartz to be installed since it is no longer part of OS X. Always re-install XQuartz when upgrading your macOS to a new major version.*
 
 You can install XQuartz using *homebrew*:
 
