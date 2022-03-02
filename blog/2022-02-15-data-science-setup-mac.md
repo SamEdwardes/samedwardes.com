@@ -32,9 +32,7 @@ curl -sSL https://install.python-poetry.org | python3 -
 # Command line tools
 brew install just
 brew install starship
-brew install git
 brew install gh
-brew install pyenv
 brew install mas
 brew install exa
 brew install bat
@@ -49,6 +47,9 @@ brew install --cask iterm2
 # Fonts
 brew tap homebrew/cask-fonts
 brew install --cask font-fira-code-nerd-font
+
+# R
+brew install --cask xquartz
 
 # Install other tools
 
@@ -69,6 +70,26 @@ Using a package manager is an easy to keep tools up to date, and forces a consis
 
 Throughout this blog post we will use `brew install` where ever possible to install our tools.
 
+## `~/.zshrc` file
+
+If you are using the *zsh* shell (now the default on mac) you will save your configurations and environment variables in the `~/.zshrc` file. Below is my `~/.zshrc` file. If there are any programs that you choose to no install just delete the associated lines from this file.
+
+```bash title="~/.zshrc"
+# Aliases
+alias ll="exa -la --icons --created --header --no-permissions --no-user --no-time --binary"
+alias new-venv="python -m venv .venv; source .venv/bin/activate; pip install wheel; python -m pip install --upgrade pip"
+
+# pyenv
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv virtualenv-init -)"
+
+# poetry
+export PATH="/Users/samedwardes/.local/bin:$PATH"
+
+# starship
+eval "$(starship init zsh)"
+```
 
 ## Python
 
@@ -726,7 +747,7 @@ pip install typer        # Create command line applications
 
 ### Installing R
 
-Install the latest version of R from CRAN:
+Install the latest version of R from [CRAN](https://cran.r-project.org/):
 
 ![cran-homepage](https://imgur.com/kLHQ02Q.png)
 
@@ -740,9 +761,21 @@ Install the latest version of R from CRAN:
 
 *Click on the link and follow the instructions as prompted. Select all of the default configuration options.*
 
-### RStudio
+### Installing XQaurtz
 
-If you use R, you are probably already using RStudio.
+In order to use R on your Mac OS you will also need to install *XQuartz* [https://www.xquartz.org/](https://www.xquartz.org/). From R for macOS page on CRAN:
+
+> Note: the use of X11 (including tcltk) requires XQuartz to be installed since it is no longer part of OS X. Always re-install XQuartz when upgrading your macOS to a new major version.
+
+You can install XQuartz using *homebrew*:
+
+```bash
+brew install --cask xquartz
+```
+
+### RStudio Desktop
+
+If you use R, you are probably already using RStudio Desktop. You can install RStudio from here: [https://www.rstudio.com/products/rstudio/download/#download](https://www.rstudio.com/products/rstudio/download/#download).
 
 ### R packages
 
@@ -755,7 +788,6 @@ install.packages("tidyverse")
 #### Tidyverse
 
 The tidyverse is a collection of packages that follow a common design language. The tidyverse is my favourite part of R!
-
 
 ## Terminal
 

@@ -15,8 +15,8 @@ import Image from '@theme/IdealImage';
         <div class="col col--9">
             <p>
                 Sam is based out of Vancouver, BC. He is passionate about data 
-                science and the outdoors. He works as a Manager of Digital Internal 
-                in Deloitte’s Risk Advisory practice.
+                science and the outdoors. He works as a Solutions Engineer at 
+                <a href="https://www.rstudio.com/">RStudio</a>.
             </p>
             <ul>
                 <li>💾 <a href="https://github.com/SamEdwardes">GitHub</a></li>
