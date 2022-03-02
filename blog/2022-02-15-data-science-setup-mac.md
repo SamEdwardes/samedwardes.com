@@ -70,9 +70,9 @@ Using a package manager is an easy to keep tools up to date, and forces a consis
 
 Throughout this blog post we will use `brew install` where ever possible to install our tools.
 
-## `~/.zshrc` file
+## ~/.zshrc
 
-If you are using the *zsh* shell (now the default on mac) you will save your configurations and environment variables in the `~/.zshrc` file. Below is my `~/.zshrc` file. If there are any programs that you choose to no install just delete the associated lines from this file.
+If you are using the *zsh* shell (now the default on mac) you will save your configurations and environment variables in the *~/.zshrc* file. Below is my *~/.zshrc* file. If there are any programs that you choose to no install just delete the associated lines from this file.
 
 ```bash title="~/.zshrc"
 # Aliases
@@ -85,7 +85,7 @@ eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 
 # poetry
-export PATH="/Users/samedwardes/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # starship
 eval "$(starship init zsh)"
@@ -118,6 +118,14 @@ The script install "*pyenv and friends*" which includes:
 - pyenv-update
 - pyenv-virtualenv
 - pyenv-which-ext
+
+Follow the instructions from the terminal output to configure pyenbv. For me, I added the following line to my *~/.zshrc* file:
+
+```bash title="~/.zshrc"
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv virtualenv-init -)"
+```
 
 #### Using pyenv
 
@@ -469,7 +477,7 @@ To install poetry run the following command:
 curl -sSL https://install.python-poetry.org | python3 -
 ```
 
-Follow the instructions from the terminal output to configure poetry. For me, I added the following line to my `~/.zshrc` file:
+Follow the instructions from the terminal output to configure poetry. For me, I added the following line to my *~/.zshrc* file:
 
 ```bash title="~/.zshrc"
 export PATH="$HOME/.poetry/bin:$PATH"
