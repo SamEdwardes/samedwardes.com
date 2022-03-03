@@ -885,7 +885,15 @@ brew install just
 
 ### bpytop
 
-https://github.com/aristocratos/bpytop
+From the *bpytop* GitHub repo ([https://github.com/aristocratos/bpytop](https://github.com/aristocratos/bpytop)):
+
+> Resource monitor that shows usage and stats for processor, memory, disks, network and processes.
+
+To install *bytop* use homebrew:
+
+```bash
+brew install bpytop
+```
 
 ![bpytop-screenshot](https://github.com/aristocratos/bpytop/raw/master/Imgs/main.png)
 
@@ -906,6 +914,19 @@ brew install --cask docker
 ### Typora
 
 ## Fonts
+
+You can mangage and install fonts using homebrew. The website [https://www.nerdfonts.com/](https://www.nerdfonts.com/) provides many fun fonts that include glyphs (icons). When you use these fonts with tools like [startship](#starship) your terminal output will look much better! 
+
+I use the *Fira Code Nerd Font* which is reccommended by starship:
+
+```bash
+brew tap homebrew/cask-fonts
+brew install --cask font-fira-code-nerd-font
+```
+
+Remember to update iTerm2 (and any other terminals you may be using) to use your new font.
+
+![iterm-2-font-screenshot](https://imgur.com/q4JqXya.png)
 
 ## Inspiration and reference
 
