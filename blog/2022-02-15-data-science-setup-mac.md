@@ -899,9 +899,26 @@ brew install bpytop
 
 ## VS Code
 
-### Python plugins
+### Installation
 
-### R plugins
+VS Code is quickly becoming the editor of choice for many langauges, including Python. For me, I use VS Code for most Python projects. I will also use VS Code when I want to quickly view a text based file (e.g. .json, .txt, .R, etc.).
+
+Install VS Code directly from the VS Code Website and follow in the installation instructions:
+
+[https://code.visualstudio.com/download](https://code.visualstudio.com/download)
+
+### Plugins
+
+Out of the box VS Code comes with many great features, but it will not have everything you need. One of VS Codes greatest strengths is the strong eco system of plugins that are available.
+
+:::warning
+
+In progress...
+
+:::
+
+![vs-code-ext](https://imgur.com/OeacnZr.png)
+
 
 ## Apps
 
