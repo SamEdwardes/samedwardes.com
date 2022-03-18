@@ -2,3 +2,4 @@ fastapi
 uvicorn[standard]
 beanie
 jinja2
+rich

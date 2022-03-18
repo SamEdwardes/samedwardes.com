@@ -7,6 +7,8 @@ from fastapi.responses import HTMLResponse
 from beanie import Document, Link, init_beanie
 import motor
 
+from rich import inspect
+
 # --------------------------------------------------------------------------
 # Define your models with Beanie
 # --------------------------------------------------------------------------
@@ -31,21 +33,26 @@ async def create_data():
     # Create some breeds
     min_pin = Breed(
         name="Miniature Pinscher", 
+        description="A wee bit crazy 🤪",
         country_of_origin="Germany", 
-        average_weight=10
+        average_weight=10,
+        image_url="imgs/breeds/min-pin.png"
     )
     
     golden = Breed(
-        name="Golden Retrevier", 
+        name="Golden Retrevier",
+        description="Your everyday average good boy 😇",
         country_of_origin="United States", 
-        average_weight=50
+        average_weight=50,
+        image_url="imgs/breeds/golden.png"
     )
     
     # Create some dogs
     roo = Dog(
         name="Roo", 
         breed=min_pin, 
-        owner="Sam", 
+        owner="Sam",
+        image_url="imgs/dogs/roo.png",
         description="A feisty little guy who is not afraid to speak his mind."
     )
     
@@ -53,6 +60,7 @@ async def create_data():
         name="Pepper", 
         breed=min_pin, 
         owner="Allie",
+        image_url="imgs/dogs/pepper.png",
         description="Roo's twin brother. Name is pronounced as 'Peppa'."
     )
     
@@ -60,6 +68,7 @@ async def create_data():
         name="Buddy", 
         breed=golden, 
         owner="Olivia",
+        image_url="imgs/dogs/buddy.png",
         description="Your everyday average goodboy."
     )
     
@@ -76,7 +85,7 @@ templates = Jinja2Templates(directory="templates")
 @app.on_event("startup")
 async def app_init():
     client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://localhost:27017")
-    client.drop_database("dogs")
+    # client.drop_database("dogs")
     app.db = client.dogs
     await init_beanie(database=app.db, document_models=[Breed, Dog])
     await create_data()
@@ -105,19 +114,26 @@ async def read_item(request: Request):
     return templates.TemplateResponse("breeds.html", context)
 
 
-@app.get("/breeds/{breed_id}")
-async def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
-
-
 @app.get("/dogs", response_class=HTMLResponse)
-async def read_item(request: Request):
-    dogs = await Dog.find_all().to_list()
+async def read_item(request: Request, breed_id: Optional[str] = None):
+    if breed_id:
+        breed = await Breed.get(breed_id)
+        inspect(breed, title="breed")
+        dogs = await Dog.find(
+            Dog.breed.name == breed.name,
+            fetch_links=True
+        ).to_list()
+        inspect(dogs, title="dogs")
+    else:
+        breed = None
+        dogs = await Dog.find_all().to_list()
     context = {
         "request": request,
-        "dogs": dogs
+        "dogs": dogs,
+        "breed": breed
     }
     return templates.TemplateResponse("dogs.html", context)
+
 
 @app.get("/dogs/{dog_id}", response_class=HTMLResponse)
 async def read_item(dog_id: str, request: Request):
