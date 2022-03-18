@@ -32,9 +32,7 @@ curl -sSL https://install.python-poetry.org | python3 -
 # Command line tools
 brew install just
 brew install starship
-brew install git
 brew install gh
-brew install pyenv
 brew install mas
 brew install exa
 brew install bat
@@ -49,6 +47,9 @@ brew install --cask iterm2
 # Fonts
 brew tap homebrew/cask-fonts
 brew install --cask font-fira-code-nerd-font
+
+# R
+brew install --cask xquartz
 
 # Install other tools
 
@@ -69,6 +70,26 @@ Using a package manager is an easy to keep tools up to date, and forces a consis
 
 Throughout this blog post we will use `brew install` where ever possible to install our tools.
 
+## ~/.zshrc
+
+If you are using the *zsh* shell (now the default on mac) you will save your configurations and environment variables in the *~/.zshrc* file. Below is my *~/.zshrc* file. If there are any programs that you choose to no install just delete the associated lines from this file.
+
+```bash title="~/.zshrc"
+# Aliases
+alias ll="exa -la --icons --created --header --no-permissions --no-user --no-time --binary"
+alias new-venv="python -m venv .venv; source .venv/bin/activate; pip install wheel; python -m pip install --upgrade pip"
+
+# pyenv
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv virtualenv-init -)"
+
+# poetry
+export PATH="$HOME/.local/bin:$PATH"
+
+# starship
+eval "$(starship init zsh)"
+```
 
 ## Python
 
@@ -97,6 +118,14 @@ The script install "*pyenv and friends*" which includes:
 - pyenv-update
 - pyenv-virtualenv
 - pyenv-which-ext
+
+Follow the instructions from the terminal output to configure pyenbv. For me, I added the following line to my *~/.zshrc* file:
+
+```bash title="~/.zshrc"
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv virtualenv-init -)"
+```
 
 #### Using pyenv
 
@@ -448,7 +477,7 @@ To install poetry run the following command:
 curl -sSL https://install.python-poetry.org | python3 -
 ```
 
-Follow the instructions from the terminal output to configure poetry. For me, I added the following line to my `~/.zshrc` file:
+Follow the instructions from the terminal output to configure poetry. For me, I added the following line to my *~/.zshrc* file:
 
 ```bash title="~/.zshrc"
 export PATH="$HOME/.poetry/bin:$PATH"
@@ -726,7 +755,7 @@ pip install typer        # Create command line applications
 
 ### Installing R
 
-Install the latest version of R from CRAN:
+Install the latest version of R from [CRAN](https://cran.r-project.org/):
 
 ![cran-homepage](https://imgur.com/kLHQ02Q.png)
 
@@ -740,9 +769,21 @@ Install the latest version of R from CRAN:
 
 *Click on the link and follow the instructions as prompted. Select all of the default configuration options.*
 
-### RStudio
+### Installing XQaurtz
 
-If you use R, you are probably already using RStudio.
+In order to use R on your Mac OS you will also need to install *XQuartz* ([https://www.xquartz.org/](https://www.xquartz.org/)). From R for macOS page on CRAN:
+
+> *Note: the use of X11 (including tcltk) requires XQuartz to be installed since it is no longer part of OS X. Always re-install XQuartz when upgrading your macOS to a new major version.*
+
+You can install XQuartz using *homebrew*:
+
+```bash
+brew install --cask xquartz
+```
+
+### RStudio Desktop
+
+If you use R, you are probably already using RStudio Desktop. You can install RStudio from here: [https://www.rstudio.com/products/rstudio/download/#download](https://www.rstudio.com/products/rstudio/download/#download).
 
 ### R packages
 
@@ -755,7 +796,6 @@ install.packages("tidyverse")
 #### Tidyverse
 
 The tidyverse is a collection of packages that follow a common design language. The tidyverse is my favourite part of R!
-
 
 ## Terminal
 
@@ -845,15 +885,40 @@ brew install just
 
 ### bpytop
 
-https://github.com/aristocratos/bpytop
+From the *bpytop* GitHub repo ([https://github.com/aristocratos/bpytop](https://github.com/aristocratos/bpytop)):
+
+> Resource monitor that shows usage and stats for processor, memory, disks, network and processes.
+
+To install *bytop* use homebrew:
+
+```bash
+brew install bpytop
+```
 
 ![bpytop-screenshot](https://github.com/aristocratos/bpytop/raw/master/Imgs/main.png)
 
 ## VS Code
 
-### Python plugins
+### Installation
 
-### R plugins
+VS Code is quickly becoming the editor of choice for many langauges, including Python. For me, I use VS Code for most Python projects. I will also use VS Code when I want to quickly view a text based file (e.g. .json, .txt, .R, etc.).
+
+Install VS Code directly from the VS Code Website and follow in the installation instructions:
+
+[https://code.visualstudio.com/download](https://code.visualstudio.com/download)
+
+### Plugins
+
+Out of the box VS Code comes with many great features, but it will not have everything you need. One of VS Codes greatest strengths is the strong eco system of plugins that are available.
+
+:::warning
+
+In progress...
+
+:::
+
+![vs-code-ext](https://imgur.com/OeacnZr.png)
+
 
 ## Apps
 
@@ -866,6 +931,19 @@ brew install --cask docker
 ### Typora
 
 ## Fonts
+
+You can mangage and install fonts using homebrew. The website [https://www.nerdfonts.com/](https://www.nerdfonts.com/) provides many fun fonts that include glyphs (icons). When you use these fonts with tools like [startship](#starship) your terminal output will look much better! 
+
+I use the *Fira Code Nerd Font* which is reccommended by starship:
+
+```bash
+brew tap homebrew/cask-fonts
+brew install --cask font-fira-code-nerd-font
+```
+
+Remember to update iTerm2 (and any other terminals you may be using) to use your new font.
+
+![iterm-2-font-screenshot](https://imgur.com/q4JqXya.png)
 
 ## Inspiration and reference
 
