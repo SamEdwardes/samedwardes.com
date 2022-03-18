@@ -1,0 +1,142 @@
+---
+title: How to create a FastAPI Webapp with MongoDB and Beanie
+authors: sedwardes
+draft: true
+tags: [python, web]
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import PythonMain from '!!raw-loader!./main.py';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+I always like to experiment with the hottest new frameworks and libraries in Python. A few technologies that I have found interesting lately are:
+
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Beanie](https://roman-right.github.io/beanie/)
+
+## Project setup
+
+### Structure
+
+To start lets create a brand new directory to set up our project in. Then we will create all of the files we need:
+
+```bash
+mkdir fastapi-beanie
+cd fastapi-beanie
+touch requirements.txt main.py
+mkdir templates
+touch templates templates/layout.html templates/index.html templates/breeds.html
+```
+
+After running the commands above your project should look like this:
+
+```
+.
+├── main.py             # This is where your python code will go
+├── requirements.txt    # This is where your dependencies are documented
+└── templates           # Your html files will live in here
+   ├── breeds.html
+   ├── index.html
+   └── layout.html
+```
+
+### Python dependencies
+
+Then lets add our required dependencies to the requirements file:
+
+```bash
+echo fastapi > requirements.txt
+echo "uvicorn[standard]" >> requirements.txt
+echo beanie >> requirements.txt
+echo jinja2 >> requirements.txt
+```
+
+Lastly, lets create a virtual environment to isolate all of our python dependencies:
+
+<Tabs>
+<TabItem value="mac" label="MacOS / Linux" default>
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip wheel
+pip install -r requirements.txt
+```
+
+</TabItem>
+<TabItem value="win" label="Windows">
+
+:::warning
+Sorry, under development 🤷‍♂️
+:::
+
+</TabItem>
+</Tabs>
+
+
+
+After activating your virutal environemnt you should have your project all set up and ready to go 🎉
+
+### Installing mongodb
+
+Below are the instructions on how to install MongoDB for each operating system. You probably want to install the *Community Edition*.
+
+<Tabs>
+<TabItem value="mac" label="MacOS">
+
+:::note
+Check out the official MongoDB docs here: <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/>
+:::
+
+<details>
+<summary><b>TL/DR</b></summary>
+
+```bash
+# Install the Xcode command-line tools by running the following command in your macOS Terminal
+xcode-select --install 
+
+# Install MongoDB
+brew tap mongodb/brew
+brew install mongodb-community@5.0
+
+# Start MongoDB
+brew services start mongodb-community@5.0
+
+# Stop MongoDB
+brew services stop mongodb-community@5.0
+```
+
+</details>
+
+</TabItem>
+<TabItem value="win" label="Windows">
+
+:::note
+Check out the official MongoDB docs: <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/>
+:::
+
+</TabItem>
+<TabItem value="lin" label="Linux">
+
+:::note
+Check out the official MongoDB docs: <https://docs.mongodb.com/manual/administration/install-on-linux/>
+:::
+
+</TabItem>
+</Tabs>
+
+## MongoDB
+
+## FastAPI
+
+## Full code
+
+<CodeBlock className="language-jsx" title="main.py">{PythonMain}</CodeBlock>
+
+## Further learning
+
+Check out these useful resources for learning more about MongoDB, FastAPI, and Beanie!
+
+- <https://realpython.com/introduction-to-mongodb-and-python/#installing-and-running-mongodb>
