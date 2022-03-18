@@ -1,7 +1,6 @@
 ---
 title: How to create a FastAPI Webapp with MongoDB and Beanie
 authors: sedwardes
-draft: true
 tags: [python, web]
 ---
 
@@ -10,11 +9,29 @@ import PythonMain from '!!raw-loader!./main.py';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+:::caution
+This blog post is a work in progress and will be updated!
+:::
+
 I always like to experiment with the hottest new frameworks and libraries in Python. A few technologies that I have found interesting lately are:
 
-- [FastAPI](https://fastapi.tiangolo.com/)
-- [MongoDB](https://www.mongodb.com/)
-- [Beanie](https://roman-right.github.io/beanie/)
+- [FastAPI](https://fastapi.tiangolo.com/) - A framework for building APIs based on [pydantic](https://pydantic-docs.helpmanual.io/).
+- [MongoDB](https://www.mongodb.com/) - A NoSQL database.
+- [Beanie](https://roman-right.github.io/beanie/) - An "object document mapper" (ODM) that allows you to model your MongoDB using python.
+
+This blog post provides a working example of a webapp that uses **all three** technologies 🎉!
+
+<!--truncate-->
+
+## Motivation
+
+I wanted to create a web app that uses FastAPI, MongoDB, and Beanie. But, I could not find any really good examples that used all three. This blog post is to demonstrate what I learned while building a web app using these three tools. I have tried to make the example simple enough that it can easily be implemented by others, but also complex enough that it is interesting, and could be used to bootstrap a real project for somone else.
+
+All of the code can be found on GitHub: <https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-03-18-fastapi-beanie-one-page>.
+
+In my example we will build a simple web app for **Doggy Day Care**. The app could be used by the day cares customers to see what other dogs attend the day care! here is a preview of the finished product:
+
+![screenshot](screenshot-breeds-page.png)
 
 ## Project setup
 
@@ -36,6 +53,16 @@ After running the commands above your project should look like this:
 .
 ├── main.py             # This is where your python code will go
 ├── requirements.txt    # This is where your dependencies are documented
+├── static              # A directory that stores images that will be served.
+│  └── imgs
+│     ├── breeds
+│     │  ├── golden.png
+│     │  └── min-pin.png
+│     ├── dogs
+│     │  ├── buddy.png
+│     │  ├── pepper.png
+│     │  └── roo.png
+│     └── placeholder_square.jpeg
 └── templates           # Your html files will live in here
    ├── breeds.html
    ├── index.html
