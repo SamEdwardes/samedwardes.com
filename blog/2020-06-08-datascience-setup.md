@@ -1,5 +1,5 @@
 ---
-title: The Complete Data Science Setup (macOS)
+title: The Ultimate Data Science Setup for Mac (2020)
 authors: sedwardes
 tags: [environment, data science]
 ---
