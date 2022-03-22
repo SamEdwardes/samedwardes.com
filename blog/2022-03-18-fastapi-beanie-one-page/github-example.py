@@ -6,9 +6,6 @@ from beanie import Document, Link, init_beanie
 from rich.pretty import pprint
 
 
-# --------------------------------------------------------------------------
-# Define your models with Beanie
-# --------------------------------------------------------------------------
 class Breed(Document):
     name: str
     description: Optional[str]
@@ -96,6 +93,10 @@ async def main():
     print("Dogs who are min pins (search by id):")
     pprint([i.__dict__ for i in dogs_by_id])
     
+    # Try new solution query by _id
+    dogs_by_id = await Dog.find(Dog.breed._id == breed.id, fetch_links=True).to_list()
+    print("Dogs who are min pins (search by _id):")
+    pprint([i.__dict__ for i in dogs_by_id])
+    
 
 asyncio.run(main())
-
