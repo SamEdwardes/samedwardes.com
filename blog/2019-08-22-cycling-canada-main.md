@@ -105,17 +105,22 @@ The trip began in Victoria B.C. where we dipped our tires into the Pacific Ocean
 
 ### Route Notes
 
-- The Hwys In BC, Alberta, SK, and Manitoba are all excellent for the most part, they all have their own sketchy parts, but overall they are very safeHighway Advice
-- The stretch across Ontario will suck, try and avoid being hit by pig trucks especially
-- There is little to no shoulder, and sometimes rumble strips force you to ride on the actual highway
-- Quebec is actually very rider friendly and has safe roads, stick to La Route Vert and you will be good
-- The first stretch of Nova Scotia Hwy is excellent on the Trans Canada but as soon as you see the option to get on Hwy 4 take it, because the shoulder is about to disappear
-- Wearing reflective vests is probably a good idea and we did it for the majority of the trip, even from an airplane we were visible
-- Also we would recommend front and rear lights, even if you don’t plan on riding in the dark there was still sometimes heavy fog where lights were needed
+- The highways in **BC**, **Alberta**, **SK**, and **Manitoba** are all excellent for the most part. They each have their own sketchy parts, but overall they are very safe.
+- The stretch across **Ontario** will suck...
+    - Try and avoid being hit (by pig trucks especially).
+    - There is little to no shoulder, and sometimes rumble strips force you to ride on the actual highway.
+    - Shame on you Ontario!
+- **Quebec** is very rider friendly and has safe roads, stick to **La Route Vert** and you will be good.
+- The first stretch of **Nova Scotia** highway is excellent on the Trans Canada but as soon as you see the option to get on highway 4 take it, because the shoulder is about to disappear.
+- Wearing reflective vests is probably a good idea and we did it for the majority of the trip, even from an airplane we were visible.
+- Also, I would recommend front and rear lights, even if you don’t plan on riding in the dark there was still sometimes heavy fog where lights were needed.
 
 ### Highway Details
 
-- We did not record our exact route everyday but here is a general outline of the roads we took
+:::info
+We did not record our exact route everyday but here is a general outline of the roads we took
+:::
+
 - From Mile 0 to the Ferry Terminal we took Hwy17
 - From Tsawwassen to Abbotsford we took the Fraser Hwy
 - From Abbotsford to Mission we took Hwy 11
@@ -180,7 +185,7 @@ Overall our gear worked out pretty well.  We had just about over 50 pounds whic
 
 #### Clothing
 
-1 Rain/Warmer Jacket, 1 Toque, 4 Pairs of Socks, 4 Boxers, 4 T-shirts, 1 Athletic Shorts, 1 Bathing Suite, 1 Light Sweater, 1 Skull Cap, 1 set of waterproof booties, 1 Rainpants, 1 Towel, 1 Sunglasses Bike Jersey, 2 Bike Shorts, 1 Fleece
+1 Rain/Warmer Jacket, 1 Toque, 4 Pairs of Socks, 4 Boxers, 4 T-shirts, 1 Athletic Shorts, 1 Bathing Suite, 1 Light Sweater, 1 Skull Cap, 1 set of waterproof booties, 1 Rain pants, 1 Towel, 1 Sunglasses Bike Jersey, 2 Bike Shorts, 1 Fleece
 
 #### Gear
 
