@@ -102,8 +102,6 @@ Sorry, under development 🤷‍♂️
 </TabItem>
 </Tabs>
 
-
-
 After activating your virutal environemnt you should have your project all set up and ready to go 🎉
 
 ### Installing mongodb
@@ -160,7 +158,295 @@ Check out the official MongoDB docs: <https://docs.mongodb.com/manual/administra
 
 ## Full code
 
+Now that you have all of the dependencies installed you are ready to start coding! Below is the complete code. Take a moment to review the code and see if you can tell what is going on. Then will we will walk through each part in detail and explain what is happening.
+
+<details>
+<summary><i>Full code</i></summary>
+
 <CodeBlock className="language-jsx" title="main.py">{PythonMain}</CodeBlock>
+
+</details>
+
+### Step 1: Define your models with Beanie
+
+One of the cool parts about using Beanie is that you can define your models using Pydantic. In our example app with have two classes: `Breed` and `Dog`.
+
+```python
+from typing import Optional
+
+from beanie import Document, Link
+
+# --------------------------------------------------------------------------
+# Step 1: Define your models with Beanie
+# --------------------------------------------------------------------------
+class Breed(Document):
+    name: str
+    description: Optional[str]
+    country_of_origin: str
+    average_weight: Optional[int]
+    image_url: str = "imgs/placeholder_square.jpeg"
+
+
+class Dog(Document):
+    name: str
+    description: Optional[str]
+    breed: Link[Breed]
+    owner: str
+    image_url: str = "imgs/placeholder_square.jpeg"
+```
+
+Note that there are a few differences between the Beanie models have defined above, and a "normal" Pydantic model:
+
+- Each class inherits from `beanie.Document` as opposed to `pydantic.BaseModel`. By inheriting from `beanie.Document` the model will know how to interact with MongoDB.
+- The attribute `Dog.breed` is a special kind of attribute in beanie. The `Link` type tells Beanie to create a relationship between `Dog` and `Breed`. The `Dog.breed` attribute will contain a reference to a `Breed` document.
+
+### Step 2: Create demo data
+
+In order for our app to be interesting we need to fill the MongoDB database with some demo data. The code below creates five documents: two dog breeds, and three dogs. To define a new document you create a new instance of a `Document` class. Then each document is inserted into the database.
+
+```python
+# --------------------------------------------------------------------------
+# Step 2: Create demo data
+# --------------------------------------------------------------------------   
+async def create_data():
+    """A helper function to insert demo/starter data into your database."""
+    # Create some breeds
+    min_pin = Breed(
+        name="Miniature Pinscher", 
+        description="A wee bit crazy 🤪",
+        country_of_origin="Germany", 
+        average_weight=10,
+        image_url="imgs/breeds/min-pin.png"
+    )
+    
+    golden = Breed(
+        name="Golden Retrevier",
+        description="Your everyday average good boy 😇",
+        country_of_origin="United States", 
+        average_weight=50,
+        image_url="imgs/breeds/golden.png"
+    )
+    
+    # Create some dogs
+    roo = Dog(
+        name="Roo", 
+        breed=min_pin, 
+        owner="Sam",
+        image_url="imgs/dogs/roo.png",
+        description="A feisty little guy who is not afraid to speak his mind."
+    )
+    
+    pepper = Dog(
+        name="Pepper", 
+        breed=min_pin, 
+        owner="Allie",
+        image_url="imgs/dogs/pepper.png",
+        description="Roo's twin brother. Name is pronounced as 'Peppa'."
+    )
+    
+    buddy = Dog(
+        name="Buddy", 
+        breed=golden, 
+        owner="Olivia",
+        image_url="imgs/dogs/buddy.png",
+        description="Your everyday average goodboy."
+    )
+    
+    # Insert data into the database.
+    for document in [min_pin, golden, roo, pepper, buddy]:
+        await document.insert()
+```
+
+:::note
+The function is async. This is because beanie only supports async interactions with MongoDB. Therefore, whenever we are interacting with the database it must be async. This could change in the future, but as of March 2022 beanie is ONLY async.
+:::
+
+### Step 3: Setup FastAPI and MongoDB dataase
+
+The next task is to set up our FastAPI app, and initialize our MongoDB database.
+
+```python
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+import motor
+
+# --------------------------------------------------------------------------
+# Step 3: Setup FastAPI and MongoDB database
+# --------------------------------------------------------------------------
+app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
+
+@app.on_event("startup")
+async def app_init():
+    client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://localhost:27017")
+    database_names = await client.list_database_names()
+    
+    if "dogs" not in database_names:
+        create_demo_data = True
+    else:
+        create_demo_data = False
+    
+    app.db = client.dogs
+    await init_beanie(database=app.db, document_models=[Breed, Dog])
+    
+    if create_demo_data:
+        print("Creating demo data...")
+        await create_data()
+```
+
+Lets dive into the key parts:
+
+```python
+app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
+```
+
+Create a FastAPI app as your normally would. What may look a little bit less familiar are lines 2-3 above.
+
+- In line 2 we mount the directory we created named `static` to our app. This will allow FastAPI to access the files in this directory from the app.
+- In line 3 we tell FastAPI where to find our template files. This template files define the UI of our website using the templating language Jinja2.
+
+Next, we define a function that tells that app what do do on start up. This function will be called every time the app starts up (or restarts).
+
+```python
+@app.on_event("startup")
+async def app_init():
+    client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://localhost:27017")
+    database_names = await client.list_database_names()
+    
+    if "dogs" not in database_names:
+        create_demo_data = True
+    else:
+        create_demo_data = False
+    
+    app.db = client.dogs
+    await init_beanie(database=app.db, document_models=[Breed, Dog])
+    
+    if create_demo_data:
+        print("Creating demo data...")
+        await create_data()
+```
+
+- Note the function is async. This is because we will be interacting with the MongoDB database.
+- In line 3 we create a connection to MongoDB. In this case, we are running MongoDB on our local computer. If you were connecting to a cloud instance of MongoDB you would need to change the connection string.
+- In line 4 we get a list of all the database names in MongoDB. We do this to check if the "dogs" database has been created yet. If it has not been created, we will insert our demo data. If it has already been created, we will not insert any demo data.
+
+:::note
+In a "real" production app you would probably not have any logic here to check if the database has been created already. We put the logic in this app simply because it is a demo app.
+:::
+
+- In line 13 we call the `init_beanie` function. The key bit here is that we pass a list of `Document` objects. This tells Beanie how to interact with MongoDB database.
+
+### Step 4: Home page
+
+With all our set up complete, now things can start to get fun! All that is left to do is define the routes in our app. Each webpage in our app needs a corresponding function that tells the app what content to send to the web browser. Lets take a look at our homepage function:
+
+```python
+from fastapi.responses import HTMLResponse
+
+# --------------------------------------------------------------------------
+# Step 4: Home page
+# --------------------------------------------------------------------------
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    context = {
+        "request": request,
+    }
+    return templates.TemplateResponse("index.html", context)
+```
+
+Lets break down the key parts:
+
+```python
+@app.get("/", response_class=HTMLResponse)
+```
+
+- The first argument in `@app.get` is the URL path. Everytime a web browser visits the homepage (http://127.0.0.1:8000/) this funciton will be called.
+- Notice that we have defined a `response_class`. By declaring `response_class=HTMLResponse` the docs UI will be able to know that the response will be HTML.
+
+```python
+async def index(request: Request):
+```
+
+- Our homepage is pretty simple and does not have any query parameters or user input. If you are used to using FastAPI for APIs or using flask you are probably surprised to see `request: Request`. When rendering a template in FastAPI you must send the request object (<https://fastapi.tiangolo.com/advanced/templates/?h=template#using-jinja2templates>).
+
+```python
+    context = {
+        "request": request,
+    }
+    return templates.TemplateResponse("index.html", context)
+```
+
+- When you want to return an HTML page, you must return `templates.TemplateResponse`. Remember we defined `templates` further app in `main.py` and told FastAPI where the templates are saved.
+- `templates.TemplateResponse` will always take two arguments:
+   - The location of the template, relative to the path that you defined above (e.g. `templates = Jinja2Templates(directory="templates")`).
+   - The `context` which is a dictionary. It must always contain `"request": request`. For our homepage, there is no other data to pass along, but as you will see in the next pages additional information will be passed to the context. Basically the context must contain any data that your template expects to receive.
+
+### Step 5: Breeds page
+
+Our next view will be a little bit more interesting, here we will pass some additional data into our tempalte to dynamically render HTML for each breed.
+
+```python
+# --------------------------------------------------------------------------
+# Step 4: Breeds page
+# --------------------------------------------------------------------------
+@app.get("/breeds", response_class=HTMLResponse)
+async def read_item(request: Request):
+    breeds = await Breed.find_all().to_list()
+    context = {
+        "request": request,
+        "breeds": breeds
+    }
+    return templates.TemplateResponse("breeds.html", context)
+```
+
+The first few lines look pretty similar to the homepage. Again we must define `response_class=HTMLResponse` and `request: Request`. What is new this time is the additional key value pair that we have passed into the `context`. 
+
+Lets take a closer look at the template to see what is going on:
+
+```html title="templates/breeds.html"
+{% extends "_layout.html" %}
+{% block main_content %}
+
+<h1>Breeds</h1>
+<p>Meet all of the different breeds we take care of:</p> 
+<div class="row">
+    {% for breed in breeds %}
+    <div class="col-6 mb-4">
+        <div class="card">
+            <img src="{{ url_for('static', path=breed.image_url) }}" class="card-img-top" alt="breed-pic">
+            <div class="card-body">
+            <h5 class="card-title">{{ breed.name }}</h5>
+            <p class="card-text">{{ breed.description }}</p>
+            <a href="/dogs?breed_id={{ breed.id }}" class="btn btn-primary">Meet the dogs</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+```
+
+I won't dive into the Jinja2 syntax in this blog post, but hopefully it is easy enough to see what is happening. The template is expecting a variable named `breeds`. It then loops over that variable and for each breed creates a Bootstrap Card component.
+
+Because the template is expecting a variable named `breeds`, we must pass it into the context.
+
+```python
+context = {
+        "request": request,
+        "breeds": breeds
+    }
+```
+
+### Step 6: The rest of the views
+
+With the two examples above, you now have the basic building blocks in place to build a FastAPI web app! My example app includes two more views which I will not ex
+
+
 
 ## Further learning
 

@@ -19,3 +19,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .vscode/settings.json
+venv/
+.venv/
+docs/blog/posts/2022-03-18-fastapi-beanie-one-page/__pycache__/main.cpython-310.pyc

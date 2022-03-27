@@ -10,7 +10,7 @@ import motor
 from rich import inspect
 
 # --------------------------------------------------------------------------
-# Define your models with Beanie
+# Step 1: Define your models with Beanie
 # --------------------------------------------------------------------------
 class Breed(Document):
     name: str
@@ -27,7 +27,9 @@ class Dog(Document):
     owner: str
     image_url: str = "imgs/placeholder_square.jpeg"
     
-    
+# --------------------------------------------------------------------------
+# Step 2: Create demo data
+# --------------------------------------------------------------------------   
 async def create_data():
     """A helper function to insert demo/starter data into your database."""
     # Create some breeds
@@ -77,33 +79,43 @@ async def create_data():
         await document.insert()
 
 # --------------------------------------------------------------------------
-# Setup Fast API and MongoDB database
+# Step 3: Setup FastAPI and MongoDB database
 # --------------------------------------------------------------------------
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
+
 @app.on_event("startup")
 async def app_init():
     client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://localhost:27017")
-    # client.drop_database("dogs")
+    database_names = await client.list_database_names()
+    
+    if "dogs" not in database_names:
+        create_demo_data = True
+    else:
+        create_demo_data = False
+    
     app.db = client.dogs
     await init_beanie(database=app.db, document_models=[Breed, Dog])
-    await create_data()
+    
+    if create_demo_data:
+        print("Creating demo data...")
+        await create_data()
 
 # --------------------------------------------------------------------------
-# Routes
+# Step 4: Home page
 # --------------------------------------------------------------------------
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    dogs = await Dog.find_all().to_list()
-    breeds = await Breed.find_all().to_list()
     context = {
         "request": request,
-        "breeds": breeds
     }
     return templates.TemplateResponse("index.html", context)
 
 
+# --------------------------------------------------------------------------
+# Step 5: Breeds page
+# --------------------------------------------------------------------------
 @app.get("/breeds", response_class=HTMLResponse)
 async def read_item(request: Request):
     breeds = await Breed.find_all().to_list()
@@ -114,16 +126,15 @@ async def read_item(request: Request):
     return templates.TemplateResponse("breeds.html", context)
 
 
+# --------------------------------------------------------------------------
+# Step 6: The rest of the views
+# --------------------------------------------------------------------------
 @app.get("/dogs", response_class=HTMLResponse)
 async def read_item(request: Request, breed_id: Optional[str] = None):
     if breed_id:
         breed = await Breed.get(breed_id)
         inspect(breed, title="breed")
-        dogs = await Dog.find(
-            Dog.breed.name == breed.name,
-            fetch_links=True
-        ).to_list()
-        inspect(dogs, title="dogs")
+        dogs = await Dog.find( Dog.breed._id == breed.id, fetch_links=True).to_list()
     else:
         breed = None
         dogs = await Dog.find_all().to_list()
@@ -144,5 +155,3 @@ async def read_item(dog_id: str, request: Request):
         "dog": dog
     }
     return templates.TemplateResponse("dog_profile.html", context)
-
-
