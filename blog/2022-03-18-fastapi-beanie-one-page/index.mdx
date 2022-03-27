@@ -6,6 +6,9 @@ tags: [python, web]
 
 import CodeBlock from '@theme/CodeBlock';
 import PythonMain from '!!raw-loader!./main.py';
+import TemplateBreeds from '!!raw-loader!./templates/breeds.html';
+import TemplateDogs from '!!raw-loader!./templates/dogs.html';
+import TemplateDogProfile from '!!raw-loader!./templates/dog_profile.html';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -25,7 +28,7 @@ This blog post provides a working example of a webapp that uses **all three** te
 
 ## Motivation
 
-I wanted to create a web app that uses FastAPI, MongoDB, and Beanie. But, I could not find any really good examples that used all three. This blog post is to demonstrate what I learned while building a web app using these three tools. I have tried to make the example simple enough that it can easily be implemented by others, but also complex enough that it is interesting, and could be used to bootstrap a real project for somone else.
+I wanted to create a web app that uses FastAPI, MongoDB, and Beanie. But, I could not find any really good examples that used all three. This blog post is to demonstrate what I learned while building a web app using these three tools. I have tried to make the example simple enough that it can easily be implemented by others, but also complex enough that it is interesting, and could be used to bootstrap a real project for someone else.
 
 All of the code can be found on GitHub: <https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-03-18-fastapi-beanie-one-page>.
 
@@ -102,7 +105,7 @@ Sorry, under development 🤷‍♂️
 </TabItem>
 </Tabs>
 
-After activating your virutal environemnt you should have your project all set up and ready to go 🎉
+After activating your virtual environment you should have your project all set up and ready to go 🎉
 
 ### Installing mongodb
 
@@ -220,7 +223,7 @@ async def create_data():
     )
     
     golden = Breed(
-        name="Golden Retrevier",
+        name="Golden Retriever",
         description="Your everyday average good boy 😇",
         country_of_origin="United States", 
         average_weight=50,
@@ -249,7 +252,7 @@ async def create_data():
         breed=golden, 
         owner="Olivia",
         image_url="imgs/dogs/buddy.png",
-        description="Your everyday average goodboy."
+        description="Your everyday average good boy."
     )
     
     # Insert data into the database.
@@ -261,7 +264,7 @@ async def create_data():
 The function is async. This is because beanie only supports async interactions with MongoDB. Therefore, whenever we are interacting with the database it must be async. This could change in the future, but as of March 2022 beanie is ONLY async.
 :::
 
-### Step 3: Setup FastAPI and MongoDB dataase
+### Step 3: Setup FastAPI and MongoDB database
 
 The next task is to set up our FastAPI app, and initialize our MongoDB database.
 
@@ -364,7 +367,7 @@ Lets break down the key parts:
 @app.get("/", response_class=HTMLResponse)
 ```
 
-- The first argument in `@app.get` is the URL path. Everytime a web browser visits the homepage (http://127.0.0.1:8000/) this funciton will be called.
+- The first argument in `@app.get` is the URL path. Every time a web browser visits the homepage (http://127.0.0.1:8000/) this function will be called.
 - Notice that we have defined a `response_class`. By declaring `response_class=HTMLResponse` the docs UI will be able to know that the response will be HTML.
 
 ```python
@@ -387,11 +390,11 @@ async def index(request: Request):
 
 ### Step 5: Breeds page
 
-Our next view will be a little bit more interesting, here we will pass some additional data into our tempalte to dynamically render HTML for each breed.
+Our next view will be a little bit more interesting, here we will pass some additional data into our template to dynamically render HTML for each breed.
 
 ```python
 # --------------------------------------------------------------------------
-# Step 4: Breeds page
+# Step 5: Breeds page
 # --------------------------------------------------------------------------
 @app.get("/breeds", response_class=HTMLResponse)
 async def read_item(request: Request):
@@ -406,6 +409,8 @@ async def read_item(request: Request):
 The first few lines look pretty similar to the homepage. Again we must define `response_class=HTMLResponse` and `request: Request`. What is new this time is the additional key value pair that we have passed into the `context`. 
 
 Lets take a closer look at the template to see what is going on:
+
+<CodeBlock className="langauage-jsx" title="templates/breeds.html">{TemplateBreeds}</CodeBlock>
 
 ```html title="templates/breeds.html"
 {% extends "_layout.html" %}
@@ -442,14 +447,181 @@ context = {
     }
 ```
 
-### Step 6: The rest of the views
+### Step 6: Dogs page
 
-With the two examples above, you now have the basic building blocks in place to build a FastAPI web app! My example app includes two more views which I will not ex
+In our next view we add an additional layer of complexity. The `/dogs` view includes an optional query parameter `breed_id`. If a `breed_id` is provided the page will only render all the dogs of that specific breed:
 
+```
+http://127.0.0.1:8000/dogs?breed_id=62408cc988015b2618098bbf
+```
 
+Otherwise, it will render all of the dogs.
+
+```
+http://127.0.0.1:8000/dogs
+```
+
+Lets take a closer look at the function:
+
+```python
+@app.get("/dogs", response_class=HTMLResponse)
+async def read_item(request: Request, breed_id: Optional[str] = None):
+    if breed_id:
+        breed = await Breed.get(breed_id)
+        dogs = await Dog.find( Dog.breed._id == breed.id, fetch_links=True).to_list()
+    else:
+        breed = None
+        dogs = await Dog.find_all().to_list()
+    context = {
+        "request": request,
+        "dogs": dogs,
+        "breed": breed
+    }
+    return templates.TemplateResponse("dogs.html", context)
+```
+
+In the function definition we have provided an argument named `breed_id`.
+
+```python
+async def read_item(request: Request, breed_id: Optional[str] = None):
+```
+
+FastAPI is really good at figuring out what each argument means. In this case, it automatically determines that the `breed_id` is a query parameter. It also knows that it is optional because we have used the `Optional` type. See <https://fastapi.tiangolo.com/tutorial/query-params/#query-parameters> for an explanation on how FastAPI decides if an argument is a query parameter or path parameter:
+
+> When you declare other function parameters that are not part of the path parameters, they are automatically interpreted as "query" parameters.
+
+```python
+    if breed_id:
+        breed = await Breed.get(breed_id)
+        dogs = await Dog.find( Dog.breed._id == breed.id, fetch_links=True).to_list()
+    else:
+        breed = None
+        dogs = await Dog.find_all().to_list()
+```
+
+In this code snippet we apply the logic to determine which dogs to get from the database. If no `breed_id` is specified we get all of the dogs.
+
+```python
+    context = {
+        "request": request,
+        "dogs": dogs,
+        "breed": breed
+    }
+    return templates.TemplateResponse("dogs.html", context)
+```
+
+Lastly, as with the above views we create our context dictionary. This context has three key value pairs:
+
+1. The required request object that must always be returned.
+2. A list of dog objects.
+3. An optional breed object.
+
+Note that the template applies conditional logic to only render the breeds name if the breed is not `None`.
+
+```html title="From templates/dogs.html"
+...
+<p>
+    Meet the 
+    {% if breed %}
+    <b>{{ breed.name }}(s)</b>
+    {% else %}
+    dogs
+    {% endif %}
+     we take care of:
+</p> 
+...
+```
+
+### Step 7: Dog page
+
+In our web app each dog has it's very own profile page. Here we take a new approach and use a path parameter:
+
+```python
+# --------------------------------------------------------------------------
+# Step 7: Dog page
+# --------------------------------------------------------------------------
+@app.get("/dogs/{dog_id}", response_class=HTMLResponse)
+async def read_item(dog_id: str, request: Request):
+    dog = await Dog.get(dog_id, fetch_links=True)
+    context = {
+        "request": request,
+        "dog": dog
+    }
+    return templates.TemplateResponse("dog_profile.html", context)
+```
+
+Like we said above, FastAPI is really smart at determining if an argument is a path parameter or a query parameter.
+
+```python
+...
+@app.get("/dogs/{dog_id}", response_class=HTMLResponse)
+async def read_item(dog_id: str, request: Request):
+   ...
+```
+
+In this case, FastAPI knows that it is a path parameter because we have defined `{dog_id}` in our views url path, and we have used the same string `dog_id` in our function definition. Because the two values are the same, FastAPI knows they related to one another.
+
+:::tip
+The order does not matter. FastAPI knows that `dog_id` is a path parameter because we also have a `{dog_id}` in our URL path. See <https://fastapi.tiangolo.com/tutorial/path-params/> for more info.
+:::
+
+```python
+...
+    dog = await Dog.get(dog_id, fetch_links=True)
+    context = {
+        "request": request,
+        "dog": dog
+    }
+    return templates.TemplateResponse("dog_profile.html", context)
+```
+
+Just like before, we query the database, and then return our context dictionary. This time the context only includes the required request object and a single dog object. The template will render a nice profile page for each dog.
+
+```html title="templates/dog.html"
+{% extends "_layout.html" %}
+{% block main_content %}
+
+<h1>{{ dog.name }}</h1>
+
+<p>Learn a little more about {{ dog.name }}:</p> 
+
+<div class="row">
+    <div class="col">
+        <h4>Dog Profile</h4>
+        <div class="card">
+            <img src="{{ url_for('static', path=dog.image_url) }}" class="card-img-top" alt="dog-pic">
+            <div class="card-body">
+            <h5 class="card-title">{{ dog.name }}</h5>
+            <p class="card-text">{{ dog.description }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <h4>Breed Profile</h4>
+        <div class="card">
+            <img src="{{ url_for('static', path=dog.breed.image_url) }}" class="card-img-top" alt="dog-pic">
+            <div class="card-body">
+            <h5 class="card-title">{{ dog.breed.name }}</h5>
+            <p class="card-text">{{ dog.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+```
+
+## Wrap up
+
+Congratulations! You just built a fully functional and asynchronous web app using FastAPI, Beanie, and MongoDB 🎉. This app was pretty basic, but is a good starting point for developing something more complex and interesting. Here are a few ideas on how you could extend the app:
+
+- Refactor the code into more than one file (e.g. not all the code needs to live in `main.py`).
+- Add a forms so that the users can add new breeds and new dogs.
 
 ## Further learning
 
-Check out these useful resources for learning more about MongoDB, FastAPI, and Beanie!
+Check out these useful resources for learning more about MongoDB, FastAPI, and Beanie.
 
+- <https://fastapi.tiangolo.com/>
+- <https://roman-right.github.io/beanie/>
 - <https://realpython.com/introduction-to-mongodb-and-python/#installing-and-running-mongodb>

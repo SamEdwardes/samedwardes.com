@@ -1,13 +1,12 @@
 from typing import Optional
 
+import motor
+from beanie import Document, Link, init_beanie
 from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
-from beanie import Document, Link, init_beanie
-import motor
 
-from rich import inspect
 
 # --------------------------------------------------------------------------
 # Step 1: Define your models with Beanie
@@ -26,7 +25,8 @@ class Dog(Document):
     breed: Link[Breed]
     owner: str
     image_url: str = "imgs/placeholder_square.jpeg"
-    
+
+   
 # --------------------------------------------------------------------------
 # Step 2: Create demo data
 # --------------------------------------------------------------------------   
@@ -42,7 +42,7 @@ async def create_data():
     )
     
     golden = Breed(
-        name="Golden Retrevier",
+        name="Golden Retriever",
         description="Your everyday average good boy 😇",
         country_of_origin="United States", 
         average_weight=50,
@@ -71,12 +71,13 @@ async def create_data():
         breed=golden, 
         owner="Olivia",
         image_url="imgs/dogs/buddy.png",
-        description="Your everyday average goodboy."
+        description="Your everyday average good boy."
     )
     
     # Insert data into the database.
     for document in [min_pin, golden, roo, pepper, buddy]:
         await document.insert()
+
 
 # --------------------------------------------------------------------------
 # Step 3: Setup FastAPI and MongoDB database
@@ -101,6 +102,7 @@ async def app_init():
     if create_demo_data:
         print("Creating demo data...")
         await create_data()
+
 
 # --------------------------------------------------------------------------
 # Step 4: Home page
@@ -127,13 +129,12 @@ async def read_item(request: Request):
 
 
 # --------------------------------------------------------------------------
-# Step 6: The rest of the views
+# Step 6: Dogs page
 # --------------------------------------------------------------------------
 @app.get("/dogs", response_class=HTMLResponse)
 async def read_item(request: Request, breed_id: Optional[str] = None):
     if breed_id:
         breed = await Breed.get(breed_id)
-        inspect(breed, title="breed")
         dogs = await Dog.find( Dog.breed._id == breed.id, fetch_links=True).to_list()
     else:
         breed = None
@@ -146,10 +147,12 @@ async def read_item(request: Request, breed_id: Optional[str] = None):
     return templates.TemplateResponse("dogs.html", context)
 
 
+# --------------------------------------------------------------------------
+# Step 7: Dog page
+# --------------------------------------------------------------------------
 @app.get("/dogs/{dog_id}", response_class=HTMLResponse)
 async def read_item(dog_id: str, request: Request):
     dog = await Dog.get(dog_id, fetch_links=True)
-    print(dog)
     context = {
         "request": request,
         "dog": dog
