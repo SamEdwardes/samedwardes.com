@@ -9,12 +9,10 @@ import PythonMain from '!!raw-loader!./main.py';
 import TemplateBreeds from '!!raw-loader!./templates/breeds.html';
 import TemplateDogs from '!!raw-loader!./templates/dogs.html';
 import TemplateDogProfile from '!!raw-loader!./templates/dog_profile.html';
+import TemplateLayout from '!!raw-loader!./templates/_layout.html';
+import TemplateIndex from '!!raw-loader!./templates/index.html';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-
-:::caution
-This blog post is a work in progress and will be updated!
-:::
 
 I always like to experiment with the hottest new frameworks and libraries in Python. A few technologies that I have found interesting lately are:
 
@@ -32,9 +30,23 @@ I wanted to create a web app that uses FastAPI, MongoDB, and Beanie. But, I coul
 
 All of the code can be found on GitHub: <https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-03-18-fastapi-beanie-one-page>.
 
-In my example we will build a simple web app for **Doggy Day Care**. The app could be used by the day cares customers to see what other dogs attend the day care! here is a preview of the finished product:
+In my example we will build a simple web app for **Doggy Day Care**. Here is a preview of the finished product:
+
+**Home page**
+
+![home-page](screenshot-home-page.png)
+
+**Breeds page**
 
 ![screenshot](screenshot-breeds-page.png)
+
+**Dogs page**
+
+![dogs-page](screenshot-dogs-page.png)
+
+**Dog profile**
+
+![dog-profile](screenshot-dog-profile.png)
 
 ## Project setup
 
@@ -46,8 +58,22 @@ To start lets create a brand new directory to set up our project in. Then we wil
 mkdir fastapi-beanie
 cd fastapi-beanie
 touch requirements.txt main.py
+# Set up the template files
 mkdir templates
-touch templates templates/layout.html templates/index.html templates/breeds.html
+touch templates templates/_layout.html templates/index.html templates/breeds.html templates/dog_profile.html
+# Set up the static directory
+mkdir static
+mkdir static/imgs
+mkdir static/imgs/breeds
+mkdir static/imgs/dogs
+# Download images
+curl --create-dirs -O --output-dir static/imgs https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/static/imgs/placeholder_square.jpeg
+curl --create-dirs -O --output-dir static/imgs/breeds https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/static/imgs/breeds/golden.png
+curl --create-dirs -O --output-dir static/imgs/breeds https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/static/imgs/breeds/min-pin.png
+curl --create-dirs -O --output-dir static/imgs/dogs https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/static/imgs/dogs/buddy.png
+curl --create-dirs -O --output-dir static/imgs/dogs https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/static/imgs/dogs/pepper.png
+curl --create-dirs -O --output-dir static/imgs/dogs https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/static/imgs/dogs/roo.png
+
 ```
 
 After running the commands above your project should look like this:
@@ -67,9 +93,10 @@ After running the commands above your project should look like this:
 │     │  └── roo.png
 │     └── placeholder_square.jpeg
 └── templates           # Your html files will live in here
+   ├── dog_profile.html
    ├── breeds.html
    ├── index.html
-   └── layout.html
+   └── _layout.html
 ```
 
 ### Python dependencies
@@ -107,19 +134,14 @@ Sorry, under development 🤷‍♂️
 
 After activating your virtual environment you should have your project all set up and ready to go 🎉
 
-### Installing mongodb
+### Installing MongoDB
 
 Below are the instructions on how to install MongoDB for each operating system. You probably want to install the *Community Edition*.
 
 <Tabs>
 <TabItem value="mac" label="MacOS">
 
-:::note
-Check out the official MongoDB docs here: <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/>
-:::
-
-<details>
-<summary><b>TL/DR</b></summary>
+Run the following commands to install MongoDB:
 
 ```bash
 # Install the Xcode command-line tools by running the following command in your macOS Terminal
@@ -136,7 +158,10 @@ brew services start mongodb-community@5.0
 brew services stop mongodb-community@5.0
 ```
 
-</details>
+:::note
+Check out the official MongoDB docs here: <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/>
+:::
+
 
 </TabItem>
 <TabItem value="win" label="Windows">
@@ -155,22 +180,67 @@ Check out the official MongoDB docs: <https://docs.mongodb.com/manual/administra
 </TabItem>
 </Tabs>
 
-## MongoDB
-
-## FastAPI
-
-## Full code
+## Full code overview
 
 Now that you have all of the dependencies installed you are ready to start coding! Below is the complete code. Take a moment to review the code and see if you can tell what is going on. Then will we will walk through each part in detail and explain what is happening.
 
 <details>
-<summary><i>Full code</i></summary>
+<summary>
+<i>main.py:</i> This is where all of our python code lives.
+</summary>
 
-<CodeBlock className="language-jsx" title="main.py">{PythonMain}</CodeBlock>
+<CodeBlock language="python" title="main.py">{PythonMain}</CodeBlock>
 
 </details>
 
-### Step 1: Define your models with Beanie
+<details>
+<summary>
+<i>templates/_layout.html:</i> This template is the base template which all others will inherit from. It contains common elements such as the navigation bar and footer. This tutorial will not dive deep into Jinja2 templates, so just take a quick look at this code and then copy it into your project.
+</summary>
+<CodeBlock language="html" title="templates/_layout.html">{TemplateLayout}</CodeBlock>
+</details>
+
+<details>
+<summary>
+<i>templates/index.html:</i> The template for the home page.
+</summary>
+
+![](./screenshot-home-page.png)
+
+<CodeBlock language="html" title="templates/index.html">{TemplateIndex}</CodeBlock>
+</details>
+
+<details>
+<summary>
+<i>templates/breeds.html:</i> The templates for the breeds page.
+</summary>
+
+![](./screenshot-breeds-page.png)
+
+<CodeBlock language="html" title="templates/breeds.html">{TemplateBreeds}</CodeBlock>
+</details>
+
+<details>
+<summary>
+<i>templates/dogs.html:</i> The templates for the dogs page.
+</summary>
+
+![](./screenshot-dogs-page.png)
+
+<CodeBlock language="html" title="templates/dogs.html">{TemplateDogs}</CodeBlock>
+</details>
+
+<details>
+<summary>
+<i>templates/dog_profile.html:</i> The templates for the dog profile page.
+</summary>
+
+![](./screenshot-dog-profile.png)
+
+<CodeBlock language="html" title="templates/dog_profile.html">{TemplateDogProfile}</CodeBlock>
+</details>
+
+## Step 1: Define your models with Beanie
 
 One of the cool parts about using Beanie is that you can define your models using Pydantic. In our example app with have two classes: `Breed` and `Dog`.
 
@@ -203,7 +273,7 @@ Note that there are a few differences between the Beanie models have defined abo
 - Each class inherits from `beanie.Document` as opposed to `pydantic.BaseModel`. By inheriting from `beanie.Document` the model will know how to interact with MongoDB.
 - The attribute `Dog.breed` is a special kind of attribute in beanie. The `Link` type tells Beanie to create a relationship between `Dog` and `Breed`. The `Dog.breed` attribute will contain a reference to a `Breed` document.
 
-### Step 2: Create demo data
+## Step 2: Create demo data
 
 In order for our app to be interesting we need to fill the MongoDB database with some demo data. The code below creates five documents: two dog breeds, and three dogs. To define a new document you create a new instance of a `Document` class. Then each document is inserted into the database.
 
@@ -264,7 +334,7 @@ async def create_data():
 The function is async. This is because beanie only supports async interactions with MongoDB. Therefore, whenever we are interacting with the database it must be async. This could change in the future, but as of March 2022 beanie is ONLY async.
 :::
 
-### Step 3: Setup FastAPI and MongoDB database
+## Step 3: Setup FastAPI and MongoDB database
 
 The next task is to set up our FastAPI app, and initialize our MongoDB database.
 
@@ -343,7 +413,7 @@ In a "real" production app you would probably not have any logic here to check i
 
 - In line 13 we call the `init_beanie` function. The key bit here is that we pass a list of `Document` objects. This tells Beanie how to interact with MongoDB database.
 
-### Step 4: Home page
+## Step 4: Home page
 
 With all our set up complete, now things can start to get fun! All that is left to do is define the routes in our app. Each webpage in our app needs a corresponding function that tells the app what content to send to the web browser. Lets take a look at our homepage function:
 
@@ -388,7 +458,7 @@ async def index(request: Request):
    - The location of the template, relative to the path that you defined above (e.g. `templates = Jinja2Templates(directory="templates")`).
    - The `context` which is a dictionary. It must always contain `"request": request`. For our homepage, there is no other data to pass along, but as you will see in the next pages additional information will be passed to the context. Basically the context must contain any data that your template expects to receive.
 
-### Step 5: Breeds page
+## Step 5: Breeds page
 
 Our next view will be a little bit more interesting, here we will pass some additional data into our template to dynamically render HTML for each breed.
 
@@ -410,31 +480,7 @@ The first few lines look pretty similar to the homepage. Again we must define `r
 
 Lets take a closer look at the template to see what is going on:
 
-<CodeBlock className="langauage-jsx" title="templates/breeds.html">{TemplateBreeds}</CodeBlock>
-
-```html title="templates/breeds.html"
-{% extends "_layout.html" %}
-{% block main_content %}
-
-<h1>Breeds</h1>
-<p>Meet all of the different breeds we take care of:</p> 
-<div class="row">
-    {% for breed in breeds %}
-    <div class="col-6 mb-4">
-        <div class="card">
-            <img src="{{ url_for('static', path=breed.image_url) }}" class="card-img-top" alt="breed-pic">
-            <div class="card-body">
-            <h5 class="card-title">{{ breed.name }}</h5>
-            <p class="card-text">{{ breed.description }}</p>
-            <a href="/dogs?breed_id={{ breed.id }}" class="btn btn-primary">Meet the dogs</a>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</div>
-
-{% endblock %}
-```
+<CodeBlock language="html" title="templates/breeds.html">{TemplateBreeds}</CodeBlock>
 
 I won't dive into the Jinja2 syntax in this blog post, but hopefully it is easy enough to see what is happening. The template is expecting a variable named `breeds`. It then loops over that variable and for each breed creates a Bootstrap Card component.
 
@@ -447,7 +493,7 @@ context = {
     }
 ```
 
-### Step 6: Dogs page
+## Step 6: Dogs page
 
 In our next view we add an additional layer of complexity. The `/dogs` view includes an optional query parameter `breed_id`. If a `breed_id` is provided the page will only render all the dogs of that specific breed:
 
@@ -518,21 +564,9 @@ Lastly, as with the above views we create our context dictionary. This context h
 
 Note that the template applies conditional logic to only render the breeds name if the breed is not `None`.
 
-```html title="From templates/dogs.html"
-...
-<p>
-    Meet the 
-    {% if breed %}
-    <b>{{ breed.name }}(s)</b>
-    {% else %}
-    dogs
-    {% endif %}
-     we take care of:
-</p> 
-...
-```
+<CodeBlock language="html" title="templates/dogs.html">{TemplateDogs}</CodeBlock>
 
-### Step 7: Dog page
+## Step 7: Dog page
 
 In our web app each dog has it's very own profile page. Here we take a new approach and use a path parameter:
 
@@ -577,39 +611,7 @@ The order does not matter. FastAPI knows that `dog_id` is a path parameter becau
 
 Just like before, we query the database, and then return our context dictionary. This time the context only includes the required request object and a single dog object. The template will render a nice profile page for each dog.
 
-```html title="templates/dog.html"
-{% extends "_layout.html" %}
-{% block main_content %}
-
-<h1>{{ dog.name }}</h1>
-
-<p>Learn a little more about {{ dog.name }}:</p> 
-
-<div class="row">
-    <div class="col">
-        <h4>Dog Profile</h4>
-        <div class="card">
-            <img src="{{ url_for('static', path=dog.image_url) }}" class="card-img-top" alt="dog-pic">
-            <div class="card-body">
-            <h5 class="card-title">{{ dog.name }}</h5>
-            <p class="card-text">{{ dog.description }}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <h4>Breed Profile</h4>
-        <div class="card">
-            <img src="{{ url_for('static', path=dog.breed.image_url) }}" class="card-img-top" alt="dog-pic">
-            <div class="card-body">
-            <h5 class="card-title">{{ dog.breed.name }}</h5>
-            <p class="card-text">{{ dog.description }}</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-{% endblock %}
-```
+<CodeBlock language="html" title="templates/dog_profile.html">{TemplateDogProfile}</CodeBlock>
 
 ## Wrap up
 
