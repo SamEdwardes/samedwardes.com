@@ -1,5 +1,6 @@
 fastapi
 uvicorn[standard]
 python-multipart
+fastapi-login
 jinja2
 rich

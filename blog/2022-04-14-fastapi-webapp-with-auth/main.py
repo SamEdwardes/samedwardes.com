@@ -1,9 +1,10 @@
 from typing import Optional, List
 
 from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi_login import LoginManager
 from pydantic import BaseModel
 from rich.console import Console
 from rich import inspect
@@ -40,6 +41,8 @@ db = DataBase(
 # --------------------------------------------------------------------------
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+SECRECT = "7c33ead4881bb004dc2959518f2cf7dd7bdb28a26be7009b"
+manager =  LoginManager(SECRECT, "/login")
 
 # @app.on_event("startup")
 # async def app_init():
@@ -57,10 +60,10 @@ templates = Jinja2Templates(directory="templates")
 # Home Page
 # --------------------------------------------------------------------------
 @app.get("/", response_class=HTMLResponse)
-def index(request: Request):
+def index(request: Request, user: Optional[User] = None):
     context = {
         "request": request,
-        "user": db.user[0],
+        "user": user,
     }
     return templates.TemplateResponse("index.html", context)
 
@@ -81,9 +84,11 @@ def read_item(request: Request):
 def read_item(request: Request, email: str = Form(...), password: str = Form(...)):
     console.rule(request.url.path)
     console.print(locals())
+    user = User(email=email, password=password)
     context = {
         "request": request,
-        "user": None,
+        "user": user,
     }
-    return templates.TemplateResponse("index.html", context)
+    return RedirectResponse("/")
+    # return templates.TemplateResponse("index.html", context)
 
