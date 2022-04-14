@@ -1,18 +1,20 @@
 from distutils.log import Log
-from typing import Optional, List
+from typing import Dict, Optional, List
 import datetime as dt
-from jose import jwt
+from jose import jwt, JWTError
 
 from fastapi import FastAPI, Request, Form, Depends, Response, HTTPException, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer, OAuth2
 from fastapi_login.exceptions import InvalidCredentialsException
+from fastapi.openapi.models import OAuthFlows as OAuthFlowsModel
 from fastapi.templating import Jinja2Templates
 from fastapi_login import LoginManager
 from pydantic import BaseModel
 from rich.console import Console
 from rich import inspect
+from fastapi.security.utils import get_authorization_scheme_param
 
 console = Console()
 
@@ -23,8 +25,6 @@ console = Console()
 class User(BaseModel):
     username: str
     password: str
-
-
 
 
 # --------------------------------------------------------------------------
@@ -53,28 +53,56 @@ class Settings:
     ACCESS_TOKEN_EXPIRE_MINUTES = 30  # in mins
 
 
+class OAuth2PasswordBearerWithCookie(OAuth2):
+    def __init__(
+        self,
+        tokenUrl: str,
+        scheme_name: Optional[str] = None,
+        scopes: Optional[Dict[str, str]] = None,
+        auto_error: bool = True,
+    ):
+        if not scopes:
+            scopes = {}
+        flows = OAuthFlowsModel(password={"tokenUrl": tokenUrl, "scopes": scopes})
+        super().__init__(flows=flows, scheme_name=scheme_name, auto_error=auto_error)
+
+    async def __call__(self, request: Request) -> Optional[str]:
+        authorization: str = request.cookies.get(
+            "access_token"
+        )  # changed to accept access token from httpOnly Cookie
+        print("access_token is", authorization)
+
+        scheme, param = get_authorization_scheme_param(authorization)
+        if not authorization or scheme.lower() != "bearer":
+            if self.auto_error:
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Not authenticated",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
+            else:
+                return None
+        return param
+
+
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login/token")
+oauth2_scheme = OAuth2PasswordBearerWithCookie(tokenUrl="/auth/token")
 settings = Settings()
 
 
 # --------------------------------------------------------------------------
 # Authentication logic
 # --------------------------------------------------------------------------
-def create_access_token(
-    data: dict, 
-    expires_delta: Optional[dt.timedelta] = None
-):
+def create_access_token(data: Dict):
     console.log("create_access_token()")
     to_encode = data.copy()
-    if expires_delta:
-        expire = dt.datetime.utcnow() + expires_delta
-    else:
-        expire = dt.datetime.utcnow() + dt.timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    expire = dt.datetime.utcnow() + dt.timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(
-        to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM
+        to_encode, 
+        settings.SECRET_KEY, 
+        algorithm=settings.ALGORITHM
     )
     return encoded_jwt
 
@@ -83,8 +111,7 @@ def get_user(username: str) -> User:
     user = [user for user in DB.user if user.username == username]
     if user:
         return user[0]
-    else:
-        return None
+    return None
 
 
 def authenticate_user(username: str, password: str) -> User:
@@ -109,19 +136,42 @@ def login_for_access_token(
     console.log("login_for_access_token()")
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
+        console.log("[red bold]User not authenticated!")
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or password",)
-    access_token_expires = dt.timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
-    )
-    response.set_cookie(key="access_token",value=f"Bearer {access_token}", httponly=True)  #set HttpOnly cookie in response
+    console.log("Creating access token...")
+    access_token = create_access_token(data={"sub": user.username})
+    response.set_cookie(key="access_token", value=f"Bearer {access_token}", httponly=True)  #set HttpOnly cookie in response
+    console.log("Cookie set!")
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+def get_current_user_from_token(token: str = Depends(oauth2_scheme)):
+    console.log("get_current_user_from_token()")
+    credentials_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials",)
+    try:
+        payload = jwt.decode(
+            token, 
+            settings.SECRET_KEY, 
+            algorithms=[settings.ALGORITHM]
+        )
+        username: str = payload.get("sub")
+        console.log(locals())
+        print("username/email extracted is ", username)
+        if username is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+    user = get_user(username)
+    if user is None:
+        raise credentials_exception
+    return user
+
 
 # --------------------------------------------------------------------------
 # Home Page
 # --------------------------------------------------------------------------
 @app.get("/", response_class=HTMLResponse)
-def index(request: Request):
+def index(request: Request, user: User = Depends(get_current_user_from_token)):
     console.rule(f"{request.method} ~ {request.url.path}")
     context = {
         "request": request,
