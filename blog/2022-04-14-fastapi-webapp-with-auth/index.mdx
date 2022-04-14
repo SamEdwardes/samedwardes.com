@@ -1,0 +1,30 @@
+---
+title: How to create a FastAPI Web App with authentication
+authors: sedwardes
+draft: true
+tags: [python, web]
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import PythonMain from '!!raw-loader!./main.py';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+I have recently been exploring how to use FastAPI to build web apps. Check out this recent blog post [How to create a FastAPI Web App with MongoDB and Beanie](../2022-03-18-fastapi-beanie-one-page/index.mdx). One area I have found difficult is configuring authentication for web apps in FastAPI. The FastAPI [security docs](https://fastapi.tiangolo.com/tutorial/security/) are really good, however they focus only on securing API endpoints, and not how to implement security for a web app.
+
+<!--truncate-->
+
+## Tl/DR
+
+All of the code can be found on GitHub: <https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-04-14-fastapi-webpage-with-auth>.
+
+If you you want to jump right to the solution check out the complete code below:
+
+<details>
+<summary>
+<i>main.py:</i> This is where all of our python code lives.
+</summary>
+
+<CodeBlock language="python" title="main.py">{PythonMain}</CodeBlock>
+
+</details>
