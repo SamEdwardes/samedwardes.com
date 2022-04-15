@@ -128,6 +128,24 @@ def authenticate_user(username: str, password: str) -> User:
         return user
 
 
+def get_current_user_from_token(token: str = Depends(oauth2_scheme)) -> User:
+    console.log("get_current_user_from_token()")
+    credentials_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials",)
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        username: str = payload.get("sub")
+        console.log(locals())
+        print("username/email extracted is ", username)
+        if username is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+    user = get_user(username)
+    if user is None:
+        raise credentials_exception
+    return user
+
+
 @app.post("/auth/token")
 def login_for_access_token(
     response: Response, 
@@ -145,39 +163,40 @@ def login_for_access_token(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-def get_current_user_from_token(token: str = Depends(oauth2_scheme)):
-    console.log("get_current_user_from_token()")
-    credentials_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials",)
-    try:
-        payload = jwt.decode(
-            token, 
-            settings.SECRET_KEY, 
-            algorithms=[settings.ALGORITHM]
-        )
-        username: str = payload.get("sub")
-        console.log(locals())
-        print("username/email extracted is ", username)
-        if username is None:
-            raise credentials_exception
-    except JWTError:
-        raise credentials_exception
-    user = get_user(username)
-    if user is None:
-        raise credentials_exception
-    return user
+
 
 
 # --------------------------------------------------------------------------
 # Home Page
 # --------------------------------------------------------------------------
 @app.get("/", response_class=HTMLResponse)
-def index(request: Request, user: User = Depends(get_current_user_from_token)):
+def index(request: Request):
     console.rule(f"{request.method} ~ {request.url.path}")
+    try:
+        user = get_current_user_from_token()
+        console.log("[green]user found!")
+    except:
+        user = None
+        console.log("[red]user not found")
     context = {
+        "user": user,
         "request": request,
     }
     return templates.TemplateResponse("index.html", context)
 
+
+# --------------------------------------------------------------------------
+# Private Page
+# --------------------------------------------------------------------------
+# A private page that only logged in users can access.
+@app.get("/private", response_class=HTMLResponse)
+def index(request: Request, user: User = Depends(get_current_user_from_token)):
+    console.rule(f"{request.method} ~ {request.url.path}")
+    context = {
+        "user": user,
+        "request": request
+    }
+    return templates.TemplateResponse("private.html", context)
 
 # --------------------------------------------------------------------------
 # Authentication
