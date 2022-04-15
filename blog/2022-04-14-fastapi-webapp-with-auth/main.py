@@ -54,33 +54,44 @@ class Settings:
 
 
 class OAuth2PasswordBearerWithCookie(OAuth2):
+    """
+    This class is taken directly from FastAPI:
+    https://github.com/tiangolo/fastapi/blob/26f725d259c5dbe3654f221e608b14412c6b40da/fastapi/security/oauth2.py#L140-L171
+    
+    The only change made is that authentication is taken from a cookie
+    instead of from the header!
+    """
     def __init__(
         self,
         tokenUrl: str,
         scheme_name: Optional[str] = None,
         scopes: Optional[Dict[str, str]] = None,
+        description: Optional[str] = None,
         auto_error: bool = True,
     ):
-        # //////////////////////
-        console.rule(f"OAuth2PasswordBearerWithCookie.__init__()", characters="~", style="yellow")
-        console.log(locals())
-        # //////////////////////
         if not scopes:
             scopes = {}
         flows = OAuthFlowsModel(password={"tokenUrl": tokenUrl, "scopes": scopes})
-        super().__init__(flows=flows, scheme_name=scheme_name, auto_error=auto_error)
+        super().__init__(
+            flows=flows,
+            scheme_name=scheme_name,
+            description=description,
+            auto_error=auto_error,
+        )
 
     async def __call__(self, request: Request) -> Optional[str]:
-        # //////////////////////
-        console.rule(f"OAuth2PasswordBearerWithCookie.__call__()", characters="~", style="yellow")
-        console.log(locals())
-        # //////////////////////
-        authorization: str = request.cookies.get(settings.COOKIE_NAME)  # changed to accept access token from httpOnly Cookie
-        print("access_token is", authorization)
+        # IMPORTANT: this is the line that differs from FastAPI. Here we use 
+        # `request.cookies.get(settings.COOKIE_NAME)` instead of 
+        # `request.headers.get("Authorization")`
+        authorization: str = request.cookies.get(settings.COOKIE_NAME) 
         scheme, param = get_authorization_scheme_param(authorization)
         if not authorization or scheme.lower() != "bearer":
             if self.auto_error:
-                raise HTTPException( status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated", headers={"WWW-Authenticate": "Bearer"},)
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Not authenticated",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
             else:
                 return None
         return param
@@ -88,7 +99,7 @@ class OAuth2PasswordBearerWithCookie(OAuth2):
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
-oauth2_scheme = OAuth2PasswordBearerWithCookie(tokenUrl="/auth/token")
+oauth2_scheme = OAuth2PasswordBearerWithCookie(tokenUrl="token")
 settings = Settings()
 
 
@@ -140,46 +151,60 @@ def authenticate_user(username: str, password: str) -> User:
         return user
 
 
-def get_current_user_from_token(token: str = Depends(oauth2_scheme)) -> User:
-    # //////////////////////
-    console.rule(f"get_current_user_from_token()", characters="~", style="yellow")
-    console.log(locals())
-    # //////////////////////
-    credentials_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials",)
+def decode_token(token: str) -> User:
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED, 
+        detail="Could not validate credentials"
+    )
+    token = token.removeprefix("Bearer").strip()
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         username: str = payload.get("sub")
-        console.log(locals())
-        print("username/email extracted is ", username)
+        console.log(f"{username=}")
         if username is None:
+            console.log("[red]Raising `credentials_exception`")
             raise credentials_exception
-    except JWTError:
+    except JWTError as e:
+        console.log("[red]Raising `credentials_exception` due to JWTError")
+        inspect(e)
         raise credentials_exception
+    
     user = get_user(username)
-    if user is None:
-        raise credentials_exception
     return user
 
 
-def get_user_from_cookie(request: Request):
-    # //////////////////////
-    console.rule(f"get_user_from_cookie()", characters="~", style="yellow")
-    console.log(locals())
-    # //////////////////////
+def get_current_user_from_token(token: str = Depends(oauth2_scheme)) -> User:
+    """
+    Get the current user from the cookies in a request.
+
+    Use this function when you want to lock down a route so that only 
+    authenticated users can see access the route.
+    """
+    user = decode_token(token)
+    return user
+
+
+def get_current_user_from_cookie(request: Request) -> User:
+    """
+    Get the current user from the cookies in a request.
+    
+    Use this function from inside other routes to get the current user. Good
+    for views that should work for both logged in, and not logged in users.
+    """
     token = request.cookies.get(settings.COOKIE_NAME)
-    token = token.removeprefix("Bearer").strip()
-    user = get_current_user_from_token(token)
+    console.log(locals())
+    user = decode_token(token)
+    console.log(locals())
     return user
 
 
-@app.post("/auth/token")
+@app.post("token")
 def login_for_access_token(
     response: Response, 
     form_data: OAuth2PasswordRequestForm = Depends()
 ):
     # //////////////////////
-    console.rule("POST ~ /auth/token")
-    console.log(locals())
+    console.rule("POST ~ token")
     # //////////////////////
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
@@ -187,7 +212,11 @@ def login_for_access_token(
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or password",)
     console.log("Creating access token...")
     access_token = create_access_token(data={"sub": user.username})
-    response.set_cookie(key=settings.COOKIE_NAME, value=f"Bearer {access_token}", httponly=True)  #set HttpOnly cookie in response
+    response.set_cookie(
+        key=settings.COOKIE_NAME, 
+        value=f"Bearer {access_token}", 
+        httponly=True # Prevents JavaScript from reading the cookie.
+    )  #set HttpOnly cookie in response
     console.log("Cookie set!")
     return {settings.COOKIE_NAME: access_token, "token_type": "bearer"}
 
@@ -199,30 +228,9 @@ def login_for_access_token(
 def index(request: Request):
     # //////////////////////
     console.rule(f"{request.method} ~ {request.url.path}")
-    console.log(locals())
     # //////////////////////
     try:
-        user = get_user_from_cookie(request)
-        console.log(f"{user=}")
-        console.log("[green]user found!")
-    except:
-        user = None
-        console.log("[red]user not found")
-    context = {
-        "user": user,
-        "request": request,
-    }
-    return templates.TemplateResponse("index.html", context)
-
-
-@app.post("/", response_class=HTMLResponse)
-def index(request: Request, user: User):
-    # //////////////////////
-    console.rule(f"{request.method} ~ {request.url.path}")
-    console.log(locals())
-    # //////////////////////
-    try:
-        user = get_user_from_cookie(request)
+        user = get_current_user_from_cookie(request)
         console.log(f"{user=}")
         console.log("[green]user found!")
     except:
@@ -301,15 +309,8 @@ async def login_post(request: Request):
     if await form.is_valid():
         try:
             form.__dict__.update(msg="Login Successful!")
-            # user = get_user(form.username)
-            # context = {
-            #     "user": user,
-            #     "request": request,
-            # }
-            # response = templates.TemplateResponse("index.html", form.__dict__)
             response = RedirectResponse("/", status.HTTP_302_FOUND)
             _ = login_for_access_token(response=response, form_data=form)
-            inspect(_)
             console.log("[green]Login successful!!!!")
             return response
         except HTTPException:
