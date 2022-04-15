@@ -50,6 +50,7 @@ class Settings:
     SECRET_KEY: str = "secret-key"
     ALGORITHM = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES = 30  # in mins
+    COOKIE_NAME = "access_token"
 
 
 class OAuth2PasswordBearerWithCookie(OAuth2):
@@ -74,7 +75,7 @@ class OAuth2PasswordBearerWithCookie(OAuth2):
         console.rule(f"OAuth2PasswordBearerWithCookie.__call__()", characters="~", style="yellow")
         console.log(locals())
         # //////////////////////
-        authorization: str = request.cookies.get("access_token")  # changed to accept access token from httpOnly Cookie
+        authorization: str = request.cookies.get(settings.COOKIE_NAME)  # changed to accept access token from httpOnly Cookie
         print("access_token is", authorization)
         scheme, param = get_authorization_scheme_param(authorization)
         if not authorization or scheme.lower() != "bearer":
@@ -165,7 +166,7 @@ def get_user_from_cookie(request: Request):
     console.rule(f"get_user_from_cookie()", characters="~", style="yellow")
     console.log(locals())
     # //////////////////////
-    token = request.cookies.get("access_token")
+    token = request.cookies.get(settings.COOKIE_NAME)
     token = token.removeprefix("Bearer").strip()
     user = get_current_user_from_token(token)
     return user
@@ -186,9 +187,9 @@ def login_for_access_token(
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or password",)
     console.log("Creating access token...")
     access_token = create_access_token(data={"sub": user.username})
-    response.set_cookie(key="access_token", value=f"Bearer {access_token}", httponly=True)  #set HttpOnly cookie in response
+    response.set_cookie(key=settings.COOKIE_NAME, value=f"Bearer {access_token}", httponly=True)  #set HttpOnly cookie in response
     console.log("Cookie set!")
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {settings.COOKIE_NAME: access_token, "token_type": "bearer"}
 
 
 # --------------------------------------------------------------------------
@@ -196,6 +197,26 @@ def login_for_access_token(
 # --------------------------------------------------------------------------
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
+    # //////////////////////
+    console.rule(f"{request.method} ~ {request.url.path}")
+    console.log(locals())
+    # //////////////////////
+    try:
+        user = get_user_from_cookie(request)
+        console.log(f"{user=}")
+        console.log("[green]user found!")
+    except:
+        user = None
+        console.log("[red]user not found")
+    context = {
+        "user": user,
+        "request": request,
+    }
+    return templates.TemplateResponse("index.html", context)
+
+
+@app.post("/", response_class=HTMLResponse)
+def index(request: Request, user: User):
     # //////////////////////
     console.rule(f"{request.method} ~ {request.url.path}")
     console.log(locals())
@@ -280,8 +301,15 @@ async def login_post(request: Request):
     if await form.is_valid():
         try:
             form.__dict__.update(msg="Login Successful!")
-            response = templates.TemplateResponse("login.html", form.__dict__)
-            login_for_access_token(response=response, form_data=form)
+            # user = get_user(form.username)
+            # context = {
+            #     "user": user,
+            #     "request": request,
+            # }
+            # response = templates.TemplateResponse("index.html", form.__dict__)
+            response = RedirectResponse("/", status.HTTP_302_FOUND)
+            _ = login_for_access_token(response=response, form_data=form)
+            inspect(_)
             console.log("[green]Login successful!!!!")
             return response
         except HTTPException:
@@ -289,3 +317,14 @@ async def login_post(request: Request):
             form.__dict__.get("errors").append("Incorrect Email or Password")
             return templates.TemplateResponse("login.html", form.__dict__)
     return templates.TemplateResponse("login.html", form.__dict__)
+
+
+@app.get("/auth/logout", response_class=HTMLResponse)
+def login_get():
+    # //////////////////////
+    console.rule(f"GET ~ /auth/logout")
+    console.log(locals())
+    # //////////////////////
+    response = RedirectResponse(url="/")
+    response.delete_cookie(settings.COOKIE_NAME)
+    return response
