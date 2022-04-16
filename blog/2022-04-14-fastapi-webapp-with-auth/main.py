@@ -1,18 +1,12 @@
 import datetime as dt
-from distutils.log import Log
 from typing import Dict, List, Optional
 
-from fastapi import (Depends, FastAPI, Form, HTTPException, Request, Response,
-                     status)
+from fastapi import Depends, FastAPI, HTTPException, Request, Response, status
 from fastapi.openapi.models import OAuthFlows as OAuthFlowsModel
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.security import (OAuth2, OAuth2PasswordBearer,
-                              OAuth2PasswordRequestForm)
+from fastapi.security import OAuth2, OAuth2PasswordRequestForm
 from fastapi.security.utils import get_authorization_scheme_param
-from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from fastapi_login import LoginManager
-from fastapi_login.exceptions import InvalidCredentialsException
 from jose import JWTError, jwt
 from passlib.handlers.sha2_crypt import sha512_crypt as crypto
 from pydantic import BaseModel
@@ -23,32 +17,31 @@ console = Console()
 
 
 # --------------------------------------------------------------------------
-# Models
+# Models and Data
 # --------------------------------------------------------------------------
 class User(BaseModel):
     username: str
     hashed_password: str
 
 
-# --------------------------------------------------------------------------
-# Database
-# --------------------------------------------------------------------------
-# Create a "database" to hold your data. This is just for example purposes to
-# quickly show this proof of conept app.
+# Create a "database" to hold your data. This is just for example purposes. In
+# a real world scenario you would likely connect to a SQL or NoSQL database.
 class DataBase(BaseModel):
     user: List[User]
 
-_plain_password = "12345"
-_hashed_password = crypto.hash(_plain_password)
-
-
 DB = DataBase(
     user=[
-        User(username="user1@gmail.com", hashed_password=_hashed_password),
-        User(username="user2@gmail.com", hashed_password=_hashed_password),
+        User(username="user1@gmail.com", hashed_password=crypto.hash("12345")),
+        User(username="user2@gmail.com", hashed_password=crypto.hash("12345")),
     ]
 )
 
+
+def get_user(username: str) -> User:
+    user = [user for user in DB.user if user.username == username]
+    if user:
+        return user[0]
+    return None
 
 # --------------------------------------------------------------------------
 # Setup FastAPI
@@ -60,6 +53,14 @@ class Settings:
     COOKIE_NAME = "access_token"
 
 
+app = FastAPI()
+templates = Jinja2Templates(directory="templates")
+settings = Settings()
+
+
+# --------------------------------------------------------------------------
+# Authentication logic
+# --------------------------------------------------------------------------
 class OAuth2PasswordBearerWithCookie(OAuth2):
     """
     This class is taken directly from FastAPI:
@@ -104,15 +105,9 @@ class OAuth2PasswordBearerWithCookie(OAuth2):
         return param
 
 
-app = FastAPI()
-templates = Jinja2Templates(directory="templates")
 oauth2_scheme = OAuth2PasswordBearerWithCookie(tokenUrl="token")
-settings = Settings()
 
 
-# --------------------------------------------------------------------------
-# Authentication logic
-# --------------------------------------------------------------------------
 def create_access_token(data: Dict) -> str:
     to_encode = data.copy()
     expire = dt.datetime.utcnow() + dt.timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -123,13 +118,6 @@ def create_access_token(data: Dict) -> str:
         algorithm=settings.ALGORITHM
     )
     return encoded_jwt
-
-
-def get_user(username: str) -> User:
-    user = [user for user in DB.user if user.username == username]
-    if user:
-        return user[0]
-    return None
 
 
 def authenticate_user(username: str, plain_password: str) -> User:
@@ -251,7 +239,7 @@ class LoginForm:
 
     async def load_data(self):
         form = await self.request.form()
-        self.username = form.get("username")  # since outh works on username field we are considering email as username
+        self.username = form.get("username")
         self.password = form.get("password")
 
     async def is_valid(self):
