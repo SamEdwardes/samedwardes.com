@@ -1,20 +1,23 @@
-from distutils.log import Log
-from typing import Dict, Optional, List
 import datetime as dt
-from jose import jwt, JWTError
+from distutils.log import Log
+from typing import Dict, List, Optional
 
-from fastapi import FastAPI, Request, Form, Depends, Response, HTTPException, status
-from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer, OAuth2
-from fastapi_login.exceptions import InvalidCredentialsException
+from fastapi import (Depends, FastAPI, Form, HTTPException, Request, Response,
+                     status)
 from fastapi.openapi.models import OAuthFlows as OAuthFlowsModel
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.security import (OAuth2, OAuth2PasswordBearer,
+                              OAuth2PasswordRequestForm)
+from fastapi.security.utils import get_authorization_scheme_param
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi_login import LoginManager
+from fastapi_login.exceptions import InvalidCredentialsException
+from jose import JWTError, jwt
+from passlib.handlers.sha2_crypt import sha512_crypt as crypto
 from pydantic import BaseModel
+from rich import inspect, print
 from rich.console import Console
-from rich import inspect
-from fastapi.security.utils import get_authorization_scheme_param
 
 console = Console()
 
@@ -24,7 +27,7 @@ console = Console()
 # --------------------------------------------------------------------------
 class User(BaseModel):
     username: str
-    password: str
+    hashed_password: str
 
 
 # --------------------------------------------------------------------------
@@ -35,10 +38,14 @@ class User(BaseModel):
 class DataBase(BaseModel):
     user: List[User]
 
+_plain_password = "12345"
+_hashed_password = crypto.hash(_plain_password)
+
+
 DB = DataBase(
     user=[
-        User(username="user1@gmail.com", password="12345"),
-        User(username="user2@gmail.com", password="12345"),
+        User(username="user1@gmail.com", hashed_password=_hashed_password),
+        User(username="user2@gmail.com", hashed_password=_hashed_password),
     ]
 )
 
@@ -125,13 +132,11 @@ def get_user(username: str) -> User:
     return None
 
 
-def authenticate_user(username: str, password: str) -> User:
+def authenticate_user(username: str, plain_password: str) -> User:
     user = get_user(username)
-    console.log(locals())
     if not user:
         return False
-    # TODO: hash the password
-    if password != user.password:
+    if not crypto.verify(plain_password, user.hashed_password):
         return False
     return user
 
@@ -145,13 +150,10 @@ def decode_token(token: str) -> User:
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         username: str = payload.get("sub")
-        console.log(f"{username=}")
         if username is None:
-            console.log("[red]Raising `credentials_exception` due to no user being found.")
             raise credentials_exception
     except JWTError as e:
-        console.log("[red]Raising `credentials_exception` due to JWTError.")
-        inspect(e)
+        print(e)
         raise credentials_exception
     
     user = get_user(username)
@@ -177,9 +179,7 @@ def get_current_user_from_cookie(request: Request) -> User:
     for views that should work for both logged in, and not logged in users.
     """
     token = request.cookies.get(settings.COOKIE_NAME)
-    console.log(locals())
     user = decode_token(token)
-    console.log(locals())
     return user
 
 
@@ -190,16 +190,16 @@ def login_for_access_token(
 ) -> Dict[str, str]:
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
-        console.log("[red bold]User not authenticated!")
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or password",)
-    console.log("Creating access token...")
     access_token = create_access_token(data={"sub": user.username})
+    
+    # Set an HttpOnly cookie in the response. `httponly=True` prevents 
+    # JavaScript from reading the cookie.
     response.set_cookie(
         key=settings.COOKIE_NAME, 
         value=f"Bearer {access_token}", 
-        httponly=True # Prevents JavaScript from reading the cookie.
-    )  #set HttpOnly cookie in response
-    console.log("Cookie set!")
+        httponly=True
+    )  
     return {settings.COOKIE_NAME: access_token, "token_type": "bearer"}
 
 
@@ -210,11 +210,8 @@ def login_for_access_token(
 def index(request: Request):
     try:
         user = get_current_user_from_cookie(request)
-        console.log(f"{user=}")
-        console.log("[green]user found!")
     except:
         user = None
-        console.log("[red]user not found")
     context = {
         "user": user,
         "request": request,
@@ -282,7 +279,6 @@ async def login_post(request: Request):
             form.__dict__.update(msg="")
             form.__dict__.get("errors").append("Incorrect Email or Password")
             return templates.TemplateResponse("login.html", form.__dict__)
-    console.log(locals())
     return templates.TemplateResponse("login.html", form.__dict__)
 
 
