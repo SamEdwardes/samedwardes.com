@@ -1,13 +1,16 @@
 <h1>Login</h1>
 
+{% for error in errors %}
+    <p style="color: red">{{ error }}</p>
+{% endfor %}
 <form action="/auth/login" method="post">
     <p>
         <p><label for="">Email</label></p>
-        <input type="email" name="username" value="user1@gmail.com" required>
+        <input type="email" name="username" value="{{ username }}" required>
     </p>
     <p>
         <p><label for="">Password</label></p>
-        <input type="text" name="password" value="12345" required>
+        <input type="password" name="password" value="{{ password }}" required>
     </p>
     <input type="submit" value="Submit">
 </form>

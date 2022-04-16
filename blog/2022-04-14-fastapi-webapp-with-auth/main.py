@@ -106,11 +106,7 @@ settings = Settings()
 # --------------------------------------------------------------------------
 # Authentication logic
 # --------------------------------------------------------------------------
-def create_access_token(data: Dict):
-    # //////////////////////
-    console.rule(f"create_access_token()", characters="~", style="yellow")
-    console.log(locals())
-    # //////////////////////
+def create_access_token(data: Dict) -> str:
     to_encode = data.copy()
     expire = dt.datetime.utcnow() + dt.timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
@@ -123,10 +119,6 @@ def create_access_token(data: Dict):
 
 
 def get_user(username: str) -> User:
-    # //////////////////////
-    console.rule(f"get_user()", characters="~", style="yellow")
-    console.log(locals())
-    # //////////////////////
     user = [user for user in DB.user if user.username == username]
     if user:
         return user[0]
@@ -134,21 +126,14 @@ def get_user(username: str) -> User:
 
 
 def authenticate_user(username: str, password: str) -> User:
-    # //////////////////////
-    console.rule(f"authenticate_user()", characters="~", style="yellow")
-    console.log(locals())
-    # //////////////////////
     user = get_user(username)
     console.log(locals())
-    # (1) Validate if the user exists.
     if not user:
         return False
-    # (2) Validate if the
     # TODO: hash the password
-    elif password != user.password:
+    if password != user.password:
         return False
-    else:
-        return user
+    return user
 
 
 def decode_token(token: str) -> User:
@@ -162,10 +147,10 @@ def decode_token(token: str) -> User:
         username: str = payload.get("sub")
         console.log(f"{username=}")
         if username is None:
-            console.log("[red]Raising `credentials_exception`")
+            console.log("[red]Raising `credentials_exception` due to no user being found.")
             raise credentials_exception
     except JWTError as e:
-        console.log("[red]Raising `credentials_exception` due to JWTError")
+        console.log("[red]Raising `credentials_exception` due to JWTError.")
         inspect(e)
         raise credentials_exception
     
@@ -202,10 +187,7 @@ def get_current_user_from_cookie(request: Request) -> User:
 def login_for_access_token(
     response: Response, 
     form_data: OAuth2PasswordRequestForm = Depends()
-):
-    # //////////////////////
-    console.rule("POST ~ token")
-    # //////////////////////
+) -> Dict[str, str]:
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
         console.log("[red bold]User not authenticated!")
@@ -226,9 +208,6 @@ def login_for_access_token(
 # --------------------------------------------------------------------------
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
-    # //////////////////////
-    console.rule(f"{request.method} ~ {request.url.path}")
-    # //////////////////////
     try:
         user = get_current_user_from_cookie(request)
         console.log(f"{user=}")
@@ -249,10 +228,6 @@ def index(request: Request):
 # A private page that only logged in users can access.
 @app.get("/private", response_class=HTMLResponse)
 def index(request: Request, user: User = Depends(get_current_user_from_token)):
-    # //////////////////////
-    console.rule(f"{request.method} ~ {request.url.path}")
-    console.log(locals())
-    # //////////////////////
     context = {
         "user": user,
         "request": request
@@ -264,13 +239,8 @@ def index(request: Request, user: User = Depends(get_current_user_from_token)):
 # --------------------------------------------------------------------------
 @app.get("/auth/login", response_class=HTMLResponse)
 def login_get(request: Request):
-    # //////////////////////
-    console.rule(f"{request.method} ~ {request.url.path}")
-    console.log(locals())
-    # //////////////////////
     context = {
         "request": request,
-        "user": None,
     }
     return templates.TemplateResponse("login.html", context)
 
@@ -299,33 +269,25 @@ class LoginForm:
 
 @app.post("/auth/login", response_class=HTMLResponse)
 async def login_post(request: Request):
-    # //////////////////////
-    console.rule(f"{request.method} ~ {request.url.path}")
-    console.log(locals())
-    # //////////////////////
     form = LoginForm(request)
     await form.load_data()
-    console.log(form.__dict__)
     if await form.is_valid():
         try:
-            form.__dict__.update(msg="Login Successful!")
             response = RedirectResponse("/", status.HTTP_302_FOUND)
-            _ = login_for_access_token(response=response, form_data=form)
+            login_for_access_token(response=response, form_data=form)
+            form.__dict__.update(msg="Login Successful!")
             console.log("[green]Login successful!!!!")
             return response
         except HTTPException:
             form.__dict__.update(msg="")
             form.__dict__.get("errors").append("Incorrect Email or Password")
             return templates.TemplateResponse("login.html", form.__dict__)
+    console.log(locals())
     return templates.TemplateResponse("login.html", form.__dict__)
 
 
 @app.get("/auth/logout", response_class=HTMLResponse)
 def login_get():
-    # //////////////////////
-    console.rule(f"GET ~ /auth/logout")
-    console.log(locals())
-    # //////////////////////
     response = RedirectResponse(url="/")
     response.delete_cookie(settings.COOKIE_NAME)
     return response
