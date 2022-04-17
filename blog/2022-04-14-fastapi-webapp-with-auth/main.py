@@ -132,12 +132,12 @@ def authenticate_user(username: str, plain_password: str) -> User:
 def decode_token(token: str) -> User:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED, 
-        detail="Could not validate credentials"
+        detail="Could not validate credentials."
     )
     token = token.removeprefix("Bearer").strip()
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
-        username: str = payload.get("sub")
+        username: str = payload.get("username")
         if username is None:
             raise credentials_exception
     except JWTError as e:
@@ -178,8 +178,8 @@ def login_for_access_token(
 ) -> Dict[str, str]:
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or password",)
-    access_token = create_access_token(data={"sub": user.username})
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or password")
+    access_token = create_access_token(data={"username": user.username})
     
     # Set an HttpOnly cookie in the response. `httponly=True` prevents 
     # JavaScript from reading the cookie.
@@ -220,7 +220,7 @@ def index(request: Request, user: User = Depends(get_current_user_from_token)):
     return templates.TemplateResponse("private.html", context)
 
 # --------------------------------------------------------------------------
-# Authentication
+# Login - GET
 # --------------------------------------------------------------------------
 @app.get("/auth/login", response_class=HTMLResponse)
 def login_get(request: Request):
@@ -230,6 +230,9 @@ def login_get(request: Request):
     return templates.TemplateResponse("login.html", context)
 
 
+# --------------------------------------------------------------------------
+# Login - POST
+# --------------------------------------------------------------------------
 class LoginForm:
     def __init__(self, request: Request):
         self.request: Request = request
@@ -270,6 +273,9 @@ async def login_post(request: Request):
     return templates.TemplateResponse("login.html", form.__dict__)
 
 
+# --------------------------------------------------------------------------
+# Logout
+# --------------------------------------------------------------------------
 @app.get("/auth/logout", response_class=HTMLResponse)
 def login_get():
     response = RedirectResponse(url="/")

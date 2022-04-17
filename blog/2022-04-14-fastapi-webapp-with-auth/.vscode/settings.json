@@ -4,6 +4,7 @@
         "fastapi",
         "imgs",
         "passlib",
+        "templating",
         "uvicorn",
         "venv"
     ]

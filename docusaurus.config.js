@@ -15,9 +15,6 @@ const config = {
   favicon: 'img/favicon.ico',
   organizationName: 'SamEdwardes', // Usually your GitHub org/user name.
   projectName: 'personal-blog', // Usually your repo name.
-  themes: [
-    '@saucelabs/theme-github-codeblock'
-  ],
   presets: [
     [
       'classic',
