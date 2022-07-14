@@ -13,19 +13,20 @@ I wrote a blog post about [How to learn R](./2022-01-31-how-to-learn-r.md) which
 
 The best ways to learn Python are:
 
-- <>
-- <>
+- xxx
+- xxx
 
-## My top recommendation - <>
+## My top recommendation - xxx
 
-<>
+xxx
+
 **Pros:**
 
-- <>
+- xxx
 
 **Cons:**
 
-- <>
+- xxx
 
 ## Other useful resources
 
