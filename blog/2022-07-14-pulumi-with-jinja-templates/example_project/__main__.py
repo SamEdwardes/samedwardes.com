@@ -33,9 +33,10 @@ def main():
     # Customize these with your own tags!
     tags = {
         "rs:environment": "development",
-        "rs:owner": "sam.edwardes@rstudio.com",
+        "rs:owner": "name@email.com",
         "rs:project": "solutions",
     }
+    ...
 
 
     key_pair = ec2.KeyPair(
