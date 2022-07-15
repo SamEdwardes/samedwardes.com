@@ -36,8 +36,6 @@ def main():
         "rs:owner": "name@email.com",
         "rs:project": "solutions",
     }
-    ...
-
 
     key_pair = ec2.KeyPair(
         "ec2 key pair",
