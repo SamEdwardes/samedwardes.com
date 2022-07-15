@@ -11,7 +11,7 @@ import CodeBlock from '@theme/CodeBlock';
 import MainPy from '!!raw-loader!./example_project/__main__.py';
 import RequirementsTxt from '!!raw-loader!./example_project/requirements.txt';
 import CreateKeyPair from '!!raw-loader!./example_project/create_keypair.py';
-import TemplatesEnv from '!!raw-loader!./example_project/templates/.env';
+import TemplatesEnv from '!!raw-loader!./example_project/templates/template.env';
 import EnvOut from '!!raw-loader!./.envout';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -170,7 +170,7 @@ This code chunk is really the core of what we are doing:
 
 ```python
 # Render a template on the ec2 instance
-local_file_path = "templates/.env"
+local_file_path = "templates/template.env"
 remote_file_path = "~/.env"
 
 command_render_template = remote.Command(
@@ -257,11 +257,11 @@ AVAILABILITY_ZONE=us-east-2c
 
 With jinja2 and Pulumi we are now able to turn this:
 
-<CodeBlock title="templates/.env">{TemplatesEnv}</CodeBlock>
+<CodeBlock title="templates/template.env">{TemplatesEnv}</CodeBlock>
 
 Into this!
 
-<CodeBlock title="templates/.env">{EnvOut}</CodeBlock>
+<CodeBlock title="~/.env">{EnvOut}</CodeBlock>
 
 
 

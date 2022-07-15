@@ -74,7 +74,7 @@ def main():
     )
 
     # Render a template on the ec2 instance
-    local_file_path = "templates/.env"
+    local_file_path = "templates/template.env"
     remote_file_path = "~/.env"
     
     command_render_template = remote.Command(
