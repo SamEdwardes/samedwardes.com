@@ -1,57 +1,42 @@
-# blog-development
+# Content v2 Minimal Starter
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/f842119c-ee2a-4b18-9658-befe42fe8a2a/deploy-status)](https://app.netlify.com/sites/samedwardes/deploys)
+Look at the [Content documentation](https://content-v2.nuxtjs.org/) to learn more.
 
-The development repo for my blog [https://samedwardes.com/](https://samedwardes.com/).
+## Setup
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+Make sure to install the dependencies:
 
-### Installation
+```bash
+# yarn
+yarn install
 
-Install node:
+# npm
+npm install
 
-```
-$ brew install node
-```
-
-Install and enable corepack
-
-```
-$ brew install corepack
+# pnpm
+pnpm install --shamefully-hoist
 ```
 
-```
-$ yarn
-```
+## Development Server
 
-### Local Development
+Start the development server on http://localhost:3000
 
-```
-$ yarn start
+```bash
+npm run dev
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+## Production
 
-### Build
+Build the application for production:
 
-```
-$ yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-### Deployment
-
-Using SSH:
-
-```
-$ USE_SSH=true yarn deploy
+```bash
+npm run build
 ```
 
-Not using SSH:
+Locally preview production build:
 
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
+```bash
+npm run preview
 ```
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment) for more information.

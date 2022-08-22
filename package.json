@@ -1,40 +1,13 @@
 {
-  "name": "personal-blog",
-  "version": "0.0.0",
   "private": true,
   "scripts": {
-    "docusaurus": "docusaurus",
-    "start": "docusaurus start",
-    "build": "docusaurus build",
-    "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy",
-    "clear": "docusaurus clear",
-    "serve": "docusaurus serve",
-    "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
   },
-  "dependencies": {
-    "@docusaurus/core": "^2.0.0-beta.18",
-    "@docusaurus/plugin-ideal-image": "^2.0.0-beta.18",
-    "@docusaurus/preset-classic": "^2.0.0-beta.18",
-    "@mdx-js/react": "^1.6.21",
-    "@saucelabs/theme-github-codeblock": "^0.1.1",
-    "clsx": "^1.1.1",
-    "prism-react-renderer": "^1.2.1",
-    "raw-loader": "^4.0.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
-  },
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@nuxt/content": "^2.0.0",
+    "nuxt": "^3.0.0-rc.4"
   }
 }
