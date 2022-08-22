@@ -1,0 +1,6 @@
+name: pulumi-with-jinja2-example
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: An example of how to use Jinja2 templates with Pulumi.

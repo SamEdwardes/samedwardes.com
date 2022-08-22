@@ -1,0 +1,21 @@
+{% extends "_layout.html" %}
+{% block main_content %}
+
+<h1>Breeds</h1>
+<p>Meet all of the different breeds we take care of:</p> 
+<div class="row">
+    {% for breed in breeds %}
+    <div class="col-6 mb-4">
+        <div class="card">
+            <img src="{{ url_for('static', path=breed.image_url) }}" class="card-img-top" alt="breed-pic">
+            <div class="card-body">
+            <h5 class="card-title">{{ breed.name }}</h5>
+            <p class="card-text">{{ breed.description }}</p>
+            <a href="/dogs?breed_id={{ breed.id }}" class="btn btn-primary">Meet the dogs</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

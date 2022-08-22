@@ -1,0 +1,31 @@
+{% extends "_layout.html" %}
+{% block main_content %}
+
+<h1>{{ dog.name }}</h1>
+
+<p>Learn a little more about {{ dog.name }}:</p> 
+
+<div class="row">
+    <div class="col">
+        <h4>Dog Profile</h4>
+        <div class="card">
+            <img src="{{ url_for('static', path=dog.image_url) }}" class="card-img-top" alt="dog-pic">
+            <div class="card-body">
+            <h5 class="card-title">{{ dog.name }}</h5>
+            <p class="card-text">{{ dog.description }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <h4>Breed Profile</h4>
+        <div class="card">
+            <img src="{{ url_for('static', path=dog.breed.image_url) }}" class="card-img-top" alt="dog-pic">
+            <div class="card-body">
+            <h5 class="card-title">{{ dog.breed.name }}</h5>
+            <p class="card-text">{{ dog.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

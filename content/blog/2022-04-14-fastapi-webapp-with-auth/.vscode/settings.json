@@ -1,0 +1,11 @@
+{
+    "terminal.integrated.persistentSessionReviveProcess": "never",
+    "cSpell.words": [
+        "fastapi",
+        "imgs",
+        "passlib",
+        "templating",
+        "uvicorn",
+        "venv"
+    ]
+}
