@@ -14,7 +14,7 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'SamEdwardes', // Usually your GitHub org/user name.
-  projectName: 'personal-blog', // Usually your repo name.
+  projectName: 'samedwardes.com', // Usually your repo name.
   presets: [
     [
       'classic',
@@ -29,7 +29,7 @@ const config = {
           showReadingTime: true,
           // blogSidebarTitle: 'All posts',
           blogSidebarCount: 0,
-          editUrl: 'https://github.com/SamEdwardes/personal-blog/tree/main/',
+          editUrl: 'https://github.com/SamEdwardes/samedwardes.com/tree/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -51,10 +51,9 @@ const config = {
           {to: '/', label: 'Blog', position: 'left'},
           {to: '/data-science', label: 'Data Science', position: 'left'},
           {to: '/outdoors', label: 'Outdoors', position: 'left'},
-          // {type: 'doc', docId: 'intro', position: 'left', label: 'Other Stuff',},
           {to: '/about', label: 'About', position: 'left'},
           {
-            href: 'https://github.com/SamEdwardes/personal-blog',
+            href: 'https://github.com/SamEdwardes/samedwardes.com',
             label: 'GitHub',
             position: 'right',
           },

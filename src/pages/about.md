@@ -1,6 +1,6 @@
 ---
 title: About me
-description: my hello page description
+description: About Sam Edwardes
 hide_table_of_contents: true
 ---
 

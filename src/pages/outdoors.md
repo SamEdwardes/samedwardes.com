@@ -1,5 +1,6 @@
 ---
 title: Outdoors
+description: A curated list of outdoors related blog posts
 hide_table_of_contents: false
 ---
 
