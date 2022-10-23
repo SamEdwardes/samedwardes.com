@@ -1,3 +1,6 @@
+# Nuxt
+.nuxt/
+
 # Dependencies
 /node_modules
 
