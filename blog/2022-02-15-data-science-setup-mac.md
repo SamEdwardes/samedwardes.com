@@ -967,7 +967,7 @@ Out of the box VS Code comes with many great features, but it will not have ever
 - [Python Indent](https://marketplace.visualstudio.com/items?itemName=KevinRose.vsc-python-indent)
 - [autoDcostring - Python Docstring Generator](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring)
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
-- [CodeSnape](https://marketplace.visualstudio.com/items?itemName=adpyke.codesnap)
+- [CodeSnap](https://marketplace.visualstudio.com/items?itemName=adpyke.codesnap)
 - [Draw.io Integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
 - [File Utils](https://marketplace.visualstudio.com/items?itemName=sleistner.vscode-fileutils)
 - [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)
