@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+python-multipart
+fastapi-login
+passlib[bcrypt]
+python-jose
+jinja2
+rich
