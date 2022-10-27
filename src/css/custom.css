@@ -1,0 +1,57 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #3c7dc1;
+  --ifm-color-primary-dark: #3670ae;
+  --ifm-color-primary-darker: #336aa4;
+  --ifm-color-primary-darkest: #2a5787;
+  --ifm-color-primary-light: #4e8ac8;
+  --ifm-color-primary-lighter: #5890cb;
+  --ifm-color-primary-lightest: #75a3d4;
+  --ifm-code-font-size: 95%;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+html[data-theme='dark'] {
+  --ifm-color-primary: #3c7dc1;
+  --ifm-color-primary-dark: #3670ae;
+  --ifm-color-primary-darker: #336aa4;
+  --ifm-color-primary-darkest: #2a5787;
+  --ifm-color-primary-light: #4e8ac8;
+  --ifm-color-primary-lighter: #5890cb;
+  --ifm-color-primary-lightest: #75a3d4;
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme='dark'] .docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.img-circle{
+  /* width: 300px;
+  height: 300px; */
+  max-width: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-text{
+  text-align: center;
+}
