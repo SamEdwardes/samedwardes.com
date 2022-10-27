@@ -6,6 +6,8 @@ The development repo for my blog [https://samedwardes.com/](https://samedwardes.
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
+A change to the README.
+
 ### Installation
 
 Install node:
