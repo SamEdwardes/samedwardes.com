@@ -2,7 +2,7 @@
 title: How to Open GitHub.com Repo from the Command Line
 authors: sedwardes
 categories: [data science]
-tags: [command-line, data science]
+tags: [command line, data science]
 ---
 
 During my Masters of Data Science I was often working on many GitHub repos at the same time. Most of our homework was graded on GitHub.com, so it was important to ensure that after pushing my local repo to GitHub.com that everything rendered correctly.
