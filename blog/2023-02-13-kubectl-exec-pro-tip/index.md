@@ -1,5 +1,5 @@
 ---
-title: kubectl exec into a pod without knowing the pod name
+title: kubectl exec Into a Pod Without Knowing the Pod Name
 authors: sedwardes
 tags: [kubernetes]
 ---

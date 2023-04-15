@@ -8,11 +8,11 @@ keywords:
 
 Over the past year I have dedicated a lot of time to learning Kubernetes. Here are the resources I have found most helpful!
 
-- [Kubernetes Tutorial for Beginners \[FULL COURSE in 4 Hours\](https://youtu.be/X48VuDVv0do)
+- [Kubernetes Tutorial for Beginners (FULL COURSE in 4 Hours)](https://youtu.be/X48VuDVv0do)
 - [Kubernetes Fundamentals (LFS258)](https://training.linuxfoundation.org/training/kubernetes-fundamentals/)
 - [Kubernetes: Up and Running](https://www.oreilly.com/library/view/kubernetes-up-and/9781492046523/) by Brendan Burns, Joe Beda, Kelsey Hightower, and Lachlan Evenson
 
-**[Kubernetes Tutorial for Beginners \[FULL COURSE in 4 Hours\](https://youtu.be/X48VuDVv0do)**
+**[Kubernetes Tutorial for Beginners (FULL COURSE in 4 Hours)](https://youtu.be/X48VuDVv0do)**
 
 I would recommend starting with this video. After taking this four hour crash course you will have a basic understanding of how Kubernetes works, and you will have a Kubernetes cluster running on your computer you can use for further learning.
 

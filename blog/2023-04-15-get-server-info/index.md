@@ -16,8 +16,6 @@ I always forget these commands... so here is my list of helpful commands to get 
 curl ifconfig.io 
 ```
 
-<!--truncate-->
-
 - Get your internal IP address. For example, this can be helpful if you are working with several EC2 instances that need to communicate with each other. You can use this instead of the external IP address for node to node communication. This has the benefit of being static even if you stop and start your EC2 instance.
 
 ```bash
