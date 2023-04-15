@@ -2,6 +2,10 @@
 title: Do Everything with Pydantic - Lightning Talk PyCascades 2023
 authors: sedwardes
 tags: [python]
+keywords:
+    - PyCascades 2023
+    - Sam Edwardes Talk
+    - Pydantic Lighting Talk
 ---
 
 My lighting talk "Do Everything with Pydantic" for PyCascades 2023 in Vancouver. You can find the notebooks I used here: <https://github.com/SamEdwardes/do-everything-with-pydantic/tree/4a3fdbeea5e801813199282df7ec2882087e47e6>.
