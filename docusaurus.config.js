@@ -49,6 +49,7 @@ const config = {
         },
         items: [
           {to: '/', label: 'Blog', position: 'left'},
+          {to: '/tags', label: 'Tags', position: 'left'},
           {to: '/data-science', label: 'Data Science', position: 'left'},
           {to: '/outdoors', label: 'Outdoors', position: 'left'},
           {to: '/about', label: 'About', position: 'left'},
