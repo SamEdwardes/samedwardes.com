@@ -25,3 +25,5 @@ yarn-error.log*
 venv/
 .venv/
 docs/blog/posts/2022-03-18-fastapi-beanie-one-page/__pycache__/main.cpython-310.pyc
+
+/.quarto/
