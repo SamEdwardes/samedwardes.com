@@ -1,12 +1,8 @@
 ---
-title: Data Science and Open Source
-description: A curated list of data science and open source related projects
+title: Projects
+description: A curated list of open source and data science projects
 hide_table_of_contents: false
 ---
-
-I love using Python, R, and all things open source. Find me on [GitHub](https://github.com/SamEdwardes) and [Twitter](https://twitter.com/TheReaLSamlam). See some of open source work below:
-
-## Open source
 
 | Package / Library                                                      | Description                                                  | Type |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ---- |

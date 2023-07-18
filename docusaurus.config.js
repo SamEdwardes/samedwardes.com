@@ -112,16 +112,16 @@ const config = {
           disableInDev: false,
         }
       ],
-      [
-        '@docusaurus/plugin-client-redirects', {
-          redirects: [
-            {
-              to: "/projects",
-              from: "/data-science"
-            }
-          ]
-        }
-      ]
+      // [
+      //   '@docusaurus/plugin-client-redirects', {
+      //     redirects: [
+      //       {
+      //         to: "/projects",
+      //         from: "/data-science"
+      //       }
+      //     ]
+      //   }
+      // ]
     ]
 };
 
