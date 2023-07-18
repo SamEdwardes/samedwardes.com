@@ -50,7 +50,7 @@ const config = {
         items: [
           {to: '/', label: 'Blog', position: 'left'},
           {to: '/tags', label: 'Tags', position: 'left'},
-          {to: '/data-science', label: 'Data Science', position: 'left'},
+          {to: '/projects', label: 'Projects', position: 'left'},
           {to: '/outdoors', label: 'Outdoors', position: 'left'},
           {to: '/about', label: 'About', position: 'left'},
           {
@@ -110,7 +110,17 @@ const config = {
           min: 640, // min resized image's size. if original is lower, use that size.
           steps: 2, // the max number of images generated between min and max (inclusive)
           disableInDev: false,
-        },
+        }
+      ],
+      [
+        '@docusaurus/plugin-client-redirects', {
+          redirects: [
+            {
+              to: "/projects",
+              from: "/data-science"
+            }
+          ]
+        }
       ]
     ]
 };
