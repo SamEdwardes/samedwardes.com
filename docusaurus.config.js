@@ -20,7 +20,11 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: false,
+        docs: {
+          path: 'homelab',
+          routeBasePath: 'homelab',
+          sidebarPath: require.resolve('./sidebarsHomelab.js'),
+        },
         blog: {
           routeBasePath: '/', // Serve the blog at the site's root
           blogTitle: 'Blog',
@@ -52,6 +56,7 @@ const config = {
           {to: '/tags', label: 'Tags', position: 'left'},
           {to: '/projects', label: 'Projects', position: 'left'},
           {to: '/outdoors', label: 'Outdoors', position: 'left'},
+          {to: '/homelab', label: 'Homelab', position: 'left'},
           {to: '/about', label: 'About', position: 'left'},
           {
             href: 'https://github.com/SamEdwardes/samedwardes.com',
@@ -102,6 +107,16 @@ const config = {
       },
     }),
     plugins: [
+      [
+        '@docusaurus/plugin-content-docs',
+        {
+          id: 'test',
+          path: 'test',
+          routeBasePath: 'test',
+          sidebarPath: require.resolve('./sidebarsTest.js'),
+          // ... other options
+        },
+      ],
       [
         '@docusaurus/plugin-ideal-image',
         {
