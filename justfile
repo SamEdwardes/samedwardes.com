@@ -1,3 +1,6 @@
+default:
+ @just --list
+
 preview:
     yarn start
 
