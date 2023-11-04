@@ -11,6 +11,8 @@ draft: false
 
 [1Password](https://1password.com) is a password manager. Over the years, I have tried LastPass, BitWarden, and 1Password. Out of the three, 1Password has been my favourite. The Mac app, browser extension, and IOS app are well-polished. One of my favourite parts about 1Password is the ability to access passwords using the [1Password CLI](https://developer.1password.com/docs/cli/).
 
+## Using `op inject` for secrets
+
 I recently discovered a pattern to use the 1Password CLI to store all of my secrets in my dotfiles:
 
 ```bash
