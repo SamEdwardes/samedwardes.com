@@ -9,6 +9,10 @@ keywords:
 draft: false
 ---
 
+:::tip Update
+A new blog post has been written about this topic! Check out [How to use 1Password for Secrets in ~/.bashrc or ~/.zshrc (UPDATE)](../2023-11-28-1password-for-secret-dotfiles-update/index.md).
+:::
+
 [1Password](https://1password.com) is a password manager. Over the years, I have tried LastPass, BitWarden, and 1Password. Out of the three, 1Password has been my favourite. The Mac app, browser extension, and IOS app are well-polished. One of my favourite parts about 1Password is the ability to access passwords using the [1Password CLI](https://developer.1password.com/docs/cli/).
 
 ## Using `op inject` for secrets
