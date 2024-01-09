@@ -1,0 +1,49 @@
+---
+title: My requirements.txt workflow for a new Python project
+authors: sedwardes
+tags: [linux, python, command line]
+keywords:
+    - Python dependencies
+draft: false
+---
+
+I usually create a `requirements.txt` when I start a new Python project. I will do something like this:
+
+```bash
+# Create a new project
+mkdir new-project
+cd new-project
+
+# Create requirements.txt
+tee -a requirements.txt <<EOF
+pandas
+pyarrow
+EOF
+
+# Create a virtual environment and install dependencies
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip wheel setuptools
+python -m pip install -r requirements.txt
+```
+
+This lets me get a new project up and running quickly. I have documented which packages I am using, which is good, but I have not documented which version of the package I am using. Since it is a new project, I want to use the latest version of every package. I could search PyPI for each package and find the latest version, but that takes a lot of time. Instead, I only document the package name in my initial `requirements.txt`. When I am ready to pin the versions, I use this bash script to check the version I have installed for each dependency listed in `requirements.txt`:
+
+```bash
+python -m pip freeze | grep -E $(cat requirements.txt | sed ':a;N;$!ba;s/\n/==|/g')
+```
+
+The result will be something like this:
+
+```bash
+pandas==2.1.4
+pyarrow==14.0.2
+```
+
+<!--truncate-->
+
+I can then paste this output into my `requirements.txt` file.
+
+:::note Why not use `pip freeze`?
+I could have also used `pip freeze` to get the version of the packages I have installed. The downside is that it will get the installed version of every package. Usually, I only want to pin the "top-level" dependency and not the sub-dependencies. For example, if I have `pandas` installed, I do not want to pin the version of `numpy` that `pandas` depends on. I only want to pin the version of `pandas` itself. I find that this makes it easier to update packages for my project in the future.
+:::

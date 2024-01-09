@@ -4,9 +4,10 @@ default:
 preview:
     yarn start
 
-new name:
-    mkdir blog/{{name}}
-    cp templates/blog-post/index.md blog/{{name}}/index.md
+new dirName:
+    mkdir blog/{{dirName}}
+    cp templates/blog-post/index.md blog/{{dirName}}/index.md
+    code blog/{{dirName}}/index.md
 
 open-netlify:
     open https://app.netlify.com/sites/samedwardes/overview
