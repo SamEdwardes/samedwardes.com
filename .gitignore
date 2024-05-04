@@ -1,6 +1,8 @@
 # Nuxt
 .nuxt/
 
+astro-test/
+
 # Dependencies
 /node_modules
 

@@ -1,0 +1,31 @@
+{% extends "_layout.html" %}
+{% block main_content %}
+
+<h1>Dogs</h1>
+
+<p>
+    Meet the 
+    {% if breed %}
+    <b>{{ breed.name }}(s)</b>
+    {% else %}
+    dogs
+    {% endif %}
+     we take care of:
+</p> 
+
+<div class="row">
+    {% for dog in dogs %}
+    <div class="col-4">
+        <div class="card mb-4">
+            <img src="{{ url_for('static', path=dog.image_url) }}" class="card-img-top" alt="dog-pic">
+            <div class="card-body">
+            <h5 class="card-title">{{ dog.name }}</h5>
+            <p class="card-text">{{ dog.description }}</p>
+            <a href="/dogs/{{ dog.id }}" class="btn btn-primary">Learn about {{ dog.name }}</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
