@@ -1,11 +1,22 @@
 ---
-title: How to Create a K8s Ingress for an External Service
-authors: sedwardes
-tags: [linux, r, python, kubernetes, web, infrastructure, data science, outdoors, command line]
-keywords:
-    - keyword 1
-    - keyword 2
+author: Sam Edwardes
+date: 2023-08-19
+description: This will show in preview.
 draft: true
+keywords:
+- keyword 1
+- keyword 2
+tags:
+- linux
+- r
+- python
+- kubernetes
+- web
+- infrastructure
+- data science
+- outdoors
+- command line
+title: How to Create a K8s Ingress for an External Service
 ---
 
 This will show in preview.
@@ -57,6 +68,6 @@ spec:
         backend:
           service:
             name: plex
-            port: 
+            port:
               number: 32400
 ---

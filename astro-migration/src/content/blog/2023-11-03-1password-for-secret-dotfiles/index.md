@@ -1,12 +1,14 @@
 ---
-title: How to use 1Password for Secrets in ~/.bashrc or ~/.zshrc
-authors: sedwardes
-tags: [command line]
+author: Sam Edwardes
+date: 2023-11-03
+description: An update on how I managed my secretes in the terminal with 1Password..
 keywords:
-    - 1password
-    - cli
-    - op
-draft: false
+- 1password
+- cli
+- op
+tags:
+- command line
+title: How to use 1Password for Secrets in ~/.bashrc or ~/.zshrc
 ---
 
 :::tip Update

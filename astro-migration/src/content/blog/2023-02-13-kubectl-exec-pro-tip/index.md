@@ -1,7 +1,11 @@
 ---
+author: Sam Edwardes
+date: 2023-02-13
+description: I always forget how to exec into a pod in Kubernetes without knowing the pod name. This is a quick reminder for myself.
+keywords: []
+tags:
+- kubernetes
 title: kubectl exec Into a Pod Without Knowing the Pod Name
-authors: sedwardes
-tags: [kubernetes]
 ---
 
 One common task in Kubernetes is to `exec` into a pod to run commands. The typical way to do this is as follows:

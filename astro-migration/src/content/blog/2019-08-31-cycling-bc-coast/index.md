@@ -1,8 +1,14 @@
 ---
-title: Cycle Touring the BC Coast
-tags: [cycling, camping, outdoors]
-authors: sedwardes
+author: Sam Edwardes
+date: 2019-08-31
+description: With a few spare days between finishing work and starting a masters program at UBC I was keen to experience some adventure before going back to school. Since moving to Vancouver 1 year ago, I had been imagining some of the cycle touring trips I may do. BC's West coast holds so many potential options.
 image: https://i.imgur.com/J1WCO79.jpg
+keywords: []
+tags:
+- cycling
+- camping
+- outdoors
+title: Cycle Touring the BC Coast
 ---
 
 With a few spare days between finishing work and starting a masters program at UBC I was keen to experience some adventure before going back to school. Since moving to Vancouver 1 year ago, I had been imagining some of the cycle touring trips I may do. BC's West coast holds so many potential options.
@@ -28,10 +34,14 @@ I ended up deciding on the route above. In only 3 days of riding, this route wou
 
 Click on one of the links below to jump to a specific section:
 
+- [Blog Post Index](#blog-post-index)
 - [Video](#video)
-- [Trip Summary](#trip)
-- [Route Details](#route)
-- [Gear](#gear)
+- [Trip Summary](#trip-summary)
+  - [Day 1](#day-1)
+  - [Day 2](#day-2)
+  - [Day 3](#day-3)
+  - [Route Details](#route-details)
+  - [Gear](#gear)
 
 ## Video
 
@@ -63,7 +73,7 @@ With the light fading, I was becoming tired, hungry, and was eager to find a pla
 
 ### Day 2
 
-Day 2 was my shortest day. I cycled 78.73 KM with a total saddle time of 4:55. Day 2 was also probably the most enjoyable day. The ride from Fanny Bay to the Little River ferry terminal was mostly flat and I avoided the highway heat and sun by starting early. I caught the 9:55 AM ferry to Powell River and was able to enjoy a beautiful ferry ride across the Straight of Georgia. 
+Day 2 was my shortest day. I cycled 78.73 KM with a total saddle time of 4:55. Day 2 was also probably the most enjoyable day. The ride from Fanny Bay to the Little River ferry terminal was mostly flat and I avoided the highway heat and sun by starting early. I caught the 9:55 AM ferry to Powell River and was able to enjoy a beautiful ferry ride across the Straight of Georgia.
 
 When I arrived at Powell River I was eager for a hearty breakfast. Just around the corner from the ferry terminal is [Base Camp Coffee](https://goo.gl/maps/RaDUNZR6dXgvH1xCA). It did not disappoint! I had coffee and the Breakfast Bowl which was a mini omelette on top of a bed of greens and veggies. It was my best meal over the 3 day trip. If you find yourself in Powell River, I would highly recommend.
 
@@ -130,7 +140,7 @@ Overall I was very happy with the route I chose and would recommend the same rou
     - I took Marine Drive instead of Highway 1.
     - Although bikes are allowed on Highway 1, and there is a big shoulder, it is a very busy highway.
     - Marine drive does have a lot of hills. But it is a very scenic ride with much less traffic. I would recommend taking this route.
-- Took the ferry to Nanaimo. 
+- Took the ferry to Nanaimo.
 - From there, rode north in the direction of Comox (Little River Terminal).
 - Camped at the [Lighthouse RV Park](https://goo.gl/maps/evKZFfgFrYVVffKSA) in Fanny Bay.
 - If you don't mind camping close to lots of people (and possibly "illegally"), I would consider camping near Qualicum Beach. There were several [nice areas](https://goo.gl/maps/6cUfJfPUWQER9sii8) to pitch a tent close to the beach and picnic tables.
@@ -138,7 +148,7 @@ Overall I was very happy with the route I chose and would recommend the same rou
 **Day 2:**
 
 - 78.73 KM with 4:55 of saddle time.
-- Cycle from Fanny Bay to the Little River ferry terminal. 
+- Cycle from Fanny Bay to the Little River ferry terminal.
 - Took the ferry East to the Sunshine Coast (Powell River).
 - Cycled south down the Sunshine Coast Highway to Saltery Bay ferry terminal.
 - Took the ferry to Earl's Cove.
@@ -156,7 +166,7 @@ Overall I was very happy with the route I chose and would recommend the same rou
 
 ### Gear
 
-I had way more gear than required for this trip... But for me the gear is half the fun. 
+I had way more gear than required for this trip... But for me the gear is half the fun.
 
 ![fully loaded bike](https://i.imgur.com/vnSKZ5o.jpg)
 

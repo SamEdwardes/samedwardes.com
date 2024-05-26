@@ -1,0 +1,47 @@
+---
+import GitHubIcon from "./GitHubIcon.astro";
+import ExternalLinkIcon from "./ExternalLinkIcon.astro";
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" },
+];
+const rightNavItems = [
+  { href: "https://github.com/SamEdwardes/samedwardes.com", label: "GitHub" },
+];
+---
+
+<nav
+  class:list={[
+    "bg-primary border-2 border-gray-900 opacity-90",
+    "h-16 px-8",
+    "grid grid-cols-2",
+    "rounded-2xl shadow-lg",
+  ]}
+>
+  <!-- Col 1: Nav items -->
+  <div class="flex gap-3 items-center">
+    {
+      navItems.map((item) => (
+        <a
+          class="text-white hover:text-slate-200 rounded-md px-3 py-2 text-xl font-bold"
+          href={`${item.href}`}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </div>
+  <!-- Col 2: Links on right -->
+  <div class="flex gap-4 items-center justify-end">
+    <a
+      class="text-white hover:text-slate-200 rounded-md px-3 py-2 text-xl font-bold"
+      href="https://github.com/samedwardes.com"
+      target="_blank"
+    >
+      <div class="flex flex-row gap-2d  ">
+        <div>GitHub</div>
+        <ExternalLinkIcon />
+      </div>
+    </a>
+  </div>
+</nav>

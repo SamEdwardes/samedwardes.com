@@ -1,12 +1,15 @@
 ---
+author: Sam Edwardes
+date: 2022-02-15
+description: You may think I am crazy, but I really enjoy setting up my computer. I am the kind of person who likes to wipe their computer clean every so often and start fresh with a clean slate. This blog post is an update to an earlier blog post from 2020. A lot has changed since then, so here is a look at my current setup.
+keywords: []
+tags:
+- data science
+- mac
 title: The Ultimate Data Science Setup for Mac (2022 update)
-authors: sedwardes
-tags: [data science, mac]
 ---
 
 You may think I am crazy, but I really enjoy setting up my computer. I am the kind of person who likes to wipe their computer clean every so often and start fresh with a clean slate. This blog post is an update to an earlier [blog post](/2020/06/08/datascience-setup) from 2020. A lot has changed since then, so here is a look at my current setup.
-
-<!--truncate-->
 
 :::tip Feedback?
 
@@ -860,7 +863,7 @@ Every nerds favourite place to be... the terminal. As a data scientist / develop
 [iTerm2](https://iterm2.com/index.html) is a replacement for the default terminal app that comes with your mac. It includes some nice features such as tabs and split panes.
 
 > ![iterm2-screenshot](https://iterm2.com/img/screenshots/split_panes.png)
- 
+
 *Image from https://iterm2.com/features.html*
 
 To install run the following command:
@@ -874,9 +877,9 @@ brew install --cask iterm2
 [starship](https://starship.rs/) is a cross-shell prompt. According to their website:
 
 > The minimal, blazing-fast, and infinitely customizable prompt for any shell!
-> 
+>
 > ![starship-gif](https://raw.githubusercontent.com/starship/starship/master/media/demo.gif)
- 
+
 *Gif from https://starship.rs/guide/*
 
 I really like starship because:
@@ -895,9 +898,9 @@ brew install starship
 
 ### exa
 
-From the *exa* website (<https://the.exa.website/>) 
+From the *exa* website (<https://the.exa.website/>)
 
-> *A modern replacement for `ls`.* 
+> *A modern replacement for `ls`.*
 >
 > ![exa-image](https://github.com/ogham/exa/raw/master/screenshots.png)
 
@@ -995,7 +998,7 @@ A nice text editor for markdown (<https://typora.io/>). Typora costs $14.99 but 
 
 ## Fonts
 
-You can manage and install fonts using homebrew. The website <https://www.nerdfonts.com/> provides many fun fonts that include glyphs (icons). When you use these fonts with tools like [starship](#starship) your terminal output will look much better! 
+You can manage and install fonts using homebrew. The website <https://www.nerdfonts.com/> provides many fun fonts that include glyphs (icons). When you use these fonts with tools like [starship](#starship) your terminal output will look much better!
 
 I use the *Fira Code Nerd Font* which is recommended by starship:
 
@@ -1014,4 +1017,3 @@ I have referenced and used the below guides many times. Check them out for addit
 
 - [Modern Python Developers Toolkit](https://pycon.switowski.com/) by Sebastian Witowski.
 - [UBC MDS software stack](https://ubc-mds.github.io/resources_pages/install_ds_stack_mac/).
-

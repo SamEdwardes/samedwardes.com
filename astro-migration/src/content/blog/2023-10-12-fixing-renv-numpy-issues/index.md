@@ -1,13 +1,17 @@
 ---
-title: How to Fix renv Numpy Issues
-authors: sedwardes
-tags: [linux, r, data science]
+author: Sam Edwardes
+date: 2023-10-12
+description: Reticulate is an R library that lets you execute Python code from within R. Recently, I attempted to use reticulate to access numpy from Python. Numpy was installed, but I kept getting an error message.
 keywords:
-    - r
-    - reticulate
-    - NumPy
-    - Python
-draft: false
+- r
+- reticulate
+- NumPy
+- Python
+tags:
+- linux
+- r
+- data science
+title: How to Fix renv Numpy Issues
 ---
 
 [Reticulate](https://github.com/rstudio/reticulate) is an R library that lets you execute Python code from within R. Recently, I attempted to use reticulate to access numpy from Python. Numpy was installed, but I kept getting the following message:

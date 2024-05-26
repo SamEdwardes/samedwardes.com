@@ -1,14 +1,17 @@
 ---
+author: Sam Edwardes
+date: 2020-01-31
+description: Jupyter Notebooks are an awesome tool. The standard way to open a Jupyter Notebook is from the command line.
+keywords: []
+tags:
+- jupyter
+- data science
 title: How to Open Jupyter Notebooks with a Double Click (Mac OS)
-authors: sedwardes
-tags: [jupyter, data science]
 ---
 
 ### Background
 
-Jupyter Notebooks are an awesome tool. The standard way to open a Jupyter Notebook is from the command line. 
-
-<!--truncate-->
+Jupyter Notebooks are an awesome tool. The standard way to open a Jupyter Notebook is from the command line.
 
 For example:
 

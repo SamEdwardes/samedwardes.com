@@ -1,7 +1,11 @@
 ---
+author: Sam Edwardes
+date: 2022-10-27
+description: GitHub has a friendly UI for performing code reviews. However, it only allows you to leave comments on the changed code. It does not allow you to leave comments or suggestions on existing code.
+keywords: []
+tags:
+- git
 title: How to do a Full Code Review on GitHub
-authors: sedwardes
-tags: [git]
 ---
 
 GitHub has a friendly UI for performing code reviews. However, it only allows you to leave comments on the changed code. It does not allow you to leave comments or suggestions on existing code. <!--truncate--> In the screenshot below, GitHub will only let me leave comments and suggestions on lines 6-13. I cannot suggest lines 1-5, even if I notice a typo or an error.
@@ -52,4 +56,3 @@ After merging the pull request, remember to pull the latest commits from main ba
 git checkout main
 git pull
 ```
-

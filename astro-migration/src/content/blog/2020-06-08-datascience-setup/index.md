@@ -1,12 +1,15 @@
 ---
+author: Sam Edwardes
+date: 2020-06-08
+description: One of the funnest (and most frustrating) parts of data science is the vast array of tools available to us. It can be overwhelming where to start. Every now and then I like to completely wipe my computer clean, and then reinstall everything from scratch. This helps clean up my computer, and make sure everything is running smoothly.
+keywords: []
+tags:
+- environment
+- data science
 title: The Ultimate Data Science Setup for Mac (2020)
-authors: sedwardes
-tags: [environment, data science]
 ---
 
 One of the funnest (and most frustrating) parts of data science is the vast array of tools available to us. It can be overwhelming where to start. Every now and then I like to completely wipe my computer clean, and then reinstall everything from scratch. This helps clean up my computer, and make sure everything is running smoothly.
-
-<!--truncate-->
 
 This is a living document that captures my most up to date set up. My set up is inspired by the University of British Columbia Data Science Program which provides helpful setup guides for three operating systems ([macOS](https://ubc-mds.github.io/resources_pages/install_ds_stack_mac/), [Windows](https://ubc-mds.github.io/resources_pages/install_ds_stack_windows/), and [Ubuntu](https://ubc-mds.github.io/resources_pages/install_ds_stack_ubuntu/)).
 
@@ -33,7 +36,7 @@ After I have miniconda installed I then work on setting up my python environment
 2. Create a new conda environment. You can either add packages as you wish, or get started by basing your data science environment off of my own. Run one of the following commands in your shell.
 
 ```bash {linenos=table}
-# option 1: start from scratch 
+# option 1: start from scratch
 conda create -name ds_base
 
 # option 2: start with my suggested packages

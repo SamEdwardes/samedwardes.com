@@ -1,14 +1,56 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
-const blogEntries = await getCollection('blog');
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
+
+import { getCollection, getEntry } from "astro:content";
+const blogEntries = (
+  await getCollection("blog", ({ data }) => {
+    return data.draft !== true;
+  })
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<h1>Blog</h1>
-
-<ul>
-  {blogEntries.map(blogPostEntry => (
-    <li>
-      <a href={`/blog/${blogPostEntry.slug}`}>{blogPostEntry.data.title}</a>
-    </li>
-  ))}
-</ul>
+<DefaultLayout metaTitle="blog | samedwardes.com">
+  <h1 class="text-4xl font-bold">Blog</h1>
+  <ul class="pt-8">
+    {
+      blogEntries.map((blogPostEntry) => (
+        <li class="pb-8">
+          <a
+            href={`/blog/${blogPostEntry.slug}`}
+            class:list={[
+              "text-2xl font-bold text-primary",
+              "hover:text-primary hover:drop-shadow-lg hover:underline",
+            ]}
+          >
+            {blogPostEntry.data.title}
+          </a>
+          <div class="text-light text-gray-500">
+            {blogPostEntry.data.date.toLocaleString("default", {
+              month: "long",
+            })}
+            {blogPostEntry.data.date.getDate()},
+            {blogPostEntry.data.date.getFullYear()}
+          </div>
+          <div>{blogPostEntry.data.description}</div>
+          <div class="flex flex-row justify-between pt-2">
+            <div class="flex flex-row gap-2">
+              <div class="font-bold">Tags: </div>
+              {blogPostEntry.data.tags?.map((tag) => (
+                <div class="rounded-full border border-gray-500 font-light px-2">{tag}</div>
+              ))}
+            </div>
+            <a
+              href={`/blog/${blogPostEntry.slug}`}
+              class:list={[
+                "font-bold text-primary",
+                "hover:text-primary hover:drop-shadow-lg hover:underline",
+              ]}
+            >
+              Read more
+            </a>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</DefaultLayout>

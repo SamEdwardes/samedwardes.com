@@ -1,18 +1,20 @@
 ---
-title: Replacing pip with uv for Python projects
-authors: sedwardes
-tags: [python, kubernetes]
+author: Sam Edwardes
+date: 2024-04-21
+description: uv is "an extremely fast Python package installer and resolver, written in Rust" from https://astral.sh. Recently, I have started using uv in my day-to-day Python workflows. After a few weeks of usage I am sold! uv will be my go-to package manager for Python projects moving forward. It is MUCH faster than pip and I really like the new workflow it provides me with `uv pip compile` and `uv pip sync`.
 keywords:
-    - python
-    - uv
-    - pip
-draft: false
+- python
+- uv
+- pip
+tags:
+- python
+- kubernetes
+title: Replacing pip with uv for Python projects
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-uv is "an extremely fast Python package installer and resolver, written in Rust" from <https://astral.sh>. Recently, I have started using uv in my day-to-day Python workflows. After a few weeks of usage I am sold! uv will be my go-to package manager for Python projects moving forward. It is MUCH faster than pip and I really like the new workflow it provides me with `uv pip compile` and `uv pip sync`.
+uv is "an extremely fast Python package installer and resolver, written in Rust" from https://astral.sh. Recently, I have started using uv in my day-to-day Python workflows. After a few weeks of usage I am sold! uv will be my go-to package manager for Python projects moving forward. It is MUCH faster than pip and I really like the new workflow it provides me with `uv pip compile` and `uv pip sync`.
 
 ## TL/DR
 
@@ -21,13 +23,10 @@ I am now using `uv` instead of `pip` for most of my projects. My workflow looks 
 ```bash
 alias uvinit='uv venv && source .venv/bin/activate'
 alias uvsync='uv pip compile requirements.in --quiet --output-file requirements.txt && uv pip sync requirements.txt'
-
 uvinit
 echo "pandas" > requirements.in
 uvsync
 ```
-
-<!--truncate-->
 
 ## Why uv?
 
@@ -37,11 +36,11 @@ For all of my future projects I plan to use uv because:
 - uv pip compile and uv pip sync are a better workflow for managing dependencies.
 - uv enforces best practices by forcing you to use virtual environments.
 
-There is one exception. For package development, I plan to still use poetry (<https://python-poetry.org>) because it some features that are specific to package development that uv does not have (e.g. like `poetry publish`).
+There is one exception. For package development, I plan to still use poetry (https://python-poetry.org) because it some features that are specific to package development that uv does not have (e.g. like `poetry publish`).
 
 ## Install uv
 
-See <https://github.com/astral-sh/uv> for more details.
+See https://github.com/astral-sh/uv for more details.
 
 ```bash
 # On macOS and Linux.
@@ -56,15 +55,15 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 ### Creating a virtual environment
 
 
-<Tabs groupId="workflow">
-<TabItem value="uv" label="uv">
+<Tabs>
+<TabItem  label="uv">
 
 ```bash
 uv venv
 ```
 
 </TabItem>
-<TabItem value="pip" label="pip">
+<TabItem  label="pip">
 
 ```bash
 python -m venv .venv
@@ -86,8 +85,8 @@ pandas
 
 Then install the requirements and the transitive dependencies.
 
-<Tabs groupId="workflow">
-<TabItem value="uv" label="uv">
+<Tabs>
+<TabItem  label="uv">
 
 ```bash
 # Identify all transitive dependencies and create requirements.txt
@@ -98,7 +97,7 @@ uv pip sync requirements.txt
 ```
 
 </TabItem>
-<TabItem value="pip" label="pip">
+<TabItem  label="pip">
 
 ```bash
 # Install all packages in requirements.in and the transitive dependencies
@@ -121,8 +120,8 @@ htmx
 
 Then install the new packages and the transitive dependencies.
 
-<Tabs groupId="workflow">
-<TabItem value="uv" label="uv">
+<Tabs>
+<TabItem  label="uv">
 
 ```bash
 # Identify all transitive dependencies and create requirements.txt
@@ -133,7 +132,7 @@ uv pip sync requirements.txt
 ```
 
 </TabItem>
-<TabItem value="pip" label="pip">
+<TabItem  label="pip">
 
 ```bash
 pip install -r requirements.in
@@ -154,8 +153,8 @@ rich
 htmx
 ```
 
-<Tabs groupId="workflow">
-<TabItem value="uv" label="uv">
+<Tabs>
+<TabItem  label="uv">
 
 ```bash
 # Identify all transitive dependencies and create requirements.txt
@@ -166,7 +165,7 @@ uv pip sync requirements.txt
 ```
 
 </TabItem>
-<TabItem value="pip" label="pip">
+<TabItem  label="pip">
 
 ```bash
 # Deactivate the current virtual environment

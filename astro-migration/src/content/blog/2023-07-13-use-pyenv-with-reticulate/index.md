@@ -1,18 +1,19 @@
 ---
-title: How to use pyenv with reticulate
-authors: sedwardes
-tags: [python, r]
+author: Sam Edwardes
+date: 2023-07-13
+description: The reticulate package allows you to execute Python code from R. If you use pyenv to install Python the default options will not work with reticulate.
 keywords:
-    - reticulate
-    - pyenv
-    - R
-    - python
-draft: false
+- reticulate
+- pyenv
+- R
+- python
+tags:
+- python
+- r
+title: How to use pyenv with reticulate
 ---
 
 The [reticulate](https://rstudio.github.io/reticulate/) package allows you to execute Python code from R. If you use [pyenv](https://github.com/pyenv/pyenv) to install Python the default options will not work with reticulate.
-
-<!--truncate-->
 
 For example:
 
@@ -54,6 +55,6 @@ py_discover_config()
 # NOTE: Python version was forced by RETICULATE_PYTHON
 os <- import("os")
 os$listdir(".")
-# [1] ".Renviron"        "requirements.txt" ".Rprofile"        "app.R"            ".venv"           
+# [1] ".Renviron"        "requirements.txt" ".Rprofile"        "app.R"            ".venv"
 # [6] "app.Rproj"        "renv.lock"        "renv"             ".Rproj.user"
 ```

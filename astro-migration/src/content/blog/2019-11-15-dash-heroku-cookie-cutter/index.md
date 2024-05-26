@@ -1,12 +1,17 @@
 ---
+author: Sam Edwardes
+date: 2019-11-15
+description: I love using Plotly to build interactive visualizations. The syntax is very similar across R and Python, and plots looks great.
+keywords: []
+tags:
+- viz
+- python
+- dashboards
+- data science
 title: How to Deploy a Containerized Python Dash App to Heroku
-tags: [viz, python, dashboards, data science]
-authors: sedwardes
 ---
 
 I love using Plotly to build interactive visualizations. The syntax is very similar across R and Python, and plots looks great.
-
-<!--truncate-->
 
 One challenge I have found is sharing these dashboards in the wild. This blog posts walks you through how to build a Plotly Dash App in a docker container that you can deploy to Heroku.
 
@@ -69,11 +74,11 @@ if __name__ == "__main__":
                    port=port)
 ```
 
-The key part of the above code is to have `port=port`. 
+The key part of the above code is to have `port=port`.
 
 ### Step 3: `Dockerfile` and `Requirements.txt`
 
-I chose to use a docker image ([amancevice/pandas](https://hub.docker.com/r/amancevice/pandas)) that started with Pandas, and then add in the dash requirements though the `Dockerfile`. 
+I chose to use a docker image ([amancevice/pandas](https://hub.docker.com/r/amancevice/pandas)) that started with Pandas, and then add in the dash requirements though the `Dockerfile`.
 
 `Dockerfile`
 

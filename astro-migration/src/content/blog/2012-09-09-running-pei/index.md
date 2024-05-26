@@ -1,13 +1,16 @@
 ---
-title: Running Across PEI
-tags: [running, outdoors]
-author: samedwardes
+author: Sam Edwardes
+date: 2012-09-09
+description: The summer of 2013 I and my friends Cory Babiak, Taylor Jenkins, and Jose Pauig ran across PEI. Jose followed us on a bike for support; Cory Taylor and myself all ran. We raised over $7000 for Project Jumpstart, a charity that helps Canadian Kids who cannot afford to play sports get in the game. The run itself was over 6 marathons in six days. It ended up being an extremely challenging task, much harder on the body than cycling. By the end we were running and walking the trail, and moving at a snails pace, but we did finish in our goal of 280 km in six days!
 image: https://i.imgur.com/H07yZro.jpg
+keywords: []
+tags:
+- running
+- outdoors
+title: Running Across PEI
 ---
 
 The summer of 2013 I and my friends Cory Babiak, Taylor Jenkins, and Jose Pauig ran across PEI. Jose followed us on a bike for support; Cory Taylor and myself all ran. We raised over $7000 for Project Jumpstart, a charity that helps Canadian Kids who cannot afford to play sports get in the game. It was great raising money for Project Jumpstart, as it is something we all felt very strong about. The run itself was over 6 marathons in six days. It ended up being an extremely challenging task, much harder on the body than cycling. By the end we were running and walking the trail, and moving at a snails pace, but we did finish in our goal of 280 km in six days!
-
-<!--truncate-->
 
 ![pei-start-water](https://i.imgur.com/4UPms8m.png)
 
@@ -21,10 +24,10 @@ The summer of 2013 I and my friends Cory Babiak, Taylor Jenkins, and Jose Pauig 
 
 Click on one of the links below to jump to a specific section:
 
+- [Blog Post Index](#blog-post-index)
 - [Video](#video)
-- [Trip Route](#route)
-- [Gear and Equipment](#gear)
-- [Other Resources](#resources)
+- [Route](#route)
+- [Gear](#gear)
 
 ## Video
 
@@ -38,7 +41,7 @@ Above is the route we took. You don't really have too many options when it comes
 
 ![pei-sam-jose](https://i.imgur.com/qUfo5yg.jpg)
 
-These were great places to stop and rest. Also it was pretty easy to find a camping spot every night. There was no official campgrounds really along the way, but every night we were able to find somewhere to sleep. The only problem we really encountered camping is that ATV's and dirtbikes start ripping around the trail when the sun goes down, this can make it harder to fall asleep. Getting food along the trail was also not a problem for the most part. The only day we really came across no where for food was the last day, fortunately Cory's dad met us along the way to drop off some much needed food. 
+These were great places to stop and rest. Also it was pretty easy to find a camping spot every night. There was no official campgrounds really along the way, but every night we were able to find somewhere to sleep. The only problem we really encountered camping is that ATV's and dirtbikes start ripping around the trail when the sun goes down, this can make it harder to fall asleep. Getting food along the trail was also not a problem for the most part. The only day we really came across no where for food was the last day, fortunately Cory's dad met us along the way to drop off some much needed food.
 
 ![pei-100](https://i.imgur.com/fRuhM0N.jpg)
 
@@ -50,7 +53,7 @@ After experiencing the confederation trail and running 280km I think its safe to
 
 ## Gear
 
-Luckily for us we were able to use much of the same gear from our cycling trip across Canada. Once again we used the Surly Long Haul Trucker to carry all of our gear, as well as the side bags we had bought earlier. On top of that we used a 4 man tent, myself, Jose, and Taylor each had sleeping bags of different sizes, and Cory only brought a single sheet to sleep with. The bike was extremely hard to manoeuvre as we probably had 70+ lbs of gear and food on there. 
+Luckily for us we were able to use much of the same gear from our cycling trip across Canada. Once again we used the Surly Long Haul Trucker to carry all of our gear, as well as the side bags we had bought earlier. On top of that we used a 4 man tent, myself, Jose, and Taylor each had sleeping bags of different sizes, and Cory only brought a single sheet to sleep with. The bike was extremely hard to manoeuvre as we probably had 70+ lbs of gear and food on there.
 
 ![loaded-bike](https://i.imgur.com/Je4xjsa.jpg)
 

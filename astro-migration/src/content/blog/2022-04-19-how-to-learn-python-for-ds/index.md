@@ -1,8 +1,13 @@
 ---
-title: How to learn Python for Data Science
-authors: sedwardes
+author: Sam Edwardes
+date: 2022-04-19
+description: I wrote a blog post about How to learn R which I have found to be a very helpful resource for sharing with others. Now, I want to do the same for Python!
 draft: true
-tags: [data science, r]
+keywords: []
+tags:
+- data science
+- r
+title: How to learn Python for Data Science
 ---
 
 I wrote a blog post about [How to learn R](./2022-01-31-how-to-learn-r.md) which I have found to be a very helpful resource for sharing with others. Now, I want to do the same for Python!

@@ -1,8 +1,13 @@
 ---
-title: The Best Great Lake Surfing Videos
-tags: [surfing, outdoors]
-authors: sedwardes
+author: Sam Edwardes
+date: 2019-07-17
+description: Here are a handful of videos that inspired me to get out there, buy a surfboard and surf the Great Lakes.
 image: https://i.imgur.com/Pxrgm1T.png
+keywords: []
+tags:
+- surfing
+- outdoors
+title: The Best Great Lake Surfing Videos
 ---
 
 Here are a handful of videos that inspired me to get out there, buy a surfboard and surf the Great Lakes.

@@ -1,7 +1,12 @@
 ---
+author: Sam Edwardes
+date: 2020-05-31
+description: When a UFC match ends with a knock-out or submission there is never any doubt who the better fighter was. But only 54% of fights end with a knock-out or submission. The other 45% of fights go to the judges score cards.
+keywords: []
+tags:
+- sports
+- data science
 title: Is UFC Judging Fair?
-authors: sedwardes
-tags: [sports, data science]
 ---
 
 When a UFC match ends with a knock-out or submission there is never any

@@ -1,9 +1,12 @@
 ---
-title: How to learn Kubernetes
-authors: sedwardes
-tags: [kubernetes]
+author: Sam Edwardes
+date: 2023-04-14
+description: Over the past year I have dedicated a lot of time to learning Kubernetes. Here are the resources I have found most helpful!
 keywords:
-    - How to learn kubernetes
+- How to learn kubernetes
+tags:
+- kubernetes
+title: How to learn Kubernetes
 ---
 
 Over the past year I have dedicated a lot of time to learning Kubernetes. Here are the resources I have found most helpful!

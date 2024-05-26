@@ -1,12 +1,14 @@
 ---
-title: How to Send and Execute Code from The Editor to Terminal in VS Code
-authors: sedwardes
-tags: [command line]
+author: Sam Edwardes
+date: 2023-06-11
+description: VS Code has a built in feature that allows you to send code directly from the editor to the terminal. By default, it is not assigned to any shortcut. You can assign it to a shortcut by adding the following to your `keybindings.json` file.
 keywords:
-    - VS Code
-    - Terminal
-    - Shortcuts
-draft: false
+- VS Code
+- Terminal
+- Shortcuts
+tags:
+- command line
+title: How to Send and Execute Code from The Editor to Terminal in VS Code
 ---
 
 VS Code has a built in feature that allows you to send code directly from the editor to the terminal. By default, it is not assigned to any shortcut. You can assign it to a shortcut by adding the following to your `keybindings.json` file.

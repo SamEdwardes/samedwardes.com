@@ -1,13 +1,17 @@
 ---
-title: Cycling Across Canada
-tags: [cycling, camping, outdoors]
-authors: sedwardes
+author: Sam Edwardes
+date: 2019-08-22
+description: During my first year of university my friend Cory and I began to plan a cycling trip across Canada. I don't exactly remember where the idea came from, but it quickly developed from a dream to something that could actually happen. We decided to raise money for the B.C. Cancer Foundation, as both of our families have been effected by cancer. We raised over $15,000 from friends, families, and local businesses. The experiences of fundraising, and the completion of the actual cycling trip have been two of the most rewarding experiences of my life.
 image: https://i.imgur.com/jSPI62V.jpg
+keywords: []
+tags:
+- cycling
+- camping
+- outdoors
+title: Cycling Across Canada
 ---
 
 During my first year of university my friend Cory and I began to plan a cycling trip across Canada. I don’t exactly remember where the idea came from, but it quickly developed from a dream to something that could actually happen. We decided to raise money for the B.C. Cancer Foundation, as both of our families have been effected by cancer. We raised over $15,000 from friends, families, and local businesses. The experiences of fundraising, and the completion of the actual cycling trip have been two of the most rewarding experiences of my life.
-
-<!--truncate-->
 
 ## Table of Contents
 

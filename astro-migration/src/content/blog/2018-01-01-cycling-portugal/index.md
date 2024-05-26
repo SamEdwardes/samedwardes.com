@@ -1,8 +1,13 @@
 ---
-title: Cycling Portugal
-authors: sedwardes
-tags: [cycling, outdoors]
+author: Sam Edwardes
+date: 2018-01-01
+description: While studying abroad in Istanbul I took my semester break to travel to Portugal and cycle from Lisbon to Faro. The goal of the trip was to really enjoy the nature. I wanted it to be slow paced and relaxing. I wanted to take many stops, and enjoy all the sights and sounds. When I cycled across Canada there was no stopping to smell the roses. We were really determined to get across the country in 50 days, so we missed a lot of cool sights along the way for the sake of time.
 image: https://i.imgur.com/1UfEY2c.jpg
+keywords: []
+tags:
+- cycling
+- outdoors
+title: Cycling Portugal
 ---
 
 While studying abroad in Istanbul I took my semester break to travel to Portugal and cycle from Lisbon to Faro. The goal of the trip was to really enjoy the nature. I wanted it to be slow paced and relaxing. I wanted to take many stops, and enjoy all the sights and sounds. When I cycled across Canada there was no stopping to smell the roses. We were really determined to get across the country in 50 days, so we missed a lot of cool sights along the way for the sake of time.
@@ -17,9 +22,10 @@ I found it very difficult to try and force myself to slow down and stop. I think
 
 Click on one of the links below to jump to a specific section:
 
+- [Blog Post Index](#blog-post-index)
 - [Video](#video)
-- [Trip Route](#trip-route)
-- [Gear and Equipment](#gear-and-equipment)
+  - [Trip Route](#trip-route)
+  - [Gear and Equipment](#gear-and-equipment)
 
 ## Video
 
@@ -60,7 +66,7 @@ There is also a problem of not many ideal camping spots. While there are lots of
 
 ![cockpit view](https://i.imgur.com/0xlSq21.jpg)
 
-Since I was in Europe I had none of my own cycling equipment with me. I looked online at several different companies, and decided to rent all my gear from Cycling-Rentals.com. They turned out to be a great choice. Their customer service was excellent (they always responded to emails quickly) and the equipment was all in great condition and high quality. I ended up renting their men's touring suspension bike, the BH Silvertip. I think the bike was excellent, although I did not enjoy touring on a suspension bike very much. If I were to do it again I would opt for a bike without suspension. I felt the suspension took away from my power and really slowed me down. Since the roads are fine and I didn't do any mountain biking there was no need for this. 
+Since I was in Europe I had none of my own cycling equipment with me. I looked online at several different companies, and decided to rent all my gear from Cycling-Rentals.com. They turned out to be a great choice. Their customer service was excellent (they always responded to emails quickly) and the equipment was all in great condition and high quality. I ended up renting their men's touring suspension bike, the BH Silvertip. I think the bike was excellent, although I did not enjoy touring on a suspension bike very much. If I were to do it again I would opt for a bike without suspension. I felt the suspension took away from my power and really slowed me down. Since the roads are fine and I didn't do any mountain biking there was no need for this.
 
 ![bike on bench](https://i.imgur.com/D8TFlHg.jpg)
 

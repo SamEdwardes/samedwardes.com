@@ -1,12 +1,15 @@
 ---
+author: Sam Edwardes
+date: 2022-01-31
+description: As a data scientist one of the most common questions I get from colleagues and clients is how to get started on learning R. There is a plethora of great options out there today. Some of which are paid, and some of which are free.
+keywords: []
+tags:
+- data science
+- r
 title: How to learn R
-authors: sedwardes
-tags: [data science, r]
 ---
 
 As a data scientist one of the most common questions I get from colleagues and clients is how to get started on learning R. There is a plethora of great options out there today. Some of which are paid, and some of which are free.
-
-<!--truncate-->
 
 ## TL/DR
 

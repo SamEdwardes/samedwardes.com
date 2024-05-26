@@ -1,15 +1,21 @@
 ---
-title: Automatic Homelab HTTPS with Caddy and Cloudflare
-authors: sedwardes
-tags: [linux, homelab, infrastructure, command line, tls]
+author: Sam Edwardes
+date: 2023-11-19
+description: Caddy and Cloudflare make it easy to get TLS certificates for your homelab. In this blog post I will walk you through how to set up Caddy and Cloudflare for automated TLS!
 keywords:
-    - homelab
-    - cloudflare
-    - tls
-    - caddy
-    - ssl
-    - https
-draft: false
+- homelab
+- cloudflare
+- tls
+- caddy
+- ssl
+- https
+tags:
+- linux
+- homelab
+- infrastructure
+- command line
+- tls
+title: Automatic Homelab HTTPS with Caddy and Cloudflare
 ---
 
 [Caddy](https://caddyserver.com) and [Cloudflare](https://www.cloudflare.com/application-services/products/dns/) make it easy to get TLS certificates for your homelab. In this blog post I will walk you through how to set up Caddy and Cloudflare for automated TLS!

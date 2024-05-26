@@ -1,10 +1,14 @@
 ---
-title: My requirements.txt workflow for a new Python project
-authors: sedwardes
-tags: [linux, python, command line]
+author: Sam Edwardes
+date: 2024-01-09
+description: My workflow for using a requirements.txt file in a new Python project.
 keywords:
-    - Python dependencies
-draft: false
+- Python dependencies
+tags:
+- linux
+- python
+- command line
+title: My requirements.txt workflow for a new Python project
 ---
 
 I usually create a `requirements.txt` when I start a new Python project. I will do something like this:
