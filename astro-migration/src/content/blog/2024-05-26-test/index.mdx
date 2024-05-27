@@ -1,0 +1,52 @@
+---
+author: Sam Edwardes
+date: 2024-05-26
+description: uv is "an extremely fast Python package installer and resolver, written in Rust" from https://astral.sh. Recently, I have started using uv in my day-to-day Python workflows. After a few weeks of usage I am sold! uv will be my go-to package manager for Python projects moving forward. It is MUCH faster than pip and I really like the new workflow it provides me with `uv pip compile` and `uv pip sync`.
+keywords:
+- python
+- uv
+- pip
+tags:
+- python
+- kubernetes
+title: Test
+---
+
+Test
+
+import Test from '../../../components/Test.astro'
+import TabGroup from '../../../components/TabGroup.vue'
+import TabList from '../../../components/TabList.vue'
+import Tab from '../../../components/Tab.vue'
+import TabPanels from '../../../components/TabPanels.vue'
+import TabPanel from '../../../components/TabPanel.vue'
+
+import Tabs2 from '../../../components/Tabs2.astro'
+import TabHeader2 from '../../../components/TabHeader2.astro'
+import TabContent2 from '../../../components/TabContent2.astro'
+
+
+## First tabs
+
+<Test/>
+
+## Second tabs
+
+<Tabs2>
+    <Fragment slot="tab-headers">
+        <TabHeader2>Tab 1 (one)</TabHeader2>
+        <TabHeader2>Tab 2</TabHeader2>
+    </Fragment>
+    <Fragment slot="tab-content">
+        <TabContent2>
+
+This is content in tab 1:
+
+```bash
+echo 'hello world'
+```
+
+        </TabContent2>
+        <TabContent2>Content 2</TabContent2>
+    </Fragment>
+</Tabs2>

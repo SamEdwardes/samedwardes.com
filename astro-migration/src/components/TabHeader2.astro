@@ -1,0 +1,12 @@
+<!-- Include these scripts somewhere on the page: -->
+<script defer src="https://unpkg.com/@alpinejs/ui@3.14.0-beta.0/dist/cdn.min.js"></script>
+<script defer src="https://unpkg.com/@alpinejs/focus@3.14.0/dist/cdn.min.js"></script>
+<script defer src="https://unpkg.com/alpinejs@3.14.0/dist/cdn.min.js"></script>
+
+
+<button x-tabs:tab type="button"
+    :class="$tab.isSelected ? 'border-gray-200 bg-white' : 'border-transparent'"
+    class="inline-flex rounded-t-md border-t border-l border-r px-5 py-2.5"
+>
+<slot />
+</button>
