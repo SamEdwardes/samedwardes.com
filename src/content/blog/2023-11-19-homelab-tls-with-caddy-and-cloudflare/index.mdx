@@ -18,9 +18,9 @@ tags:
 title: Automatic Homelab HTTPS with Caddy and Cloudflare
 ---
 
-[Caddy](https://caddyserver.com) and [Cloudflare](https://www.cloudflare.com/application-services/products/dns/) make it easy to get TLS certificates for your homelab. In this blog post I will walk you through how to set up Caddy and Cloudflare for automated TLS!
+import Callout from '../../../components/Callout.astro'
 
-<!--truncate-->
+[Caddy](https://caddyserver.com) and [Cloudflare](https://www.cloudflare.com/application-services/products/dns/) make it easy to get TLS certificates for your homelab. In this blog post I will walk you through how to set up Caddy and Cloudflare for automated TLS!
 
 ## Getting started
 
@@ -36,8 +36,8 @@ Cloudflare provides a free DNS service. We will use this service to create DNS r
 
 If you purchased your domain through another provider you will need to manually configure Cloudflare to be your DNS provider. Here are a few examples:
 
-- Namecheap: <https://www.namecheap.com/support/knowledgebase/article.aspx/9607/2210/how-to-set-up-dns-records-for-your-domain-in-cloudflare-account/>
-- GoDaddy: <https://blog.softbinator.com/set-up-cloudflare-dns-godaddy-domains/>
+- Namecheap: https://www.namecheap.com/support/knowledgebase/article.aspx/9607/2210/how-to-set-up-dns-records-for-your-domain-in-cloudflare-account/
+- GoDaddy: https://blog.softbinator.com/set-up-cloudflare-dns-godaddy-domains/
 
 The key is that you need to tell your domain registrar to use Cloudflare's DNS servers by changing your domain's nameservers to the nameservers for Cloudflare. One advantage of buying the domain through Cloudflare is that this step is done for you automatically.
 
@@ -45,16 +45,16 @@ Lastly, set up the required DNS records to point to the internal IP address of y
 
 ![Cloudflare DNS records](./imgs/cloudflare-dns-records.png)
 
-:::note
+<Callout title="Note">
 This may seem a bit strange. How will Cloudflare no what to do with `100.118.49.101`? This is an internal IP address that is only accessible from within your homelab. The trick is that Cloudflare does not care! We just need the DNS name `edwardes.xyz` to resolve to this IP address. When I am on my home network it will resolve to my server hosting Caddy. When I am not inside my home network it will still resolve to `100.118.49.101`, but this IP address will mean nothing to the outside world.
-:::
+</Callout>
 
 
 ## Setting up Caddy
 
-Next we will install Caddy in our homelab. Caddy is able to automatically provision HTTPS certificates for you. If you have public facing website, you can do with with very little configuration. Since we are setting up private services in our homelab we have a little bit of extra work to do. You will need to install Caddy with the CloudFlare module <https://github.com/caddy-dns/cloudflare>.
+Next we will install Caddy in our homelab. Caddy is able to automatically provision HTTPS certificates for you. If you have public facing website, you can do with with very little configuration. Since we are setting up private services in our homelab we have a little bit of extra work to do. You will need to install Caddy with the CloudFlare module https://github.com/caddy-dns/cloudflare.
 
-1. Get the URL to download Caddy with the Cloudflare module already enabled. To get the URL for this, go to <https://caddyserver.com/download?package=github.com%2Fcaddy-dns%2Fcloudflare>. Make sure you have `caddy-dns/cloudflare` selected in the list of plugins and that you have selected your desired operating system from the **Platform** dropdown.  h Copy the URL for the download.
+1. Get the URL to download Caddy with the Cloudflare module already enabled. To get the URL for this, go to https://caddyserver.com/download?package=github.com%2Fcaddy-dns%2Fcloudflare. Make sure you have `caddy-dns/cloudflare` selected in the list of plugins and that you have selected your desired operating system from the **Platform** dropdown.  h Copy the URL for the download.
 
 ![Caddy download page](./imgs/caddy-download.png)
 
@@ -131,8 +131,8 @@ Address: 100.118.49.101
 
 I found these resources helpful when setting up automated TLS:
 
-- <https://notthebe.ee/blog/easy-ssl-in-homelab-dns01/>
-- <https://caddyserver.com/download?package=github.com%2Fcaddy-dns%2Fcloudflare>
-- <https://samjmck.com/en/blog/using-caddy-with-cloudflare/>
-- <https://github.com/caddy-dns/cloudflare>
-- <https://vakarthik.com/posts/2021/compiling-and-building-caddy/>
+- https://notthebe.ee/blog/easy-ssl-in-homelab-dns01/
+- https://caddyserver.com/download?package=github.com%2Fcaddy-dns%2Fcloudflare
+- https://samjmck.com/en/blog/using-caddy-with-cloudflare/
+- https://github.com/caddy-dns/cloudflare
+- https://vakarthik.com/posts/2021/compiling-and-building-caddy/
