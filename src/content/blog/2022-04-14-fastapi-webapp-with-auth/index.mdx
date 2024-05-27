@@ -11,24 +11,18 @@ tags:
 title: How to create a FastAPI Web App with authentication
 ---
 
-import CodeBlock from '@theme/CodeBlock';
-import MainPy from '!!raw-loader!./main.py';
-import RequirementsTxt from '!!raw-loader!./requirements.txt';
-import IndexHtml from '!!raw-loader!./templates/index.html';
-import LoginHtml from '!!raw-loader!./templates/login.html';
-import PrivateHtml from '!!raw-loader!./templates/private.html';
-import SiteMapHtml from '!!raw-loader!./templates/_site_map.html';
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
+import Tabs from '../../../components/Tabs.astro'
+import TabHeader from '../../../components/TabHeader.astro'
+import TabContent from '../../../components/TabContent.astro'
+import Callout from '../../../components/Callout.astro'
+import Collapse from '../../../components/Collapse.astro'
+import LocalCodeChunk from '../../../components/LocalCodeChunk.astro'
 
 I have recently been exploring how to use FastAPI to build web apps. Check out this recent blog post [How to create a FastAPI Web App with MongoDB and Beanie](../2022-03-18-fastapi-beanie-one-page/index.mdx). One area I have found difficult is configuring authentication for web apps in FastAPI. The FastAPI [security docs](https://fastapi.tiangolo.com/tutorial/security/) are really good, however they focus only on securing API endpoints, and not how to implement security for a web app. This blog post will demonstrate how to stand up a fully functional FastAPI web app with authentication.
 
-<!--truncate-->
-
 ## TL/DR
 
-All of the code can be found on GitHub: <https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-04-14-fastapi-webpage-with-auth>. You can download the code as a zip file using think link from [DownGit](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-04-14-fastapi-webapp-with-auth). If you you want to see the complete code jump right to the [Full code overview](#full-code-overview) section of this blog post.
+All of the code can be found on GitHub: https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-04-14-fastapi-webpage-with-auth. You can download the code as a zip file using think link from [DownGit](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-04-14-fastapi-webapp-with-auth). If you you want to see the complete code jump right to the [Full code overview](#full-code-overview) section of this blog post.
 
 ## Motivation
 
@@ -39,10 +33,7 @@ The site I will build is very simple, but hopefully it is complex enough to demo
 1. Define endpoints that are only accessible to users who have authenticated, and
 2. Have content in pages that will dynamically render only if a user is authenticated.
 
-<details>
-<summary>
-Expand this section to see a screenshot and brief description of each page.
-</summary>
+<Collapse title="Expand this section to see a screenshot and brief description of each page.">
 
 **Home page**
 
@@ -70,7 +61,7 @@ If you try to view the page before logging in you will get this response:
 
 ![private-logged-in](./imgs/private-page-not-logged-in.png)
 
-</details>
+</Collapse>
 
 ## Project setup
 
@@ -150,24 +141,22 @@ Your project structure will look like this:
 Below is the complete code for each file 🎉!
 
 <Tabs>
-    <TabItem value="requirements" label="requirements.txt">
-        <CodeBlock title="requirements.txt">{RequirementsTxt}</CodeBlock>
-    </TabItem>
-    <TabItem value="main" label="main.py">
-        <CodeBlock language="python" title="main.py">{MainPy}</CodeBlock>
-    </TabItem>
-    <TabItem value="index" label="index.html">
-        <CodeBlock language="html" title="templates/index.html">{IndexHtml}</CodeBlock>
-    </TabItem>
-    <TabItem value="login" label="login.html">
-        <CodeBlock language="html" title="templates/login.html">{LoginHtml}</CodeBlock>
-    </TabItem>
-    <TabItem value="private" label="private.html">
-        <CodeBlock language="html" title="templates/private.html">{PrivateHtml}</CodeBlock>
-    </TabItem>
-    <TabItem value="sitemap" label="_site_map.html">
-        <CodeBlock language="html" title="templates/_site_map.html">{SiteMapHtml}</CodeBlock>
-    </TabItem>
+<Fragment slot="tab-headers">
+    <TabHeader>requirements.txt</TabHeader>
+    <TabHeader>main.py</TabHeader>
+    <TabHeader>templates/index.html</TabHeader>
+    <TabHeader>templates/login.html</TabHeader>
+    <TabHeader>templates/private.html</TabHeader>
+    <TabHeader>templates/_site_map.html</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+    <TabContent><LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/requirements.txt" fileType="html" /></TabContent>
+    <TabContent><LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/main.py" fileType="python" /></TabContent>
+    <TabContent><LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/index.html" fileType="html" /></TabContent>
+    <TabContent><LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/login.html" fileType="html" /></TabContent>
+    <TabContent><LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/private.html" fileType="html" /></TabContent>
+    <TabContent><LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/_site_map.html" fileType="html" /></TabContent>
+</Fragment>
 </Tabs>
 
 ## Code walk through
@@ -255,10 +244,7 @@ settings = Settings()
 
 To me, this is the most complex part of the app. Expand the code snippet below to see all of the details. In this section I will walk through some of the key parts in more detail below.
 
-<details>
-<summary>
-Expand to see the code snippets related to authentication 🔐
-</summary>
+<Collapse title="Expand to see the code snippets related to authentication 🔐">
 
 ```python
 # --------------------------------------------------------------------------
@@ -381,7 +367,7 @@ def get_current_user_from_cookie(request: Request) -> User:
     return user
 ```
 
-</details>
+</Collapse>
 
 #### OAuth2PasswordBearer
 
@@ -389,8 +375,14 @@ FastAPI comes with a class out of the box named [`OAuth2PasswordBearer`](https:/
 
 In order to use a similar approach that works with web apps I made a small modification to FastAPIs implementation of `OAuth2PasswordBearer`. Instead of getting the `authorization` from the `request` header, we get it from the `request` cookie.
 
+
 <Tabs>
-<TabItem value="passwordBearerMyApp" label="My implementation">
+<Fragment slot="tab-headers">
+    <TabHeader>My implementation</TabHeader>
+    <TabHeader>FastAPI implementation</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 
 ```python
@@ -431,8 +423,8 @@ class OAuth2PasswordBearerWithCookie(OAuth2):
         return param
 ```
 
-</TabItem>
-<TabItem value="passwordBearerFastAPI" label="FastAPI implementation">
+</TabContent>
+<TabContent>
 
 ```python
 class OAuth2PasswordBearer(OAuth2):
@@ -472,7 +464,8 @@ class OAuth2PasswordBearer(OAuth2):
         return param
 ```
 
-</TabItem>
+</TabContent>
+</Fragment>
 </Tabs>
 
 After defining our custom `OAuth2PasswordBearerWithCookie` we create an instance.
@@ -483,7 +476,7 @@ oauth2_scheme = OAuth2PasswordBearerWithCookie(tokenUrl="token")
 
 #### Access token
 
-The access token is essentially how we will allow users to access protected web pages after authenticating. Just like in the FastAPI docs, I will use JWT tokens. Read more about them here: <https://jwt.io>. Our function `create_access_token` will be used to create a new JWT after a user has authenticated. The token will then be stored in the browser as a cookie (in a following code snippet).
+The access token is essentially how we will allow users to access protected web pages after authenticating. Just like in the FastAPI docs, I will use JWT tokens. Read more about them here: https://jwt.io. Our function `create_access_token` will be used to create a new JWT after a user has authenticated. The token will then be stored in the browser as a cookie (in a following code snippet).
 
 ```python
 import datetime as dt
@@ -566,11 +559,10 @@ decoded_jwt = jwt.decode(encoded_jwt, key="secret-key")
 print(decoded_jwt)
 # {'username': 'sam', 'admin': True}
 ```
-
-:::tip
+<Callout title="Tip">
 You can see the cookies that are currently set in your browser using your browser's built in developer tools.
 ![screenshot](./imgs/cookie.png)
-:::
+</Callout>
 
 #### Getting the user from JWT
 
@@ -646,22 +638,34 @@ If you made it this far, you are in the home stretch. All that is left is to def
 Our home page is actually pretty interesting. The content of the home page will be dynamic. If the user is logged in they will see one thing. If they are not logged in they will see something elses.
 
 <Tabs>
-<TabItem value="homeLoggedOut" label="Logged out">
+<Fragment slot="tab-headers">
+    <TabHeader>Logged out</TabHeader>
+    <TabHeader>Logged in</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 > ![](./imgs/home-not-logged-in.png)
 
-</TabItem>
-<TabItem value="homeLoggedIn" label="Logged in">
+</TabContent>
+<TabContent>
 
 > ![](./imgs/home-logged-in.png)
 
-</TabItem>
+</TabContent>
+</Fragment>
 </Tabs>
 
 We achieve this in our API endpoint by attempting to get the current user from the cookie we set. If this function fails, it means the user is not logged in so we assign `None` to `user`.
 
 <Tabs>
-<TabItem value="homeEndPoint" label="endpoint">
+<Fragment slot="tab-headers">
+    <TabHeader>endpoint</TabHeader>
+    <TabHeader>view</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
+
 
 ```python
 from fastapi.responses import HTMLResponse
@@ -682,10 +686,13 @@ def index(request: Request):
     return templates.TemplateResponse("index.html", context)
 ```
 
-</TabItem>
-    <TabItem value="HomeView" label="view">
-        <CodeBlock language="html" title="templates/index.html">{IndexHtml}</CodeBlock>
-    </TabItem>
+</TabContent>
+<TabContent>
+
+<LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/index.html" fileType="html" />
+
+</TabContent>
+</Fragment>
 </Tabs>
 
 Then on the templating side we render different content based on if `user` is `None` or not:
@@ -696,22 +703,33 @@ Then on the templating side we render different content based on if `user` is `N
 Our private page is only accessible to users who have logged in. Unlike our home page, we do not need any conditional logic here.
 
 <Tabs>
-<TabItem value="privateLoggedOut" label="Logged out">
+<Fragment slot="tab-headers">
+    <TabHeader>Logged out</TabHeader>
+    <TabHeader>Logged in</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 > ![](./imgs/private-page-not-logged-in.png)
 
-</TabItem>
-<TabItem value="privateLoggedIn" label="Logged in">
+</TabContent>
+<TabContent>
 
 > ![](./imgs/private-page-logged-in.png)
 
-</TabItem>
+</TabContent>
+</Fragment>
 </Tabs>
 
 How do we achieve this? They key is our use of `Depends` in the function definition. If we use `user: User = Depends(get_current_user_from_token))` on any endpoint, that endpoint will only be accessible to users who have logged in.
 
 <Tabs>
-<TabItem value="privateEndPoint" label="endpoint">
+<Fragment slot="tab-headers">
+    <TabHeader>endpoint</TabHeader>
+    <TabHeader>view</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 ```python
 from fastapi import Depends
@@ -732,10 +750,13 @@ def index(request: Request, user: User = Depends(get_current_user_from_token)):
     return templates.TemplateResponse("private.html", context)
 ```
 
-</TabItem>
-    <TabItem value="privateView" label="view">
-        <CodeBlock language="html" title="templates/private.html">{PrivateHtml}</CodeBlock>
-    </TabItem>
+</TabContent>
+<TabContent>
+
+<LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/private.html" fileType="html" />
+
+</TabContent>
+</Fragment>
 </Tabs>
 
 #### Login page - GET
@@ -745,7 +766,12 @@ Our login page is very simple. It is accessible to everyone, and there is no con
 > ![](./imgs/login.png)
 
 <Tabs>
-<TabItem value="loginEndPoint" label="endpoint">
+<Fragment slot="tab-headers">
+    <TabHeader>endpoint</TabHeader>
+    <TabHeader>view</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 ```python
 from fastapi.responses import HTMLResponse
@@ -761,10 +787,13 @@ def login_get(request: Request):
     return templates.TemplateResponse("login.html", context)
 ```
 
-</TabItem>
-    <TabItem value="loginView" label="view">
-        <CodeBlock language="html" title="templates/login.html">{LoginHtml}</CodeBlock>
-    </TabItem>
+</TabContent>
+<TabContent>
+
+<LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/login.html" fileType="html" />
+
+</TabContent>
+</Fragment>
 </Tabs>
 
 #### Login page - POST
@@ -776,7 +805,12 @@ The "post" side of logging in is a bit more complicated. There are a few things 
 - Notice that we we validate the form our response is `response = RedirectResponse("/", status.HTTP_302_FOUND)`. This will redirect our user to the home page. It is important that you include `status.HTTP_302_FOUND`. If you do not, FastAPI will send a post request against `"/"`. We have not defined a post request endpoint for `"/"`. By using `status.HTTP_302_FOUND` FastAPI knows to send a get request (this part was tricky and took me a lot of googling to figure out 🕵️).
 
 <Tabs>
-<TabItem value="loginEndPoint" label="endpoint">
+<Fragment slot="tab-headers">
+    <TabHeader>endpoint</TabHeader>
+    <TabHeader>view</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 ```python
 from fastapi import Request
@@ -825,10 +859,13 @@ async def login_post(request: Request):
     return templates.TemplateResponse("login.html", form.__dict__)
 ```
 
-</TabItem>
-    <TabItem value="loginView" label="view">
-        <CodeBlock language="html" title="templates/login.html">{LoginHtml}</CodeBlock>
-    </TabItem>
+</TabContent>
+<TabContent>
+
+<LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/login.html" fileType="html" />
+
+</TabContent>
+</Fragment>
 </Tabs>
 
 #### Logout endpoint
@@ -839,7 +876,12 @@ The final feature our web app is the ability to logout. There is no logout view,
 2. Redirect the user to the home page.
 
 <Tabs>
-<TabItem value="logoutEndPoint" label="endpoint">
+<Fragment slot="tab-headers">
+    <TabHeader>endpoint</TabHeader>
+    <TabHeader>site map view</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 ```python
 from fastapi.responses import HTMLResponse, RedirectResponse
@@ -854,25 +896,29 @@ def login_get():
     return response
 ```
 
-</TabItem>
-    <TabItem value="siteMapView" label="site map view">
-        <CodeBlock language="html" title="templates/_site_map.html">{SiteMapHtml}</CodeBlock>
-    </TabItem>
+</TabContent>
+<TabContent>
+
+<LocalCodeChunk fileType="html" filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/_site_map.html" />
+
+</TabContent>
+</Fragment>
 </Tabs>
+
 
 ## Wrap up
 
-Congratulations 🎉! Your web app is complete and ready to go. Check out the complete source code on GitHub: <https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-04-14-fastapi-webapp-with-auth>. If you have any questions or feedback find me on twitter [@TheReaLSamlam](https://twitter.com/TheReaLSamlam), or submit an issue on GitHub: <https://github.com/SamEdwardes/personal-blog/issues/new/choose>.
+Congratulations 🎉! Your web app is complete and ready to go. Check out the complete source code on GitHub: https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-04-14-fastapi-webapp-with-auth>. If you have any questions or feedback find me on twitter [@TheReaLSamlam](https://twitter.com/TheReaLSamlam), or submit an issue on GitHub: https://github.com/SamEdwardes/personal-blog/issues/new/choose.
 
 ## Reference
 
 Here are some of the resources I found useful while researching this blog post:
 
-- <https://fastapi.tiangolo.com/tutorial/security/>
-- <https://www.fastapitutorial.com/blog/authentication-in-fastapi/>
-- <https://github.com/talkpython/web-applications-with-fastapi-course>
-- <https://stackoverflow.com/questions/62119138/how-to-do-a-post-redirect-get-prg-in-fastapi>
-- <https://github.com/MushroomMaula/fastapi_login>
-- <https://github.com/mjhea0/awesome-fastapi>
-- <https://kernelpanic.io/demystifying-authentication-with-fastapi-and-a-frontend>
-- <https://github.com/nofoobar/JobBoard-Fastapi/tree/0e1bdf676a66e3f341d00c590b3fd07b269488f4>
+- https://fastapi.tiangolo.com/tutorial/security/
+- https://www.fastapitutorial.com/blog/authentication-in-fastapi/
+- https://github.com/talkpython/web-applications-with-fastapi-course
+- https://stackoverflow.com/questions/62119138/how-to-do-a-post-redirect-get-prg-in-fastapi
+- https://github.com/MushroomMaula/fastapi_login
+- https://github.com/mjhea0/awesome-fastapi
+- https://kernelpanic.io/demystifying-authentication-with-fastapi-and-a-frontend
+- https://github.com/nofoobar/JobBoard-Fastapi/tree/0e1bdf676a66e3f341d00c590b3fd07b269488f4

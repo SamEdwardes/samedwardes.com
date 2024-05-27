@@ -11,6 +11,8 @@ tags:
 title: My requirements.txt workflow for a new Python project
 ---
 
+import Callout from '../../../components/Callout.astro'
+
 I usually create a `requirements.txt` when I start a new Python project. I will do something like this:
 
 ```bash
@@ -44,10 +46,8 @@ pandas==2.1.4
 pyarrow==14.0.2
 ```
 
-<!--truncate-->
-
 I can then paste this output into my `requirements.txt` file.
 
-:::note Why not use `pip freeze`?
+<Callout title="Why not use `pip freeze`?">
 I could have also used `pip freeze` to get the version of the packages I have installed. The downside is that it will get the installed version of every package. Usually, I only want to pin the "top-level" dependency and not the sub-dependencies. For example, if I have `pandas` installed, I do not want to pin the version of `numpy` that `pandas` depends on. I only want to pin the version of `pandas` itself. I find that this makes it easier to update packages for my project in the future.
-:::
+</Callout>
