@@ -1,21 +1,8 @@
 default:
- @just --list
+    @just --list
 
-preview:
-    yarn start
+run:
+    npm run dev
 
-new dirName:
-    mkdir blog/{{dirName}}
-    cp templates/blog-post/index.md blog/{{dirName}}/index.md
-    code blog/{{dirName}}/index.md
-
-open-netlify:
-    open https://app.netlify.com/sites/samedwardes/overview
-
-open-github:
-    open https://github.com/SamEdwardes/samedwardes.com
-
-clean:
-    rm -rf build
-    rm -rf node_modules
-    rm yarn.lock
+# format:
+#     npx prettier --write .

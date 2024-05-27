@@ -1,59 +1,53 @@
-# blog-development
+# samedwardes.com
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f842119c-ee2a-4b18-9658-befe42fe8a2a/deploy-status)](https://app.netlify.com/sites/samedwardes/deploys)
 
 The development repo for my blog [https://samedwardes.com/](https://samedwardes.com/).
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+## Astro Starter Kit: Minimal
 
-A change to the README.
-
-### Installation
-
-Install node:
-
-```
-$ brew install node
+```sh
+npm create astro@latest -- --template minimal
 ```
 
-Install and enable corepack
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
 
-```
-$ brew install corepack
-```
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-```
-$ yarn
-```
+### 🚀 Project Structure
 
-### Local Development
+Inside of your Astro project, you'll see the following folders and files:
 
-```
-$ yarn start
-```
-
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-### Build
-
-```
-$ yarn build
+```text
+/
+├── public/
+├── src/
+│   └── pages/
+│       └── index.astro
+└── package.json
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-### Deployment
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
 
-Using SSH:
+Any static assets, like images, can be placed in the `public/` directory.
 
-```
-$ USE_SSH=true yarn deploy
-```
+### 🧞 Commands
 
-Not using SSH:
+All commands are run from the root of the project, from a terminal:
 
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+### 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

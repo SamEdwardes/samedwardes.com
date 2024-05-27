@@ -1,43 +1,29 @@
 {
-  "name": "personal-blog",
-  "version": "0.0.0",
-  "private": true,
+  "name": "astro-migration",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "docusaurus": "docusaurus",
-    "start": "docusaurus start",
-    "build": "docusaurus build",
-    "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy",
-    "clear": "docusaurus clear",
-    "serve": "docusaurus serve",
-    "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.4.1",
-    "@docusaurus/plugin-ideal-image": "^2.4.1",
-    "@docusaurus/preset-classic": "^2.4.1",
-    "@mdx-js/react": "^1.6.21",
-    "@saucelabs/theme-github-codeblock": "^0.1.1",
-    "clsx": "^1.1.1",
-    "prism-react-renderer": "^1.2.1",
-    "raw-loader": "^4.0.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
-  },
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "@astrojs/alpinejs": "^0.4.0",
+    "@astrojs/check": "^0.7.0",
+    "@astrojs/mdx": "^3.0.1",
+    "@astrojs/tailwind": "^5.1.0",
+    "@types/alpinejs": "^3.13.10",
+    "alpinejs": "^3.14.0",
+    "astro": "^4.9.1",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5",
+    "vue": "^3.4.27"
   },
   "devDependencies": {
-    "@giscus/react": "^2.3.0"
+    "@tailwindcss/typography": "^0.5.13",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0"
   }
 }
