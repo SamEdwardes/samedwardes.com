@@ -12,6 +12,11 @@ tags:
 title: Replacing pip with uv for Python projects
 ---
 
+import Tabs from '../../../components/Tabs.astro'
+import TabHeader from '../../../components/TabHeader.astro'
+import TabContent from '../../../components/TabContent.astro'
+
+
 uv is "an extremely fast Python package installer and resolver, written in Rust" from https://astral.sh. Recently, I have started using uv in my day-to-day Python workflows. After a few weeks of usage I am sold! uv will be my go-to package manager for Python projects moving forward. It is MUCH faster than pip and I really like the new workflow it provides me with `uv pip compile` and `uv pip sync`.
 
 ## TL/DR
@@ -54,14 +59,19 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 
 
 <Tabs>
-<TabItem  label="uv">
+<Fragment slot="tab-headers">
+    <TabHeader>uv</TabHeader>
+    <TabHeader>pip</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 ```bash
 uv venv
 ```
 
-</TabItem>
-<TabItem  label="pip">
+</TabContent>
+<TabContent>
 
 ```bash
 python -m venv .venv
@@ -69,7 +79,8 @@ source .venv/bin/activate
 pip install --upgrade pip wheel setuptools
 ```
 
-</TabItem>
+</TabContent>
+</Fragment>
 </Tabs>
 
 
@@ -83,8 +94,14 @@ pandas
 
 Then install the requirements and the transitive dependencies.
 
+
 <Tabs>
-<TabItem  label="uv">
+<Fragment slot="tab-headers">
+    <TabHeader>uv</TabHeader>
+    <TabHeader>pip</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 ```bash
 # Identify all transitive dependencies and create requirements.txt
@@ -94,15 +111,16 @@ uv pip compile requirements.in --quiet --output-file requirements.txt
 uv pip sync requirements.txt
 ```
 
-</TabItem>
-<TabItem  label="pip">
+</TabContent>
+<TabContent>
 
 ```bash
 # Install all packages in requirements.in and the transitive dependencies
 pip install -r requirements.in
 ```
 
-</TabItem>
+</TabContent>
+</Fragment>
 </Tabs>
 
 
@@ -119,7 +137,12 @@ htmx
 Then install the new packages and the transitive dependencies.
 
 <Tabs>
-<TabItem  label="uv">
+<Fragment slot="tab-headers">
+    <TabHeader>uv</TabHeader>
+    <TabHeader>pip</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 ```bash
 # Identify all transitive dependencies and create requirements.txt
@@ -129,16 +152,16 @@ uv pip compile requirements.in --quiet --output-file requirements.txt
 uv pip sync requirements.txt
 ```
 
-</TabItem>
-<TabItem  label="pip">
+</TabContent>
+<TabContent>
 
 ```bash
 pip install -r requirements.in
 ```
 
-</TabItem>
+</TabContent>
+</Fragment>
 </Tabs>
-
 
 ### Removing packages
 
@@ -151,8 +174,14 @@ rich
 htmx
 ```
 
+
 <Tabs>
-<TabItem  label="uv">
+<Fragment slot="tab-headers">
+    <TabHeader>uv</TabHeader>
+    <TabHeader>pip</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 ```bash
 # Identify all transitive dependencies and create requirements.txt
@@ -162,8 +191,8 @@ uv pip compile requirements.in --quiet --output-file requirements.txt
 uv pip sync requirements.txt
 ```
 
-</TabItem>
-<TabItem  label="pip">
+</TabContent>
+<TabContent>
 
 ```bash
 # Deactivate the current virtual environment
@@ -181,7 +210,8 @@ pip install --upgrade pip wheel setuptools
 pip install -r requirements.txt
 ```
 
-</TabItem>
+</TabContent>
+</Fragment>
 </Tabs>
 
 ## Using aliases
