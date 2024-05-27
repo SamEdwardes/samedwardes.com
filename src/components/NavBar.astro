@@ -21,12 +21,19 @@ const currentUrl = Astro.url;
 >
   <!-- Col 1: Nav items -->
   <div class="flex items-center">
+    <a
+      class:list={["text-white hover:text-slate-200 rounded-md px-3 py-2 text-xl font-bold"]}
+      href="/"
+    >
+      samedwardes.com
+    </a>
     {
+
       navItems.map((item) => (
         <a
           class:list={[
             "text-white hover:text-slate-200 rounded-md px-3 py-2 text-xl font-bold",
-            { "text-yellow-400 drop-shadow-2xl underline underline-offset-8 decoration-4": `/${currentUrl.pathname.split("/")[1]}` == item.href }
+            { "text-yellow-400 drop-shadow-2xl underline underline-offset-8 decoration-4": `/${currentUrl.pathname.split("/")[1]}` == item.href && item.label != "samedwardes.com" }
           ]}
           href={`${item.href}`}
         >
