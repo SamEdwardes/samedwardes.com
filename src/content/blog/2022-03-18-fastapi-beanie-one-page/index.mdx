@@ -9,15 +9,12 @@ tags:
 title: How to create a FastAPI Web App with MongoDB and Beanie
 ---
 
-import CodeBlock from '@theme/CodeBlock';
-import PythonMain from '!!raw-loader!./main.py';
-import TemplateBreeds from '!!raw-loader!./templates/breeds.html';
-import TemplateDogs from '!!raw-loader!./templates/dogs.html';
-import TemplateDogProfile from '!!raw-loader!./templates/dog_profile.html';
-import TemplateLayout from '!!raw-loader!./templates/_layout.html';
-import TemplateIndex from '!!raw-loader!./templates/index.html';
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from '../../../components/Tabs.astro'
+import TabHeader from '../../../components/TabHeader.astro'
+import TabContent from '../../../components/TabContent.astro'
+import Callout from '../../../components/Callout.astro'
+import Collapse from '../../../components/Collapse.astro'
+import LocalCodeChunk from '../../../components/LocalCodeChunk.astro'
 
 I always like to experiment with the hottest new frameworks and libraries in Python. A few technologies that I have found interesting lately are:
 
@@ -27,31 +24,30 @@ I always like to experiment with the hottest new frameworks and libraries in Pyt
 
 This blog post provides a working example of a webapp that uses **all three** technologies 🎉!
 
-<!--truncate-->
 
 ## Motivation
 
 I wanted to create a web app that uses FastAPI, MongoDB, and Beanie. But, I could not find any really good examples that used all three. This blog post is to demonstrate what I learned while building a web app using these three tools. I have tried to make the example simple enough that it can easily be implemented by others, but also complex enough that it is interesting, and could be used to bootstrap a real project for someone else.
 
-All of the code can be found on GitHub: <https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-03-18-fastapi-beanie-one-page>. You can also download the code as zip file using this link from [DownGit](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-03-18-fastapi-beanie-one-page).
+All of the code can be found on GitHub: https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-03-18-fastapi-beanie-one-page. You can also download the code as zip file using this link from [DownGit](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-03-18-fastapi-beanie-one-page).
 
 In my example we will build a simple web app for **Doggy Day Care**. Here is a preview of the finished product:
 
 **Home page**
 
-![home-page](screenshot-home-page.png)
+![home-page](imgs/screenshot-home-page.png)
 
 **Breeds page**
 
-![screenshot](screenshot-breeds-page.png)
+![screenshot](imgs/screenshot-breeds-page.png)
 
 **Dogs page**
 
-![dogs-page](screenshot-dogs-page.png)
+![dogs-page](imgs/screenshot-dogs-page.png)
 
 **Dog profile**
 
-![dog-profile](screenshot-dog-profile.png)
+![dog-profile](imgs/screenshot-dog-profile.png)
 
 ## Project setup
 
@@ -72,12 +68,12 @@ mkdir static/imgs
 mkdir static/imgs/breeds
 mkdir static/imgs/dogs
 # Download images
-curl --create-dirs -O --output-dir static/imgs https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/static/imgs/placeholder_square.jpeg
-curl --create-dirs -O --output-dir static/imgs/breeds https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/static/imgs/breeds/golden.png
-curl --create-dirs -O --output-dir static/imgs/breeds https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/static/imgs/breeds/min-pin.png
-curl --create-dirs -O --output-dir static/imgs/dogs https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/static/imgs/dogs/buddy.png
-curl --create-dirs -O --output-dir static/imgs/dogs https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/static/imgs/dogs/pepper.png
-curl --create-dirs -O --output-dir static/imgs/dogs https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/static/imgs/dogs/roo.png
+curl --create-dirs -O --output-dir static/imgs https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/_example-project/static/imgs/placeholder_square.jpeg
+curl --create-dirs -O --output-dir static/imgs/breeds https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/_example-project/static/imgs/breeds/golden.png
+curl --create-dirs -O --output-dir static/imgs/breeds https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/_example-project/static/imgs/breeds/min-pin.png
+curl --create-dirs -O --output-dir static/imgs/dogs https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/_example-project/static/imgs/dogs/buddy.png
+curl --create-dirs -O --output-dir static/imgs/dogs https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/_example-project/static/imgs/dogs/pepper.png
+curl --create-dirs -O --output-dir static/imgs/dogs https://github.com/SamEdwardes/personal-blog/raw/main/blog/2022-03-18-fastapi-beanie-one-page/_example-project/static/imgs/dogs/roo.png
 
 ```
 
@@ -118,7 +114,12 @@ echo jinja2 >> requirements.txt
 Lastly, lets create a virtual environment to isolate all of our python dependencies:
 
 <Tabs>
-<TabItem value="mac" label="MacOS / Linux" default>
+<Fragment slot="tab-headers">
+    <TabHeader>Mac / Linux</TabHeader>
+    <TabHeader>Windows</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 ```bash
 python -m venv .venv
@@ -127,14 +128,15 @@ python -m pip install --upgrade pip wheel
 pip install -r requirements.txt
 ```
 
-</TabItem>
-<TabItem value="win" label="Windows">
+</TabContent>
+<TabContent>
 
-:::warning
+<Callout title="Warning">
 Sorry, under development 🤷‍♂️
-:::
+</Callout>
 
-</TabItem>
+</TabContent>
+</Fragment>
 </Tabs>
 
 After activating your virtual environment you should have your project all set up and ready to go 🎉
@@ -144,7 +146,13 @@ After activating your virtual environment you should have your project all set u
 Below are the instructions on how to install MongoDB for each operating system. You probably want to install the *Community Edition*.
 
 <Tabs>
-<TabItem value="mac" label="MacOS">
+<Fragment slot="tab-headers">
+    <TabHeader>Mac</TabHeader>
+    <TabHeader>Linux</TabHeader>
+    <TabHeader>Windows</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 Run the following commands to install MongoDB:
 
@@ -163,87 +171,58 @@ brew services start mongodb-community@5.0
 brew services stop mongodb-community@5.0
 ```
 
-:::note
-Check out the official MongoDB docs here: <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/>
-:::
+<Callout title="Note">
+Check out the official MongoDB docs here: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+</Callout>
 
+</TabContent>
+<TabContent>
 
-</TabItem>
-<TabItem value="win" label="Windows">
+Check out the official MongoDB docs: https://docs.mongodb.com/manual/administration/install-on-linux/
 
-:::note
-Check out the official MongoDB docs: <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/>
-:::
+</TabContent>
+<TabContent>
 
-</TabItem>
-<TabItem value="lin" label="Linux">
+Check out the official MongoDB docs: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
 
-:::note
-Check out the official MongoDB docs: <https://docs.mongodb.com/manual/administration/install-on-linux/>
-:::
-
-</TabItem>
+</TabContent>
+</Fragment>
 </Tabs>
+
 
 ## Full code overview
 
 Now that you have all of the dependencies installed you are ready to start coding! Below is the complete code. Take a moment to review the code and see if you can tell what is going on. Then will we will walk through each part in detail and explain what is happening.
 
-<details>
-<summary>
-<i>main.py:</i> This is where all of our python code lives.
-</summary>
+<Collapse title="main.py: This is where all of our python code lives.">
+    <LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/main.py" fileType="python"/>
+</Collapse>
 
-<CodeBlock language="python" title="main.py">{PythonMain}</CodeBlock>
+<Collapse title="templates/_layout.html: This template is the base template which all others will inherit from. It contains common elements such as the navigation bar and footer. This tutorial will not dive deep into Jinja2 templates, so just take a quick look at this code and then copy it into your project.">
+<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/_layout.html" fileType="html"/>
+</Collapse>
 
-</details>
+<Collapse title="templates/index.html: The template for the home page.">
+![](./imgs/screenshot-home-page.png)
+<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/index.html" fileType="html"/>
+</Collapse>
 
-<details>
-<summary>
-<i>templates/_layout.html:</i> This template is the base template which all others will inherit from. It contains common elements such as the navigation bar and footer. This tutorial will not dive deep into Jinja2 templates, so just take a quick look at this code and then copy it into your project.
-</summary>
-<CodeBlock language="html" title="templates/_layout.html">{TemplateLayout}</CodeBlock>
-</details>
+<Collapse title="templates/breeds.html: The templates for the breeds page.">
+![](./imgs/screenshot-breeds-page.png)
+<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/breeds.html" fileType="html"/>
+</Collapse>
 
-<details>
-<summary>
-<i>templates/index.html:</i> The template for the home page.
-</summary>
+<Collapse title="templates/dogs.html: The templates for the dogs page.">
+![](./imgs/screenshot-dogs-page.png)
+<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/dogs.html" fileType="html"/>
+</Collapse>
 
-![](./screenshot-home-page.png)
 
-<CodeBlock language="html" title="templates/index.html">{TemplateIndex}</CodeBlock>
-</details>
+<Collapse title="templates/dog_profile.html: The templates for the dog profile page.">
+![](./imgs/screenshot-dog-profile.png)
+<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/dog_profile.html" fileType="html"/>
+</Collapse>
 
-<details>
-<summary>
-<i>templates/breeds.html:</i> The templates for the breeds page.
-</summary>
-
-![](./screenshot-breeds-page.png)
-
-<CodeBlock language="html" title="templates/breeds.html">{TemplateBreeds}</CodeBlock>
-</details>
-
-<details>
-<summary>
-<i>templates/dogs.html:</i> The templates for the dogs page.
-</summary>
-
-![](./screenshot-dogs-page.png)
-
-<CodeBlock language="html" title="templates/dogs.html">{TemplateDogs}</CodeBlock>
-</details>
-
-<details>
-<summary>
-<i>templates/dog_profile.html:</i> The templates for the dog profile page.
-</summary>
-
-![](./screenshot-dog-profile.png)
-
-<CodeBlock language="html" title="templates/dog_profile.html">{TemplateDogProfile}</CodeBlock>
-</details>
 
 ## Step 1: Define your models with Beanie
 
@@ -334,9 +313,9 @@ async def create_data():
         await document.insert()
 ```
 
-:::note
+<Callout title="Note">
 The function is async. This is because beanie only supports async interactions with MongoDB. Therefore, whenever we are interacting with the database it must be async. This could change in the future, but as of March 2022 beanie is ONLY async.
-:::
+</Callout>
 
 ## Step 3: Setup FastAPI and MongoDB database
 
@@ -454,9 +433,9 @@ async def app_init():
 - First we use `motor` to connect to the MongoDB database. In this case, we are running MongoDB on our local computer. If you were connecting to a cloud instance of MongoDB you would need to change the connection string.
 - Next we get a list of all the database names in MongoDB. We do this to check if the "dogs" database has been created yet. If it has not been created, we will insert our demo data. If it has already been created, we will not insert any demo data.
 
-:::note
+<Callout title="Note">
 In a "real" production app you would probably not have any logic here to check if the database has been created already. We put the logic in this app simply because it is a demo app.
-:::
+</Callout>
 
 - Lastly we call the `init_beanie` function. The key bit here is that we pass a list of `Document` objects. This tells Beanie how to interact with MongoDB database.
 
@@ -515,7 +494,7 @@ async def index(request: Request):
     return templates.TemplateResponse("index.html", context)
 ```
 
-- Our homepage is pretty simple and does not have any query parameters or user input. If you are used to using FastAPI for APIs or using flask you are probably surprised to see `request: Request`. When rendering a template in FastAPI you must send the request object (<https://fastapi.tiangolo.com/advanced/templates/?h=template#using-jinja2templates>).
+- Our homepage is pretty simple and does not have any query parameters or user input. If you are used to using FastAPI for APIs or using flask you are probably surprised to see `request: Request`. When rendering a template in FastAPI you must send the request object (https://fastapi.tiangolo.com/advanced/templates/?h=template#using-jinja2templates).
 
 ```python
 from fastapi.responses import HTMLResponse
@@ -560,7 +539,7 @@ The first few lines look pretty similar to the homepage. Again we must define `r
 
 Lets take a closer look at the template to see what is going on:
 
-<CodeBlock language="html" title="templates/breeds.html">{TemplateBreeds}</CodeBlock>
+<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/breeds.html" fileType="html"/>
 
 I won't dive into the Jinja2 syntax in this blog post, but hopefully it is easy enough to see what is happening. The template is expecting a variable named `breeds`. It then loops over that variable and for each breed creates a Bootstrap Card component.
 
@@ -642,7 +621,7 @@ async def read_item(request: Request, breed_id: Optional[str] = None):
     return templates.TemplateResponse("dogs.html", context)
 ```
 
-FastAPI is really good at figuring out what each argument means. In this case, it automatically determines that the `breed_id` is a query parameter. It also knows that it is optional because we have used the `Optional` type. See <https://fastapi.tiangolo.com/tutorial/query-params/#query-parameters> for an explanation on how FastAPI decides if an argument is a query parameter or path parameter:
+FastAPI is really good at figuring out what each argument means. In this case, it automatically determines that the `breed_id` is a query parameter. It also knows that it is optional because we have used the `Optional` type. See https://fastapi.tiangolo.com/tutorial/query-params/#query-parameters for an explanation on how FastAPI decides if an argument is a query parameter or path parameter:
 
 > When you declare other function parameters that are not part of the path parameters, they are automatically interpreted as "query" parameters.
 
@@ -700,7 +679,7 @@ Lastly, as with the above views we create our context dictionary. This context h
 
 Note that the template applies conditional logic to only render the breeds name if the breed is not `None`.
 
-<CodeBlock language="html" title="templates/dogs.html">{TemplateDogs}</CodeBlock>
+<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/dogs.html" fileType="html"/>
 
 ## Step 7: Dog page
 
@@ -740,9 +719,9 @@ async def read_item(dog_id: str, request: Request):
 
 In this case, FastAPI knows that it is a path parameter because we have defined `{dog_id}` in our views url path, and we have used the same string `dog_id` in our function definition. Because the two values are the same, FastAPI knows they related to one another.
 
-:::tip
-The order does not matter. FastAPI knows that `dog_id` is a path parameter because we also have a `{dog_id}` in our URL path. See <https://fastapi.tiangolo.com/tutorial/path-params/> for more info.
-:::
+<Callout title="Tip">
+The order does not matter. FastAPI knows that `dog_id` is a path parameter because we also have a `{dog_id}` in our URL path. See https://fastapi.tiangolo.com/tutorial/path-params/ for more info.
+</Callout>
 
 ```python
 # --------------------------------------------------------------------------
@@ -762,7 +741,8 @@ async def read_item(dog_id: str, request: Request):
 
 Just like before, we query the database, and then return our context dictionary. This time the context only includes the required request object and a single dog object. The template will render a nice profile page for each dog.
 
-<CodeBlock language="html" title="templates/dog_profile.html">{TemplateDogProfile}</CodeBlock>
+
+<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/dog_profile.html" fileType="html"/>
 
 ## Wrap up
 
@@ -775,6 +755,6 @@ Congratulations! You just built a fully functional and asynchronous web app usin
 
 Check out these useful resources for learning more about MongoDB, FastAPI, and Beanie.
 
-- <https://fastapi.tiangolo.com/>
-- <https://roman-right.github.io/beanie/>
-- <https://realpython.com/introduction-to-mongodb-and-python/#installing-and-running-mongodb>
+- https://fastapi.tiangolo.com/
+- https://roman-right.github.io/beanie/
+- https://realpython.com/introduction-to-mongodb-and-python/#installing-and-running-mongodb

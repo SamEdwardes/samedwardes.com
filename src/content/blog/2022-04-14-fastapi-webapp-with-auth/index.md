@@ -568,11 +568,10 @@ decoded_jwt = jwt.decode(encoded_jwt, key="secret-key")
 print(decoded_jwt)
 # {'username': 'sam', 'admin': True}
 ```
-
-:::tip
+<Callout title="Tip">
 You can see the cookies that are currently set in your browser using your browser's built in developer tools.
 ![screenshot](./imgs/cookie.png)
-:::
+</Callout>
 
 #### Getting the user from JWT
 

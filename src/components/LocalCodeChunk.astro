@@ -1,0 +1,15 @@
+---
+// Example: import the "fs/promises" builtin from Node.js
+import fs from 'node:fs/promises';
+import { Code } from 'astro:components';
+
+const { filePath } = Astro.props
+const { fileType = 'python' } = Astro.props;
+
+
+const fullFilePath = `../../${filePath}`
+const url = new URL(fullFilePath, import.meta.url);
+const fileContent = await fs.readFile(url, 'utf-8');
+---
+
+<Code code={fileContent} lang={fileType}/>
