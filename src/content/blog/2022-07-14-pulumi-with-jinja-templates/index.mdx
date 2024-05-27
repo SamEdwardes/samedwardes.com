@@ -10,19 +10,14 @@ tags:
 title: Using Jinja2 Templates with Pulumi
 ---
 
-import CodeBlock from '@theme/CodeBlock';
-import MainPy from '!!raw-loader!./example_project/__main__.py';
-import RequirementsTxt from '!!raw-loader!./example_project/requirements.txt';
-import CreateKeyPair from '!!raw-loader!./example_project/create_keypair.py';
-import TemplatesEnv from '!!raw-loader!./example_project/templates/template.env';
-import EnvOut from '!!raw-loader!./.envout';
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
+import Tabs from '../../../components/Tabs.astro'
+import TabHeader from '../../../components/TabHeader.astro'
+import TabContent from '../../../components/TabContent.astro'
+import Callout from '../../../components/Callout.astro'
+import Collapse from '../../../components/Collapse.astro'
+import LocalCodeChunk from '../../../components/LocalCodeChunk.astro'
 
 Over the last few months, I have spent a lot of time working on AWS. I often need to spin up EC2 instances, databases, or other assets for testing. Doing this by hand can become burdensome. You need to click through the AWS CLI and keep track of everything you have created. This sounds like a perfect use case for infrastructure as code. Enter [Pulumi](https://www.pulumi.com)!
-
-<!--truncate-->
 
 ## Motivation
 
@@ -33,10 +28,9 @@ After many different experiments, I have finally landed on a pattern that allows
 - Define and render templates using Jinja2.
 - Automatically update the templates by hashing the template files.
 
-
 ## TL/DR
 
-You can find all of the code on GitHub: <https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-07-14-pulumi-with-jinja-templates>. You can download the code as a zip file using this link from [DownGit](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-07-14-pulumi-with-jinja-templates).
+You can find all of the code on GitHub: https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-07-14-pulumi-with-jinja-templates. You can download the code as a zip file using this link from [DownGit](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/SamEdwardes/personal-blog/tree/main/blog/2022-07-14-pulumi-with-jinja-templates).
 
 Run the code below to spin up the infrastructure for yourself!
 
@@ -87,7 +81,7 @@ pip install -r requirements.txt
 
 Lets see what is inside the *requirements.txt*:
 
-<CodeBlock title="requirements.txt">{RequirementsTxt}</CodeBlock>
+<LocalCodeChunk fileType="bash" filePath="src/content/blog/2022-07-14-pulumi-with-jinja-templates/_example-project/requirements.txt"/>
 
 There are several packages we installed in addition to the minimum requirements from Pulumi:
 
@@ -103,12 +97,9 @@ python create_keypair.py
 chmod 400 key.pem
 ```
 
-<details>
-<summary>
-Expand to see <i>create_keypair.py</i>
-</summary>
-<CodeBlock language="python" title="create_keypair.py">{CreateKeyPair}</CodeBlock>
-</details>
+<Collapse title="Expand to see create_keypair.py">
+    <LocalCodeChunk fileType="bash" filePath="src/content/blog/2022-07-14-pulumi-with-jinja-templates/_example-project/create_keypair.py"/>
+</Collapse>
 
 Lastly, create a new pulumi stack. I will name my stack *dev*, but you can call it whatever you like.
 
@@ -129,15 +120,11 @@ pulumi up
 
 Let us take a closer look at __main__.py and see what is happening.
 
-<details>
-<summary>
-Expand to see <i>__main.py__</i>
-</summary>
-<CodeBlock language="python" title="__main__.py">{MainPy}</CodeBlock>
-</details>
+<Collapse title="Expand to see __main__.py">
+    <LocalCodeChunk fileType="bash" filePath="src/content/blog/2022-07-14-pulumi-with-jinja-templates/_example-project/__main__.py"/>
+</Collapse>
 
 Below we will walk through some of the critical parts of the code.
-
 
 ### create_template(path: str)
 
@@ -165,7 +152,6 @@ def hash_file(path: str) -> pulumi.Output:
 ```
 
 This function will create a unique hash of our template files. Note that we return a `pulumi.Output` object.
-
 
 ### command_render_template
 
@@ -233,7 +219,8 @@ pulumi.Output.all(
 
 Note that the keyword arguments inside `create_template(local_file_path).render` should match the values in your template.
 
-<CodeBlock title="templates/.env">{TemplatesEnv}</CodeBlock>
+
+<LocalCodeChunk fileType="bash" filePath="src/content/blog/2022-07-14-pulumi-with-jinja-templates/_example-project/templates/template.env" />
 
 ## See the results
 
@@ -260,8 +247,8 @@ AVAILABILITY_ZONE=us-east-2c
 
 With jinja2 and Pulumi we are now able to turn this:
 
-<CodeBlock title="templates/template.env">{TemplatesEnv}</CodeBlock>
+<LocalCodeChunk fileType="bash" filePath="src/content/blog/2022-07-14-pulumi-with-jinja-templates/_example-project/templates/template.env" />
 
 Into this!
 
-<CodeBlock title="~/.env">{EnvOut}</CodeBlock>
+<LocalCodeChunk fileType="bash" filePath="src/content/blog/2022-07-14-pulumi-with-jinja-templates/_example-project/.envout" />
