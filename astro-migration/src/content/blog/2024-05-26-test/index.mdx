@@ -1,0 +1,39 @@
+---
+author: Sam Edwardes
+date: 2024-05-26
+description: uv is "an extremely fast Python package installer and resolver, written in Rust" from https://astral.sh. Recently, I have started using uv in my day-to-day Python workflows. After a few weeks of usage I am sold! uv will be my go-to package manager for Python projects moving forward. It is MUCH faster than pip and I really like the new workflow it provides me with `uv pip compile` and `uv pip sync`.
+keywords:
+- python
+- uv
+- pip
+tags:
+- python
+- kubernetes
+title: Test
+---
+
+import Tabs from '../../../components/Tabs.astro'
+import TabHeader from '../../../components/TabHeader.astro'
+import TabContent from '../../../components/TabContent.astro'
+
+
+## Second tabs
+
+<Tabs>
+    <Fragment slot="tab-headers">
+        <TabHeader>Tab 1 (one)</TabHeader>
+        <TabHeader>Tab 2</TabHeader>
+    </Fragment>
+    <Fragment slot="tab-content">
+        <TabContent>
+
+This is content in tab 1:
+
+```bash
+echo 'hello world'
+```
+
+        </TabContent>
+        <TabContent>Content 2</TabContent>
+    </Fragment>
+</Tabs>

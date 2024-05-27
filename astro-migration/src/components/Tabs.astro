@@ -1,0 +1,8 @@
+<div x-data x-tabs class="mx-auto max-w-3xl">
+    <div x-tabs:list class="-mb-px flex items-stretch">
+        <slot name="tab-headers">
+    </div>
+    <div x-tabs:panels class="rounded-b-md border border-gray-200 bg-white">
+        <slot name="tab-content"/>
+    </div>
+</div>
