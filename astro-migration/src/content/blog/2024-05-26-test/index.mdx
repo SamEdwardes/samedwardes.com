@@ -12,33 +12,20 @@ tags:
 title: Test
 ---
 
-Test
+import Tabs from '../../../components/Tabs.astro'
+import TabHeader from '../../../components/TabHeader.astro'
+import TabContent from '../../../components/TabContent.astro'
 
-import Test from '../../../components/Test.astro'
-import TabGroup from '../../../components/TabGroup.vue'
-import TabList from '../../../components/TabList.vue'
-import Tab from '../../../components/Tab.vue'
-import TabPanels from '../../../components/TabPanels.vue'
-import TabPanel from '../../../components/TabPanel.vue'
-
-import Tabs2 from '../../../components/Tabs2.astro'
-import TabHeader2 from '../../../components/TabHeader2.astro'
-import TabContent2 from '../../../components/TabContent2.astro'
-
-
-## First tabs
-
-<Test/>
 
 ## Second tabs
 
-<Tabs2>
+<Tabs>
     <Fragment slot="tab-headers">
-        <TabHeader2>Tab 1 (one)</TabHeader2>
-        <TabHeader2>Tab 2</TabHeader2>
+        <TabHeader>Tab 1 (one)</TabHeader>
+        <TabHeader>Tab 2</TabHeader>
     </Fragment>
     <Fragment slot="tab-content">
-        <TabContent2>
+        <TabContent>
 
 This is content in tab 1:
 
@@ -46,7 +33,7 @@ This is content in tab 1:
 echo 'hello world'
 ```
 
-        </TabContent2>
-        <TabContent2>Content 2</TabContent2>
+        </TabContent>
+        <TabContent>Content 2</TabContent>
     </Fragment>
-</Tabs2>
+</Tabs>
