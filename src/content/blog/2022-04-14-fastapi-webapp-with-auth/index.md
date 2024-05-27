@@ -11,6 +11,8 @@ tags:
 title: How to create a FastAPI Web App with authentication
 ---
 
+<!-- TODO: update this page for astro -->
+
 import CodeBlock from '@theme/CodeBlock';
 import MainPy from '!!raw-loader!./main.py';
 import RequirementsTxt from '!!raw-loader!./requirements.txt';

@@ -92,8 +92,7 @@ test.edwardes.xyz {
 }
 EOF
 ```
-
-:::note
+<Callout title="Note">
 This section is the crux of the configuration:
 
 ```caddy
@@ -103,7 +102,7 @@ This section is the crux of the configuration:
 ```
 
 Caddy will use the Cloudflare module for the ACME DNS challenge. This is required because our homelab server is not publicly accessible.
-:::
+</Callout>
 
 4. Create an API token in Cloudflare that has the permissions to manage DNS records for your site.
 5. Set the `CLOUDFLARE_API_TOKEN` environment variable and start Caddy.

@@ -8,14 +8,15 @@ tags:
 title: The Best Way to Install Jupyter Lab (it's Pipx)
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Callout from '../../../components/Callout.astro'
+import Tabs from '../../../components/Tabs.astro'
+import TabHeader from '../../../components/TabHeader.astro'
+import TabContent from '../../../components/TabContent.astro'
+
 
 Installing and managing your Python environment can be tricky, as this famous [XKCD](https://xkcd.com/1987/) comic has aptly pointed out. After many years of experimentation, here is my advice on the best way to install Jupyter Lab (and notebook).
 
 ![Python environments XKCD comic.](https://imgs.xkcd.com/comics/python_environment.png)
-
-<!--truncate-->
 
 ## TL/DR
 
@@ -70,7 +71,7 @@ Typically you want to use pipx for tools you want to use across a variety of pro
 
 - [black](https://github.com/psf/black)
 - [asciinema](https://asciinema.org)
-- and many others! See <https://pypa.github.io/pipx/programs-to-try/>
+- and many others! See https://pypa.github.io/pipx/programs-to-try/
 
 Pipx creates isolated environments to run these Python applications. You only need to install the specific Python application once. Then you can run it on all of your projects.
 
@@ -85,25 +86,31 @@ When installing Jupyter Lab, there are several outcomes I wanted:
 
 ### Step 1: install pipx
 
-Install pipx by following the instructions here: <https://pypa.github.io/pipx/installation/>.
+Install pipx by following the instructions here: https://pypa.github.io/pipx/installation>.
 
 <Tabs>
-<TabItem value="mac" label="macOS">
+<Fragment slot="tab-headers">
+    <TabHeader>Mac</TabHeader>
+    <TabHeader>Windows</TabHeader>
+</Fragment>
+<Fragment slot="tab-content">
+<TabContent>
 
 ```bash
 brew install pipx
 pipx ensurepath
 ```
 
-</TabItem>
-<TabItem value="windows" label="Windows">
+</TabContent>
+<TabContent>
 
 ```bash
 python -m pip install --user pipx
 python -m pipx ensurepath
 ```
 
-</TabItem>
+</TabContent>
+</Fragment>
 </Tabs>
 
 ### Step 2: Install Jupyter Lab with pipx
@@ -173,9 +180,9 @@ pipx list
 #     - wsdump
 ```
 
-:::tip
+<Callout title="Tip">
 The other commands are installed whether you use `--include-deps` or not. The difference is that when I use `--include-deps`, these other commands are also added to the `PATH`.
-:::
+</Callout>
 
 ### Step 3: install common dependencies (optional)
 
@@ -242,12 +249,12 @@ jupyter kernelspec list
 #   python3              /Users/samedwardes/.local/pipx/venvs/jupyterlab/share/jupyter/kernels/python3
 ```
 
-:::tip
+<Callout title="Tip">
 Notice how I used `--display-name ${PWD}` and `--name ${PWD##*/}`. These flags do two things:
 
 - `--display-name ${PWD}` sets the name you see in the Jupyter Lab user interface to the name of my projects directory. I like this for helping me stay organized. I want to know if this kernel is associated with this project. I can delete the kernel once the project is complete.
 - `--name ${PWD##*/}` sets the "actual name" of the kernel to my current directory. `--name` is the name you see when you call `jupyter kernelspec list`. Again, I do this to try and make it easy for me to keep track of and manage my kernels.
-:::
+</Callout>
 
 When you start Jupyter Lab again, you will also see two kernels to choose from:
 
