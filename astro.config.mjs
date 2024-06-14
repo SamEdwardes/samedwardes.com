@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import alpinejs from "@astrojs/alpinejs";
-import node from "@astrojs/node";
+import netlify from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
@@ -44,7 +44,5 @@ export default defineConfig({
     '/2024/04/21/python-uv-workflow': '/blog/2024-04-21-python-uv-workflow'
   },
   output: "server",
-  adapter: node({
-    mode: "standalone"
-  })
+  adapter: netlify()
 });
