@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import alpinejs from "@astrojs/alpinejs";
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
@@ -41,5 +42,9 @@ export default defineConfig({
     '/2023/11/28/1password-for-secret-dotfiles-update': '/blog/2023-11-28-1password-for-secret-dotfiles-update',
     '/2024/01/09/requirements-txt-workflow-for-new-project': '/blog/2024-01-09-requirements-txt-workflow-for-new-project',
     '/2024/04/21/python-uv-workflow': '/blog/2024-04-21-python-uv-workflow'
-  }
+  },
+  output: "server",
+  adapter: node({
+    mode: "standalone"
+  })
 });

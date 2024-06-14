@@ -12,7 +12,7 @@ title: Cycling Portugal
 
 While studying abroad in Istanbul I took my semester break to travel to Portugal and cycle from Lisbon to Faro. The goal of the trip was to really enjoy the nature. I wanted it to be slow paced and relaxing. I wanted to take many stops, and enjoy all the sights and sounds. When I cycled across Canada there was no stopping to smell the roses. We were really determined to get across the country in 50 days, so we missed a lot of cool sights along the way for the sake of time.
 
-<!--truncate-->
+
 
 ![cliffs and flowers](https://i.imgur.com/yb6qjV4.jpg)
 

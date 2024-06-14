@@ -150,12 +150,12 @@ Below is the complete code for each file 🎉!
     <TabHeader>templates/_site_map.html</TabHeader>
 </Fragment>
 <Fragment slot="tab-content">
-    <TabContent><LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/requirements.txt" fileType="html" /></TabContent>
-    <TabContent><LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/main.py" fileType="python" /></TabContent>
-    <TabContent><LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/index.html" fileType="html" /></TabContent>
-    <TabContent><LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/login.html" fileType="html" /></TabContent>
-    <TabContent><LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/private.html" fileType="html" /></TabContent>
-    <TabContent><LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/_site_map.html" fileType="html" /></TabContent>
+    <TabContent><LocalCodeChunk src="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/requirements.txt" lang="html" /></TabContent>
+    <TabContent><LocalCodeChunk src="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/main.py" lang="python" /></TabContent>
+    <TabContent><LocalCodeChunk src="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/index.html" lang="html" /></TabContent>
+    <TabContent><LocalCodeChunk src="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/login.html" lang="html" /></TabContent>
+    <TabContent><LocalCodeChunk src="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/private.html" lang="html" /></TabContent>
+    <TabContent><LocalCodeChunk src="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/_site_map.html" lang="html" /></TabContent>
 </Fragment>
 </Tabs>
 
@@ -689,7 +689,7 @@ def index(request: Request):
 </TabContent>
 <TabContent>
 
-<LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/index.html" fileType="html" />
+<LocalCodeChunk src="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/index.html" lang="html" />
 
 </TabContent>
 </Fragment>
@@ -753,7 +753,7 @@ def index(request: Request, user: User = Depends(get_current_user_from_token)):
 </TabContent>
 <TabContent>
 
-<LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/private.html" fileType="html" />
+<LocalCodeChunk src="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/private.html" lang="html" />
 
 </TabContent>
 </Fragment>
@@ -790,7 +790,7 @@ def login_get(request: Request):
 </TabContent>
 <TabContent>
 
-<LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/login.html" fileType="html" />
+<LocalCodeChunk src="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/login.html" lang="html" />
 
 </TabContent>
 </Fragment>
@@ -862,7 +862,7 @@ async def login_post(request: Request):
 </TabContent>
 <TabContent>
 
-<LocalCodeChunk filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/login.html" fileType="html" />
+<LocalCodeChunk src="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/login.html" lang="html" />
 
 </TabContent>
 </Fragment>
@@ -899,7 +899,7 @@ def login_get():
 </TabContent>
 <TabContent>
 
-<LocalCodeChunk fileType="html" filePath="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/_site_map.html" />
+<LocalCodeChunk lang="html" src="src/content/blog/2022-04-14-fastapi-webapp-with-auth/_example-project/templates/_site_map.html" />
 
 </TabContent>
 </Fragment>

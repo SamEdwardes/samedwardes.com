@@ -21,7 +21,7 @@ title: How to Create a K8s Ingress for an External Service
 
 This will show in preview.
 
-<!--truncate-->
+
 
 Not in preview.
 

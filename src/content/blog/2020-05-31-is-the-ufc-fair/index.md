@@ -14,7 +14,7 @@ doubt who the better fighter was. But only 54% of fights end with a
 knock-out or submission. The other 45% of fights go to the judges score
 cards.
 
-<!--truncate-->
+
 
 ![](https://i.imgur.com/h66XXPU.png)
 

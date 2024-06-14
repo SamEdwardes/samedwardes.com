@@ -8,7 +8,7 @@ tags:
 title: How to do a Full Code Review on GitHub
 ---
 
-GitHub has a friendly UI for performing code reviews. However, it only allows you to leave comments on the changed code. It does not allow you to leave comments or suggestions on existing code. <!--truncate--> In the screenshot below, GitHub will only let me leave comments and suggestions on lines 6-13. I cannot suggest lines 1-5, even if I notice a typo or an error.
+GitHub has a friendly UI for performing code reviews. However, it only allows you to leave comments on the changed code. It does not allow you to leave comments or suggestions on existing code.  In the screenshot below, GitHub will only let me leave comments and suggestions on lines 6-13. I cannot suggest lines 1-5, even if I notice a typo or an error.
 
 ![Example of GitHub not letting you edit existing code.](./images/no-comments-old-code.png)
 

@@ -13,7 +13,7 @@ title: Cycle Touring the BC Coast
 
 With a few spare days between finishing work and starting a masters program at UBC I was keen to experience some adventure before going back to school. Since moving to Vancouver 1 year ago, I had been imagining some of the cycle touring trips I may do. BC's West coast holds so many potential options.
 
-<!--truncate-->
+
 
 ![map](https://i.imgur.com/gLDxE2a.png)
 
