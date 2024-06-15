@@ -8,6 +8,12 @@ import netlify from "@astrojs/netlify";
 export default defineConfig({
   integrations: [tailwind(), mdx(), alpinejs()],
   redirects: {
+    // TODO: create replacement pages for these
+    '/tags': '/',
+    '/projects': '/',
+    '/outdoors': '/',
+    '/outdoors': '/',
+    // Old blog posts paths
     '/2012/09/09/running-pei': '/blog/2012-09-09-running-pei',
     '/2015/06/27/cycling-kingston-to': '/blog/2015-06-27-cycling-kingston-to',
     '/2018/01/01/cycling-portugal': '/blog/2018-01-01-cycling-portugal',
