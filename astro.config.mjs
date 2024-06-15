@@ -43,6 +43,9 @@ export default defineConfig({
     '/2024/01/09/requirements-txt-workflow-for-new-project': '/blog/2024-01-09-requirements-txt-workflow-for-new-project',
     '/2024/04/21/python-uv-workflow': '/blog/2024-04-21-python-uv-workflow'
   },
-  output: "server",
-  adapter: netlify()
+  // Netlify
+  // output: "server",
+  // adapter: netlify()
+  // Static
+  output: "static"
 });
