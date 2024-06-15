@@ -12,7 +12,7 @@ title: Cycling from Kingston to Toronto
 
 After 4 years of school at Queen's University I was at last done. I wrote my final exam, packed my things, and the next morning departed on a bike ride from Kingston to Toronto with my friend Sam I have known since our first year together at Queen's. The trip was more or less a spur of the moment adventure. We planned the idea several weeks before leaving, and only came up with a rough estimate of where we would be each day.
 
-<!--truncate-->
+
 
 ![welcome-to-TO](https://i.imgur.com/p08Iwk8.png)
 

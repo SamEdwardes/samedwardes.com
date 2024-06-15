@@ -42,8 +42,6 @@ if [ ! "$secrets_in_no_values" = "$secrets_out_no_values" ]; then
 fi
 ```
 
-<!--truncate-->
-
 - In the previous version, the `op inject` command was run every time I opened a new terminal session, which required me to authenticate every session.
 - Now, the `op inject` command is only run when the `zsh/secrets-out.zsh` file does not exist, or when the `zsh/secrets-in.zsh` file has changed. Only in one of those two circumstances will I be prompted to authenticate.
 

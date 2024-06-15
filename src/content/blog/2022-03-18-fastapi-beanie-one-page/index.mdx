@@ -195,32 +195,32 @@ Check out the official MongoDB docs: https://docs.mongodb.com/manual/tutorial/in
 Now that you have all of the dependencies installed you are ready to start coding! Below is the complete code. Take a moment to review the code and see if you can tell what is going on. Then will we will walk through each part in detail and explain what is happening.
 
 <Collapse title="main.py: This is where all of our python code lives.">
-    <LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/main.py" fileType="python"/>
+    <LocalCodeChunk src="/blog-assets/2022-03-18-fastapi-beanie-one-page/main.py" lang="python"/>
 </Collapse>
 
 <Collapse title="templates/_layout.html: This template is the base template which all others will inherit from. It contains common elements such as the navigation bar and footer. This tutorial will not dive deep into Jinja2 templates, so just take a quick look at this code and then copy it into your project.">
-<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/_layout.html" fileType="html"/>
+<LocalCodeChunk src="/blog-assets/2022-03-18-fastapi-beanie-one-page/templates/_layout.html" lang="html"/>
 </Collapse>
 
 <Collapse title="templates/index.html: The template for the home page.">
 ![](./imgs/screenshot-home-page.png)
-<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/index.html" fileType="html"/>
+<LocalCodeChunk src="/blog-assets/2022-03-18-fastapi-beanie-one-page/templates/index.html" lang="html"/>
 </Collapse>
 
-<Collapse title="templates/breeds.html: The templates for the breeds page.">
+{/* <Collapse title="templates/breeds.html: The templates for the breeds page.">
 ![](./imgs/screenshot-breeds-page.png)
-<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/breeds.html" fileType="html"/>
-</Collapse>
+<LocalCodeChunk src="/blog-assets/2022-03-18-fastapi-beanie-one-page/templates/breeds.html" lang="html"/>
+</Collapse> */}
 
 <Collapse title="templates/dogs.html: The templates for the dogs page.">
 ![](./imgs/screenshot-dogs-page.png)
-<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/dogs.html" fileType="html"/>
+<LocalCodeChunk src="/blog-assets/2022-03-18-fastapi-beanie-one-page/templates/dogs.html" lang="html"/>
 </Collapse>
 
 
 <Collapse title="templates/dog_profile.html: The templates for the dog profile page.">
 ![](./imgs/screenshot-dog-profile.png)
-<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/dog_profile.html" fileType="html"/>
+<LocalCodeChunk src="/blog-assets/2022-03-18-fastapi-beanie-one-page/templates/dog_profile.html" lang="html"/>
 </Collapse>
 
 
@@ -539,7 +539,7 @@ The first few lines look pretty similar to the homepage. Again we must define `r
 
 Lets take a closer look at the template to see what is going on:
 
-<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/breeds.html" fileType="html"/>
+{/* <LocalCodeChunk src="/blog-assets/2022-03-18-fastapi-beanie-one-page/templates/breeds.html" lang="html"/> */}
 
 I won't dive into the Jinja2 syntax in this blog post, but hopefully it is easy enough to see what is happening. The template is expecting a variable named `breeds`. It then loops over that variable and for each breed creates a Bootstrap Card component.
 
@@ -679,7 +679,7 @@ Lastly, as with the above views we create our context dictionary. This context h
 
 Note that the template applies conditional logic to only render the breeds name if the breed is not `None`.
 
-<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/dogs.html" fileType="html"/>
+<LocalCodeChunk src="/blog-assets/2022-03-18-fastapi-beanie-one-page/templates/dogs.html" lang="html"/>
 
 ## Step 7: Dog page
 
@@ -742,7 +742,7 @@ async def read_item(dog_id: str, request: Request):
 Just like before, we query the database, and then return our context dictionary. This time the context only includes the required request object and a single dog object. The template will render a nice profile page for each dog.
 
 
-<LocalCodeChunk filePath="src/content/blog/2022-03-18-fastapi-beanie-one-page/_example-project/templates/dog_profile.html" fileType="html"/>
+<LocalCodeChunk src="/blog-assets/2022-03-18-fastapi-beanie-one-page/templates/dog_profile.html" lang="html"/>
 
 ## Wrap up
 

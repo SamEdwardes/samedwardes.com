@@ -25,7 +25,7 @@ version:        3.10.11 (main, Jun  4 2023, 22:34:21) [GCC 11.3.0]
 numpy:           [NOT FOUND]
 ```
 
-<!--truncate-->
+
 
 However, I know that numpy was installed:
 

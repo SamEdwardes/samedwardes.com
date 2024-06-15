@@ -12,7 +12,7 @@ title: The Best Great Lake Surfing Videos
 
 Here are a handful of videos that inspired me to get out there, buy a surfboard and surf the Great Lakes.
 
-<!--truncate-->
+
 
 ## Favourites
 
