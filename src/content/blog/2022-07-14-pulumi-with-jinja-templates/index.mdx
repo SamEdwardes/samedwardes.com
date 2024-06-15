@@ -81,7 +81,7 @@ pip install -r requirements.txt
 
 Lets see what is inside the *requirements.txt*:
 
-<LocalCodeChunk lang="bash" src="src/content/blog/2022-07-14-pulumi-with-jinja-templates/_example-project/requirements.txt"/>
+<LocalCodeChunk lang="bash" src="/blog-assets/2022-07-14-pulumi-with-jinja-templates/_example-project/requirements.txt"/>
 
 There are several packages we installed in addition to the minimum requirements from Pulumi:
 
@@ -98,7 +98,7 @@ chmod 400 key.pem
 ```
 
 <Collapse title="Expand to see create_keypair.py">
-    <LocalCodeChunk lang="bash" src="src/content/blog/2022-07-14-pulumi-with-jinja-templates/_example-project/create_keypair.py"/>
+    <LocalCodeChunk lang="bash" src="/blog-assets/2022-07-14-pulumi-with-jinja-templates/_example-project/create_keypair.py"/>
 </Collapse>
 
 Lastly, create a new pulumi stack. I will name my stack *dev*, but you can call it whatever you like.
@@ -121,7 +121,7 @@ pulumi up
 Let us take a closer look at __main__.py and see what is happening.
 
 <Collapse title="Expand to see __main__.py">
-    <LocalCodeChunk lang="bash" src="src/content/blog/2022-07-14-pulumi-with-jinja-templates/_example-project/__main__.py"/>
+    <LocalCodeChunk lang="bash" src="/blog-assets/2022-07-14-pulumi-with-jinja-templates/_example-project/__main__.py"/>
 </Collapse>
 
 Below we will walk through some of the critical parts of the code.
@@ -220,7 +220,7 @@ pulumi.Output.all(
 Note that the keyword arguments inside `create_template(local_file_path).render` should match the values in your template.
 
 
-<LocalCodeChunk lang="bash" src="src/content/blog/2022-07-14-pulumi-with-jinja-templates/_example-project/templates/template.env" />
+<LocalCodeChunk lang="bash" src="/blog-assets/2022-07-14-pulumi-with-jinja-templates/_example-project/templates/template.env" />
 
 ## See the results
 
@@ -247,8 +247,8 @@ AVAILABILITY_ZONE=us-east-2c
 
 With jinja2 and Pulumi we are now able to turn this:
 
-<LocalCodeChunk lang="bash" src="src/content/blog/2022-07-14-pulumi-with-jinja-templates/_example-project/templates/template.env" />
+<LocalCodeChunk lang="bash" src="/blog-assets/2022-07-14-pulumi-with-jinja-templates/_example-project/templates/template.env" />
 
 Into this!
 
-<LocalCodeChunk lang="bash" src="src/content/blog/2022-07-14-pulumi-with-jinja-templates/_example-project/.envout" />
+<LocalCodeChunk lang="bash" src="/blog-assets/2022-07-14-pulumi-with-jinja-templates/_example-project/.envout" />
