@@ -1,7 +1,7 @@
 ---
 import NavBar from "../components/NavBar.astro";
 import Footer from "../components/Footer.astro";
-const { metaTitle } = Astro.props;
+const { metaTitle = "samedwardes.com" } = Astro.props;
 ---
 
 <html
@@ -14,7 +14,7 @@ const { metaTitle } = Astro.props;
       name="viewport"
       content="width=device-width, initial-scale=1"
     />
-    <title>{metaTitle}</title>
+    <title>{metaTitle} - samedwardes.com</title>
     <link
       rel="icon"
       type="image/x-icon"

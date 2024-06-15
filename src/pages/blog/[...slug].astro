@@ -17,7 +17,7 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<DefaultLayout metaTitle="{entry.data.title}">
+<DefaultLayout metaTitle={`${entry.data.title}`}>
   <section class="flex justify-center">
     <article class="prose max-w-4xl">
       <h1>{entry.data.title}</h1>
