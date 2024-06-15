@@ -44,11 +44,11 @@ export default defineConfig({
     '/2024/04/21/python-uv-workflow': '/blog/2024-04-21-python-uv-workflow'
   },
   // Netlify
-  // output: "server",
-  // adapter: netlify()
+  output: "server",
+  adapter: netlify()
   // Static
-  output: "static",
-  image: {
-    service: sharpImageService(),
-  }
+  // output: "static",
+  // image: {
+  //   service: sharpImageService(),
+  // }
 });
