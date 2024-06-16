@@ -1,0 +1,17 @@
+---
+const { href } = Astro.props;
+const { target = "" } = Astro.props;
+const { class: className, ...rest } = Astro.props;
+---
+
+<a
+  class:list={[
+    "font-bold underline decoration-4 decoration-primary hover:italic",
+    className,
+  ]}
+  {...rest}
+  href={href}
+  target={target}
+>
+  <slot />
+</a>

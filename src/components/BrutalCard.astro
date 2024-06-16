@@ -1,0 +1,17 @@
+---
+const { bgColor = "bg-orange-500" } = Astro.props;
+const { textColor = "text-black" } = Astro.props;
+const { class: className, ...rest } = Astro.props;
+---
+
+<div
+  class:list={["relative p-6 rounded-md shadow-lg mx-auto", className]}
+  {...rest}
+>
+  <slot />
+  <div
+    class="absolute inset-0 border-4 border-black rounded-md bg-black"
+    style="top: 10px; left: 10px; right: -10px; bottom: -10px; z-index: -1;"
+  >
+  </div>
+</div>
