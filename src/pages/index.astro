@@ -1,22 +1,13 @@
 ---
-import H2 from "../components/H2.astro";
-import TextLink from "../components/TextLink.astro";
-import BrutalButton from "../components/BrutalButton.astro";
 import BrutalLink from "../components/BrutalLink.astro";
 import BrutalCard from "../components/BrutalCard.astro";
 import DefaultLayout from "../layouts/DefaultLayout.astro";
-import { Code } from "astro:components";
 ---
 
 <DefaultLayout metaTitle="Home">
-  <!-- Testing -->
-
   <!-- Homepage hero -->
-  <BrutalCard
-    class="p-4 bg-yellow-400 w-full"
-  >
-    <div class:list={["flex flex-col gap-4",
-    "md:flex-row md:gap-12"]}>
+  <BrutalCard class="p-4 bg-yellow-400 w-full">
+    <div class:list={["flex flex-col gap-4", "md:flex-row md:gap-12"]}>
       <!-- My Name -->
       <div>
         <div class="text-4xl md:text-8xl font-bold">Sam</div>
@@ -41,20 +32,4 @@ import { Code } from "astro:components";
       </div>
     </div>
   </BrutalCard>
-
-  <!-- <div class="grid h-screen place-items-center"> -->
-  <!-- <div class="">
-    <div>x</div>
-    <div class="lg:grid lg:grid-cols-2">
-      <div>
-        <H2>Blog Posts</H2>
-        <div>1</div>
-        <div>2</div>
-        <TextLink href="/blog">Read more...</TextLink>
-      </div>
-      <div>
-        <H2>Links</H2>
-      </div>
-    </div>
-  </div> -->
 </DefaultLayout>

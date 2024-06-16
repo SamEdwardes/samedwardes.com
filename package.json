@@ -28,6 +28,7 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.13",
     "@types/node": "^20.12.12",
+    "daisyui": "^4.12.2",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0"
   },
