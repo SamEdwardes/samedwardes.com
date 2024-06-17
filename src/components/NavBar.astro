@@ -1,6 +1,4 @@
 ---
-import GitHubIcon from "./GitHubIcon.astro";
-import ExternalLinkIcon from "./ExternalLinkIcon.astro";
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/blog", label: "Blog" },
@@ -13,15 +11,68 @@ const rightNavItems = [
 ];
 const currentUrl = Astro.url;
 ---
-
-<div class="navbar bg-primary rounded-2xl shadow-lg border-2 border-gray-900 opacity-90 h-16">
-  <div class="navbar-start">
-    <!-- Mobile nav -->
-    <div class="dropdown text-white">
-      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+<nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 fixed z-[1] top-0 left-0 right-0">
+  <div
+    class:list={[
+      "navbar bg-primary rounded-2xl shadow-lg border-2 border-gray-900 opacity-90 h-16",
+    ]}
+  >
+    <div class="navbar-start">
+      <!-- Mobile nav -->
+      <div class="dropdown text-white">
+        <div
+          tabindex="0"
+          role="button"
+          class="btn btn-ghost lg:hidden"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h8m-8 6h16"
+            ></path></svg
+          >
+        </div>
+        <ul
+          tabindex="0"
+          class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-primary rounded-box w-52"
+        >
+          {
+            navItems.map((item) => (
+              <li>
+                <a
+                  class:list={[
+                    "text-white hover:text-slate-200 rounded-md px-3 py-2 text-xl font-bold",
+                    {
+                      "text-yellow-400 drop-shadow-2xl underline underline-offset-8 decoration-4":
+                        `/${currentUrl.pathname.split("/")[1]}` == item.href &&
+                        item.label != "samedwardes.com",
+                    },
+                  ]}
+                  href={`${item.href}`}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </div>
-      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-primary rounded-box w-52">
+      <a
+        class="font-bold text-xl text-white btn btn-ghost"
+        href="/"
+        >samedwardes.com</a
+      >
+    </div>
+    <!-- Desktop nav -->
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1">
         {
           navItems.map((item) => (
             <li>
@@ -43,35 +94,9 @@ const currentUrl = Astro.url;
         }
       </ul>
     </div>
-    <a class="font-bold text-xl text-white btn btn-ghost" href="/">samedwardes.com</a>
-  </div>
-  <!-- Desktop nav -->
-  <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1">
-      {
-        navItems.map((item) => (
-          <li>
-            <a
-              class:list={[
-                "text-white hover:text-slate-200 rounded-md px-3 py-2 text-xl font-bold",
-                {
-                  "text-yellow-400 drop-shadow-2xl underline underline-offset-8 decoration-4":
-                    `/${currentUrl.pathname.split("/")[1]}` == item.href &&
-                    item.label != "samedwardes.com",
-                },
-              ]}
-              href={`${item.href}`}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-  <div class="navbar-end">
-    <!-- GitHub Icon -->
-    <a
+    <div class="navbar-end">
+      <!-- GitHub Icon -->
+      <a
         href="https://github.com/SamEdwardes"
         target="_blank"
         class="text-gray-400 hover:text-gray-500"
@@ -90,5 +115,6 @@ const currentUrl = Astro.url;
           ></path>
         </svg>
       </a>
+    </div>
   </div>
-</div>
+</nav>

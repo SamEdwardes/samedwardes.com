@@ -1,14 +1,10 @@
 ---
-// Based on https://github.com/ElianCodes/brutal-ui/blob/main/src/components/Card.astro
-const { class: className = "bg-yellow-400", ...rest } = Astro.props;
+const { color } = Astro.props;
 ---
 
-<div class:list={['brutal-card drop-shadow-2xl', className]} {...rest}>
-  <slot />
-</div>
-
-<style>
+<style define:vars={{ color: color }}>
   div.brutal-card {
+    background-color: var(--color);
     border-radius: 0.5rem;
     border: 3px solid black;
     filter: drop-shadow(7px 7px 0 rgb(0 0 0 / 1));
@@ -16,9 +12,12 @@ const { class: className = "bg-yellow-400", ...rest } = Astro.props;
     padding: 1rem;
     transition-duration: 0.5s;
     animation: ease-in-out;
-    z-index: -1;
   }
   div.brutal-card:hover {
     filter: drop-shadow(5px 5px 0 rgb(0 0 0 / 1));
   }
 </style>
+
+<div class='brutal-card'>
+  <slot />
+</div>
