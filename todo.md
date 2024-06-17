@@ -1,3 +1,0 @@
-- [x] Add page titles (e.g. that show up in the tab)
-- [ ] Add homepage
-- [ ] Mobile friendly nav bar
