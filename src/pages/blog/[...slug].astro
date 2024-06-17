@@ -1,5 +1,6 @@
 ---
 import H1 from "../../components/H1.astro";
+import BrutalButton from "../../components/BrutalButton.astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
 
 import { getCollection } from "astro:content";
@@ -9,13 +10,29 @@ export const prerender = true;
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
   const blogEntries = await getCollection("blog");
-  return blogEntries.map((entry) => ({
+  const numberOfPosts = blogEntries.length;
+  const sortedBlogEntries = blogEntries.sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  );
+  return sortedBlogEntries.map((entry, i) => ({
     params: { slug: entry.slug },
-    props: { entry },
+    props: {
+      entry,
+      // Previous post
+      prevPost:
+        i + 1 === numberOfPosts // If the current post is the oldest
+          ? { frontmatter: "" }
+          : blogEntries[i + 1],
+      // Next post
+      nextPost:
+        i === 0 // If the current post is the newest
+          ? { frontmatter: "" }
+          : blogEntries[i - 1],
+    },
   }));
 }
 // 2. For your template, you can get the entry directly from the prop
-const { entry } = Astro.props;
+const { entry, prevPost, nextPost } = Astro.props;
 const { Content } = await entry.render();
 ---
 
@@ -24,13 +41,43 @@ const { Content } = await entry.render();
     <article class="prose max-w-4xl">
       <H1>{entry.data.title}</H1>
       <div class="text-light text-gray-500">
-        {entry.data.date.toLocaleString("default", {
-          month: "long",
-        })}
+        {
+          entry.data.date.toLocaleString("default", {
+            month: "long",
+          })
+        }
         {entry.data.date.getDate()},
         {entry.data.date.getFullYear()}
       </div>
       <Content />
     </article>
+  </section>
+  <section class="pt-8">
+    <div class="grid grid-cols-2 gap-4">
+      {
+        prevPost.slug ? (
+          <BrutalButton
+            href={`/blog/${prevPost.slug}`}
+            class="bg-yellow-400 font-bold prose"
+          >
+            Previous Post
+          </BrutalButton>
+        ) : (
+          <div />
+        )
+      }
+      {
+        nextPost.slug ? (
+          <BrutalButton
+            href={`/blog/${nextPost.slug}`}
+            class="text-right bg-yellow-400 font-bold prose"
+          >
+            Next Post
+          </BrutalButton>
+        ) : (
+          <div />
+        )
+      }
+    </div>
   </section>
 </DefaultLayout>

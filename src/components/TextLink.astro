@@ -6,6 +6,7 @@ const { href } = Astro.props
   class:list={[
     "text-primary",
     "hover:text-primary hover:drop-shadow-lg hover:underline",
+    href.includes("http")? "after:content-['_↗']" : "",
   ]}
 >
   <slot />

@@ -1,9 +1,22 @@
-<button class:list={[
-    "bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded flex items-center",
-    "shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-]}>
-    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path>
-    </svg>
-    Last 30 days
-  </button>
+---
+const {  class: className = "bg-yellow-400", ...rest } = Astro.props;
+---
+
+<a class:list={['brutal-btn', className]} {...rest} >
+  <slot />
+</a>
+
+<style>
+  a.brutal-btn {
+    filter: drop-shadow(5px 5px 0 rgb(0 0 0 / 1));
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 2px solid black;
+    transition: all;
+    transition-duration: 0.5s;
+    animation: ease-in-out;
+  }
+  a.brutal-btn:hover {
+    filter: drop-shadow(3px 3px 0 rgb(0 0 0 / 1));
+  }
+</style>
