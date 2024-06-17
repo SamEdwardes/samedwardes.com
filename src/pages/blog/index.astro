@@ -1,8 +1,9 @@
 ---
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
 import H1 from "../../components/H1.astro";
+import BrutalPill from "../../components/BrutalPill.astro";
+import { getCollection } from "astro:content";
 
-import { getCollection, getEntry } from "astro:content";
 const blogEntries = (
   await getCollection("blog", ({ data }) => {
     return data.draft !== true;
@@ -34,12 +35,12 @@ const blogEntries = (
           </div>
           <div>{blogPostEntry.data.description}</div>
           <div class="flex flex-row justify-between pt-2">
-            <div class="flex flex-row gap-2">
+            <div class="flex flex-row flex-wrap gap-2">
               <div class="font-bold">Tags: </div>
               {blogPostEntry.data.tags?.map((tag) => (
-                <div class="rounded-full border border-gray-500 font-light px-2">
+                <BrutalPill class="bg-yellow-400">
                   {tag}
-                </div>
+                </BrutalPill>
               ))}
             </div>
             <a
