@@ -1,4 +1,4 @@
-import { defineConfig, sharpImageService } from "astro/config";
+import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import alpinejs from "@astrojs/alpinejs";
@@ -52,9 +52,4 @@ export default defineConfig({
   // Netlify
   output: "server",
   adapter: netlify()
-  // Static
-  // output: "static",
-  // image: {
-  //   service: sharpImageService(),
-  // }
 });

@@ -21,16 +21,17 @@ export async function getStaticPaths() {
       // Previous post
       prevPost:
         i + 1 === numberOfPosts // If the current post is the oldest
-          ? { frontmatter: "" }
-          : blogEntries[i + 1],
+          ? undefined
+          : sortedBlogEntries[i + 1],
       // Next post
       nextPost:
         i === 0 // If the current post is the newest
-          ? { frontmatter: "" }
-          : blogEntries[i - 1],
+          ? undefined
+          : sortedBlogEntries[i - 1],
     },
   }));
 }
+
 // 2. For your template, you can get the entry directly from the prop
 const { entry, prevPost, nextPost } = Astro.props;
 const { Content } = await entry.render();
@@ -55,7 +56,7 @@ const { Content } = await entry.render();
   <section class="pt-8">
     <div class="grid grid-cols-2 gap-4">
       {
-        prevPost.slug ? (
+        prevPost ? (
           <BrutalButton
             href={`/blog/${prevPost.slug}`}
             class="bg-yellow-400 font-bold prose"
@@ -67,7 +68,7 @@ const { Content } = await entry.render();
         )
       }
       {
-        nextPost.slug ? (
+        nextPost ? (
           <BrutalButton
             href={`/blog/${nextPost.slug}`}
             class="text-right bg-yellow-400 font-bold prose"
