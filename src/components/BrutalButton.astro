@@ -1,0 +1,22 @@
+---
+const {  class: className = "bg-yellow-400", ...rest } = Astro.props;
+---
+
+<a class:list={['brutal-btn', className]} {...rest} >
+  <slot />
+</a>
+
+<style>
+  a.brutal-btn {
+    filter: drop-shadow(5px 5px 0 rgb(0 0 0 / 1));
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 2px solid black;
+    transition: all;
+    transition-duration: 0.5s;
+    animation: ease-in-out;
+  }
+  a.brutal-btn:hover {
+    filter: drop-shadow(3px 3px 0 rgb(0 0 0 / 1));
+  }
+</style>

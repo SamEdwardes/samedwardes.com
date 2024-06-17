@@ -1,0 +1,20 @@
+---
+import { Code } from 'astro:components';
+import fs from 'fs/promises';
+import path from 'path';
+
+const { src } = Astro.props;
+const { lang = 'python' } = Astro.props;
+
+const localPath = path.join(import.meta.env.SITE_PATH || process.cwd(), 'public', src);
+let fileContent = '';
+
+// Try loading the content from file system at build time
+try {
+  fileContent = await fs.readFile(localPath, 'utf-8');
+} catch (err) {
+  console.error(`Failed to read file at ${localPath}`, err);
+}
+---
+
+<Code code={fileContent} lang={lang} />
