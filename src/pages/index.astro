@@ -2,7 +2,9 @@
 import BrutalLink from "../components/BrutalLink.astro";
 import BrutalCard from "../components/BrutalCard.astro";
 import DefaultLayout from "../layouts/DefaultLayout.astro";
-import BrutalCardTest from "../components/BrutalCardTest.astro";
+import RecentBlogPosts from "../components/RecentBlogPosts.astro";
+import H2 from "../components/H2.astro";
+import TextLink from "../components/TextLink.astro";
 ---
 
 <DefaultLayout metaTitle="Home">
@@ -33,4 +35,44 @@ import BrutalCardTest from "../components/BrutalCardTest.astro";
       </div>
     </div>
   </BrutalCard>
+  <section class="pt-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <H2>Recent Blog Posts</H2>
+        <RecentBlogPosts numPosts="5" />
+      </div>
+      <div>
+        <H2>Outdoors</H2>
+        <ul class="list-disc list-inside pb-8">
+          <li>
+            <TextLink href="/blog/2019-08-22-cycling-canada-main"
+              >Cycling Across Canada</TextLink>
+          </li>
+          <li>
+            <TextLink href="/blog/2019-08-31-cycling-bc-coast"
+              >Cycling the Sunshine Coast</TextLink>
+          </li>
+          <li>
+            <TextLink href="/blog/2018-01-01-cycling-portugal"
+              >Cycling Portugal</TextLink>
+          </li>
+          <li>
+            <TextLink href="/blog/2012-09-09-running-pei"
+              >Running Across PEI</TextLink>
+          </li>
+        </ul>
+        <H2>Open Source</H2>
+        <ul class="list-disc list-inside">
+          <li>
+            <TextLink href="https://github.com/SamEdwardes/spacytextblob"
+              >SamEdwardes/spacytextblob</TextLink>
+          </li>
+          <li>
+            <TextLink href="https://github.com/SamEdwardes/spacypdfreader"
+              >SamEdwardes/spacypdfreader</TextLink>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
 </DefaultLayout>
