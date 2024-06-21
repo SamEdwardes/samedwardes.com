@@ -1,0 +1,5 @@
+default:
+    @just --list
+
+render:
+    quarto render index.ipynb --execute --to gfm --output-dir ../
