@@ -11,7 +11,7 @@ tags:
 title: How to use 1Password for Secrets in ~/.bashrc or ~/.zshrc (UPDATE)
 ---
 
-At the start of the month I wrote a blog post about how to use 1Password for managing all of your secrets on the command line: [How to use 1Password for Secrets in ~/.bashrc or ~/.zshrc](../2023-11-03-1password-for-secret-dotfiles/index.md). After 1 month of using this approach in the wild, I have a few updates.
+At the start of the month I wrote a blog post about how to use 1Password for managing all of your secrets on the command line: [How to use 1Password for Secrets in ~/.bashrc or ~/.zshrc](/blog/2023-11-03-1password-for-secret-dotfiles/). After 1 month of using this approach in the wild, I have a few updates.
 
 My primary problem was that it was very annoying to authenticate every time I opened a new terminal session. But... liked the idea of using 1Password to store all of my secrets, and not copying and pasting secrets into my startup scripts.
 
