@@ -1,14 +1,14 @@
 ---
 title: Using DuckDB to Query Kobo Data
 author: Sam Edwardes
-date: 2024-06-21
-description: hello world
+date: 2024-06-23
+description: How to use DuckDB to query books, highlights, and annotations from a Kobo eReader.
 keywords:
-- python
 - duckdb
 - kobo
 tags:
-- python
+- duckdb
+- data
 ---
 
 I have a Kobo eReader that I use for most of my reading. After finishing a recent book, I wanted to review all the highlights and annotations I had made. Kobo provides a built-in way to do this, but the device is rather slow, and the screen is small. This made it challenging to quickly review all my notes.
