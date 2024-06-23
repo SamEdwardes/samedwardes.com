@@ -4,6 +4,7 @@ import BrutalButton from "../../components/BrutalButton.astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
 
 import { getCollection } from "astro:content";
+import TableOfContents from "../../components/TableOfContents.astro";
 
 export const prerender = true;
 
@@ -34,7 +35,7 @@ export async function getStaticPaths() {
 
 // 2. For your template, you can get the entry directly from the prop
 const { entry, prevPost, nextPost } = Astro.props;
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
 ---
 
 <DefaultLayout metaTitle={`${entry.data.title}`}>
@@ -50,6 +51,8 @@ const { Content } = await entry.render();
         {entry.data.date.getDate()},
         {entry.data.date.getFullYear()}
       </div>
+      <!-- Table of contents -->
+       <TableOfContents headings={headings} />
       <Content />
     </article>
   </section>
