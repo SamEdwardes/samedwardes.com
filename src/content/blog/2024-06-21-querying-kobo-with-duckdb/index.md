@@ -27,11 +27,11 @@ To find the database, you will need to connect your Kobo to your computer. One m
 
 ## Reading Kobo Data into DuckDB
 
-You can read the sqlite database directly into DuckDB. Use the `--readonly` flag to ensure tha you don't accidentally write to the database.
+You can read the sqlite database directly into DuckDB. Use the `-readonly` flag to ensure tha you don't accidentally write to the database.
 
 
 ```bash
-duckdb --readonly /Volumes/KOBOeReader/.kobo/KoboReader.sqlite
+duckdb -readonly /Volumes/KOBOeReader/.kobo/KoboReader.sqlite
 ```
 
 ```sql
