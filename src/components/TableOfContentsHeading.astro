@@ -1,16 +1,16 @@
 ---
-const { heading } = Astro.props;
+const { heading, leftPadding = 0 } = Astro.props;
 ---
 
-<li>
-  <a href={'#' + heading.slug}>
+<li class:list={[`ml-${leftPadding}`]}>
+  <a href={'#' + heading.slug} class="text-white text-small font-mono italic font-light hover:text-primary hover:underline">
     {heading.text}
   </a>
   {
     heading.subheadings.length > 0 && (
       <ul>
         {heading.subheadings.map((subheading) => (
-          <Astro.self heading={subheading} />
+          <Astro.self heading={subheading} leftPadding="4" />
         ))}
       </ul>
     )

@@ -1,5 +1,6 @@
 ---
 import TableOfContentsHeading from "./TableOfContentsHeading.astro";
+import BrutalCard from "./BrutalCard.astro";
 
 export interface Props {
   headings: {
@@ -33,8 +34,8 @@ const tableOfContentsData = buildToc(headings);
 ---
 
 <nav class="">
-  <div class="bg-yellow-400 p-4 rounded-lg">
-    <ul class="text-white">
+  <BrutalCard>
+    <ul>
       {
         tableOfContentsData.map((heading) => (
           <TableOfContentsHeading heading={heading} />
@@ -42,5 +43,5 @@ const tableOfContentsData = buildToc(headings);
       }
     </ul>
 
-  </div>
+  </BrutalCard>
 </nav>
