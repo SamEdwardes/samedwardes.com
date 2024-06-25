@@ -3,7 +3,7 @@ const { heading, leftPadding = 0 } = Astro.props;
 ---
 
 <li class:list={[`ml-${leftPadding}`]}>
-  <a href={'#' + heading.slug} class="text-white text-small font-mono italic font-light hover:text-primary hover:underline">
+  <a href={'#' + heading.slug} class="text-white text-sm font-mono italic font-light hover:text-primary hover:underline">
     {heading.text}
   </a>
   {

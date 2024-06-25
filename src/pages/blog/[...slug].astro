@@ -54,14 +54,17 @@ const { Content, headings } = await entry.render();
   <section class="grid grid-cols-12 gap-8">
     <!-- Article content -->
     <article class:list={[
-      "prose max-w-4xl col-span-9",
+      "prose max-w-4xl col-span-full lg:col-span-9",
       "prose-headings:scroll-mt-24",
     ]}>
       <Content />
     </article>
     <!-- Table of contents -->
-    <div class="relative col-span-3">
-      <div class="sticky top-24">
+    <div class:list={[
+        "col-span-full order-first pt-8",
+        "lg:relative lg:pt-0 lg:order-last lg:col-span-3"
+      ]}>
+      <div class="lg:sticky lg:top-24">
         <TableOfContents headings={headings} />
       </div>
     </div>
