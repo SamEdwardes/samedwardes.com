@@ -36,6 +36,8 @@ export async function getStaticPaths() {
 // 2. For your template, you can get the entry directly from the prop
 const { entry, prevPost, nextPost } = Astro.props;
 const { Content, headings } = await entry.render();
+
+console.log(headings)
 ---
 
 <DefaultLayout metaTitle={`${entry.data.title}`}>
@@ -54,17 +56,21 @@ const { Content, headings } = await entry.render();
   <section class="grid grid-cols-12 gap-8">
     <!-- Article content -->
     <article class:list={[
-      "prose max-w-4xl col-span-full lg:col-span-9",
+      "prose max-w-4xl",
       "prose-headings:scroll-mt-24",
+      headings.length == 0 ? "col-span-full" : "col-span-full lg:col-span-9"
     ]}>
       <Content />
     </article>
     <!-- Table of contents -->
     <div class:list={[
-        "col-span-full order-first pt-8",
-        "lg:relative lg:pt-0 lg:order-last lg:col-span-3"
+        headings.length == 0 ? "col-span-full hidden" : [
+          "col-span-full order-first pt-8",
+          "lg:relative lg:pt-0 lg:order-last lg:col-span-3",
+        ]
+
       ]}>
-      <div class="lg:sticky lg:top-24">
+      <div class:list={["lg:sticky lg:top-24", {hidden: headings.length == 0}]}>
         <TableOfContents headings={headings} />
       </div>
     </div>
