@@ -32,12 +32,15 @@ console.log(buildToc(headings));
 const tableOfContentsData = buildToc(headings);
 ---
 
-<nav class="toc">
-  <ul>
-    {
-      tableOfContentsData.map((heading) => (
-        <TableOfContentsHeading heading={heading} />
-      ))
-    }
-  </ul>
+<nav class="">
+  <div class="bg-yellow-400 p-4 rounded-lg">
+    <ul class="text-white">
+      {
+        tableOfContentsData.map((heading) => (
+          <TableOfContentsHeading heading={heading} />
+        ))
+      }
+    </ul>
+
+  </div>
 </nav>

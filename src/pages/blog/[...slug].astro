@@ -39,25 +39,33 @@ const { Content, headings } = await entry.render();
 ---
 
 <DefaultLayout metaTitle={`${entry.data.title}`}>
-  <section>
-    <article class="prose max-w-4xl">
-      <H1>{entry.data.title}</H1>
-      <div class="text-light text-gray-500">
-        {
-          entry.data.date.toLocaleString("default", {
-            month: "long",
-          })
-        }
-        {entry.data.date.getDate()},
-        {entry.data.date.getFullYear()}
-      </div>
-      <!-- Table of contents -->
-       <TableOfContents headings={headings} />
+  <!-- Title -->
+  <H1>{entry.data.title}</H1>
+  <!-- Date -->
+  <div class="text-light text-gray-500">
+    {
+      entry.data.date.toLocaleString("default", {
+        month: "long",
+      })
+    }
+    {entry.data.date.getDate()},
+    {entry.data.date.getFullYear()}
+  </div>
+  <section class="grid grid-cols-12 gap-8">
+    <!-- Article content -->
+    <article class="prose max-w-4xl col-span-9">
       <Content />
     </article>
+    <!-- Talbe of contents -->
+    <div class="relative col-span-3">
+      <div class="sticky top-24">
+          <TableOfContents headings={headings}/>
+      </div>
+    </div>
   </section>
+  <!-- Last and next buttons -->
   <section class="pt-8">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-2 gap-8">
       {
         prevPost ? (
           <BrutalButton
