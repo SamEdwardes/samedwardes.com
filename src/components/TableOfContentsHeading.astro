@@ -1,4 +1,18 @@
 ---
+
+
+export interface TocHeading {
+  depth: number;
+  slug: string;
+  text: string;
+  subheadings: TocHeading[];
+}
+
+export interface Props {
+  heading: TocHeading;
+  leftPadding?: string;
+}
+
 const { heading, leftPadding = 0 } = Astro.props;
 ---
 
