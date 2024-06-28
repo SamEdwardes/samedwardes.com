@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import alpinejs from "@astrojs/alpinejs";
@@ -6,7 +6,19 @@ import netlify from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
+  // Integrations
   integrations: [tailwind(), mdx(), alpinejs()],
+  // Netlify
+  output: "hybrid",
+  adapter: netlify(),
+  experimental: {
+    env: {
+      schema: {
+        NOTION_TOKEN: envField.string({ context: "server", access: "secret" }),
+      }
+    }
+  },
+  // Redirects
   redirects: {
     // TODO: create replacement pages for these
     '/tags': '/',
@@ -48,8 +60,5 @@ export default defineConfig({
     '/2023/11/28/1password-for-secret-dotfiles-update': '/blog/2023-11-28-1password-for-secret-dotfiles-update',
     '/2024/01/09/requirements-txt-workflow-for-new-project': '/blog/2024-01-09-requirements-txt-workflow-for-new-project',
     '/2024/04/21/python-uv-workflow': '/blog/2024-04-21-python-uv-workflow'
-  },
-  // Netlify
-  output: "server",
-  adapter: netlify()
+  }
 });

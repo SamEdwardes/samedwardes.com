@@ -1,0 +1,48 @@
+---
+// Render this on the server.
+export const prerender = false;
+
+import { Client, isFullDatabase, isFullPageOrDatabase, isFullPage } from "@notionhq/client";
+
+const notion = new Client({
+  auth: process.env.NOTION_TOKEN,
+});
+
+const publicLinks = await notion.databases.query({
+  // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
+  database_id: "18594cc9dbcb4ca6984984f6beb03b81",
+  filter: {
+    property: "Public",
+    checkbox: {
+      equals: true,
+    },
+  },
+});
+
+
+publicLinks.results.map((page) => {
+  if (!isFullPage(page)) {
+    return;
+  }
+  console.log("")
+  console.log("===============================================================")
+  console.log(page.properties.Name.title[0].plain_text);
+  console.log("===============================================================")
+  console.log(page.properties)
+  if (page.properties["Public Description"].rich_text.length > 0) {
+    console.log("Public Description")
+    console.log("------------------")
+    console.log(page.properties["Public Description"].rich_text[0].plain_text);
+  }
+  if (page.properties["Public Tags"].multi_select.length > 0) {
+    console.log("Public Tags")
+    console.log("-----------")
+    console.log(page.properties["Public Tags"].multi_select);
+  }
+});
+---
+
+<!-- Data fetched at build can be rendered in HTML -->
+<div>
+  {publicLinks}
+</div>
