@@ -36,11 +36,9 @@ export async function getStaticPaths() {
 // 2. For your template, you can get the entry directly from the prop
 const { entry, prevPost, nextPost } = Astro.props;
 const { Content, headings } = await entry.render();
-
-console.log(headings)
 ---
 
-<DefaultLayout metaTitle={`${entry.data.title}`}>
+<DefaultLayout metaTitle={`${entry.data.title}`}, contentMaxWidth={headings.length == 0 ? 'max-w-4xl' : 'max-w-7xl'}>
   <!-- Title -->
   <H1>{entry.data.title}</H1>
   <!-- Date -->

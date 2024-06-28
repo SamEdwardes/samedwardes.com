@@ -10,13 +10,13 @@ export interface TocHeading {
 
 export interface Props {
   heading: TocHeading;
-  leftPadding?: string;
+  leftPadding: boolean;
 }
 
-const { heading, leftPadding = 0 } = Astro.props;
+const { heading, leftPadding = false } = Astro.props;
 ---
 
-<li class:list={[`ml-${leftPadding}`]}>
+<li class:list={[ { 'ml-4': leftPadding } ]}>
   <a href={'#' + heading.slug} class="text-white text-sm font-mono italic font-light hover:text-primary hover:underline">
     {heading.text}
   </a>
@@ -24,7 +24,7 @@ const { heading, leftPadding = 0 } = Astro.props;
     heading.subheadings.length > 0 && (
       <ul>
         {heading.subheadings.map((subheading) => (
-          <Astro.self heading={subheading} leftPadding="4" />
+          <Astro.self heading={subheading} leftPadding={true} />
         ))}
       </ul>
     )
