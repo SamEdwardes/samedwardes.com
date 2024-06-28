@@ -38,7 +38,7 @@ const { entry, prevPost, nextPost } = Astro.props;
 const { Content, headings } = await entry.render();
 ---
 
-<DefaultLayout metaTitle={`${entry.data.title}`}, contentMaxWidth={headings.length == 0 ? 'max-w-4xl' : 'max-w-7xl'}>
+<DefaultLayout metaTitle={`${entry.data.title}`}, contentMaxWidth={headings.length == 0 ? 'max-w-4xl' : 'max-w-6xl'}>
   <!-- Title -->
   <H1>{entry.data.title}</H1>
   <!-- Date -->
@@ -82,7 +82,8 @@ const { Content, headings } = await entry.render();
             href={`/blog/${prevPost.slug}`}
             class="bg-yellow-400 font-bold prose"
           >
-            Previous Post
+            <div>Previous Post</div>
+            <div class="font-light">{prevPost.data.title}</div>
           </BrutalButton>
         ) : (
           <div />
@@ -94,7 +95,8 @@ const { Content, headings } = await entry.render();
             href={`/blog/${nextPost.slug}`}
             class="text-right bg-yellow-400 font-bold prose"
           >
-            Next Post
+            <div>Next Post</div>
+            <div class="font-light">{nextPost.data.title}</div>
           </BrutalButton>
         ) : (
           <div />

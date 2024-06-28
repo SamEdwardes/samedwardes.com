@@ -46,7 +46,7 @@ const tableOfContentsData = buildToc(headings);
     <ul>
       {
         tableOfContentsData.map((heading) => (
-          <TableOfContentsHeading heading={heading} />
+          <TableOfContentsHeading heading={heading} leftPadding={false} />
         ))
       }
     </ul>
