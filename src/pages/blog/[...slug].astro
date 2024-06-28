@@ -4,6 +4,7 @@ import BrutalButton from "../../components/BrutalButton.astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
 
 import { getCollection } from "astro:content";
+import TableOfContents from "../../components/TableOfContents.astro";
 
 export const prerender = true;
 
@@ -34,34 +35,55 @@ export async function getStaticPaths() {
 
 // 2. For your template, you can get the entry directly from the prop
 const { entry, prevPost, nextPost } = Astro.props;
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
 ---
 
-<DefaultLayout metaTitle={`${entry.data.title}`}>
-  <section>
-    <article class="prose max-w-4xl">
-      <H1>{entry.data.title}</H1>
-      <div class="text-light text-gray-500">
-        {
-          entry.data.date.toLocaleString("default", {
-            month: "long",
-          })
-        }
-        {entry.data.date.getDate()},
-        {entry.data.date.getFullYear()}
-      </div>
+<DefaultLayout metaTitle={`${entry.data.title}`}, contentMaxWidth={headings.length == 0 ? 'max-w-4xl' : 'max-w-6xl'}>
+  <!-- Title -->
+  <H1>{entry.data.title}</H1>
+  <!-- Date -->
+  <div class="text-light text-gray-500">
+    {
+      entry.data.date.toLocaleString("default", {
+        month: "long",
+      })
+    }
+    {entry.data.date.getDate()},
+    {entry.data.date.getFullYear()}
+  </div>
+  <section class="grid grid-cols-12 gap-8">
+    <!-- Article content -->
+    <article class:list={[
+      "prose max-w-4xl",
+      "prose-headings:scroll-mt-24",
+      headings.length == 0 ? "col-span-full" : "col-span-full lg:col-span-9"
+    ]}>
       <Content />
     </article>
+    <!-- Table of contents -->
+    <div class:list={[
+        headings.length == 0 ? "col-span-full hidden" : [
+          "col-span-full order-first pt-8",
+          "lg:relative lg:pt-0 lg:order-last lg:col-span-3",
+        ]
+
+      ]}>
+      <div class:list={["lg:sticky lg:top-24", {hidden: headings.length == 0}]}>
+        <TableOfContents headings={headings} />
+      </div>
+    </div>
   </section>
+  <!-- Last and next buttons -->
   <section class="pt-8">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-2 gap-8">
       {
         prevPost ? (
           <BrutalButton
             href={`/blog/${prevPost.slug}`}
             class="bg-yellow-400 font-bold prose"
           >
-            Previous Post
+            <div>Previous Post</div>
+            <div class="font-light">{prevPost.data.title}</div>
           </BrutalButton>
         ) : (
           <div />
@@ -73,7 +95,8 @@ const { Content } = await entry.render();
             href={`/blog/${nextPost.slug}`}
             class="text-right bg-yellow-400 font-bold prose"
           >
-            Next Post
+            <div>Next Post</div>
+            <div class="font-light">{nextPost.data.title}</div>
           </BrutalButton>
         ) : (
           <div />
