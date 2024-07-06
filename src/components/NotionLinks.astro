@@ -2,13 +2,183 @@
 // Render this on the server.
 export const prerender = false;
 
-import { Client, isFullDatabase, isFullPageOrDatabase, isFullPage } from "@notionhq/client";
+import { Client, isFullPage } from "@notionhq/client";
+
+// -----------------------------------------------------------------------------
+// Define types
+// -----------------------------------------------------------------------------
+
+export interface NotionDataBase {
+  object: string
+  results: NotionPage[]
+  next_cursor: any
+  has_more: boolean
+  type: string
+  page_or_database: PageOrDatabase
+  request_id: string
+}
+
+export interface PageOrDatabase {}
+
+export interface NotionPage {
+  object: string
+  id: string
+  created_time: string
+  last_edited_time: string
+  created_by: CreatedBy
+  last_edited_by: LastEditedBy
+  cover: any
+  icon: any
+  parent: Parent
+  archived: boolean
+  in_trash: boolean
+  properties: Properties
+  url: string
+  public_url: any
+}
+
+export interface CreatedBy {
+  object: string
+  id: string
+}
+
+export interface LastEditedBy {
+  object: string
+  id: string
+}
+
+export interface Parent {
+  type: string
+  database_id: string
+}
+
+export interface Properties {
+  "Public Tags": PublicTags
+  "Created time": CreatedTime
+  Tags: Tags
+  "Related (PARA)": RelatedPara
+  "Last edited time": LastEditedTime
+  Public: Public
+  "Public Description": PublicDescription
+  "Base URL": BaseUrl
+  Name: Name
+  URL: Url
+}
+
+export interface PublicTags {
+  id: string
+  type: string
+  multi_select: any[]
+}
+
+export interface CreatedTime {
+  id: string
+  type: string
+  created_time: string
+}
+
+export interface Tags {
+  id: string
+  type: string
+  multi_select: any[]
+}
+
+export interface RelatedPara {
+  id: string
+  type: string
+  relation: any[]
+  has_more: boolean
+}
+
+export interface LastEditedTime {
+  id: string
+  type: string
+  last_edited_time: string
+}
+
+export interface Public {
+  id: string
+  type: string
+  checkbox: boolean
+}
+
+export interface PublicDescription {
+  id: string
+  type: string
+  rich_text: any[]
+}
+
+export interface BaseUrl {
+  id: string
+  type: string
+  formula: Formula
+}
+
+export interface Formula {
+  type: string
+  string: string
+}
+
+export interface Name {
+  id: string
+  type: string
+  title: Title[]
+}
+
+export interface Title {
+  type: string
+  text: Text
+  annotations: Annotations
+  plain_text: string
+  href: any
+}
+
+export interface Text {
+  content: string
+  link: any
+}
+
+export interface Annotations {
+  bold: boolean
+  italic: boolean
+  strikethrough: boolean
+  underline: boolean
+  code: boolean
+  color: string
+}
+
+export interface Url {
+  id: string
+  type: string
+  url: string
+}
+
+
+
+// -----------------------------------------------------------------------------
+// Call Notion API
+// -----------------------------------------------------------------------------
+
+// exports.getDatabase = async function () {
+//   const response = await notion.databases.query({ database_id: databaseId });
+
+//   const responseResults = response.results.map((page) => {
+//     return {
+//       id: page.id,
+//       name: page.properties.Name.title[0]?.plain_text,
+//       role: page.properties.Role.rich_text[0]?.plain_text,
+//     };
+//   });
+
+//   return responseResults;
+// };
+
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-const publicLinks = await notion.databases.query({
+const fullOrPartialPages = await notion.databases.query({
   // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
   database_id: "18594cc9dbcb4ca6984984f6beb03b81",
   filter: {
@@ -19,30 +189,85 @@ const publicLinks = await notion.databases.query({
   },
 });
 
-
-publicLinks.results.map((page) => {
+for (const page of fullOrPartialPages.results) {
   if (!isFullPage(page)) {
-    return;
+    continue
   }
-  console.log("")
+  console.log("\n===============================================================")
+  console.log(page.properties.Name.type);
+  if (page.properties.Name.type === "title") {
+    console.log(page.properties.Name.title[0]?.plain_text)
+  }
   console.log("===============================================================")
-  console.log(page.properties.Name.title[0].plain_text);
-  console.log("===============================================================")
-  console.log(page.properties)
-  if (page.properties["Public Description"].rich_text.length > 0) {
-    console.log("Public Description")
-    console.log("------------------")
-    console.log(page.properties["Public Description"].rich_text[0].plain_text);
-  }
-  if (page.properties["Public Tags"].multi_select.length > 0) {
-    console.log("Public Tags")
-    console.log("-----------")
-    console.log(page.properties["Public Tags"].multi_select);
-  }
-});
+  // console.log({ ...page.properties })
+  // console.log(page.)
+  console.log("Name" in page.properties)
+  // console.log("Created at:", page.created_time)
+  // console.log(page.properties)
+  // const properties = page.properties as Properties
+  // console.log(properties)
+}
+
+
+// if (!('request_id' in publicLinks)) {
+//   throw new Error('request_id does not exist on the publicLinks object.');
+// }
+
+// try converting one page
+// const page: NotionPage = notionResponse.results[0]
+// console.log(page)
+
+// Convert to a ts object
+// const links: NotionPage[] = notionResponse.results;
+// console.log(links)
+
+
+
+
+// console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+// console.log("Results")
+// console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+// console.log(publicLinks.results)
+// console.log(typeof publicLinks);
+// console.log(typeof publicLinks.results);
+// console.log(typeof publicLinks.results[0]);
+// console.log(JSON.stringify(publicLinks));
+
+// fullOrPartialPages.results.map((page) => {
+//   if (!isFullPage(page)) {
+//     return;
+//   }
+//   console.log("")
+//   const pageProperties: Properties  = page.properties
+//   console.log("===============================================================")
+//   // console.log(page.properties.Name.title[0].plain_text);
+//   console.log(pageProperties.Name.title[0].plain_text)
+//   console.log("===============================================================")
+//   console.log(typeof page.properties)
+//   // console.log(page.properties)
+//   // if (page.properties["Public Description"].rich_text.length > 0) {
+//   //   console.log("Public Description")
+//   //   console.log("------------------")
+//   //   console.log(page.properties["Public Description"].rich_text[0].plain_text);
+//   // }
+//   // if (page.properties["Public Tags"].multi_select.length > 0) {
+//   //   console.log("Public Tags")
+//   //   console.log("-----------")
+//   //   console.log(page.properties["Public Tags"].multi_select);
+//   // }
+// });
 ---
 
 <!-- Data fetched at build can be rendered in HTML -->
 <div>
-  {publicLinks}
+  { fullOrPartialPages.results.map((page) => {
+    if (!isFullPage(page)) {
+      return;
+    }
+    return (
+      <div>
+        <h2>{page.properties.Name}</h2>
+      </div>
+    )
+  })}
 </div>
