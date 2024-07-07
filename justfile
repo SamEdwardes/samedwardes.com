@@ -7,5 +7,5 @@ run:
 build:
     npm run build
 
-# format:
-#     npx prettier --write .
+format:
+    npx prettier --write .
