@@ -30,7 +30,7 @@
     "@tailwindcss/typography": "^0.5.13",
     "@types/node": "^20.12.12",
     "daisyui": "^4.12.2",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.2",
     "prettier-plugin-astro": "^0.13.0"
   },
   "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
