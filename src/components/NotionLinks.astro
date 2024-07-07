@@ -1,7 +1,8 @@
 ---
 export const prerender = false;
-
 import { Client, isFullPage } from "@notionhq/client";
+import BrutalPill from "../components/BrutalPill.astro";
+import BrutalButton from "../components/BrutalButton.astro";
 
 // -----------------------------------------------------------------------------
 // Call Notion API
@@ -31,7 +32,7 @@ function isCheckboxProperty(property: any): property is { checkbox: boolean } {
 }
 
 function isTitleProperty(
-  property: any,
+  property: any
 ): property is { title: [{ plain_text: string }] } {
   return property?.type === "title";
 }
@@ -41,19 +42,19 @@ function isUrlProperty(property: any): property is { url: string } {
 }
 
 function isFormulaStringProperty(
-  property: any,
+  property: any
 ): property is { formula: { string: string } } {
   return property?.type === "formula" && property.formula.type === "string";
 }
 
 function isMultiSelectProperty(
-  property: any,
+  property: any
 ): property is { multi_select: { name: string }[] } {
   return property?.type === "multi_select";
 }
 
 function isRichTextProperty(
-  property: any,
+  property: any
 ): property is { rich_text: [{ plain_text: string }] } {
   return property?.type === "rich_text";
 }
@@ -115,17 +116,58 @@ function extractPageLink(page: any): PageLink {
 }
 
 // Use the refactored function in the map
-const pageLinks = fullOrPartialPages.results.map(extractPageLink);
+const pageLinks = fullOrPartialPages.results
+  .map(extractPageLink)
+  .sort((a, b) => b.created_time.getTime() - a.created_time.getTime());
+
+// Helper function for UI
+function formatDateWithoutDay(dateInput: Date) {
+  const date = new Date(dateInput);
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // Adjust for zero-index
+  const year = date.getFullYear();
+  return `${year}-${month}-${day}`;
+}
 ---
 
+
 <div>
-  {
-    pageLinks.map((page) => {
-      return (
-        <div>
-          <h2>{page.title}</h2>
-        </div>
-      );
-    })
-  }
+  <!-- TODO: add tag filter, date filter, and search -->
+  <div class="grid grid-cols-4 gap-4">
+    {
+      pageLinks.map((page) => {
+        return (
+          <BrutalButton
+            href={page.url}
+            target="_blank"
+          >
+            <div class="flex flex-col h-full">
+              <h2 class="font-bold">{page.title}</h2>
+              <p class="text-sm pt-2">{page.description}</p>
+              <div class="grow" />
+              <div class="pt-4">
+                <p class="text-xs font-extralight italic">
+                  Added on {formatDateWithoutDay(page.created_time)}
+                </p>
+                <p
+                  class:list={[
+                    "text-gray-600 text-xs font-extralight truncate italic",
+                    "hover:underline after:content-['_↗']",
+                    "justify-self-end",
+                  ]}
+                >
+                  {page.url}
+                </p>
+                <p class="pt-2 flex flex-row gap-1 -ml-3">
+                  {page.tags.map((tag) => (
+                    <BrutalPill class="bg-white">{tag}</BrutalPill>
+                  ))}
+                </p>
+              </div>
+            </div>
+          </BrutalButton>
+        );
+      })
+    }
+  </div>
 </div>
