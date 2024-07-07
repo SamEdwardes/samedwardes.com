@@ -62,8 +62,8 @@ export interface PageLink {
 }
 
 // Refactored function to extract page link
-function extractPageLink(page: any): PageLink | undefined {
-  if (!isFullPage(page)) return;
+function extractPageLink(page: any): PageLink {
+  if (!isFullPage(page)) throw new Error("Not a full page object");
 
   const {
     Public: publicProp,
@@ -98,16 +98,11 @@ function extractPageLink(page: any): PageLink | undefined {
 }
 
 // Use the refactored function in the map
-const pageLinks = fullOrPartialPages.results.map(extractPageLink).filter(Boolean);
-console.log(pageLinks);
-
+const pageLinks = fullOrPartialPages.results.map(extractPageLink);
 ---
 
 <div>
   { pageLinks.map((page) => {
-    if (!page) {
-      return
-    }
     return (
       <div>
         <h2>{page.title}</h2>
