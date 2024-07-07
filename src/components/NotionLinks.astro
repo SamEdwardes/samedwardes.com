@@ -1,26 +1,7 @@
 ---
-// Render this on the server.
 export const prerender = false;
 
 import { Client, isFullPage } from "@notionhq/client";
-
-// -----------------------------------------------------------------------------
-// Define types
-// -----------------------------------------------------------------------------
-
-
-export interface PageLink {
-  id: string
-  created_time: Date
-  publiclyVisible: boolean
-  title: string
-  url: string
-  base_url: string
-  tags: string[]
-  description?: string
-}
-
-
 
 // -----------------------------------------------------------------------------
 // Call Notion API
@@ -44,80 +25,81 @@ const fullOrPartialPages = await notion.databases.query({
 // Extract data from Notion API response
 // -----------------------------------------------------------------------------
 
-const pageLinks = fullOrPartialPages.results.map((page) => {
-  if (!isFullPage(page)) {
-    return;
+// Type guards for property types
+function isCheckboxProperty(property: any): property is { checkbox: boolean } {
+  return property?.type === "checkbox";
+}
+
+function isTitleProperty(property: any): property is { title: [{ plain_text: string }] } {
+  return property?.type === "title";
+}
+
+function isUrlProperty(property: any): property is { url: string } {
+  return property?.type === "url";
+}
+
+function isFormulaStringProperty(property: any): property is { formula: { string: string } } {
+  return property?.type === "formula" && property.formula.type === "string";
+}
+
+function isMultiSelectProperty(property: any): property is { multi_select: { name: string }[] } {
+  return property?.type === "multi_select";
+}
+
+function isRichTextProperty(property: any): property is { rich_text: [{ plain_text: string }] } {
+  return property?.type === "rich_text";
+}
+
+export interface PageLink {
+  id: string
+  created_time: Date
+  publiclyVisible: boolean
+  title: string
+  url: string
+  base_url: string
+  tags: string[]
+  description?: string
+}
+
+// Refactored function to extract page link
+function extractPageLink(page: any): PageLink | undefined {
+  if (!isFullPage(page)) return;
+
+  const {
+    Public: publicProp,
+    Name: nameProp,
+    URL: urlProp,
+    "Base URL": baseUrlProp,
+    "Public Tags": tagsProp,
+    "Public Description": descriptionProp,
+  } = page.properties;
+
+  if (!isCheckboxProperty(publicProp) || !isTitleProperty(nameProp) || !isUrlProperty(urlProp) || !isFormulaStringProperty(baseUrlProp)) {
+    throw new Error("Invalid property types");
   }
 
-  // public
-  if (page.properties.Public.type === "checkbox") {
-    var publiclyVisible = page.properties.Public.checkbox
-  } else {
-    throw new Error("Public property is not a checkbox")
-  }
+  const publiclyVisible = publicProp.checkbox;
+  const title = nameProp.title[0]?.plain_text ?? "";
+  const linkURL = urlProp.url ?? "";
+  const base_url = baseUrlProp.formula.string ?? "";
+  const tags = isMultiSelectProperty(tagsProp) ? tagsProp.multi_select.map(tag => tag.name) : [];
+  const description = isRichTextProperty(descriptionProp) ? descriptionProp.rich_text[0]?.plain_text : undefined;
 
-  // title
-  if (page.properties.Name.type === "title") {
-    var title = page.properties.Name.title[0]?.plain_text
-  } else {
-    throw new Error("Name property is not a title")
-  }
-
-  // url
-  if (page.properties.URL.type === "url") {
-    if (page.properties.URL.url === null) {
-      throw new Error("URL property is null")
-    }
-    var linkURL = page.properties.URL.url
-  } else {
-    throw new Error("Name property is not a title")
-  }
-
-  // base_url
-  if (page.properties["Base URL"].type === "formula") {
-    if (page.properties["Base URL"].formula.type === "string") {
-      if (page.properties["Base URL"].formula.string === null) {
-        throw new Error("Base URL property is null")
-      }
-      var base_url = page.properties["Base URL"].formula.string
-    }
-    else {
-      throw new Error("Base URL property is not a string")
-    }
-  } else {
-    throw new Error("Base URL property is not a formula")
-  }
-
-  // tags
-  if (page.properties["Public Tags"].type === "multi_select") {
-    var tags = page.properties["Public Tags"].multi_select.map((tag) => {
-      return tag.name
-    })
-  } else {
-    throw new Error("Tags property is not a multi_select")
-  }
-
-  // public description
-  if (page.properties["Public Description"].type === "rich_text") {
-    var description = page.properties["Public Description"].rich_text[0]?.plain_text
-  } else {
-    throw new Error("Public Description property is not a rich_text")
-  }
-
-  const link: PageLink = {
+  return {
     id: page.id,
     created_time: new Date(page.created_time),
-    publiclyVisible: publiclyVisible,
-    title: title,
+    publiclyVisible,
+    title,
     url: linkURL,
-    base_url: base_url,
-    tags: tags,
-    description: description,
-  }
+    base_url,
+    tags,
+    description,
+  };
+}
 
-  return link
-
-});
+// Use the refactored function in the map
+const pageLinks = fullOrPartialPages.results.map(extractPageLink).filter(Boolean);
+console.log(pageLinks);
 
 ---
 
