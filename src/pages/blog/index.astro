@@ -38,9 +38,7 @@ const blogEntries = (
             <div class="flex flex-row flex-wrap gap-2">
               <div class="font-bold">Tags: </div>
               {blogPostEntry.data.tags?.map((tag) => (
-                <BrutalPill class="bg-yellow-400">
-                  {tag}
-                </BrutalPill>
+                <BrutalPill class="bg-yellow-400">{tag}</BrutalPill>
               ))}
             </div>
             <a

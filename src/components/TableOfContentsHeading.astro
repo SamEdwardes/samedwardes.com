@@ -1,6 +1,4 @@
 ---
-
-
 export interface TocHeading {
   depth: number;
   slug: string;
@@ -16,8 +14,11 @@ export interface Props {
 const { heading, leftPadding = false } = Astro.props;
 ---
 
-<li class:list={[ { 'ml-4': leftPadding } ]}>
-  <a href={'#' + heading.slug} class="text-white text-sm font-mono italic font-light hover:text-primary hover:underline">
+<li class:list={[{ "ml-4": leftPadding }]}>
+  <a
+    href={"#" + heading.slug}
+    class="text-white text-sm font-mono italic font-light hover:text-primary hover:underline"
+  >
     {heading.text}
   </a>
   {

@@ -1,8 +1,8 @@
 ---
-const {  class: className = "bg-yellow-400", ...rest } = Astro.props;
+const { class: className = "bg-yellow-400", ...rest } = Astro.props;
 ---
 
-<a class:list={['brutal-btn', className]} {...rest} >
+<a class:list={["brutal-btn", className]} {...rest}>
   <slot />
 </a>
 

@@ -1,6 +1,8 @@
-<button x-tabs:tab type="button"
-    :class="$tab.isSelected ? 'border-gray-200 bg-white' : 'border-transparent'"
-    class="inline-flex rounded-t-md border-t border-l border-r px-5 py-2.5"
+<button
+  x-tabs:tab
+  type="button"
+  :class="$tab.isSelected ? 'border-gray-200 bg-white' : 'border-transparent'"
+  class="inline-flex rounded-t-md border-t border-l border-r px-5 py-2.5"
 >
-<slot />
+  <slot />
 </button>

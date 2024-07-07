@@ -30,7 +30,9 @@ function isCheckboxProperty(property: any): property is { checkbox: boolean } {
   return property?.type === "checkbox";
 }
 
-function isTitleProperty(property: any): property is { title: [{ plain_text: string }] } {
+function isTitleProperty(
+  property: any,
+): property is { title: [{ plain_text: string }] } {
   return property?.type === "title";
 }
 
@@ -38,27 +40,33 @@ function isUrlProperty(property: any): property is { url: string } {
   return property?.type === "url";
 }
 
-function isFormulaStringProperty(property: any): property is { formula: { string: string } } {
+function isFormulaStringProperty(
+  property: any,
+): property is { formula: { string: string } } {
   return property?.type === "formula" && property.formula.type === "string";
 }
 
-function isMultiSelectProperty(property: any): property is { multi_select: { name: string }[] } {
+function isMultiSelectProperty(
+  property: any,
+): property is { multi_select: { name: string }[] } {
   return property?.type === "multi_select";
 }
 
-function isRichTextProperty(property: any): property is { rich_text: [{ plain_text: string }] } {
+function isRichTextProperty(
+  property: any,
+): property is { rich_text: [{ plain_text: string }] } {
   return property?.type === "rich_text";
 }
 
 export interface PageLink {
-  id: string
-  created_time: Date
-  publiclyVisible: boolean
-  title: string
-  url: string
-  base_url: string
-  tags: string[]
-  description?: string
+  id: string;
+  created_time: Date;
+  publiclyVisible: boolean;
+  title: string;
+  url: string;
+  base_url: string;
+  tags: string[];
+  description?: string;
 }
 
 // Refactored function to extract page link
@@ -74,7 +82,12 @@ function extractPageLink(page: any): PageLink {
     "Public Description": descriptionProp,
   } = page.properties;
 
-  if (!isCheckboxProperty(publicProp) || !isTitleProperty(nameProp) || !isUrlProperty(urlProp) || !isFormulaStringProperty(baseUrlProp)) {
+  if (
+    !isCheckboxProperty(publicProp) ||
+    !isTitleProperty(nameProp) ||
+    !isUrlProperty(urlProp) ||
+    !isFormulaStringProperty(baseUrlProp)
+  ) {
     throw new Error("Invalid property types");
   }
 
@@ -82,8 +95,12 @@ function extractPageLink(page: any): PageLink {
   const title = nameProp.title[0]?.plain_text ?? "";
   const linkURL = urlProp.url ?? "";
   const base_url = baseUrlProp.formula.string ?? "";
-  const tags = isMultiSelectProperty(tagsProp) ? tagsProp.multi_select.map(tag => tag.name) : [];
-  const description = isRichTextProperty(descriptionProp) ? descriptionProp.rich_text[0]?.plain_text : undefined;
+  const tags = isMultiSelectProperty(tagsProp)
+    ? tagsProp.multi_select.map((tag) => tag.name)
+    : [];
+  const description = isRichTextProperty(descriptionProp)
+    ? descriptionProp.rich_text[0]?.plain_text
+    : undefined;
 
   return {
     id: page.id,
@@ -102,11 +119,13 @@ const pageLinks = fullOrPartialPages.results.map(extractPageLink);
 ---
 
 <div>
-  { pageLinks.map((page) => {
-    return (
-      <div>
-        <h2>{page.title}</h2>
-      </div>
-    )
-  })}
+  {
+    pageLinks.map((page) => {
+      return (
+        <div>
+          <h2>{page.title}</h2>
+        </div>
+      );
+    })
+  }
 </div>

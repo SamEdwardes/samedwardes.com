@@ -13,7 +13,7 @@ export async function getStaticPaths() {
   const blogEntries = await getCollection("blog");
   const numberOfPosts = blogEntries.length;
   const sortedBlogEntries = blogEntries.sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   );
   return sortedBlogEntries.map((entry, i) => ({
     params: { slug: entry.slug },
@@ -38,7 +38,11 @@ const { entry, prevPost, nextPost } = Astro.props;
 const { Content, headings } = await entry.render();
 ---
 
-<DefaultLayout metaTitle={`${entry.data.title}`}, contentMaxWidth={headings.length == 0 ? 'max-w-4xl' : 'max-w-6xl'}>
+<DefaultLayout
+  metaTitle={`${entry.data.title}`}
+  ,
+  contentMaxWidth={headings.length == 0 ? "max-w-4xl" : "max-w-6xl"}
+>
   <!-- Title -->
   <H1>{entry.data.title}</H1>
   <!-- Date -->
@@ -53,22 +57,29 @@ const { Content, headings } = await entry.render();
   </div>
   <section class="grid grid-cols-12 gap-8">
     <!-- Article content -->
-    <article class:list={[
-      "prose max-w-4xl",
-      "prose-headings:scroll-mt-24",
-      headings.length == 0 ? "col-span-full" : "col-span-full lg:col-span-9"
-    ]}>
+    <article
+      class:list={[
+        "prose max-w-4xl",
+        "prose-headings:scroll-mt-24",
+        headings.length == 0 ? "col-span-full" : "col-span-full lg:col-span-9",
+      ]}
+    >
       <Content />
     </article>
     <!-- Table of contents -->
-    <div class:list={[
-        headings.length == 0 ? "col-span-full hidden" : [
-          "col-span-full order-first pt-8",
-          "lg:relative lg:pt-0 lg:order-last lg:col-span-3",
-        ]
-
-      ]}>
-      <div class:list={["lg:sticky lg:top-24", {hidden: headings.length == 0}]}>
+    <div
+      class:list={[
+        headings.length == 0
+          ? "col-span-full hidden"
+          : [
+              "col-span-full order-first pt-8",
+              "lg:relative lg:pt-0 lg:order-last lg:col-span-3",
+            ],
+      ]}
+    >
+      <div
+        class:list={["lg:sticky lg:top-24", { hidden: headings.length == 0 }]}
+      >
         <TableOfContents headings={headings} />
       </div>
     </div>
