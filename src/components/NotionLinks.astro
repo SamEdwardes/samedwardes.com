@@ -32,7 +32,7 @@ function isCheckboxProperty(property: any): property is { checkbox: boolean } {
 }
 
 function isTitleProperty(
-  property: any
+  property: any,
 ): property is { title: [{ plain_text: string }] } {
   return property?.type === "title";
 }
@@ -42,19 +42,19 @@ function isUrlProperty(property: any): property is { url: string } {
 }
 
 function isFormulaStringProperty(
-  property: any
+  property: any,
 ): property is { formula: { string: string } } {
   return property?.type === "formula" && property.formula.type === "string";
 }
 
 function isMultiSelectProperty(
-  property: any
+  property: any,
 ): property is { multi_select: { name: string }[] } {
   return property?.type === "multi_select";
 }
 
 function isRichTextProperty(
-  property: any
+  property: any,
 ): property is { rich_text: [{ plain_text: string }] } {
   return property?.type === "rich_text";
 }
@@ -130,17 +130,15 @@ function formatDateWithoutDay(dateInput: Date) {
 }
 ---
 
-
 <div>
   <!-- TODO: add tag filter, date filter, and search -->
-  <div class="grid grid-cols-4 gap-4">
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+  >
     {
       pageLinks.map((page) => {
         return (
-          <BrutalButton
-            href={page.url}
-            target="_blank"
-          >
+          <BrutalButton href={page.url} target="_blank">
             <div class="flex flex-col h-full">
               <h2 class="font-bold">{page.title}</h2>
               <p class="text-sm pt-2">{page.description}</p>
