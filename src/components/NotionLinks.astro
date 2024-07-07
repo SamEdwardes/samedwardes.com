@@ -8,149 +8,16 @@ import { Client, isFullPage } from "@notionhq/client";
 // Define types
 // -----------------------------------------------------------------------------
 
-export interface NotionDataBase {
-  object: string
-  results: NotionPage[]
-  next_cursor: any
-  has_more: boolean
-  type: string
-  page_or_database: PageOrDatabase
-  request_id: string
-}
 
-export interface PageOrDatabase {}
-
-export interface NotionPage {
-  object: string
+export interface PageLink {
   id: string
-  created_time: string
-  last_edited_time: string
-  created_by: CreatedBy
-  last_edited_by: LastEditedBy
-  cover: any
-  icon: any
-  parent: Parent
-  archived: boolean
-  in_trash: boolean
-  properties: Properties
+  created_time: Date
+  publiclyVisible: boolean
+  title: string
   url: string
-  public_url: any
-}
-
-export interface CreatedBy {
-  object: string
-  id: string
-}
-
-export interface LastEditedBy {
-  object: string
-  id: string
-}
-
-export interface Parent {
-  type: string
-  database_id: string
-}
-
-export interface Properties {
-  "Public Tags": PublicTags
-  "Created time": CreatedTime
-  Tags: Tags
-  "Related (PARA)": RelatedPara
-  "Last edited time": LastEditedTime
-  Public: Public
-  "Public Description": PublicDescription
-  "Base URL": BaseUrl
-  Name: Name
-  URL: Url
-}
-
-export interface PublicTags {
-  id: string
-  type: string
-  multi_select: any[]
-}
-
-export interface CreatedTime {
-  id: string
-  type: string
-  created_time: string
-}
-
-export interface Tags {
-  id: string
-  type: string
-  multi_select: any[]
-}
-
-export interface RelatedPara {
-  id: string
-  type: string
-  relation: any[]
-  has_more: boolean
-}
-
-export interface LastEditedTime {
-  id: string
-  type: string
-  last_edited_time: string
-}
-
-export interface Public {
-  id: string
-  type: string
-  checkbox: boolean
-}
-
-export interface PublicDescription {
-  id: string
-  type: string
-  rich_text: any[]
-}
-
-export interface BaseUrl {
-  id: string
-  type: string
-  formula: Formula
-}
-
-export interface Formula {
-  type: string
-  string: string
-}
-
-export interface Name {
-  id: string
-  type: string
-  title: Title[]
-}
-
-export interface Title {
-  type: string
-  text: Text
-  annotations: Annotations
-  plain_text: string
-  href: any
-}
-
-export interface Text {
-  content: string
-  link: any
-}
-
-export interface Annotations {
-  bold: boolean
-  italic: boolean
-  strikethrough: boolean
-  underline: boolean
-  code: boolean
-  color: string
-}
-
-export interface Url {
-  id: string
-  type: string
-  url: string
+  base_url: string
+  tags: string[]
+  description?: string
 }
 
 
@@ -158,22 +25,6 @@ export interface Url {
 // -----------------------------------------------------------------------------
 // Call Notion API
 // -----------------------------------------------------------------------------
-
-// exports.getDatabase = async function () {
-//   const response = await notion.databases.query({ database_id: databaseId });
-
-//   const responseResults = response.results.map((page) => {
-//     return {
-//       id: page.id,
-//       name: page.properties.Name.title[0]?.plain_text,
-//       role: page.properties.Role.rich_text[0]?.plain_text,
-//     };
-//   });
-
-//   return responseResults;
-// };
-
-
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
@@ -189,84 +40,95 @@ const fullOrPartialPages = await notion.databases.query({
   },
 });
 
-for (const page of fullOrPartialPages.results) {
+// -----------------------------------------------------------------------------
+// Extract data from Notion API response
+// -----------------------------------------------------------------------------
+
+const pageLinks = fullOrPartialPages.results.map((page) => {
   if (!isFullPage(page)) {
-    continue
+    return;
   }
-  console.log("\n===============================================================")
-  console.log(page.properties.Name.type);
+
+  // public
+  if (page.properties.Public.type === "checkbox") {
+    var publiclyVisible = page.properties.Public.checkbox
+  } else {
+    throw new Error("Public property is not a checkbox")
+  }
+
+  // title
   if (page.properties.Name.type === "title") {
-    console.log(page.properties.Name.title[0]?.plain_text)
+    var title = page.properties.Name.title[0]?.plain_text
+  } else {
+    throw new Error("Name property is not a title")
   }
-  console.log("===============================================================")
-  // console.log({ ...page.properties })
-  // console.log(page.)
-  console.log("Name" in page.properties)
-  // console.log("Created at:", page.created_time)
-  // console.log(page.properties)
-  // const properties = page.properties as Properties
-  // console.log(properties)
-}
 
+  // url
+  if (page.properties.URL.type === "url") {
+    if (page.properties.URL.url === null) {
+      throw new Error("URL property is null")
+    }
+    var linkURL = page.properties.URL.url
+  } else {
+    throw new Error("Name property is not a title")
+  }
 
-// if (!('request_id' in publicLinks)) {
-//   throw new Error('request_id does not exist on the publicLinks object.');
-// }
+  // base_url
+  if (page.properties["Base URL"].type === "formula") {
+    if (page.properties["Base URL"].formula.type === "string") {
+      if (page.properties["Base URL"].formula.string === null) {
+        throw new Error("Base URL property is null")
+      }
+      var base_url = page.properties["Base URL"].formula.string
+    }
+    else {
+      throw new Error("Base URL property is not a string")
+    }
+  } else {
+    throw new Error("Base URL property is not a formula")
+  }
 
-// try converting one page
-// const page: NotionPage = notionResponse.results[0]
-// console.log(page)
+  // tags
+  if (page.properties["Public Tags"].type === "multi_select") {
+    var tags = page.properties["Public Tags"].multi_select.map((tag) => {
+      return tag.name
+    })
+  } else {
+    throw new Error("Tags property is not a multi_select")
+  }
 
-// Convert to a ts object
-// const links: NotionPage[] = notionResponse.results;
-// console.log(links)
+  // public description
+  if (page.properties["Public Description"].type === "rich_text") {
+    var description = page.properties["Public Description"].rich_text[0]?.plain_text
+  } else {
+    throw new Error("Public Description property is not a rich_text")
+  }
 
+  const link: PageLink = {
+    id: page.id,
+    created_time: new Date(page.created_time),
+    publiclyVisible: publiclyVisible,
+    title: title,
+    url: linkURL,
+    base_url: base_url,
+    tags: tags,
+    description: description,
+  }
 
+  return link
 
+});
 
-// console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-// console.log("Results")
-// console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-// console.log(publicLinks.results)
-// console.log(typeof publicLinks);
-// console.log(typeof publicLinks.results);
-// console.log(typeof publicLinks.results[0]);
-// console.log(JSON.stringify(publicLinks));
-
-// fullOrPartialPages.results.map((page) => {
-//   if (!isFullPage(page)) {
-//     return;
-//   }
-//   console.log("")
-//   const pageProperties: Properties  = page.properties
-//   console.log("===============================================================")
-//   // console.log(page.properties.Name.title[0].plain_text);
-//   console.log(pageProperties.Name.title[0].plain_text)
-//   console.log("===============================================================")
-//   console.log(typeof page.properties)
-//   // console.log(page.properties)
-//   // if (page.properties["Public Description"].rich_text.length > 0) {
-//   //   console.log("Public Description")
-//   //   console.log("------------------")
-//   //   console.log(page.properties["Public Description"].rich_text[0].plain_text);
-//   // }
-//   // if (page.properties["Public Tags"].multi_select.length > 0) {
-//   //   console.log("Public Tags")
-//   //   console.log("-----------")
-//   //   console.log(page.properties["Public Tags"].multi_select);
-//   // }
-// });
 ---
 
-<!-- Data fetched at build can be rendered in HTML -->
 <div>
-  { fullOrPartialPages.results.map((page) => {
-    if (!isFullPage(page)) {
-      return;
+  { pageLinks.map((page) => {
+    if (!page) {
+      return
     }
     return (
       <div>
-        <h2>{page.properties.Name}</h2>
+        <h2>{page.title}</h2>
       </div>
     )
   })}
