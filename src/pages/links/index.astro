@@ -1,9 +1,24 @@
 ---
 import H1 from "../../components/H1.astro";
+import NotionLinks from "../../components/NotionLinks.astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
+
+export const prerender = false;
 ---
 
-<DefaultLayout metaTitle="About">
+<DefaultLayout metaTitle="Links">
   <H1>Links</H1>
-  <p class="prose">🚧 Please come back later, this page is under construction.</p>
+  <p class="pb-4 prose max-w-full">
+    A collection of links from around the web. Mostly from
+    <a
+      href="https://news.ycombinator.com/"
+      target="_blank"
+      class="after:content-['_↗']">Hacker News</a
+    > and the <a
+      href="https://changelog.com/"
+      target="_blank"
+      class="after:content-['_↗']">Changelog Podcast</a
+    >.
+  </p>
+  <NotionLinks />
 </DefaultLayout>

@@ -7,32 +7,35 @@ const blogEntries = (
   await getCollection("blog", ({ data }) => {
     return data.draft !== true;
   })
-).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, numPosts);
+)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, numPosts);
 ---
+
 <div>
-    <ul>
-        {
-          blogEntries.map((blogPostEntry) => (
-            <li class="pb-8">
-              <a
-                href={`/blog/${blogPostEntry.slug}`}
-                class:list={[
-                  "text-lg font-bold text-primary",
-                  "hover:text-primary hover:drop-shadow-lg hover:underline",
-                ]}
-              >
-                {blogPostEntry.data.title}
-              </a>
-              <div class="text-light text-gray-500">
-                {blogPostEntry.data.date.toLocaleString("default", {
-                  month: "long",
-                })}
-                {blogPostEntry.data.date.getDate()},
-                {blogPostEntry.data.date.getFullYear()}
-              </div>
-            </li>
-          ))
-        }
-      </ul>
-      <TextLink href="/blog">See all blog posts...</TextLink>
+  <ul>
+    {
+      blogEntries.map((blogPostEntry) => (
+        <li class="pb-8">
+          <a
+            href={`/blog/${blogPostEntry.slug}`}
+            class:list={[
+              "text-lg font-bold text-primary",
+              "hover:text-primary hover:drop-shadow-lg hover:underline",
+            ]}
+          >
+            {blogPostEntry.data.title}
+          </a>
+          <div class="text-light text-gray-500">
+            {blogPostEntry.data.date.toLocaleString("default", {
+              month: "long",
+            })}
+            {blogPostEntry.data.date.getDate()},
+            {blogPostEntry.data.date.getFullYear()}
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+  <TextLink href="/blog">See all blog posts...</TextLink>
 </div>

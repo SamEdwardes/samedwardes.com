@@ -1,9 +1,9 @@
 ---
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 import H1 from "../../components/H1.astro";
 import TextLink from "../../components/TextLink.astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
-import samAndRoo from './imgs/sam-and-roo.jpeg';
+import samAndRoo from "./imgs/sam-and-roo.jpeg";
 ---
 
 <DefaultLayout metaTitle="About">
@@ -11,7 +11,11 @@ import samAndRoo from './imgs/sam-and-roo.jpeg';
   <div class="flex lg:flex-row flex-col gap-4">
     <div>
       <div class="col col--3">
-        <Image src={samAndRoo} alt="Sam & Roo on a hike in Vancouver" class="rounded-full w-40" />
+        <Image
+          src={samAndRoo}
+          alt="Sam & Roo on a hike in Vancouver"
+          class="rounded-full w-40"
+        />
         <br />
       </div>
     </div>
@@ -23,14 +27,24 @@ import samAndRoo from './imgs/sam-and-roo.jpeg';
         > (formerly known as RStudio).
       </p>
       <ul class="list-disc pl-4">
-        <li>💾 <TextLink href="https://github.com/SamEdwardes">GitHub</TextLink></li>
-        <li>🐦 <TextLink href="https://twitter.com/TheReaLSamlam">Twitter</TextLink></li>
         <li>
-          🎥 <TextLink href="https://www.youtube.com/channel/UCkXD_pR2bYGOyf8Eh6T_BNw"
-            >YouTube</TextLink>
+          💾 <TextLink href="https://github.com/SamEdwardes">GitHub</TextLink>
         </li>
         <li>
-          💼 <TextLink href="https://www.linkedin.com/in/samedwardes/">LinkedIn</TextLink>
+          🐦 <TextLink href="https://twitter.com/TheReaLSamlam"
+            >Twitter</TextLink
+          >
+        </li>
+        <li>
+          🎥 <TextLink
+            href="https://www.youtube.com/channel/UCkXD_pR2bYGOyf8Eh6T_BNw"
+            >YouTube</TextLink
+          >
+        </li>
+        <li>
+          💼 <TextLink href="https://www.linkedin.com/in/samedwardes/"
+            >LinkedIn</TextLink
+          >
         </li>
       </ul>
     </div>
