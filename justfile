@@ -8,4 +8,4 @@ build:
     npm run build
 
 format:
-    npx prettier --write .
+    npx prettier --write src/components/  src/pages src/layouts
