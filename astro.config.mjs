@@ -1,20 +1,22 @@
 import { defineConfig, envField } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
-import alpinejs from "@astrojs/alpinejs";
 import netlify from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
   // Integrations
-  integrations: [tailwind(), mdx(), alpinejs()],
+  integrations: [tailwind(), mdx()],
   // Netlify
   output: "hybrid",
   adapter: netlify(),
   experimental: {
     env: {
       schema: {
-        NOTION_TOKEN: envField.string({ context: "server", access: "secret" }),
+        NOTION_TOKEN: envField.string({
+          context: "server",
+          access: "secret"
+        })
       }
     }
   },
