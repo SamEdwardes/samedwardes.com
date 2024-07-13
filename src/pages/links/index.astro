@@ -4,6 +4,8 @@ import H1 from "../../components/H1.astro";
 import BrutalCard from "../../components/BrutalCard.astro";
 
 export const prerender = false;
+
+const notionTags = ["python", "javascript", "web", "cli"];
 ---
 
 <DefaultLayout metaTitle="Links">
@@ -13,28 +15,71 @@ export const prerender = false;
     <a
       href="https://news.ycombinator.com/"
       target="_blank"
-      class="after:content-['_↗']">Hacker News</a
+      class="after:content-['_↗']"
+      >Hacker News</a
     > and the <a
       href="https://changelog.com/"
       target="_blank"
-      class="after:content-['_↗']">Changelog Podcast</a
+      class="after:content-['_↗']"
+      >Changelog Podcast</a
     >.
   </p>
-  <!-- <NotionLinksPagination /> -->
-  <div>
-    <!-- TODO: add tag filter, date filter, and search -->
+  <section>
+    <!-- Filters -->
+    <!-- Tags -->
+    <div
+      class="grid grid-cols-2 gap-4 pb-4"
+      hx-get="/links/partials/grid"
+      hx-swap="innerHTML"
+      hx-target="#notion-links-grid"
+      hx-trigger="load"
+    >
+      <select
+        class="select select-bordered w-full"
+        name="tags"
+        hx-get="/links/partials/grid"
+        hx-swap="innerHTML"
+        hx-target="#notion-links-grid"
+      >
+        <option
+          disabled
+          selected
+          >Tags</option
+        >
+        {notionTags.map((tag) => <option>{tag}</option>)}
+      </select>
+      <!-- Search -->
+      <label class="input input-bordered flex items-center gap-2">
+        <input
+          type="text"
+          class="grow"
+          placeholder="Search"
+          name="search"
+        />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          class="h-4 w-4 opacity-70"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </label>
+    </div>
+    <!-- Link cards -->
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
       id="notion-links-grid"
     >
       <div
-        hx-get="/links/partials/grid"
-        hx-swap="outerHTML"
-        hx-trigger="load"
         class="col-span-full animate-pulse"
       >
         <BrutalCard class="bg-gray-100">Loading Links...</BrutalCard>
       </div>
     </div>
-  </div>
+  </section>
 </DefaultLayout>
