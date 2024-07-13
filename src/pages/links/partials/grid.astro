@@ -1,10 +1,12 @@
 ---
-export const partial = true;
+// Ideally I would set this to partial = true, but I found the tailwind styles
+// do not ship when I do this.
+export const partial = false;
 export const prerender = false;
 
 import { Client, isFullPage } from "@notionhq/client";
 import NotionLinkCard from "../../../components/NotionLinkCard.astro";
-import BrutalButton from "../../../components/BrutalButton.astro";
+import BrutalCard from "../../../components/BrutalCard.astro";
 
 const cursor = Astro.url.searchParams.get("cursor");
 
@@ -20,7 +22,7 @@ if (cursor) {
         // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
         database_id: "18594cc9dbcb4ca6984984f6beb03b81",
         start_cursor: cursor,
-        page_size: 5,
+        page_size: 10,
         filter: {
             property: "Public",
             checkbox: {
@@ -32,7 +34,7 @@ if (cursor) {
     var fullOrPartialPages = await notion.databases.query({
         // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
         database_id: "18594cc9dbcb4ca6984984f6beb03b81",
-        page_size: 5,
+        page_size: 10,
         filter: {
             property: "Public",
             checkbox: {
@@ -156,13 +158,12 @@ const pageLinks = fullOrPartialPages.results
 }
 
 {
-    fullOrPartialPages.next_cursor && (
-        <BrutalButton
+    fullOrPartialPages.next_cursor ? (
+        <div
             hx-get={`/links/partials/grid?cursor=${fullOrPartialPages.next_cursor}`}
             hx-swap="outerHTML"
-            hx-trigger="click"
+            hx-trigger="revealed"
         >
-            Click to see more items
-        </BrutalButton>
-    )
+        </div>
+    ) : <BrutalCard class="bg-gray-200 col-span-full">End of links</BrutalCard>
 }
