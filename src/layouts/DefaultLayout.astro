@@ -5,17 +5,34 @@ const { metaTitle = "samedwardes.com", contentMaxWidth = "max-w-4xl" } =
   Astro.props;
 ---
 
-<html lang="en" class="h-full">
+<html
+  lang="en"
+  class="h-full"
+>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
     <title>{metaTitle} - samedwardes.com</title>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/images/favicon.ico"
+    />
     <script
       defer
       src="https://unpkg.com/@alpinejs/ui@3.14.0-beta.0/dist/cdn.min.js"
     ></script>
-    <script defer src="https://unpkg.com/@alpinejs/focus@3.14.0/dist/cdn.min.js"
+    <script
+      defer
+      src="https://unpkg.com/@alpinejs/focus@3.14.0/dist/cdn.min.js"
+    ></script>
+    <script
+      src="https://unpkg.com/htmx.org@2.0.1"
+      integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/"
+      crossorigin="anonymous"
     ></script>
   </head>
   <body class="h-full">
