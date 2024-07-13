@@ -14,34 +14,34 @@ const cursor = Astro.url.searchParams.get("cursor");
 // Call Notion API
 // -----------------------------------------------------------------------------
 const notion = new Client({
-    auth: process.env.NOTION_TOKEN,
+  auth: process.env.NOTION_TOKEN,
 });
 
 if (cursor) {
-    var fullOrPartialPages = await notion.databases.query({
-        // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
-        database_id: "18594cc9dbcb4ca6984984f6beb03b81",
-        start_cursor: cursor,
-        page_size: 13,
-        filter: {
-            property: "Public",
-            checkbox: {
-                equals: true,
-            },
-        },
-    });
+  var fullOrPartialPages = await notion.databases.query({
+    // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
+    database_id: "18594cc9dbcb4ca6984984f6beb03b81",
+    start_cursor: cursor,
+    page_size: 13,
+    filter: {
+      property: "Public",
+      checkbox: {
+        equals: true,
+      },
+    },
+  });
 } else {
-    var fullOrPartialPages = await notion.databases.query({
-        // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
-        database_id: "18594cc9dbcb4ca6984984f6beb03b81",
-        page_size: 13,
-        filter: {
-            property: "Public",
-            checkbox: {
-                equals: true,
-            },
-        },
-    });
+  var fullOrPartialPages = await notion.databases.query({
+    // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
+    database_id: "18594cc9dbcb4ca6984984f6beb03b81",
+    page_size: 13,
+    filter: {
+      property: "Public",
+      checkbox: {
+        equals: true,
+      },
+    },
+  });
 }
 
 // -----------------------------------------------------------------------------
@@ -50,124 +50,124 @@ if (cursor) {
 
 // Type guards for property types
 function isCheckboxProperty(property: any): property is { checkbox: boolean } {
-    return property?.type === "checkbox";
+  return property?.type === "checkbox";
 }
 
 function isTitleProperty(
-    property: any,
+  property: any,
 ): property is { title: [{ plain_text: string }] } {
-    return property?.type === "title";
+  return property?.type === "title";
 }
 
 function isUrlProperty(property: any): property is { url: string } {
-    return property?.type === "url";
+  return property?.type === "url";
 }
 
 function isFormulaStringProperty(
-    property: any,
+  property: any,
 ): property is { formula: { string: string } } {
-    return property?.type === "formula" && property.formula.type === "string";
+  return property?.type === "formula" && property.formula.type === "string";
 }
 
 function isMultiSelectProperty(
-    property: any,
+  property: any,
 ): property is { multi_select: { name: string }[] } {
-    return property?.type === "multi_select";
+  return property?.type === "multi_select";
 }
 
 function isRichTextProperty(
-    property: any,
+  property: any,
 ): property is { rich_text: [{ plain_text: string }] } {
-    return property?.type === "rich_text";
+  return property?.type === "rich_text";
 }
 
 export interface PageLink {
-    id: string;
-    created_time: Date;
-    publiclyVisible: boolean;
-    title: string;
-    url: string;
-    base_url: string;
-    tags: string[];
-    description?: string;
+  id: string;
+  created_time: Date;
+  publiclyVisible: boolean;
+  title: string;
+  url: string;
+  base_url: string;
+  tags: string[];
+  description?: string;
 }
 
 // Refactored function to extract page link
 function extractPageLink(page: any): PageLink {
-    if (!isFullPage(page)) throw new Error("Not a full page object");
+  if (!isFullPage(page)) throw new Error("Not a full page object");
 
-    const {
-        Public: publicProp,
-        Name: nameProp,
-        URL: urlProp,
-        "Base URL": baseUrlProp,
-        "Public Tags": tagsProp,
-        "Public Description": descriptionProp,
-    } = page.properties;
+  const {
+    Public: publicProp,
+    Name: nameProp,
+    URL: urlProp,
+    "Base URL": baseUrlProp,
+    "Public Tags": tagsProp,
+    "Public Description": descriptionProp,
+  } = page.properties;
 
-    if (
-        !isCheckboxProperty(publicProp) ||
-        !isTitleProperty(nameProp) ||
-        !isUrlProperty(urlProp) ||
-        !isFormulaStringProperty(baseUrlProp)
-    ) {
-        throw new Error("Invalid property types");
-    }
+  if (
+    !isCheckboxProperty(publicProp) ||
+    !isTitleProperty(nameProp) ||
+    !isUrlProperty(urlProp) ||
+    !isFormulaStringProperty(baseUrlProp)
+  ) {
+    throw new Error("Invalid property types");
+  }
 
-    const publiclyVisible = publicProp.checkbox;
-    const title = nameProp.title[0]?.plain_text ?? "";
-    const linkURL = urlProp.url ?? "";
-    const base_url = baseUrlProp.formula.string ?? "";
-    const tags = isMultiSelectProperty(tagsProp)
-        ? tagsProp.multi_select.map((tag) => tag.name)
-        : [];
-    const description = isRichTextProperty(descriptionProp)
-        ? descriptionProp.rich_text[0]?.plain_text
-        : undefined;
+  const publiclyVisible = publicProp.checkbox;
+  const title = nameProp.title[0]?.plain_text ?? "";
+  const linkURL = urlProp.url ?? "";
+  const base_url = baseUrlProp.formula.string ?? "";
+  const tags = isMultiSelectProperty(tagsProp)
+    ? tagsProp.multi_select.map((tag) => tag.name)
+    : [];
+  const description = isRichTextProperty(descriptionProp)
+    ? descriptionProp.rich_text[0]?.plain_text
+    : undefined;
 
-    return {
-        id: page.id,
-        created_time: new Date(page.created_time),
-        publiclyVisible,
-        title,
-        url: linkURL,
-        base_url,
-        tags,
-        description,
-    };
+  return {
+    id: page.id,
+    created_time: new Date(page.created_time),
+    publiclyVisible,
+    title,
+    url: linkURL,
+    base_url,
+    tags,
+    description,
+  };
 }
 
 // Use the refactored function in the map
 const pageLinks = fullOrPartialPages.results
-    .map(extractPageLink)
-    .sort((a, b) => b.created_time.getTime() - a.created_time.getTime());
+  .map(extractPageLink)
+  .sort((a, b) => b.created_time.getTime() - a.created_time.getTime());
 ---
 
 {
-    pageLinks.map((page) => {
-        return (
-            <NotionLinkCard
-                url_to_page={page.url}
-                title={page.title}
-                description={page.description ? page.description : null}
-                created_time={page.created_time}
-                tags={page.tags}
-            />
-        );
-    })
+  pageLinks.map((page) => {
+    return (
+      <NotionLinkCard
+        url_to_page={page.url}
+        title={page.title}
+        description={page.description ? page.description : null}
+        created_time={page.created_time}
+        tags={page.tags}
+      />
+    );
+  })
 }
 
 {
-    fullOrPartialPages.next_cursor ? (
-        <BrutalCard
-            hx-get={`/links/partials/grid?cursor=${fullOrPartialPages.next_cursor}`}
-            hx-swap="outerHTML"
-            hx-trigger="revealed"
-            class="animate-pulse bg-gray-100"
-        >
-            Loading more links...
-        </BrutalCard>
-    ) : (
-        <BrutalCard class="bg-gray-200 col-span-full">End of links</BrutalCard>
-    )
+  fullOrPartialPages.next_cursor ? (
+    <BrutalCard
+      hx-get={`/links/partials/grid?cursor=${fullOrPartialPages.next_cursor}`}
+      hx-swap="outerHTML"
+      hx-trigger="revealed"
+      class="animate-pulse bg-gray-100"
+    >
+      Loading more links...
+    </BrutalCard>
+  ) : (
+    <BrutalCard class="bg-gray-200 col-span-full">End of links</BrutalCard>
+  )
 }
