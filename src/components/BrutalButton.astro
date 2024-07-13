@@ -15,8 +15,11 @@ const { class: className = "bg-yellow-400", ...rest } = Astro.props;
     transition: all;
     transition-duration: 0.5s;
     animation: ease-in-out;
-    overflow-wrap: break-word; /* Ensures words break to prevent overflow */
-    overflow: hidden; /* Hides any content that overflows the box */
+    /* Ensures words break to prevent overflow */
+    overflow-wrap: break-word;
+    /* Hides any content that overflows the box. For some reason this messes
+    up how it renders on Safari/webkit */
+    /* overflow: hidden; */
   }
   a.brutal-btn:hover {
     filter: drop-shadow(3px 3px 0 rgb(0 0 0 / 1));
