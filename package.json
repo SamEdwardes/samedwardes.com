@@ -1,7 +1,6 @@
 {
-  "name": "astro-migration",
+  "name": "samedwardes.com",
   "type": "module",
-  "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -16,8 +15,6 @@
     "@astrojs/node": "^8.3.2",
     "@astrojs/tailwind": "^5.1.0",
     "@notionhq/client": "^2.2.15",
-    "@types/alpinejs": "^3.13.10",
-    "alpinejs": "^3.14.1",
     "astro": "^4.11.3",
     "marked": "^12.0.2",
     "sharp": "^0.33.4",
@@ -31,6 +28,5 @@
     "daisyui": "^4.12.2",
     "prettier": "^3.3.2",
     "prettier-plugin-astro": "^0.13.0"
-  },
-  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
+  }
 }
