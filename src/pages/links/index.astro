@@ -1,7 +1,7 @@
 ---
-import H1 from "../../components/H1.astro";
-import NotionLinks from "../../components/NotionLinks.astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
+import H1 from "../../components/H1.astro";
+import BrutalCard from "../../components/BrutalCard.astro";
 
 export const prerender = false;
 ---
@@ -13,12 +13,32 @@ export const prerender = false;
     <a
       href="https://news.ycombinator.com/"
       target="_blank"
-      class="after:content-['_↗']">Hacker News</a
+      class="after:content-['_↗']"
+      >Hacker News</a
     > and the <a
       href="https://changelog.com/"
       target="_blank"
-      class="after:content-['_↗']">Changelog Podcast</a
+      class="after:content-['_↗']"
+      >Changelog Podcast</a
     >.
   </p>
-  <NotionLinks />
+  <!-- <NotionLinksPagination /> -->
+  <div>
+    <!-- TODO: add tag filter, date filter, and search -->
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+      id="notion-links-grid"
+    >
+      <div
+        hx-get="/links/partials/grid"
+        hx-swap="outerHTML"
+        hx-trigger="load"
+        class="col-span-full animate-pulse"
+      >
+        <BrutalCard class="bg-gray-100"
+          >Loading Links...</BrutalCard
+        >
+      </div>
+    </div>
+  </div>
 </DefaultLayout>
