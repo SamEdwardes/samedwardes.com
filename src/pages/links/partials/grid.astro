@@ -12,6 +12,8 @@ const cursor = Astro.url.searchParams.get("cursor");
 const searchQuery = Astro.url.searchParams.get("search");
 const tagsQuery = Astro.url.searchParams.get("tags");
 
+console.log(Astro.url)
+
 // -----------------------------------------------------------------------------
 // Call Notion API
 // -----------------------------------------------------------------------------
@@ -30,11 +32,19 @@ const queryFilters = {
     {
       property: "Public Tags",
       multi_select: {
-        contains: tagsQuery ? tagsQuery : "",
+        contains: tagsQuery && tagsQuery != "all" ? tagsQuery : "",
+      },
+    },
+    {
+      property: "Name",
+      rich_text: {
+        contains: searchQuery ? searchQuery : "",
       },
     },
   ],
 };
+
+console.log(queryFilters);
 
 if (cursor) {
   var fullOrPartialPages = await notion.databases.query({
@@ -169,8 +179,9 @@ const pageLinks = fullOrPartialPages.results
 {
   fullOrPartialPages.next_cursor ? (
     <BrutalCard
-      hx-get={`/links/partials/grid?cursor=${fullOrPartialPages.next_cursor}`}
+      hx-get={`/links/partials/grid?cursor=${fullOrPartialPages.next_cursor}&tags=${tagsQuery ? tagsQuery : ""}&search=${searchQuery ? searchQuery : ""}`}
       hx-swap="outerHTML"
+      hx-target="this"
       hx-trigger="revealed"
       class="animate-pulse bg-gray-100"
     >

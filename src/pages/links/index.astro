@@ -24,7 +24,12 @@ const notionTags = ["python", "javascript", "web", "cli"];
       >Changelog Podcast</a
     >.
   </p>
-  <section>
+  <section
+    hx-get="/links/partials/grid"
+    hx-swap="innerHTML"
+    hx-target="#notion-links-grid"
+    hx-trigger="load"
+  >
     <!-- Filters -->
     <!-- Tags -->
     <div
@@ -32,20 +37,19 @@ const notionTags = ["python", "javascript", "web", "cli"];
       hx-get="/links/partials/grid"
       hx-swap="innerHTML"
       hx-target="#notion-links-grid"
-      hx-trigger="load"
+      hx-trigger="change"
+      hx-include="[name='tags'], [name='search']"
     >
       <select
         class="select select-bordered w-full"
         name="tags"
-        hx-get="/links/partials/grid"
-        hx-swap="innerHTML"
-        hx-target="#notion-links-grid"
       >
         <option
           disabled
           selected
           >Tags</option
         >
+        <option>all</option>
         {notionTags.map((tag) => <option>{tag}</option>)}
       </select>
       <!-- Search -->
@@ -75,9 +79,7 @@ const notionTags = ["python", "javascript", "web", "cli"];
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
       id="notion-links-grid"
     >
-      <div
-        class="col-span-full animate-pulse"
-      >
+      <div class="col-span-full animate-pulse">
         <BrutalCard class="bg-gray-100">Loading Links...</BrutalCard>
       </div>
     </div>
