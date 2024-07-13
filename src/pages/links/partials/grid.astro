@@ -22,7 +22,7 @@ if (cursor) {
         // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
         database_id: "18594cc9dbcb4ca6984984f6beb03b81",
         start_cursor: cursor,
-        page_size: 10,
+        page_size: 12,
         filter: {
             property: "Public",
             checkbox: {
@@ -34,7 +34,7 @@ if (cursor) {
     var fullOrPartialPages = await notion.databases.query({
         // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
         database_id: "18594cc9dbcb4ca6984984f6beb03b81",
-        page_size: 10,
+        page_size: 12,
         filter: {
             property: "Public",
             checkbox: {
@@ -163,7 +163,11 @@ const pageLinks = fullOrPartialPages.results
             hx-get={`/links/partials/grid?cursor=${fullOrPartialPages.next_cursor}`}
             hx-swap="outerHTML"
             hx-trigger="revealed"
+            class="animate-pulse"
         >
+            <BrutalCard class="bg-gray-100">Loading Links...</BrutalCard>
         </div>
-    ) : <BrutalCard class="bg-gray-200 col-span-full">End of links</BrutalCard>
+    ) : (
+        <BrutalCard class="bg-gray-200 col-span-full">End of links</BrutalCard>
+    )
 }

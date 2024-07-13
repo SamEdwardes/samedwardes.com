@@ -1,6 +1,7 @@
 ---
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
 import H1 from "../../components/H1.astro";
+import BrutalCard from "../../components/BrutalCard.astro";
 
 export const prerender = false;
 ---
@@ -28,7 +29,16 @@ export const prerender = false;
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
       id="notion-links-grid"
     >
-    <div hx-get="/links/partials/grid" hx-swap="outerHTML" hx-trigger="load"></div>
+      <div
+        hx-get="/links/partials/grid"
+        hx-swap="outerHTML"
+        hx-trigger="load"
+        class="col-span-full animate-pulse"
+      >
+        <BrutalCard class="bg-gray-100"
+          >Loading Links...</BrutalCard
+        >
+      </div>
     </div>
   </div>
 </DefaultLayout>
