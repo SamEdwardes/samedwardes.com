@@ -1,11 +1,15 @@
+# List all of the commands
 default:
     @just --list
 
+# bun run dev
 run:
-    npm run dev
+    bun run dev
 
+# bun run build
 build:
-    npm run build
+    bun run build
 
+# bunx prettier
 format:
-    npx prettier --write src/components/  src/pages src/layouts
+    bunx prettier --write src/components/  src/pages src/layouts
