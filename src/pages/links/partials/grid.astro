@@ -1,9 +1,12 @@
 ---
+export const partial = true;
+export const prerender = false;
+
 import { Client, isFullPage } from "@notionhq/client";
 import NotionLinkCard from "../../../components/NotionLinkCard.astro";
 import BrutalButton from "../../../components/BrutalButton.astro";
 
-export const partial = true;
+const cursor = Astro.url.searchParams.get("cursor");
 
 // -----------------------------------------------------------------------------
 // Call Notion API
@@ -12,17 +15,32 @@ const notion = new Client({
     auth: process.env.NOTION_TOKEN,
 });
 
-const fullOrPartialPages = await notion.databases.query({
-    // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
-    database_id: "18594cc9dbcb4ca6984984f6beb03b81",
-    page_size: 5,
-    filter: {
-        property: "Public",
-        checkbox: {
-            equals: true,
+if (cursor) {
+    var fullOrPartialPages = await notion.databases.query({
+        // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
+        database_id: "18594cc9dbcb4ca6984984f6beb03b81",
+        start_cursor: cursor,
+        page_size: 5,
+        filter: {
+            property: "Public",
+            checkbox: {
+                equals: true,
+            },
         },
-    },
-});
+    });
+} else {
+    var fullOrPartialPages = await notion.databases.query({
+        // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
+        database_id: "18594cc9dbcb4ca6984984f6beb03b81",
+        page_size: 5,
+        filter: {
+            property: "Public",
+            checkbox: {
+                equals: true,
+            },
+        },
+    });
+}
 
 // -----------------------------------------------------------------------------
 // Extract data from Notion API response
@@ -136,11 +154,15 @@ const pageLinks = fullOrPartialPages.results
         );
     })
 }
-<!-- Trigger HTMX call -->
-<BrutalButton
-    hx-get="/links/partials/grid"
-    hx-swap="outerHTML"
-    hx-trigger="click"
->
-    Click to see more
-</BrutalButton>
+
+{
+    fullOrPartialPages.next_cursor && (
+        <BrutalButton
+            hx-get={`/links/partials/grid?cursor=${fullOrPartialPages.next_cursor}`}
+            hx-swap="outerHTML"
+            hx-trigger="click"
+        >
+            Click to see more items
+        </BrutalButton>
+    )
+}
