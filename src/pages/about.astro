@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets";
+import H1 from "../components/H1.astro";
+import TextLink from "../components/TextLink.astro";
+import DefaultLayout from "../layouts/DefaultLayout.astro";
+import samAndRoo from "../imgs/sam-and-roo.jpg";
+---
+
+<DefaultLayout metaTitle="About">
+  <H1>About</H1>
+  <p class="pb-4">
+    Sam is based out of Vancouver, BC. He is passionate about data science and
+    the outdoors. He works as a Solutions Engineer at <b
+      ><a href="https://posit.co/">Posit PBC</a></b
+    > (formerly known as RStudio).
+  </p>
+  <ul class="list-disc pl-4">
+    <li>
+      💾 <TextLink href="https://github.com/SamEdwardes">GitHub</TextLink>
+    </li>
+    <li>
+      💼 <TextLink href="https://www.linkedin.com/in/samedwardes/"
+        >LinkedIn</TextLink
+      >
+    </li>
+    <li>
+      🐘 <TextLink href="https://fosstodon.org/@SamEdwardes">Mastodon</TextLink>
+    </li>
+    <li>
+      🐦 <TextLink href="https://twitter.com/TheReaLSamlam">Twitter</TextLink>
+    </li>
+    <li>
+      🎥 <TextLink
+        href="https://www.youtube.com/channel/UCkXD_pR2bYGOyf8Eh6T_BNw"
+        >YouTube</TextLink
+      >
+    </li>
+  </ul>
+</DefaultLayout>

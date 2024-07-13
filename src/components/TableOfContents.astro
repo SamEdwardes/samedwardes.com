@@ -41,9 +41,9 @@ function buildToc(headings: Props["headings"]): TocHeading[] {
 const tableOfContentsData = buildToc(headings);
 ---
 
-<nav class="">
+<nav>
   <BrutalCard>
-    <ul>
+    <ul class="list-disc list-outside px-4">
       {
         tableOfContentsData.map((heading) => (
           <TableOfContentsHeading heading={heading} leftPadding={false} />
