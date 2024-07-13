@@ -1,10 +1,14 @@
 # samedwardes.com
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/f842119c-ee2a-4b18-9658-befe42fe8a2a/deploy-status)](https://app.netlify.com/sites/samedwardes/deploys)
+<a href="https://app.netlify.com/sites/samedwardes/deploys" target="_blank">
+![Netlify Status](https://api.netlify.com/api/v1/badges/f842119c-ee2a-4b18-9658-befe42fe8a2a/deploy-status)
+</a>
 
 The development repo for my blog [https://samedwardes.com/](https://samedwardes.com/).
 
-## Astro Starter Kit: Minimal
+![Screenshot of Blog](public/images/screenshot-of-blog.png)
+
+## Astro
 
 ```sh
 npm create astro@latest -- --template minimal
