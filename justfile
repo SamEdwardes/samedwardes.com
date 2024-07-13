@@ -12,4 +12,4 @@ build:
 
 # bunx prettier
 format:
-    bunx prettier --write src/components/  src/pages src/layouts
+    bunx prettier --write src/components src/pages src/layouts
