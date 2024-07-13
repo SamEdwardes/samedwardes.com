@@ -17,13 +17,13 @@ const { heading, leftPadding = false } = Astro.props;
 <li class:list={[{ "ml-4": leftPadding }]}>
   <a
     href={"#" + heading.slug}
-    class="text-white text-sm font-mono italic font-light hover:text-primary hover:underline"
+    class="text-slate-800 text-sm font-mono italic font-light hover:text-primary hover:underline"
   >
     {heading.text}
   </a>
   {
     heading.subheadings.length > 0 && (
-      <ul>
+      <ul class="list-disc list-outside">
         {heading.subheadings.map((subheading) => (
           <Astro.self heading={subheading} leftPadding={true} />
         ))}
