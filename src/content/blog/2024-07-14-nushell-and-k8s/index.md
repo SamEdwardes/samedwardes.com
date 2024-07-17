@@ -134,7 +134,7 @@ Yes, it is true that you could do all of this with kubectl, but I can never reme
 Get all of the pods created in June.
 
 ```bash
-kubectl get pods -Ao json | from json | get items | flatten | select kind name namespace creationTimestamp | into datetime creationTimestamp | insert month { $in.creationTimestamp | date to-record | get month } | where month == 6 | first 5 | pbcopy
+kubectl get pods -Ao json | from json | get items | flatten | select kind name namespace creationTimestamp | into datetime creationTimestamp | insert month { $in.creationTimestamp | date to-record | get month } | where month == 6 | first 5
 
 ╭───┬──────┬──────────────────────────────────┬─────────────────┬───────────────────┬───────╮
 │ # │ kind │               name               │    namespace    │ creationTimestamp │ month │
