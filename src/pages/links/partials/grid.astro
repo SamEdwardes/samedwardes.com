@@ -12,6 +12,8 @@ const cursor = Astro.url.searchParams.get("cursor");
 const searchQuery = Astro.url.searchParams.get("search");
 const tagsQuery = Astro.url.searchParams.get("tags");
 
+// console.log(Astro.url)
+
 // -----------------------------------------------------------------------------
 // Call Notion API
 // -----------------------------------------------------------------------------
@@ -41,6 +43,9 @@ const queryFilters = {
     },
   ],
 };
+
+// console.log(queryFilters.and[1].multi_select);
+// console.log(queryFilters.and[2].rich_text);
 
 if (cursor) {
   var fullOrPartialPages = await notion.databases.query({
