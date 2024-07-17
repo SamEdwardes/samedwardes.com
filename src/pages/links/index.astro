@@ -1,11 +1,27 @@
 ---
-import DefaultLayout from "../../layouts/DefaultLayout.astro";
-import H1 from "../../components/H1.astro";
+import { Client } from "@notionhq/client";
 import BrutalCard from "../../components/BrutalCard.astro";
+import H1 from "../../components/H1.astro";
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
 
 export const prerender = false;
 
-const notionTags = ["python", "javascript", "web", "cli"];
+// Query Notion to get the database so that I can get all of the possible tags.
+const notion = new Client({
+  auth: process.env.NOTION_TOKEN,
+});
+
+const database = await notion.databases.retrieve({
+  database_id: "18594cc9dbcb4ca6984984f6beb03b81",
+});
+
+if (database.properties["Public Tags"].type !== "multi_select") {
+  throw new Error("Public Tags property is not a multi_select");
+}
+
+const notionTags = database.properties["Public Tags"].multi_select.options.map(
+  (option) => option.name,
+);
 ---
 
 <DefaultLayout metaTitle="Links">
@@ -31,48 +47,50 @@ const notionTags = ["python", "javascript", "web", "cli"];
     hx-trigger="load"
   >
     <!-- Filters -->
-    <!-- Tags -->
-    <div
-      class="grid grid-cols-2 gap-4 pb-4"
-      hx-get="/links/partials/grid"
-      hx-swap="innerHTML"
-      hx-target="#notion-links-grid"
-      hx-trigger="change"
-      hx-include="[name='tags'], [name='search']"
-    >
-      <select
-        class="select select-bordered w-full"
-        name="tags"
+    <div>
+      <!-- Tags -->
+      <div
+        class="grid grid-cols-2 gap-4 pb-4"
+        hx-get="/links/partials/grid"
+        hx-swap="innerHTML"
+        hx-target="#notion-links-grid"
+        hx-trigger="change"
+        hx-include="[name='tags'], [name='search']"
       >
-        <option
-          disabled
-          selected
-          >Tags</option
+        <select
+          class="select select-bordered w-full"
+          name="tags"
         >
-        <option>all</option>
-        {notionTags.map((tag) => <option>{tag}</option>)}
-      </select>
-      <!-- Search -->
-      <label class="input input-bordered flex items-center gap-2">
-        <input
-          type="text"
-          class="grow"
-          placeholder="Search"
-          name="search"
-        />
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-          fill="currentColor"
-          class="h-4 w-4 opacity-70"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-            clip-rule="evenodd"
-          ></path>
-        </svg>
-      </label>
+          <option
+            disabled
+            selected
+            >Tags</option
+          >
+          <option>all</option>
+          {notionTags.map((tag) => <option>{tag}</option>)}
+        </select>
+        <!-- Search -->
+        <label class="input input-bordered flex items-center gap-2">
+          <input
+            type="text"
+            class="grow"
+            placeholder="Search"
+            name="search"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            class="h-4 w-4 opacity-70"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </label>
+      </div>
     </div>
     <!-- Link cards -->
     <div
