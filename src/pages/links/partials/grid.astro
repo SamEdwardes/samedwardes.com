@@ -9,6 +9,10 @@ import NotionLinkCard from "../../../components/NotionLinkCard.astro";
 import BrutalCard from "../../../components/BrutalCard.astro";
 
 const cursor = Astro.url.searchParams.get("cursor");
+const searchQuery = Astro.url.searchParams.get("search");
+const tagsQuery = Astro.url.searchParams.get("tags");
+
+// console.log(Astro.url)
 
 // -----------------------------------------------------------------------------
 // Call Notion API
@@ -17,30 +21,46 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
+const queryFilters = {
+  and: [
+    {
+      property: "Public",
+      checkbox: {
+        equals: true,
+      },
+    },
+    {
+      property: "Public Tags",
+      multi_select: {
+        contains: tagsQuery && tagsQuery != "all" ? tagsQuery : "",
+      },
+    },
+    {
+      property: "Name",
+      rich_text: {
+        contains: searchQuery ? searchQuery : "",
+      },
+    },
+  ],
+};
+
+// console.log(queryFilters.and[1].multi_select);
+// console.log(queryFilters.and[2].rich_text);
+
 if (cursor) {
   var fullOrPartialPages = await notion.databases.query({
     // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
     database_id: "18594cc9dbcb4ca6984984f6beb03b81",
     start_cursor: cursor,
     page_size: 13,
-    filter: {
-      property: "Public",
-      checkbox: {
-        equals: true,
-      },
-    },
+    filter: queryFilters,
   });
 } else {
   var fullOrPartialPages = await notion.databases.query({
     // Webclips URL: https://www.notion.so/samedwardes/18594cc9dbcb4ca6984984f6beb03b81?v=bcb531df9d15439eb5130e8723583f6c&pvs=4
     database_id: "18594cc9dbcb4ca6984984f6beb03b81",
     page_size: 13,
-    filter: {
-      property: "Public",
-      checkbox: {
-        equals: true,
-      },
-    },
+    filter: queryFilters,
   });
 }
 
@@ -160,8 +180,9 @@ const pageLinks = fullOrPartialPages.results
 {
   fullOrPartialPages.next_cursor ? (
     <BrutalCard
-      hx-get={`/links/partials/grid?cursor=${fullOrPartialPages.next_cursor}`}
+      hx-get={`/links/partials/grid?cursor=${fullOrPartialPages.next_cursor}&tags=${tagsQuery ? tagsQuery : ""}&search=${searchQuery ? searchQuery : ""}`}
       hx-swap="outerHTML"
+      hx-target="this"
       hx-trigger="revealed"
       class="animate-pulse bg-gray-100"
     >
