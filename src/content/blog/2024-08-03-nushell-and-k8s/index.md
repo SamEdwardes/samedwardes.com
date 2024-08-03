@@ -9,7 +9,7 @@ tags:
 title: Using nushell with kubectl
 ---
 
-I recently discovered [nushell](https://www.nushell.sh/). It is similar to shells like bash and zsh, but every command works on structured data. Here are some examles of how you can use nushell with `kubectl` to explore your kubernetes cluster more ergonomically.
+I recently discovered [nushell](https://www.nushell.sh/). It is similar to shells like bash and zsh, but every command works on structured data. Here are some examples of how you can use nushell with `kubectl` to explore your kubernetes cluster more ergonomically.
 
 ## kubectl get pods
 
@@ -28,7 +28,7 @@ kube-state-metrics-6965d77b4-jzvlb   1/1     Running             3 (68m ago)   2
 grafana-alloy-97c8n                  2/2     Running             6 (68m ago)   2d14h
 ```
 
-You can use nusehll to parse this data into a tabular format. The trick is to have kubectl respond with json, and then use nushell to parse the json.
+You can use nushell to parse this data into a tabular format. The trick is to have kubectl respond with json, and then use nushell to parse the json.
 
 ```bash
 kubectl get pods -o json | from json
@@ -58,7 +58,7 @@ kubectl get pods -o json | from json | get items | flatten | select apiVersion k
 ╰───┴────────────┴──────┴────────────────────────────────────┴────────────┴──────────────────────╯
 ```
 
-One challange is that when you kubectl returns json, there is a lot of data. You can use the nushell `columns` command to understand all of the columns that are available.
+One challenge is that when you kubectl returns json, there is a lot of data. You can use the nushell `columns` command to understand all of the columns that are available.
 
 ```bash
 kubectl get pods -o json | from json | get items | flatten | columns
@@ -159,9 +159,9 @@ kubectl get pods -Ao json | from json | get items | flatten | select kind name n
 ╰───┴──────┴──────────────────────────────────┴─────────────────┴───────────────────┴───────╯
 ```
 
-This is pretty verbose. But, I like that I can read the command and pretty easily parse out what is happening. I am also very new to nushell, so there is probably a more effecient way to do this.
+This is pretty verbose. But, I like that I can read the command and pretty easily parse out what is happening. I am also very new to nushell, so there is probably a more efficient way to do this.
 
 
 ## Wrap up
 
-Hopefully this post gives you an idea of how nushell can help you interact with your Kubernetes cluster. As I come accross more handy snippets I will update this blog post with them.
+Hopefully this post gives you an idea of how nushell can help you interact with your Kubernetes cluster. As I come across more handy snippets I will update this blog post with them.
