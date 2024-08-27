@@ -11,6 +11,12 @@ const { metaTitle = "samedwardes.com", contentMaxWidth = "max-w-4xl" } =
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{metaTitle} - samedwardes.com</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="samedwardes.com Blog"
+      href='/rss.xml'
+    />
     <!-- Add the pro alpine JS stuff -->
     <script
       is:inline
@@ -40,7 +46,6 @@ const { metaTitle = "samedwardes.com", contentMaxWidth = "max-w-4xl" } =
         <!-- your content is injected here -->
       </div>
     </main>
-
     <Footer />
   </body>
 </html>
