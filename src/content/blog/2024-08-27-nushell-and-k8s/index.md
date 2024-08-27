@@ -1,6 +1,6 @@
 ---
 author: Sam Edwardes
-date: 2024-08-03
+date: 2024-08-27
 description: How to use nushell with kubectl
 keywords:
 - kubernetes
@@ -9,7 +9,7 @@ tags:
 title: Using nushell with kubectl
 ---
 
-I recently discovered [nushell](https://www.nushell.sh/). It is similar to shells like bash and zsh, but every command works on structured data. Here are some examples of how you can use nushell with `kubectl` to explore your kubernetes cluster more ergonomically.
+I recently discovered [nushell](https://www.nushell.sh/). It is similar to shells like bash and zsh, but every command works on structured data. Here are some examples of using nushell with `kubectl` to explore your kubernetes cluster more ergonomically.
 
 ## kubectl get pods
 
@@ -28,7 +28,7 @@ kube-state-metrics-6965d77b4-jzvlb   1/1     Running             3 (68m ago)   2
 grafana-alloy-97c8n                  2/2     Running             6 (68m ago)   2d14h
 ```
 
-You can use nushell to parse this data into a tabular format. The trick is to have kubectl respond with json, and then use nushell to parse the json.
+You can use nushell to parse this data into a tabular format. The trick is to have kubectl respond with json, then use nushell to parse the json.
 
 ```bash
 kubectl get pods -o json | from json
@@ -58,7 +58,7 @@ kubectl get pods -o json | from json | get items | flatten | select apiVersion k
 ╰───┴────────────┴──────┴────────────────────────────────────┴────────────┴──────────────────────╯
 ```
 
-One challenge is that when you kubectl returns json, there is a lot of data. You can use the nushell `columns` command to understand all of the columns that are available.
+One challenge is that when kubectl returns JSON, there is a lot of data. You can use the nushell `columns` command to understand all of the available columns.
 
 ```bash
 kubectl get pods -o json | from json | get items | flatten | columns
@@ -105,7 +105,7 @@ kubectl get pods -o json | from json | get items | flatten | columns
 ╰────┴───────────────────────────────╯
 ```
 
-Now that we have access to this metadata, we can do all sorts of interesting queries on our data.
+Now that we can access this metadata, we can do all sorts of interesting queries on our data.
 
 ## Sorting
 
