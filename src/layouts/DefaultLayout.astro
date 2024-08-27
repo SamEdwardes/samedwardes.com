@@ -1,7 +1,8 @@
 ---
 import NavBar from "../components/NavBar.astro";
 import Footer from "../components/Footer.astro";
-const { metaTitle = "samedwardes.com", contentMaxWidth = "max-w-4xl" } = Astro.props;
+const { metaTitle = "samedwardes.com", contentMaxWidth = "max-w-4xl" } =
+  Astro.props;
 ---
 
 <html lang="en" class="h-full">
@@ -14,7 +15,7 @@ const { metaTitle = "samedwardes.com", contentMaxWidth = "max-w-4xl" } = Astro.p
       rel="alternate"
       type="application/rss+xml"
       title="samedwardes.com Blog"
-      href={new URL("rss.xml", Astro.site)}
+      href='/rss.xml'
     />
     <!-- Add the pro alpine JS stuff -->
     <script
