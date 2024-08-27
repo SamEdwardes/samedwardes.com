@@ -5,6 +5,8 @@ import netlify from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
+  // Basic
+  site: "https://samedwardes.com",
   // Integrations
   integrations: [tailwind(), mdx()],
   // Netlify
