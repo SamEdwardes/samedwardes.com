@@ -55,17 +55,22 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 ## Create a new project
 
-My first decision is what version of Python I want to use. Typically, I want to use the most recent version, which is 3.12.5 ([https://www.python.org/downloads/](https://www.python.org/downloads/)).
-
-<Callout title="Idea">
-
-I hope that in the future, uv will add a command so that you can see all available versions using the uv cli. For example:
+My first decision is what version of Python I want to use. Typically, I want to use the most recent version, which is 3.12.5 ([https://www.python.org/downloads/](https://www.python.org/downloads/)). You can check which versions of Python are available to uv by running:
 
 ```bash
-uv python install --list
+uv python list --all-versions
 ```
 
-</Callout>
+To only see the most recent versions you can pipe the output to `head` and `grep`:
+
+```bash
+uv python list --all-versions | head | grep 'download available'
+# cpython-3.12.5-macos-aarch64-none     <download available>
+# cpython-3.12.3-macos-aarch64-none     <download available>
+# cpython-3.12.2-macos-aarch64-none     <download available>
+# cpython-3.12.1-macos-aarch64-none     <download available>
+# cpython-3.12.0-macos-aarch64-none     <download available>
+```
 
 With my Python version selected, I am ready to bootstrap my project. Note that we pass the `--app` flag because this is a project, not a Python library.
 
