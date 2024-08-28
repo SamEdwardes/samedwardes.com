@@ -1,6 +1,6 @@
 ---
 author: Sam Edwardes
-date: 2024-08-27
+date: 2024-08-03
 description: How to use nushell with kubectl
 keywords:
 - kubernetes
