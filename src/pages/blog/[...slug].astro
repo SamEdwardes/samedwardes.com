@@ -55,11 +55,10 @@ const { Content, headings } = await entry.render();
     {entry.data.date.getDate()},
     {entry.data.date.getFullYear()}
   </div>
-  <section class="grid grid-cols-12 gap-8">
+  <section class="grid grid-cols-12 gap-8 mt-4">
     <!-- Article content -->
     <article
       class:list={[
-        "pt-4",
         "prose max-w-4xl",
         "prose-headings:scroll-mt-24",
         headings.length == 0 ? "col-span-full" : "col-span-full lg:col-span-9",
