@@ -1,28 +1,51 @@
 ---
 author: Sam Edwardes
 date: 2024-08-28
-description: How to use uv to manage a Python data science project.
+description: How I use uv to manage a Python data science project. uv can replace pyenv, poetry, and pipx.
 keywords:
 - python
 - uv
 - pip
 tags:
 - python
-- kubernetes
-title: Data Science Workflows with uv
+title: Managing Data Science Projects with uv
 ---
 
 import Callout from '../../../components/Callout.astro'
 
-On August 20, 2024 Astral announced a slew of new features for uv [https://astral.sh/blog/uv-unified-python-packaging](https://astral.sh/blog/uv-unified-python-packaging). uv is now a complete tool for all of your python needs:
+[Astral](https://astral.sh/) recently announced a slew of new features for uv [https://astral.sh/blog/uv-unified-python-packaging](https://astral.sh/blog/uv-unified-python-packaging). uv is now a complete tool for all of your python needs:
 
 - Managing your Python installation (I used to use [pyenv](https://github.com/pyenv/pyenv))
 - Managing Python projects (I used to use [poetry](https://python-poetry.org/))
 - Building Python packages (I used to use [poetry](https://python-poetry.org/))
 - Managing Python tooling (I used to use [pipx](https://github.com/pypa/pipx))
-- Running Python scripts (I would run scripts using my global Python interpret, or custom virtual environments)
+- Running Python scripts (I would run scripts using my global Python interpreter or custom virtual environments)
 
 As someone who works in data science, here is how I plan to integrate uv into my regular workflows.
+
+## TL/DR
+
+```bash
+# Create a new project
+mkdir example-project
+cd example-project
+uv init --app --python 3.12.5
+
+# Add a packaeg
+uv add httpx==0.27.2
+
+# Remove a package
+uv remove httpx
+
+# Run code
+uv run hello.py
+
+# Run other tools
+uvx ruff format .
+
+# Generate a requirements.txt
+uv pip compile pyproject.toml -o requirements.txt
+```
 
 ## Install uv
 
@@ -32,11 +55,11 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 ## Create a new project
 
-The first decision I make is what version of Python do I want to use. Typically, I want to use the most recent version of Python. As of today, that is 3.12.5 ([https://www.python.org/downloads/](https://www.python.org/downloads/)).
+My first decision is what version of Python I want to use. Typically, I want to use the most recent version, which is 3.12.5 ([https://www.python.org/downloads/](https://www.python.org/downloads/)).
 
 <Callout title="Idea">
 
-I hope that in the future uv adds a command so that you can see all available versions using the uv cli. For example:
+I hope that in the future, uv will add a command so that you can see all available versions using the uv cli. For example:
 
 ```bash
 uv python install --list
@@ -44,7 +67,7 @@ uv python install --list
 
 </Callout>
 
-With my Python version selected, I am ready to bootstrap my project. Note that we pass the `--app` flag because this is a project, as opposed to a Python library.
+With my Python version selected, I am ready to bootstrap my project. Note that we pass the `--app` flag because this is a project, not a Python library.
 
 ```bash
 mkdir example-project
@@ -91,7 +114,7 @@ dependencies = []
 
 ```
 
-I do like to make one change to the pyproject.toml. Since this is a project (as opposed to a library), I like to lock into a specific version of Python. So I update the pyrpoject.toml to use `==3.12.5` as opposed to `>=3.12.5`.
+I do like to make one change to the pyproject.toml. Since this is a project (as opposed to a library), I want to lock into a specific version of Python. So I updated the pyrpoject.toml to use `==3.12.5` as opposed to `>=3.12.5`.
 
 **pyproject.toml**
 
@@ -105,11 +128,11 @@ requires-python = "==3.12.5"
 dependencies = []
 ```
 
-Before proceeding, you should also add a short project description to README.md and the pyproject.toml.
+Before proceeding, add a short project description to the README.md and the pyproject.toml description section.
 
 ## Run your code
 
-Now that you have your initial packages configured, lets run some code.
+Now that your initial packages are documented let's run some code.
 
 ```bash
 uv run hello.py
@@ -120,7 +143,7 @@ uv run hello.py
 
 The first time that you invoke `uv run` uv, a few things happen:
 
-- uv will try to find your desired version of Python on your computer. If it is not available, uv will automatiaclly install it for you.
+- uv will try to find the version of Python you want on your computer. If it is not available, uv will automatically install it for you.
 - uv will create a virtual environment at `./.venv`, using your desired version of Python.
 - Lastly, uv will execute your script using the virtual environment.
 
@@ -139,13 +162,13 @@ source .venv/bin/activate
 python hello.py
 ```
 
-However, I prefer to go all in with `uv`. For me, the main advantage is that`uv run` will always use a virtual environment, you do not need to remember to create and activate one.
+However, I prefer to go all in with `uv`. The main advantage is that `uv run` always uses a virtual environment. You do not need to remember to create and activate one.
 
 </Callout>
 
 ## Add a package
 
-This toy project is going to use the [httpx](https://www.python-httpx.org/) package to make HTTP requests. To add httpx to our project, run the following:
+This toy project will use the [httpx](https://www.python-httpx.org/) package to make HTTP requests. To add httpx to our project, run the following:
 
 ```bash
 uv add httpx
@@ -179,7 +202,7 @@ dependencies = [
 ]
 ```
 
-Since this is a Data Science project, as opposed to a Python library that we would publish to PyPI, I prefer to explicitly lock my top level dependencies to a specific version. Typically, I choose the latest version. Lets re-add httpx and pin the version.
+Since this is a Data Science project, as opposed to a Python library that we would publish to PyPI, I prefer to explicitly lock my top-level dependencies to a specific version. Typically, I choose the latest version. Let's re-add httpx and pin the version.
 
 ```bash
 uv add httpx==0.27.2
@@ -199,7 +222,7 @@ dependencies = [
 ]
 ```
 
-You may have also noticed that there is a new file in directory
+You may have also noticed a new file in the directory.
 
 ```bash
 .
@@ -210,17 +233,17 @@ You may have also noticed that there is a new file in directory
 └── uv.lock          # <- New file
 ```
 
-This lock file describes our top level dependencies (httpx), as well as all of the transitive dependencies (anyio, certifi, etc.). You can read more about the lock file here [https://docs.astral.sh/uv/guides/projects/#uvlock](https://docs.astral.sh/uv/guides/projects/#uvlock).
+This lock file describes our top-level dependencies (httpx) and transitive dependencies (anyio, certifi, etc.). You can read more about the lock file here [https://docs.astral.sh/uv/guides/projects/#uvlock](https://docs.astral.sh/uv/guides/projects/#uvlock).
 
 ## Adding and removing packages
 
-Additional packages can be added with the `uv add <package-name>` command. To remove packages, use `uv remove <package-name>`. The `uv remove` command is similar to the `pip uninstall` command. The most important difference is that `uv remove` not only removes the package you specify, but it also removes all of the transitive dependencies. For example, lets make the following changes:
+Additional packages can be added with the `uv add <package-name>` command. To remove packages, use `uv remove <package-name>`. The `uv remove` command is similar to the `pip uninstall` command. The most important difference is that `uv remove` not only removes the package you specify but also all of the transitive dependencies. For example, let's make the following changes:
 
 - Add [polars](https://pola.rs/)
 - Add [requests](https://docs.python-requests.org/en/latest/index.html)
 - Remove [httpx](https://www.python-httpx.org/)
 
-First, lets check all of the packages in our environment:
+First, let us check all of the packages in our environment:
 
 ```bash
 uv pip freeze
@@ -252,9 +275,9 @@ uv pip freeze
 There are a few important things to note:
 
 - polars and requests are now both installed.
-- certifi is still installed, even though we uninstalled httpx. It is still in the environment because both httpx and requests depdend on this library.
-- anyio is removed. Only httpx depdended on this library, so uv removed it from the environment.
-- Both pyproject.toml and uv.lock have been updated to reflect this as well.
+- certifi is still installed, even though we uninstalled httpx. It is still in the environment because both httpx and requests depend on this library.
+- anyio is removed. Only httpx depended on this library, so uv removed it from the environment.
+- Both pyproject.toml and uv.lock has been updated to reflect this.
 
 ## Generating a requirements.txt
 
@@ -296,6 +319,15 @@ requests==2.32.3
     # via example-project (pyproject.toml)
 urllib3==2.2.2
     # via requests
+```
+
+## Running other tools (e.g. linters and formatters)
+
+I often want to run additional tooling on my code base that is not a requirement for my project. For example, I like using the ruff formatter to format my code. I could include these tools as dependencies in my project, but I prefer to keep my project dependencies separate from my tooling dependencies. I used pipx for this in the past, but now I use the `uvx` command. For example, here is how I would format my code using ruff:
+
+```bash
+uvx ruff check --select I --fix .
+uvx ruff format .
 ```
 
 ## Further Reading
