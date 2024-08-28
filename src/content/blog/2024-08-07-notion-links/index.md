@@ -9,23 +9,23 @@ tags:
 - notion
 - blog
 - astro
-title: How I add links I save in Notion to my Blog
+title: Using a Notion Database to Generate a Dynamic Links Page on My Blog
 ---
 
 I am a big fan of Notion. I use it as my second brain, and I follow the [PARA](https://fortelabs.com/blog/para/) method to organize everything. One of my Notion databases is called "Web Clips". I use this database to save links that I find on the web.
 
-![Screenshot of my Notion workspace organized using PARA](./imgs/notion-para-screenshot.png)
+![Screenshot of my Web Clips database in Notion](./imgs/webclips-database.png)
 
 I wanted a way to share some of these links that I collect on my blog. I had a few options I was considering:
 
-- I could make this Notion database public. But some links I want to keep private. So this was not a good option.
-- I could use the [Notion API](https://developers.notion.com/docs/getting-started) to dynamically render all of the links I want to show. This is a lot of work, but that is what this blog is for.
+- ❌ I could make this Notion database public. But some links I want to keep private. So this was not a good option.
+- ✅ I could use the [Notion API](https://developers.notion.com/docs/getting-started) to dynamically render all of the links I want to show. This is a lot of work, but that is what this blog is for. You can see the finished result here [samedwardes.com/links](/links).
 
 ## Project Elements
 
 I would need to build a few things to make this all work:
 
-- A query that gets only the links I want to share publicly. The query should be able to optionally filter links based on a search field, tags, and other meta-data.
+- A query that gets only the links I want to share publicly. The query should be able to optionally filter links based on a search field, tags, and other meta-data. See the [GitHub Repo](https://github.com/SamEdwardes/samedwardes.com/blob/b15a1dbd527dd029af06c3653c24139646f195c8/src/pages/links/partials/grid.astro#L17-L65) for the final query.
 
 - A page that displays all the links. I have a lot of links, so the page will also need pagination.
 
