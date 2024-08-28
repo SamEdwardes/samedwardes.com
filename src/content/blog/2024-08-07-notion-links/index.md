@@ -12,22 +12,28 @@ tags:
 title: How I add links I save in Notion to my Blog
 ---
 
-I am a big fan of Notion. I use it as my second brain, and I follow the [PARA](https://fortelabs.com/blog/para/) method to organize everything.
+I am a big fan of Notion. I use it as my second brain, and I follow the [PARA](https://fortelabs.com/blog/para/) method to organize everything. One of my Notion databases is called "Web Clips". I use this database to save links that I find on the web.
 
 ![Screenshot of my Notion workspace organized using PARA](./imgs/notion-para-screenshot.png)
 
-One of my Notion databases is called "Web Clips". I use this database to save links that I find on the web. I wanted a way to share some of these links that I find on my blog. I had a few options I was considering:
+I wanted a way to share some of these links that I collect on my blog. I had a few options I was considering:
 
 - I could make this Notion database public. But some links I want to keep private. So this was not a good option.
-- I could use the [Notion API]() to dynamically render all of the links I want to show. This is a lot of work, but that is what this blog is for.
+- I could use the [Notion API](https://developers.notion.com/docs/getting-started) to dynamically render all of the links I want to show. This is a lot of work, but that is what this blog is for.
 
 ## Project Elements
 
 I would need to build a few things to make this all work:
 
-- A query that gets only the links I want to share publically. The query should be able to optionally filter links based on a search field, tags, and other meta-data.
+- A query that gets only the links I want to share publicly. The query should be able to optionally filter links based on a search field, tags, and other meta-data.
+
 - A page that displays all the links. I have a lot of links, so the page will also need pagination.
+
+  ![Screenshot of my final links page](./imgs/links-page-screenshot.png)
+
 - A component to make each link look good.
+
+  ![Screenshot of a link component](./imgs/component-screenshot.png)
 
 You can see the final implementation of my code here: <https://github.com/SamEdwardes/samedwardes.com/tree/main/src/pages/links>.
 
@@ -42,7 +48,7 @@ Now, whenever someone visits <https://samedwardes.com/links>, a query will be se
 
 ## Astro
 
-My website is built on Astro. As of August 2024, the entire site is statically generated except for `/links`. One of the parts I like about Astro is you can opt to have some pages server side rendered, while other pages can be statically rendered. The `/links` page has to server side rendered everytime because the links could change at any moment!
+My website is built on Astro. As of August 2024, the entire site is statically generated except for `/links`. One of the parts I like about Astro is you can opt to have some pages server side rendered, while other pages can be statically rendered. The `/links` page has to server side rendered every time because the links could change at any moment!
 
 You can see how I implemented the links page here: <https://github.com/SamEdwardes/samedwardes.com/blob/main/src/pages/links/index.astro>. This page include the JavaScript where I query the Notion database:
 
