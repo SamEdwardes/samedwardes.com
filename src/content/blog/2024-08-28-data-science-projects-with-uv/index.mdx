@@ -13,6 +13,22 @@ title: Managing Data Science Projects with uv
 
 import Callout from '../../../components/Callout.astro'
 
+
+<Callout title="Update: 2024-09-04">
+
+After writing this blog post I posted a few issues on the uv GitHub repo:
+
+- [#6780: Use uv init to lock to a particular Python version](https://github.com/astral-sh/uv/issues/6780)
+- [#6781: Add the option to uv add to pin to latest version of package](https://github.com/astral-sh/uv/issues/6781)
+
+Based on what I learned in these issues I have made a few updates to this blog post:
+
+- Use `.python-version` to specify desired Python version for the project.
+- Don't pin package version in `pyproject.toml`, let `uv.lock` handle the pinning.
+- Use `uv export` to generate a `requirements.txt` file.
+
+</Callout>
+
 [Astral](https://astral.sh/) recently announced a slew of new features for uv [https://astral.sh/blog/uv-unified-python-packaging](https://astral.sh/blog/uv-unified-python-packaging). uv is now a complete tool for all of your python needs:
 
 - Managing your Python installation (I used to use [pyenv](https://github.com/pyenv/pyenv))
@@ -25,14 +41,19 @@ As someone who works in data science, here is how I plan to integrate uv into my
 
 ## TL/DR
 
+<Callout title="uv version">
+uv is rapidly changing! This blog post was written using version `0.4.5`.
+</Callout>
+
 ```bash
 # Create a new project
 mkdir example-project
 cd example-project
 uv init --app --python 3.12.5
 
-# Add a packaeg
-uv add httpx==0.27.2
+# Add a package
+uv add requests
+uv add httpx
 
 # Remove a package
 uv remove httpx
@@ -44,7 +65,7 @@ uv run hello.py
 uvx ruff format .
 
 # Generate a requirements.txt
-uv pip compile pyproject.toml -o requirements.txt
+uv exoprt > requirements.txt
 ```
 
 ## Install uv
@@ -84,9 +105,16 @@ My project has now been bootstrapped with the following files:
 
 ```bash
 .
+├── .python-version
 ├── hello.py
 ├── pyproject.toml
 └── README.md
+```
+
+**.python-version**
+
+```bash
+3.12.5
 ```
 
 **hello.py**
@@ -116,28 +144,13 @@ dependencies = []
 *Note: the README is empty.*
 
 ```markdown
-
-```
-
-I do like to make one change to the pyproject.toml. Since this is a project (as opposed to a library), I want to lock into a specific version of Python. So I updated the pyrpoject.toml to use `==3.12.5` as opposed to `>=3.12.5`.
-
-**pyproject.toml**
-
-```toml
-[project]
-name = "example-project"
-version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
-requires-python = "==3.12.5"
-dependencies = []
 ```
 
 Before proceeding, add a short project description to the README.md and the pyproject.toml description section.
 
 ## Run your code
 
-Now that your initial packages are documented let's run some code.
+When using uv to manage your project, the preferred way to run your code is by using `uv run <name-of-script>` (as opposed to `python <name-of-script>`):
 
 ```bash
 uv run hello.py
@@ -146,7 +159,7 @@ uv run hello.py
 # Hello from example-project!
 ```
 
-The first time that you invoke `uv run` uv, a few things happen:
+The first time that you invoke `uv run`, a few things happen:
 
 - uv will try to find the version of Python you want on your computer. If it is not available, uv will automatically install it for you.
 - uv will create a virtual environment at `./.venv`, using your desired version of Python.
@@ -173,27 +186,21 @@ However, I prefer to go all in with `uv`. The main advantage is that `uv run` al
 
 ## Add a package
 
-This toy project will use the [httpx](https://www.python-httpx.org/) package to make HTTP requests. To add httpx to our project, run the following:
+To add packages with uv you use `uv add <package>` (as opposed to `pip install <package>`):
 
 ```bash
-uv add httpx
-# Using Python 3.12.5 interpreter at: /opt/homebrew/opt/python@3.12/bin/python3.12
-# Creating virtualenv at: .venv
-# Resolved 8 packages in 190ms
-#    Built example-project @ file:///Users/samedwardes/tmp/example-project
-# Prepared 8 packages in 666ms
-# Installed 8 packages in 6ms
-#  + anyio==4.4.0
-#  + certifi==2024.7.4
-#  + example-project==0.1.0 (from file:///Users/samedwardes/tmp/example-project)
-#  + h11==0.14.0
-#  + httpcore==1.0.5
-#  + httpx==0.27.2
+uv add requests
+# Resolved 6 packages in 130ms
+# Prepared 5 packages in 0.81ms
+# Installed 5 packages in 5ms
+#  + certifi==2024.8.30
+#  + charset-normalizer==3.3.2
 #  + idna==3.8
-#  + sniffio==1.3.1
+#  + requests==2.32.3
+#  + urllib3==2.2.2
 ```
 
-After running `uv add`, the pyproject.toml has been updated to include httpx:
+After running `uv add`, the pyproject.toml has been updated to include requests:
 
 ```toml
 [project]
@@ -201,59 +208,86 @@ name = "example-project"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = "==3.12.5"
+requires-python = ">=3.12.5"
 dependencies = [
-    "httpx>=0.27.2",
+    "requests>=2.32.3",
 ]
 ```
 
-Since this is a Data Science project, as opposed to a Python library that we would publish to PyPI, I prefer to explicitly lock my top-level dependencies to a specific version. Typically, I choose the latest version. Let's re-add httpx and pin the version.
-
-```bash
-uv add httpx==0.27.2
-```
-
-Now if you look at the pyproject.toml again, you can see that httpx is pinned.
+One thing to note is how the requests package has been pinned:
 
 ```toml
-[project]
-name = "example-project"
-version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
-requires-python = "==3.12.5"
 dependencies = [
-    "httpx==0.27.2",
+    "requests>=2.32.3",
 ]
 ```
 
-You may have also noticed a new file in the directory.
+Since this is a Data Science project, as opposed to a Python library that we would publish to PyPI, I want to be confident that I can re-run this code using all of the exact same dependencies on another machine. This is where the `uv.lock` files comes in. Our project now has this structure:
 
 ```bash
 .
+├── .python-version
 ├── .venv
 ├── hello.py
 ├── pyproject.toml
 ├── README.md
-└── uv.lock          # <- New file
+└── uv.lock
 ```
 
-This lock file describes our top-level dependencies (httpx) and transitive dependencies (anyio, certifi, etc.). You can read more about the lock file here [https://docs.astral.sh/uv/guides/projects/#uvlock](https://docs.astral.sh/uv/guides/projects/#uvlock).
+The `uv.lock` file describes the exact resolved versions of every package this is installed in my environment. Here is a snippet from the `uv.lock` file that shows how requests is pinned to version `2.32.3`:
+
+```toml
+version = 1
+requires-python = ">=3.12.5"
+
+...
+
+[[package]]
+name = "requests"
+version = "2.32.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "certifi" },
+    { name = "charset-normalizer" },
+    { name = "idna" },
+    { name = "urllib3" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/63/70/2bf7780ad2d390a8d301ad0b550f1581eadbd9a20f896afe06353c2a2913/requests-2.32.3.tar.gz", hash = "sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760", size = 131218 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f9/9b/335f9764261e915ed497fcdeb11df5dfd6f7bf257d4a6a2a686d80da4d54/requests-2.32.3-py3-none-any.whl", hash = "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6", size = 64928 },
+]
+```
+
+
+You can read more about the lock file here [https://docs.astral.sh/uv/guides/projects/#uvlock](https://docs.astral.sh/uv/guides/projects/#uvlock).
 
 ## Adding and removing packages
 
 Additional packages can be added with the `uv add <package-name>` command. To remove packages, use `uv remove <package-name>`. The `uv remove` command is similar to the `pip uninstall` command. The most important difference is that `uv remove` not only removes the package you specify but also all of the transitive dependencies. For example, let's make the following changes:
 
-- Add [polars](https://pola.rs/)
-- Add [requests](https://docs.python-requests.org/en/latest/index.html)
-- Remove [httpx](https://www.python-httpx.org/)
+- Add [httpx](https://www.python-httpx.org/)
+- Remove [requests](https://docs.python-requests.org/en/latest/index.html)
 
 First, let us check all of the packages in our environment:
 
 ```bash
 uv pip freeze
+# certifi==2024.8.30
+# charset-normalizer==3.3.2
+# idna==3.8
+# requests==2.32.3
+# urllib3==2.2.2
+```
+
+Then, use `uv add` and `uv remove` to update the environment:
+
+```bash
+uv add httpx
+uv remove requests
+
+uv pip freeze
 # anyio==4.4.0
-# certifi==2024.7.4
+# certifi==2024.8.30
 # h11==0.14.0
 # httpcore==1.0.5
 # httpx==0.27.2
@@ -261,69 +295,45 @@ uv pip freeze
 # sniffio==1.3.1
 ```
 
-Then, use `uv add` and `uv remove` to update the environment:
-
-```bash
-uv add polars==1.6.0
-uv add requests==2.32.3
-uv remove httpx
-
-uv pip freeze
-# certifi==2024.7.4
-# charset-normalizer==3.3.2
-# idna==3.8
-# polars==1.6.0
-# requests==2.32.3
-# urllib3==2.2.2
-```
-
 There are a few important things to note:
 
-- polars and requests are now both installed.
-- certifi is still installed, even though we uninstalled httpx. It is still in the environment because both httpx and requests depend on this library.
-- anyio is removed. Only httpx depended on this library, so uv removed it from the environment.
-- Both pyproject.toml and uv.lock has been updated to reflect this.
+- httpx is now installed.
+- certifi is still installed, even though we uninstalled requests. It is still in the environment because both httpx and requests depend on this library.
+- Both pyproject.toml and uv.lock has been updated to reflect all of the changes.
 
 ## Generating a requirements.txt
 
 uv creates a pyproject.toml and a uv.lock file. These two files are all you need to recreate your Python environment anywhere. However, some tools won't know what to do with these files and instead require a good old fashion requirements.txt. Use the following command to generate a requirements.txt:
 
 ```bash
-uv pip compile pyproject.toml -o requirements.txt
-# Resolved 6 packages in 84ms
-# # This file was autogenerated by uv via the following command:
-# #    uv pip compile pyproject.toml -o requirements.txt
-# certifi==2024.7.4
-#     # via requests
-# charset-normalizer==3.3.2
-#     # via requests
-# idna==3.8
-#     # via requests
-# polars==1.6.0
-#     # via example-project (pyproject.toml)
-# requests==2.32.3
-#     # via example-project (pyproject.toml)
-# urllib3==2.2.2
-#     # via requests
+uv export > requirements.txt
 ```
 
 **requirements.txt**
 
 ```bash
-# This file was autogenerated by uv via the following command:
-#    uv pip compile pyproject.toml -o requirements.txt
-certifi==2024.7.4
-    # via requests
-charset-normalizer==3.3.2
-    # via requests
-idna==3.8
-    # via requests
-polars==1.6.0
-    # via example-project (pyproject.toml)
-requests==2.32.3
-    # via example-project (pyproject.toml)
-urllib3==2.2.2
-    # via requests
+# This file was autogenerated via `uv export`.
+anyio==4.4.0 \
+    --hash=sha256:5aadc6a1bbb7cdb0bede386cac5e2940f5e2ff3aa20277e991cf028e0585ce94 \
+    --hash=sha256:c1b2d8f46a8a812513012e1107cb0e68c17159a7a594208005a57dc776e1bdc7
+certifi==2024.8.30 \
+    --hash=sha256:bec941d2aa8195e248a60b31ff9f0558284cf01a52591ceda73ea9afffd69fd9 \
+    --hash=sha256:922820b53db7a7257ffbda3f597266d435245903d80737e34f8a45ff3e3230d8
+h11==0.14.0 \
+    --hash=sha256:8f19fbbe99e72420ff35c00b27a34cb9937e902a8b810e2c88300c6f0a3b699d \
+    --hash=sha256:e3fe4ac4b851c468cc8363d500db52c2ead036020723024a109d37346efaa761
+httpcore==1.0.5 \
+    --hash=sha256:34a38e2f9291467ee3b44e89dd52615370e152954ba21721378a87b2960f7a61 \
+    --hash=sha256:421f18bac248b25d310f3cacd198d55b8e6125c107797b609ff9b7a6ba7991b5
+httpx==0.27.2 \
+    --hash=sha256:f7c2be1d2f3c3c3160d441802406b206c2b76f5947b11115e6df10c6c65e66c2 \
+    --hash=sha256:7bb2708e112d8fdd7829cd4243970f0c223274051cb35ee80c03301ee29a3df0
+idna==3.8 \
+    --hash=sha256:d838c2c0ed6fced7693d5e8ab8e734d5f8fda53a039c0164afb0b82e771e3603 \
+    --hash=sha256:050b4e5baadcd44d760cedbd2b8e639f2ff89bbc7a5730fcc662954303377aac
+sniffio==1.3.1 \
+    --hash=sha256:f4324edc670a0f49750a81b895f35c3adb843cca46f0530f79fc1babb23789dc \
+    --hash=sha256:2f6da418d1f1e0fddd844478f41680e794e6051915791a034ff65e5f100525a2
 ```
 
 ## Running other tools (e.g. linters and formatters)
@@ -340,3 +350,4 @@ uvx ruff format .
 - My original post on uv: [Replacing pip with uv for Python projects](/blog/2024-04-21-python-uv-workflow/)
 - uv docs: [https://docs.astral.sh/uv/](https://docs.astral.sh/uv/)
 - uv blog post: [https://astral.sh/blog/uv-unified-python-packaging](https://astral.sh/blog/uv-unified-python-packaging)
+
