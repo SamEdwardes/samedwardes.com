@@ -5,9 +5,12 @@ description: My lighting talk "Beautiful Reporting with Quarto" at PyCascades Se
 keywords:
 - python
 - quarto
+- PyCascades 2024
+- Sam Edwardes Talk
 tags:
 - python
 - quarto
+- talks
 title: Beautiful Reporting with Quarto Lighting Talk at PyCascades Seattle 2024
 ---
 
