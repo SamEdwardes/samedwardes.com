@@ -13,6 +13,15 @@ title: Managing Data Science Projects with uv
 
 import Callout from '../../../components/Callout.astro'
 
+<br></br>
+
+<Callout title="Update: 2024-09-11">
+
+Use the `--output-file` flag for `uv export`.
+
+</Callout>
+
+<br></br>
 
 <Callout title="Update: 2024-09-04">
 
@@ -42,7 +51,7 @@ As someone who works in data science, here is how I plan to integrate uv into my
 ## TL/DR
 
 <Callout title="uv version">
-uv is rapidly changing! This blog post was written using version `0.4.5`.
+uv is rapidly changing! This blog post was written using version `0.4.9`.
 </Callout>
 
 ```bash
@@ -306,7 +315,7 @@ There are a few important things to note:
 uv creates a pyproject.toml and a uv.lock file. These two files are all you need to recreate your Python environment anywhere. However, some tools won't know what to do with these files and instead require a good old fashion requirements.txt. Use the following command to generate a requirements.txt:
 
 ```bash
-uv export > requirements.txt
+uv export --output-file requirements.txt
 ```
 
 **requirements.txt**
