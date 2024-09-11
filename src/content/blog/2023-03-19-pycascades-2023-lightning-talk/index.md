@@ -8,6 +8,7 @@ keywords:
 - Pydantic Lighting Talk
 tags:
 - python
+- talks
 title: Do Everything with Pydantic - Lightning Talk PyCascades 2023
 ---
 
