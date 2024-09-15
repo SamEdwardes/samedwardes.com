@@ -1,6 +1,6 @@
 ---
 author: Sam Edwardes
-date: 2024-08-07
+date: 2999-01-01
 description: My workflow for adding links I save in Notion to my blog.
 keywords:
 - notion
