@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Register your custom font family and tell the browser where to find it. */
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/Atkinson-Hyperlegible-Regular-102.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/Atkinson-Hyperlegible-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/Atkinson-Hyperlegible-Bold.woff') format('woff');
+  font-weight: bold; 
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/Atkinson-Hyperlegible-BoldItalic.woff') format('woff');
+  font-weight: bold; 
+  font-style: italic;
+  font-display: swap;
+}
