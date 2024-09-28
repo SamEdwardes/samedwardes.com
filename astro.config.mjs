@@ -1,14 +1,23 @@
 import { defineConfig, envField } from "astro/config";
 import tailwind from "@astrojs/tailwind";
+import expressiveCode from "astro-expressive-code";
 import mdx from "@astrojs/mdx";
 import netlify from "@astrojs/netlify";
+
 
 // https://astro.build/config
 export default defineConfig({
   // Basic
   site: "https://samedwardes.com",
   // Integrations
-  integrations: [tailwind(), mdx()],
+  integrations: [
+    tailwind(),
+    expressiveCode({
+      frames: {
+        extractFileNameFromCode: false
+      }
+    }),
+    mdx()],
   // Netlify
   output: "hybrid",
   adapter: netlify(),
