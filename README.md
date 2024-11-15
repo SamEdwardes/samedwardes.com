@@ -6,6 +6,24 @@ The development repo for my blog [https://samedwardes.com/](https://samedwardes.
 
 ![Screenshot of Blog](public/images/screenshot-of-blog.png)
 
+## Development
+
+### Pre-commit
+
+Copy the code below to `.git/hooks/pre-commit` and make it executable with `chmod +x .git/hooks/pre-commit`.
+
+```bash
+#!/usr/bin/env bash
+# ^ Note the above "shebang" line. This says "This is an executable shell script"
+# Name this script "pre-commit" and place it in the ".git/hooks/" directory
+
+# If any command fails, exit immediately with that command's exit status
+set -eo pipefail
+
+# Run commands
+just pre-commit
+```
+
 ## Astro
 
 ```sh
