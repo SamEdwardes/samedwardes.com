@@ -1,0 +1,152 @@
+---
+title: "No Mouse Mondays"
+subtitle: "Posit Work Week 2025"
+format:
+    revealjs:
+        embed-resources: true
+        smaller: true
+        footer: "No Mouse Mondays ~~🐁~~ Posit Work Week 2025"
+author: "Sam Edwardes"
+date: "2025-02-05"
+---
+
+## Why?
+
+- Better ergonomics 💪
+- More efficient (questionable...) 🤷
+- Fun 🤓
+
+## My tools
+
+1. Keyboard Layers with [ZSA Voyager](https://www.zsa.io/voyager)
+2. Home row mods
+3. [Shortcat](https://shortcat.app/) and [Vimium](https://chromewebstore.google.com/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb)
+4. [Aerospace](https://github.com/nikitabobko/AeroSpace) Window Manager
+5. Vim Grammar (Neo Vim, VS Code, Obsidian, Arc)
+
+## Keyboard Layers with ZSA Voyager {.smaller}
+
+The [ZSA Voyager](https://www.zsa.io/voyager), Le pièce de résistance.
+
+:::: {.columns}
+
+::: {.column width="60%"}
+![](./imgs/zsa-voyager.png)
+:::
+
+::: {.column width="40%"}
+Create custom layers with ORYX. Here is my current [layout](https://configure.zsa.io/voyager/layouts/WgnAj/latest/0)
+
+- **Layer 1:** Alpha characters and home row mods
+- **Layer 2:** Symbols and Numbers
+- ~~**Layer 3:** I don't use~~
+- **Layer 4:** Random stuff
+- ~~**Layer 5:** I don't use~~
+:::
+
+::::
+
+## Home row mods
+
+Minimize your finger travel.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](./imgs/zsa-home-row-mods.png)
+:::
+
+::: {.column width="50%"}
+- [A guide to home row mods](https://precondition.github.io/home-row-mods)
+- Demo [Google Doc](https://docs.google.com/document/d/1RBob9iAxayWbO0xHd6SEYFgIUKXPaJSYChcBt9Gf0Kk/edit?tab=t.0)
+:::
+
+::::
+
+## Shortcat and Vimium {.smaller}
+
+[Shortcat](https://shortcat.app/) (works everywhere) and [Vimium](https://chromewebstore.google.com/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb) (chrome based browsers) help you navigate a GUI first world with your keyboard.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Demo**
+
+- Search for Positron
+- Download the latest binary
+- See open tabs
+- Close a tab
+
+![](./imgs/vimium.png)
+:::
+
+::: {.column width="50%"}
+![](./imgs/shortcat.png)
+:::
+
+::::
+
+## Aerospace Window Manager
+
+AeroSpace is an i3-like tiling window manager for macOS. [GitHub](https://github.com/nikitabobko/AeroSpace) / [Docs](https://nikitabobko.github.io/AeroSpace/guide#)
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](./imgs/aerospace-docs.png)
+:::
+
+::: {.column width="50%"}
+- Auto arrange windows
+- Move to windows with
+
+<kbd>⌥ Option</kbd> + <kbd>h</kbd> (or, `j`, `k`, `l`)
+
+- Swap window positions with
+
+<kbd>⇧ Shift</kbd> + <kbd>⌥ Option</kbd> + <kbd>h</kbd> (or, `j`, `k`, `l`)
+:::
+
+::::
+
+## Vim Motions
+
+Biggest learning curve, biggest payoff. BUT, you don't need to memorize. The **grammar** of editing text: `verb` (operators) + `noun` (motions).
+
+Many apps have support for (some) vim operators and motions: VS Code, Positron, Obsidian, Gmail, Chrome (via Vimium).
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Obsidian vim grammar [demo](obsidian://open?vault=iCloud%20Vault&file=Notes%2FWork%20Week%202025%20Vim%20Grammar%20Demo).
+
+```
+j            # move down
+10j          # move down 10 lines
+$            # end of the line
+w            # move forward to beginning of the next word
+3w           # move forward 3 words
+gg<shift>vG  # Go to the top, select the line, select to the bottom (AKA select all)
+```
+:::
+
+::: {.column width="50%"}
+Remap arrow keys with [Karabiner Elements](https://karabiner-elements.pqrs.org/) or [Superkey](https://superkey.app/).
+
+- Left: <kbd>⇧ Hyper</kbd> + <kbd>h</kbd>
+- Right: <kbd>⇧ Hyper</kbd> + <kbd>l</kbd>
+- Down: <kbd>⇧ Hyper</kbd> + <kbd>j</kbd>
+- Up: <kbd>⇧ Hyper</kbd> + <kbd>k</kbd>
+:::
+
+::::
+
+## Honourable mentions
+
+- [Karabiner Elements](https://karabiner-elements.pqrs.org/) home row mods and other customizations with any keyboard.
+- [Superkey](https://superkey.app/) easily set up vim arrow keys and hyper/meh key.
+- [Raycast](https://www.raycast.com/) a better Spotlight, a more modern Alfred
+
+## Thank you!
+
+![Generate a cartoon image of a genius mad data scientist hitting a gong to signify that I have run out of time at work week show and tell.](./imgs/gong.png)
