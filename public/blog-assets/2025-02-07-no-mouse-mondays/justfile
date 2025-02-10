@@ -1,2 +1,2 @@
 render:
-  quarto render slides.html
+  quarto render slides.qmd
