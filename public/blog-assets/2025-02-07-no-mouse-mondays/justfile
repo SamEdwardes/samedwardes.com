@@ -1,0 +1,2 @@
+render:
+  quarto render slides.html
