@@ -1,0 +1,56 @@
+---
+title: How to automatically format Python and R code in VS Code or Positron
+description: Automatically format Python and R code in VS Code or Positron using ruff and air.
+author: Sam Edwardes
+date: 2025-03-04
+tags:
+- tools
+- python
+- r
+---
+
+import Callout from '../../../components/Callout.astro'
+
+VS Code and Positron include a feature that allows you to take specific actions when saving a file. I have configured VS Code and Positron to automatically format my Python and R code when I save a file. Auto formatting is a great way to ensure your code is consistently formatted correctly.
+
+For formatting Python code, I use [ruff](https://docs.astral.sh/ruff/) ([Open VSX](https://open-vsx.org/extension/charliermarsh/ruff), [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff)) which has a VS Code extension. For formatting R code, I use [air](https://posit-dev.github.io/air/) ([Open VSX](https://open-vsx.org/extension/posit/air-vscode), [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Posit.air-vscode)) which also has a VS Code/Positron extension.
+
+To enable this behviour, add the following to your VS Code configuration file. To open your settings.json file, run one of the following from the Command Palette:
+
+- Run Preferences: Open User Settings (JSON) to modify global user settings.
+- Add the following sections:
+
+```json
+{
+      "[r]": {
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+      80
+    ],
+    "editor.tabSize": 4
+  },
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+      80
+    ],
+    "editor.tabSize": 4
+  },
+  "ruff.nativeServer": "on",
+  "ruff.organizeImports": true,
+}
+```
+
+<br></br>
+
+<Callout title="Tip">
+
+The `"source.organizeImports": "always"` will use ruff to sort your imports and format your code.
+
+</Callout>
+
+Congratulations 🎉 Your code will be automatically formatted whenever you save a Python or R file!
