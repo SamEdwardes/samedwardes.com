@@ -47,9 +47,47 @@ const tableOfContentsData = buildToc(headings);
     <ul class="list-disc list-outside px-4">
       {
         tableOfContentsData.map((heading) => (
-          <TableOfContentsHeading heading={heading} leftPadding={false} />
+          <TableOfContentsHeading heading={heading} leftPadding={false} active={heading === tableOfContentsData[0]} />
         ))
       }
     </ul>
   </BrutalCard>
 </nav>
+
+<script>
+  // Script to handle the active state of TOC items
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("TOC working!")
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.getAttribute('id');
+          console.log("entry id", id)
+          const tocLink = document.querySelector(`.toc-link[data-heading="${id}"]`);
+          console.log(tocLink)
+
+          if (entry.isIntersecting) {
+            // Remove active class from all links
+            document.querySelectorAll('.toc-link').forEach((link) => {
+              link.classList.remove('active');
+            });
+
+            // Add active class to current link
+            if (tocLink) {
+              tocLink.classList.add('active');
+            }
+          }
+        });
+      },
+      {
+        rootMargin: '-100px 0px -80% 0px',
+        threshold: 0
+      }
+    );
+
+    // Observe all headings that are in the TOC
+    document.querySelectorAll('h2, h3').forEach((heading) => {
+      observer.observe(heading);
+    });
+  });
+</script>

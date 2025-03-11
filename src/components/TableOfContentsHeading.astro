@@ -9,15 +9,18 @@ export interface TocHeading {
 export interface Props {
   heading: TocHeading;
   leftPadding: boolean;
+  active: boolean;
 }
 
-const { heading, leftPadding = false } = Astro.props;
+const { heading, leftPadding = false, active = false } = Astro.props;
 ---
 
 <li class:list={[{ "ml-4": leftPadding }]}>
   <a
     href={"#" + heading.slug}
-    class="text-slate-800 text-sm font-mono italic font-light hover:text-primary hover:underline"
+    data-heading={heading.slug}
+    class="toc-link text-slate-800 text-sm font-mono italic font-light hover:text-primary hover:underline"
+    class:list={[{ "active": active }]}
   >
     {heading.text}
   </a>
@@ -31,3 +34,11 @@ const { heading, leftPadding = false } = Astro.props;
     )
   }
 </li>
+
+
+<style>
+  .toc-link.active {
+    color: #3c7dc1;
+    font-weight: 600;
+  }
+</style>
