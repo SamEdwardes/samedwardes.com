@@ -18,9 +18,18 @@ async function getSearchIndex() {
   }
 }
 
+interface SearchIndexInterface {
+  title: string;
+  description: string;
+  tags: string[]
+  keywords: string[];
+  date: string;
+  slug: string;
+}
+
 async function doSearch(searchTerm: string) {
   const searchIndex = await getSearchIndex();
-  const fuse = new Fuse(searchIndex, {
+  const fuse = new Fuse<SearchIndexInterface>(searchIndex, {
     keys: [
       { name: "title", weight: 2 },
       { name: "description", weight: 1 },
@@ -33,7 +42,12 @@ async function doSearch(searchTerm: string) {
   console.log(`Search results for ${searchTerm}:`, searchResults);
 
   // Update the page with search results
-  const searchResultHTML = document.querySelector("#search-results");
+  const searchResultHTML = document.querySelector<HTMLElement>("#search-results");
+  if (searchResultHTML === null) {
+    console.error("Search results container not found");
+    return;
+  }
+
   // Clear existing results
   searchResultHTML.innerHTML = "";
 
@@ -85,7 +99,9 @@ form?.addEventListener("submit", (e) => {
   e.preventDefault();
   // Parse the form
   const formData = new FormData(form);
-  searchTerm = DOMPurify.sanitize(formData.get("search").toString());
+  const rawSearchTerm = formData.get("search");
+  if (!rawSearchTerm) return;
+  searchTerm = DOMPurify.sanitize(rawSearchTerm.toString());
   // Validation of input
   if (!searchTerm || searchTerm.length === 0) return;
   // Update the URL
