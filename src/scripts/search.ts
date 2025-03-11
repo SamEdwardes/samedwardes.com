@@ -39,7 +39,6 @@ async function doSearch(searchTerm: string) {
     ],
   });
   const searchResults = fuse.search(searchTerm);
-  console.log(`Search results for ${searchTerm}:`, searchResults);
 
   // Update the page with search results
   const searchResultHTML = document.querySelector<HTMLElement>("#search-results");
