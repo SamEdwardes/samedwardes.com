@@ -20,7 +20,7 @@ const { heading, leftPadding = false, active = false } = Astro.props;
     href={"#" + heading.slug}
     data-heading={heading.slug}
     class="toc-link text-slate-800 text-sm font-mono italic font-light hover:text-primary hover:underline"
-    class:list={[{ "active": active }]}
+    class:list={[{ active: active }]}
   >
     {heading.text}
   </a>
@@ -34,7 +34,6 @@ const { heading, leftPadding = false, active = false } = Astro.props;
     )
   }
 </li>
-
 
 <style>
   .toc-link.active {
