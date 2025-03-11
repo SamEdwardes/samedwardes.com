@@ -9,7 +9,7 @@ export interface TocHeading {
 export interface Props {
   heading: TocHeading;
   leftPadding: boolean;
-  active: boolean;
+  active?: boolean;
 }
 
 const { heading, leftPadding = false, active = false } = Astro.props;
