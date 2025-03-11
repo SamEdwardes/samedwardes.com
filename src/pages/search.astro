@@ -1,0 +1,36 @@
+---
+import DefaultLayout from "../layouts/DefaultLayout.astro";
+import H1 from "../components/H1.astro";
+---
+
+<DefaultLayout metaTitle="Search">
+  <H1>Search</H1>
+  <form class="">
+    <div class="pb-4">
+      <label
+        for="search"
+        class="block text-sm/6 font-medium text-gray-900 sr-only">Email</label
+      >
+      <div class="mt-2">
+        <input
+          type="search"
+          name="search"
+          id="search"
+          class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+          placeholder="Enter a search term..."
+        />
+      </div>
+    </div>
+    <button
+      type="submit"
+      class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+      >Search</button
+    >
+  </form>
+  <section>
+    <ul id="search-results">
+      <!-- Search results will be inserted here -->
+    </ul>
+  </section>
+  <script src="../scripts/search.ts"></script>
+</DefaultLayout>
