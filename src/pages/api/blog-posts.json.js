@@ -14,7 +14,7 @@ async function getPosts() {
     description: post.data.description,
     tags: post.data.tags,
     keywords: post.data.keywords,
-    date: post.data.pubDate,
+    date: post.data.date,
   }));
 }
 

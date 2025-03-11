@@ -5,95 +5,29 @@ import H1 from "../components/H1.astro";
 
 <DefaultLayout metaTitle="Search">
   <H1>Search</H1>
-  <form
-    class=""
-  >
-    <div>
-      <label for="search">Search the Blog</label>
-      <span>Enter a search term or phrase to search the blog.</span>
+  <form class="">
+    <div class="pb-4">
+      <label
+        for="search"
+        class="block text-sm/6 font-medium text-gray-900 sr-only"
+        >Email</label
+      >
+      <div class="mt-2">
+        <input
+          type="search"
+          name="search"
+          id="search"
+          class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+          placeholder="Enter a search term..."
+        />
+      </div>
     </div>
-    <input
-      type="search"
-      required
-      min="2"
-      max="24"
-      name="search"
-      id="search"
-      placeholder="Enter a search term…"
-    />
-    <button type="submit">Search</button>
+    <button type="submit" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Search</button>
   </form>
   <section>
     <ul id="search-results">
       <!-- Search results will be inserted here -->
     </ul>
   </section>
-  <script>
-    import DOMPurify from "dompurify";
-    import Fuse from "fuse.js";
-
-    // Global vars
-    let searchTerm;
-
-    // Selectors
-    const form = document.querySelector("form");
-
-    async function getSearchIndex() {
-      try {
-        const res = await fetch("/api/blog-posts.json");
-        const data = await res.json();
-        const searchIndex = data;
-        return searchIndex;
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    async function doSearch(searchTerm: string) {
-      const searchIndex = await getSearchIndex();
-      const fuse = new Fuse(searchIndex, {
-        keys: [
-          {name: "title", weight: 2},
-          {name: "description", weight: 1},
-          {name: "tags", weight: 2},
-          {name: "keywords", weight: 3},
-        ],
-      });
-      const searchResults = fuse.search(searchTerm);
-      console.log(`Search results for ${searchTerm}:`, searchResults);
-
-      // Update the page with search results
-      const searchResultHTML = document.querySelector("#search-results");
-      searchResults.forEach((result) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <a href="/blog/${result.item.slug}">
-            <h2>${result.item.title}</h2>
-          </a>
-        `;
-        searchResultHTML.appendChild(li);
-      });
-    }
-
-    // Event listeners
-    form?.addEventListener("submit", (e) => {
-      // Don't post the form
-      e.preventDefault();
-
-      // Parse the form
-      const formData = new FormData(form);
-      searchTerm = DOMPurify.sanitize(formData.get("search").toString());
-
-      // Validation of input
-      if (!searchTerm || searchTerm.length === 0) return;
-
-      // Update the URL
-      const url = new URL("/search", window.location.origin);
-      url.searchParams.set("q", searchTerm);
-      window.history.replaceState(null, "", url.toString());
-
-      // Search the index
-      doSearch(searchTerm);
-    });
-  </script>
+  <script src="../scripts/search.ts"></script>
 </DefaultLayout>
