@@ -37,34 +37,33 @@ pre-commit run --all-files
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
+  # --------------------------------------------------------------------------
+  # General hooks
+  # --------------------------------------------------------------------------
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
 
-    # --------------------------------------------------------------------------
-    # General hooks
-    # --------------------------------------------------------------------------
-    - repo: https://github.com/pre-commit/pre-commit-hooks
-      rev: v3.2.0
-      hooks:
-          - id: trailing-whitespace
-          - id: end-of-file-fixer
-          - id: check-yaml
-          - id: check-added-large-files
-
-    # --------------------------------------------------------------------------
-    # Python
-    # --------------------------------------------------------------------------
-    - repo: https://github.com/astral-sh/ruff-pre-commit
-      rev: v0.11.1
-      hooks:
-          # Run the ruff linter and fix autofixable issues. `I` will sort imports.
-          # `F401` will remove unused imports.
-          - id: ruff
-            args:
-                - --fix
-                - --select=I,F401
-          # Run the ruff linter.
-          - id: ruff
-          # Run the ruff formatter.
-          - id: ruff-format
+  # --------------------------------------------------------------------------
+  # Python
+  # --------------------------------------------------------------------------
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.1
+    hooks:
+      # Run the ruff linter and fix autofixable issues. `I` will sort imports.
+      # `F401` will remove unused imports.
+      - id: ruff
+        args:
+          - --fix
+          - --select=I,F401
+      # Run the ruff linter.
+      - id: ruff
+      # Run the ruff formatter.
+      - id: ruff-format
 
   - repo: https://github.com/astral-sh/uv-pre-commit
     rev: 0.6.8
@@ -73,31 +72,31 @@ repos:
       # every commit.
       - id: uv-export
 
-    # --------------------------------------------------------------------------
-    # Jupyter
-    # --------------------------------------------------------------------------
-    - repo: local
-      hooks:
-          # Always remove output from Jupyter Notebooks before making a commit.
-          - id: clean-notebooks
-            name: Remove output from Jupyter Notebooks
-            entry: uvx jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
-            language: system
-            files: \.ipynb$
+  # --------------------------------------------------------------------------
+  # Jupyter
+  # --------------------------------------------------------------------------
+  - repo: local
+    hooks:
+      # Always remove output from Jupyter Notebooks before making a commit.
+      - id: clean-notebooks
+        name: Remove output from Jupyter Notebooks
+        entry: uvx jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
+        language: system
+        files: \.ipynb$
 
-    # --------------------------------------------------------------------------
-    # R
-    # --------------------------------------------------------------------------
-    - repo: local
-      hooks:
-          # https://github.com/posit-dev/air
-          # Air is a formatter for R code. There is no official pre-commit hook
-          # for air, so for this to work you must have air installed. In the
-          # future air may have a pre-commit hook:
-          # https://github.com/posit-dev/air/issues/269
-          - id: air
-            name: Format R code with air
-            entry: air format .
-            language: system
-            files: \.R$
+  # --------------------------------------------------------------------------
+  # R
+  # --------------------------------------------------------------------------
+  - repo: local
+    hooks:
+      # https://github.com/posit-dev/air
+      # Air is a formatter for R code. There is no official pre-commit hook
+      # for air, so for this to work you must have air installed. In the
+      # future air may have a pre-commit hook:
+      # https://github.com/posit-dev/air/issues/269
+      - id: air
+        name: Format R code with air
+        entry: air format .
+        language: system
+        files: \.R$
 ```
