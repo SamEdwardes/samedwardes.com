@@ -80,9 +80,10 @@ repos:
       # Always remove output from Jupyter Notebooks before making a commit.
       - id: clean-notebooks
         name: Remove output from Jupyter Notebooks
-        entry: uvx jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
+        entry: uvx --from nbconvert jupyter-nbconvert --clear-output
         language: system
         files: \.ipynb$
+        pass_filenames: true
 
   # --------------------------------------------------------------------------
   # R
