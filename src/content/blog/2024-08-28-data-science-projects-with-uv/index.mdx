@@ -13,6 +13,12 @@ title: Managing Data Science Projects with uv
 
 import Callout from '../../../components/Callout.astro'
 
+<Callout title="Update: 2025-04-03">
+
+Add an example of how to upgrade a package.
+
+</Callout>
+
 <Callout title="Update: 2024-09-11">
 
 Use the `--output-file` flag for `uv export`.
@@ -67,6 +73,9 @@ uv add httpx
 
 # Remove a package
 uv remove httpx
+
+# Upgrade a package
+uv lock --upgrade-package requests
 
 # Run code
 uv run hello.py
@@ -311,6 +320,14 @@ There are a few important things to note:
 - httpx is now installed.
 - certifi is still installed, even though we uninstalled requests. It is still in the environment because both httpx and requests depend on this library.
 - Both pyproject.toml and uv.lock has been updated to reflect all of the changes.
+
+## Upgrading package
+
+To upgrade a specific package, use the `uv lock --upgrade-package <pkg-name>` command.
+
+```bash
+uv lock --upgrade-package requests
+```
 
 ## Generating a requirements.txt
 
