@@ -1,0 +1,179 @@
+---
+import H1 from "../../components/H1.astro";
+import TextLink from "../../components/TextLink.astro";
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
+---
+
+<DefaultLayout metaTitle="YouTube URL to RSS Feed">
+  <H1>YouTube URL to RSS Feed</H1>
+  <p class="pb-4">Convert YouTube channel or playlist URLs into RSS feeds.</p>
+
+  <div class="space-y-4">
+    <input
+      type="url"
+      id="youtube-url"
+      placeholder="Enter YouTube channel or playlist URL"
+      class="border-2 border-blue-500 rounded-lg p-2 outline-2 outline-emerald-500 w-full"
+    />
+
+    <div id="output-container" class="hidden">
+      <div class="mb-2">
+        <span class="text-sm text-gray-600">Feed type: </span>
+        <span id="feed-type" class="text-sm font-semibold"></span>
+      </div>
+      <div class="flex items-center gap-2">
+        <input
+          type="text"
+          id="rss-url"
+          readonly
+          class="border-2 border-gray-300 rounded-lg p-2 w-full bg-gray-50"
+        />
+        <button
+          id="copy-button"
+          class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors whitespace-nowrap"
+        >
+          Copy
+        </button>
+      </div>
+      <p id="copy-feedback" class="text-sm text-green-600 mt-2 hidden">
+        Copied to clipboard!
+      </p>
+    </div>
+
+    <div id="error-message" class="text-red-600 text-sm hidden"></div>
+  </div>
+</DefaultLayout>
+
+<script>
+  const input = document.getElementById("youtube-url") as HTMLInputElement;
+  const outputContainer = document.getElementById("output-container");
+  const rssUrlInput = document.getElementById("rss-url") as HTMLInputElement;
+  const copyButton = document.getElementById("copy-button");
+  const copyFeedback = document.getElementById("copy-feedback");
+  const errorMessage = document.getElementById("error-message");
+  const feedType = document.getElementById("feed-type");
+
+  interface ExtractResult {
+    type: "channel" | "playlist" | null;
+    id: string | null;
+  }
+
+  function extractYouTubeId(url: string): ExtractResult {
+    try {
+      const urlObj = new URL(url);
+
+      // Handle playlist URLs
+      // Format: youtube.com/playlist?list=PLAYLIST_ID
+      if (urlObj.pathname === "/playlist" && urlObj.searchParams.has("list")) {
+        const playlistId = urlObj.searchParams.get("list");
+        if (playlistId) {
+          return { type: "playlist", id: playlistId };
+        }
+      }
+
+      // Also handle watch URLs with playlist
+      // Format: youtube.com/watch?v=VIDEO_ID&list=PLAYLIST_ID
+      if (urlObj.pathname === "/watch" && urlObj.searchParams.has("list")) {
+        const playlistId = urlObj.searchParams.get("list");
+        if (playlistId) {
+          return { type: "playlist", id: playlistId };
+        }
+      }
+
+      // Handle channel URLs
+      // Format: youtube.com/channel/CHANNEL_ID
+      const channelMatch = url.match(/youtube\.com\/channel\/([a-zA-Z0-9_-]+)/);
+      if (channelMatch) {
+        return { type: "channel", id: channelMatch[1] };
+      }
+
+      // Format: youtube.com/c/CUSTOM_NAME or youtube.com/user/USERNAME
+      const customMatch = url.match(/youtube\.com\/(c|user)\/([a-zA-Z0-9_-]+)/);
+      if (customMatch) {
+        // For custom URLs, we can't directly convert to RSS without API access
+        return { type: null, id: null };
+      }
+
+      // Format: youtube.com/@handle
+      const handleMatch = url.match(/youtube\.com\/@([a-zA-Z0-9_.-]+)/);
+      if (handleMatch) {
+        // Handle-based URLs also need API access to get channel ID
+        return { type: null, id: null };
+      }
+
+      return { type: null, id: null };
+    } catch (e) {
+      return { type: null, id: null };
+    }
+  }
+
+  function convertToRssFeed() {
+    const url = input.value.trim();
+
+    if (!url) {
+      outputContainer?.classList.add("hidden");
+      errorMessage?.classList.add("hidden");
+      return;
+    }
+
+    const result = extractYouTubeId(url);
+
+    if (result.type && result.id) {
+      let rssUrl = "";
+      let feedTypeText = "";
+
+      if (result.type === "channel") {
+        rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${result.id}`;
+        feedTypeText = "Channel Feed";
+      } else if (result.type === "playlist") {
+        rssUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${result.id}`;
+        feedTypeText = "Playlist Feed";
+      }
+
+      rssUrlInput.value = rssUrl;
+      if (feedType) feedType.textContent = feedTypeText;
+      outputContainer?.classList.remove("hidden");
+      errorMessage?.classList.add("hidden");
+    } else if (
+      url.includes("youtube.com/@") ||
+      url.includes("youtube.com/c/") ||
+      url.includes("youtube.com/user/")
+    ) {
+      // These URL formats need special handling
+      errorMessage!.textContent =
+        "For @handle, /c/, or /user/ URLs, please use the channel URL format: youtube.com/channel/CHANNEL_ID. You can find the channel ID by visiting the channel and checking the URL or page source.";
+      errorMessage?.classList.remove("hidden");
+      outputContainer?.classList.add("hidden");
+    } else if (url.includes("youtube.com") || url.includes("youtu.be")) {
+      // It's a YouTube URL but not a supported format
+      errorMessage!.textContent =
+        "Please enter a valid YouTube channel or playlist URL. Supported formats: youtube.com/channel/CHANNEL_ID or youtube.com/playlist?list=PLAYLIST_ID";
+      errorMessage?.classList.remove("hidden");
+      outputContainer?.classList.add("hidden");
+    } else {
+      // Invalid URL
+      errorMessage!.textContent = "Please enter a valid YouTube URL";
+      errorMessage?.classList.remove("hidden");
+      outputContainer?.classList.add("hidden");
+    }
+  }
+
+  // Convert on input
+  input.addEventListener("input", convertToRssFeed);
+
+  // Copy to clipboard functionality
+  copyButton?.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(rssUrlInput.value);
+      copyFeedback?.classList.remove("hidden");
+
+      // Hide feedback after 2 seconds
+      setTimeout(() => {
+        copyFeedback?.classList.add("hidden");
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+      alert("Failed to copy to clipboard");
+    }
+  });
+</script>

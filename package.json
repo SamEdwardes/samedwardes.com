@@ -6,7 +6,8 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
@@ -30,6 +31,7 @@
     "@tailwindcss/typography": "^0.5.13",
     "@types/node": "^20.12.12",
     "daisyui": "^4.12.2",
+    "husky": "^9.1.7",
     "prettier": "^3.3.2",
     "prettier-plugin-astro": "^0.13.0"
   }
