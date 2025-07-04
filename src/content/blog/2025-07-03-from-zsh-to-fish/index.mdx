@@ -1,0 +1,486 @@
+---
+title: Migrating from ZSH to Fish Shell
+description: |
+  I recently switched from using the ZHS Shell to Fish Shell on my Mac. After several weeks of using Fish as my default shell, I am very happy with the change and plan to keep using Fish. This blog post explores why I moved from ZSH to fish.
+author: Sam Edwardes
+date: 2025-07-03
+tags:
+- tools
+- linux
+- command line
+---
+
+I recently switched from using the ZHS Shell to [Fish Shell](https://fishshell.com/) on my Mac. After several weeks of using Fish as my default shell, I am very happy with the change and plan to keep using Fish.
+
+## Why change from ZSH to Fish
+
+Primarily, I like learning and playing around with new tools. But there are also some practical elements. 
+
+### Less configuration
+
+My ZHS configuration was getting pretty complicated. I had 600 lines of configuration. After working with Fish for a few weeks, I am down to 322 configuration lines. I also find this configuration easier to maintain.
+
+### Auto-complete
+
+I was able to configure ZSH with autocomplete. This blog post was helpful: [https://thevaluable.dev/zsh-completion-guide-examples/](https://thevaluable.dev/zsh-completion-guide-examples/). Below is my configuration. But I never really understood this configuration. With Fish, auto completion just works out of the box, and I can delete all of my ZSH auto config code.
+
+```bash
+# ------------------------------------------------------------------------------
+# Auto-complete for ZSH
+# ------------------------------------------------------------------------------
+# Enable completions - https://thevaluable.dev/zsh-completion-guide-examples/
+# Init Homebrew, which adds environment variables
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Not sure if I still need this fpath:
+# fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
+
+# Sometimes I was getting errors on this command, running `brew completions link`
+# seemed to fix it.
+autoload -U compinit; compinit
+
+# Style auto comletetions
+zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors '=*=90'
+zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
+zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
+zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:*:-command-:*:*' group-order alias builtins functions commands
+
+# Use vim style keys to move around completion list
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+
+# Configure `CTRL+x i` to switch to interactive mode
+bindkey -M menuselect '^xi' vi-insert
+
+# Configure `SHIFT+TAB` to move back
+bindkey -M menuselect '\e[Z' vi-up-line-or-history
+```
+
+### Consistent environment on remote machines
+
+I spend a lot of time in Docker containers or remote Linux servers. Configuring these environments requires a lot of effort to get a similar experience to the Shell on my Mac. Now, if I want to use Fish on a remote server or container, I can quickly install it: 
+
+```bash
+curl -sS https://webi.sh/fish | sh; \
+source ~/.config/envman/PATH.env
+```
+
+## What I like about Fish
+
+### PATH management 
+
+Fish has an intuitive function to manage what’s on your PATH: [https://fishshell.com/docs/current/cmds/fish_add_path.html](https://fishshell.com/docs/current/cmds/fish_add_path.html).
+
+```bash
+fish_add_path path ...
+fish_add_path [(-g | --global) | (-U | --universal) | (-P | --path)] [(-m | --move)] [(-a | --append) | (-p | --prepend)] [(-v | --verbose) | (-n | --dry-run)] PATHS ...
+```
+
+I  like how this helps me avoid adding the same path multiple times, and the syntax is clear. With ZSH, my PATH management looked like this. 
+
+```bash
+# PATH management in ZSH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/.local/share/chezmoi/.chezmoiscritps"
+...
+```
+
+With Fish, it looks like this. On the surface, it may not look that different. But at a glance, I find it easier to understand. The same item will not be added multiple times, and it is easier to understand what order the PATH will be searched in.
+
+```bash
+# PATH management in Fish
+fish_add_path ~/.local/bin
+fish_add_path ~/.local/share/chezmoi/.chezmoiscritps
+...
+```
+
+### Function and Alias Management 
+
+Rethinking functions and aliases was the most challenging part about switching to Fish. Fish does not have **aliases** in the same way that ZSH and Bash do. Instead, you can define **abbreviations**, which are snippets that auto-expand, or you can define functions. 
+
+At first, I did not like this approach. I missed my aliases, and it felt burdensome to create a new file for each function (you don’t have to, but Fish [docs](https://fishshell.com/docs/current/tutorial.html#autoloading-functions) suggests this is a best practice). After giving it a try for a few days, though, I now prefer this approach. 
+
+Some of my old aliases I have converted to abbreviations. Things that are one-liners are good candidates for abbreviations. I prefer them over aliases because my Shell history is now more searchable:
+
+```bash
+# Some of my ZSH aliases converted to Fish abbreviations
+abbr --add github 'gh repo view --web'
+abbr --add g lazygit
+abbr --add ap ansible-playbook
+abbr --add tf terraform
+abbr --add k kubectl
+abbr --add k justfile
+abbr --add cm chezmoi
+abbr --add cme 'chezmoi edit --apply'
+```
+
+I also converted a few aliases to functions. Things that I use all the time and are almost standard conventions make sense to become functions. For example, I use `ll` so often I do not want to treat it as an abbreviation.
+
+```bash
+# ~/.config/fish/function/ll.fish
+function ll
+    eza -la $argv
+end
+```
+
+### Variables
+
+It also took me a few days to get used to how setting variables works in Fish. With Bash/ZHS, you use the `export` command.
+
+```
+export HELLO=WORLD
+```
+
+With Fish, you use the `set` command.
+
+```
+set HELLO world
+```
+
+This takes some getting used to, but after a few weeks of usage, I prefer it. `set` is just like every other command; you pass all the data as arguments. I also found that variable substitution is more predictable.
+
+For more details, see the Fish tutorial: [https://fishshell.com/docs/current/tutorial.html#variables](https://fishshell.com/docs/current/tutorial.html#variables).
+
+## But Fish is not POSIX compliant!
+
+This is true… but it is not a deal breaker for me. The break from POSIX compliance means they can improve many things, like having an easier and more predictable syntax. Also, you can still run Bash/ZHS scripts from Fish. 
+
+```
+# run a script 
+zsh hello.zsh
+bash hello.sh
+
+# start a zsh shell
+zsh
+exit
+```
+
+I plan to use Fish from now on, but I will never assume someone else is using Fish. If I am writing code that others will use I will probably choose Bash. If it is just for me, then I can use Fish. 
+
+## My config
+
+**File tree**
+
+```sh
+.
+├── config.fish
+└── functions
+    ├── backup-home-movies.fish
+    ├── git-cleanup.fish
+    ├── ll. Fish
+    ├── mkcd.fish
+    ├── tree.fish
+    └── update.fish
+```
+
+**config.fish**
+
+```bash
+# -----------------------------------------------------------------------------
+# PATH
+# -----------------------------------------------------------------------------
+fish_add_path ~/.local/bin
+fish_add_path ~/.bun/bin
+fish_add_path /opt/homebrew/bin/
+fish_add_path ~/projects/personal/tools/bin
+fish_add_path ~/.local/share/chezmoi/raycast-scripts
+fish_add_path ~/.local/share/chezmoi/.chezmoiscritps
+
+# -----------------------------------------------------------------------------
+# General Settings
+# -----------------------------------------------------------------------------
+set -gx EDITOR nvim
+set -gx VISUAL nvim
+
+# -----------------------------------------------------------------------------
+# Key bindings
+# -----------------------------------------------------------------------------
+set -g fish_key_bindings fish_vi_key_bindings
+bind -M insert ctrl-e edit_command_buffer
+
+# -----------------------------------------------------------------------------
+# Mise
+# -----------------------------------------------------------------------------
+mise activate fish | source
+
+# -----------------------------------------------------------------------------
+# Multi-level cd
+# -----------------------------------------------------------------------------
+function multicd
+    echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
+end
+abbr --add dotdot --regex '^\.\.+$' --function multicd
+
+# -----------------------------------------------------------------------------
+# Git
+# -----------------------------------------------------------------------------
+abbr --add github 'gh repo view --web'
+abbr --add g lazygit
+
+# -----------------------------------------------------------------------------
+# Ansible
+# -----------------------------------------------------------------------------
+abbr --add ap ansible-playbook
+
+# -----------------------------------------------------------------------------
+# Terraform
+# -----------------------------------------------------------------------------
+abbr --add tf terraform
+
+# -----------------------------------------------------------------------------
+# K8s
+# -----------------------------------------------------------------------------
+abbr --add k kubectl
+
+# -----------------------------------------------------------------------------
+# Justfile
+# -----------------------------------------------------------------------------
+abbr --add k justfile
+
+# -----------------------------------------------------------------------------
+# Chezmoi
+# -----------------------------------------------------------------------------
+abbr --add cm chezmoi
+abbr --add cme 'chezmoi edit --apply'
+
+# -----------------------------------------------------------------------------
+# Starship
+# -----------------------------------------------------------------------------
+starship init fish | source
+
+# -----------------------------------------------------------------------------
+# Television
+# -----------------------------------------------------------------------------
+if status --is-interactive
+    tv init fish | source
+end
+
+# -----------------------------------------------------------------------------
+# FZF
+# -----------------------------------------------------------------------------
+fzf --fish | source
+set -Ux FZF_DEFAULT_COMMAND "fd --hidden --strip-cwd-prefix --exclude .git"
+set -Ux FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+set -Ux FZF_ALT_C_COMMAND "fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+set -Ux FZF_COMPLETION_TRIGGER //
+
+# -----------------------------------------------------------------------------
+# Atuin
+# -----------------------------------------------------------------------------
+atuin init fish --disable-up-arrow | source
+
+# -----------------------------------------------------------------------------
+# Zoxide
+# -----------------------------------------------------------------------------
+zoxide init --cmd cd fish | source
+
+```
+
+**functions/backup-home-movies.fish**
+
+```bash
+function backup-home-movies
+    echo "====================================================================="
+    echo "Backing up home videos"
+    echo "====================================================================="
+    set source_dir "~/Movies/Home Movies"
+
+    set already_uploaded_files (rclone ls "r2:home-movies")
+    echo "These files already exist: $already_uploaded_files"
+
+    for file in (find $source_dir -type f)
+
+        echo ""
+        echo "$file"
+        echo "$file"
+
+        switch $file
+            # Skip dot files
+            case '.*'
+                echo "Skipping file $file"
+            case '*.mov' '*.mp4' '*.txt'
+                echo "Uploading $file"
+                # rclone copy $relative_path "r2:home-movies/" --progress --ignore-existing
+                rclone copy "$file" r2:home-movies/ --progress --ignore-existing
+        end
+    end
+
+end
+
+```
+
+**functions/git-cleanup.fish**
+
+```bash
+function git-cleanup --description "Clean up git branches and pull latest changes"
+    echo "=== Git Branch Cleanup Script ==="
+
+    # Check if we're in a git repository
+    if not git rev-parse --git-dir >/dev/null 2>&1
+        echo "Error: Not in a git repository"
+        return 1
+    end
+
+    # Check for uncommitted changes
+    if not git diff-index --quiet HEAD --
+        echo "Error: You have uncommitted changes in your working directory"
+        echo "Please commit or stash your changes before running this script"
+        git status --short
+        return 1
+    end
+
+    # Check for untracked files
+    if test -n (git ls-files --others --exclude-standard)
+        echo "Warning: You have untracked files in your working directory"
+        git ls-files --others --exclude-standard
+        echo "Continue anyway? (y/N)"
+        read -l response
+        if not string match -qi y "$response"
+            echo "Aborted."
+            return 1
+        end
+    end
+
+    # Get the name of the main branch (could be 'main' or 'master')
+    set -l main_branch (git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@'; or echo "main")
+
+    echo "Detected main branch: $main_branch"
+
+    # Check out the main branch
+    echo "Checking out $main_branch branch..."
+    git checkout "$main_branch"
+    or return $status
+
+    # Pull the latest changes
+    echo "Pulling latest changes..."
+    git pull origin "$main_branch"
+    or return $status
+
+    # Prune remote-tracking branches
+    echo "Pruning remote-tracking branches..."
+    git remote prune origin
+    or return $status
+
+    # Delete local branches that have been deleted upstream
+    echo "Deleting local branches that have been deleted upstream..."
+
+    # Get all local branches except the current one
+    for branch in (git branch --format='%(refname:short)' | grep -v "^$main_branch\$")
+        # Check if the branch has an upstream tracking branch
+        set -l upstream (git rev-parse --abbrev-ref "$branch@{upstream}" 2>/dev/null; or echo "")
+
+        if test -n "$upstream"
+            # Check if the upstream branch still exists
+            if not git show-ref --verify --quiet "refs/remotes/$upstream"
+                echo "Deleting branch '$branch' (upstream '$upstream' was deleted)"
+                git branch -d "$branch" 2>/dev/null; or git branch -D "$branch"
+                or return $status
+            end
+        end
+    end
+
+    echo "=== Cleanup complete! ==="
+end
+
+```
+
+**functions/ll.fish**
+
+```bash
+function ll
+    eza -la $argv
+end
+
+```
+
+**functions/mkcd.fish**
+
+```bash
+function mkcd --description "Create a directory and then cd into it"
+    mkdir $argv[1]
+    cd $argv[1]
+end
+
+```
+
+**functions/tree.fish**
+
+```bash
+function tree --description "Wrapper for the eza --tree command"
+    argparse 'd/depth=' h/help -- $argv; or return
+
+    if set -q _flag_help
+        echo "Usage: tree [directory] [-d/--depth]"
+        echo "  tree                 - Show full directory tree"
+        echo "  tree -d 2            - Show directory tree up to 2 levels deep"
+        echo "  tree ~/.config -d 2  - Show directory tree up to 2 levels deep for ~/.config"
+        return 1
+    end
+
+    # Check if a path was provided
+    set --function directory "."
+    if test -n "$argv[1]"
+        set --function directory $argv[1]
+    end
+
+    # Check if the directory exists
+    if not test -d $directory
+        # If directory doesn't exist, raise an error and exit
+        echo "Error: Directory '$directory' does not exist!" >&2
+        exit 1
+    end
+
+    # Debugging
+    # echo "depth: $_flag_depth"
+    # echo "directory: $directory"
+
+    # Run the eza tree command
+    if set -q _flag_depth && test -n "$_flag_depth"
+        eza -a --tree --level $_flag_depth $directory
+    else
+        eza -a --tree $directory
+    end
+
+end
+
+```
+
+**functions/update.fish**
+
+```bash
+function update --description "update brew, fish, fisher and mac app store"
+    echo 'Start updating...'
+
+    echo 'Updating Fish shell'
+    fish_update_completions
+
+    echo 'Updating uv & uv managed applications'
+    uv self update
+    uv tool upgrade --all
+
+    echo 'Updating Homebrew'
+    brew update
+    brew upgrade
+    brew cleanup
+
+    echo 'checking Apple Updates'
+    /usr/sbin/softwareupdate -ia
+end
+```
+
+## Other helpful resources 
+
+- Official docs: [https://fishshell.com/](https://fishshell.com/)
+- Examples:
+	- [https://github.com/jorgebucaran/cookbook.fish](https://github.com/jorgebucaran/cookbook.fish)
+	- [https://github.com/EnclaveConsulting/Fish-Shell-argparse-Examples](https://github.com/EnclaveConsulting/Fish-Shell-argparse-Examples)
+- Blog posts:
+	- [https://travisbrady.github.io/posts/moving-to-fish-shell/](https://travisbrady.github.io/posts/moving-to-fish-shell/)
+	- [https://reckoning.dev/blog/fish-shell/](https://reckoning.dev/blog/fish-shell/)
