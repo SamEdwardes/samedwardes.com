@@ -325,10 +325,11 @@ There are a few important things to note:
 
 ## Upgrading package
 
-To upgrade a specific package, use the `uv lock --upgrade-package <pkg-name>` command.
+To upgrade a specific package, use the `uv lock --upgrade-package <pkg-name>` command. `uv lock` will only update your lockfile. Run `uv sync` to update your virtual environment to match the lockfile.
 
 ```bash
 uv lock --upgrade-package requests
+uv sync
 ```
 
 ## Generating a requirements.txt
