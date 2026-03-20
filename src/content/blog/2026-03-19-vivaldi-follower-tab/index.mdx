@@ -7,9 +7,15 @@ tags:
   - web
 ---
 
+import { Image } from "astro:assets";
+import screenRecording from "imgs/vivaldi-follower-tab.gif";
+
 Vivaldi released a new feature called Follower Tab: https://vivaldi.com/blog/vivaldi-on-desktop-7-9/. It's a feature I didn't realize I needed, but I immediately see the value. It is very useful when you have a page filled with links and want to click on each one or at least several of them. A great example is the Hacker Newsletter:
 
-![Screen recording of me using the new Vivaldi Followers tab feature to quickly review links on Hacker Newsletter.](imgs/vivaldi-follower-tab.gif)
+<Image
+  src={screenRecording}
+  alt="Screen recording of me using the new Vivaldi Followers tab feature to quickly review links on Hacker Newsletter."
+/>
 
 There are a few other use cases I have in mind:
 
