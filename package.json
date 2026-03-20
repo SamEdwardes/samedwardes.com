@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "bun astro check && bun astro build",
+    "build": "bun --bun astro check && bun --bun astro build",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
