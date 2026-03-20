@@ -4,8 +4,8 @@ date: 2020-06-08
 description: One of the funnest (and most frustrating) parts of data science is the vast array of tools available to us. It can be overwhelming where to start. Every now and then I like to completely wipe my computer clean, and then reinstall everything from scratch. This helps clean up my computer, and make sure everything is running smoothly.
 keywords: []
 tags:
-- environment
-- data science
+  - environment
+  - data science
 title: The Ultimate Data Science Setup for Mac (2020)
 ---
 
@@ -50,7 +50,6 @@ Below is a complete list of packages in my environment
 
 {{< gist samedwardes ae9fd4582d5fe213c5e2c43b68a78e12 >}}
 
-
 ## Homebrew
 
 [Homebrew](https://brew.sh/) is an open source package manager for macOS and linux. When ever possible I try and install software using Homebrew as it helps keep everything organized. Some of my favourite software that I download from homebrew include:
@@ -71,7 +70,6 @@ brew install github/gh/gh
 brew install autojump
 brew install node
 ```
-
 
 ## Terminal and ZSH
 

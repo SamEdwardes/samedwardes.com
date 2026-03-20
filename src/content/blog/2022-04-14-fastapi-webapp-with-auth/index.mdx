@@ -5,18 +5,18 @@ description: How to create a FastAPI web app with authentication.
 image: ./imgs/login.png
 keywords: []
 tags:
-- python
-- web
-- fastapi
+  - python
+  - web
+  - fastapi
 title: How to create a FastAPI Web App with authentication
 ---
 
-import Tabs from '../../../components/Tabs.astro'
-import TabHeader from '../../../components/TabHeader.astro'
-import TabContent from '../../../components/TabContent.astro'
-import Callout from '../../../components/Callout.astro'
-import Collapse from '../../../components/Collapse.astro'
-import LocalCodeChunk from '../../../components/LocalCodeChunk.astro'
+import Tabs from "../../../components/Tabs.astro";
+import TabHeader from "../../../components/TabHeader.astro";
+import TabContent from "../../../components/TabContent.astro";
+import Callout from "../../../components/Callout.astro";
+import Collapse from "../../../components/Collapse.astro";
+import LocalCodeChunk from "../../../components/LocalCodeChunk.astro";
 
 I have recently been exploring how to use FastAPI to build web apps. Check out this recent blog post [How to create a FastAPI Web App with MongoDB and Beanie](/blog/2022-03-18-fastapi-beanie-one-page). One area I have found difficult is configuring authentication for web apps in FastAPI. The FastAPI [security docs](https://fastapi.tiangolo.com/tutorial/security/) are really good, however they focus only on securing API endpoints, and not how to implement security for a web app. This blog post will demonstrate how to stand up a fully functional FastAPI web app with authentication.
 
@@ -53,7 +53,7 @@ A simple login page:
 
 **Private page**
 
-A *"private"* page that can only be viewed by users who are logged in:
+A _"private"_ page that can only be viewed by users who are logged in:
 
 ![private-logged-in](./imgs/private-page-logged-in.png)
 
@@ -96,7 +96,7 @@ After running the commands your file structure should look like this:
    └── private.html
 ```
 
-Next, set up your *requirements.txt* file:
+Next, set up your _requirements.txt_ file:
 
 ```bash
 cat << EOF > requirements.txt
@@ -141,22 +141,52 @@ Your project structure will look like this:
 Below is the complete code for each file 🎉!
 
 <Tabs>
-<Fragment slot="tab-headers">
+  <Fragment slot="tab-headers">
     <TabHeader>requirements.txt</TabHeader>
     <TabHeader>main.py</TabHeader>
     <TabHeader>templates/index.html</TabHeader>
     <TabHeader>templates/login.html</TabHeader>
     <TabHeader>templates/private.html</TabHeader>
     <TabHeader>templates/_site_map.html</TabHeader>
-</Fragment>
-<Fragment slot="tab-content">
-    <TabContent><LocalCodeChunk src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/requirements.txt" lang="html" /></TabContent>
-    <TabContent><LocalCodeChunk src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/main.py" lang="python" /></TabContent>
-    <TabContent><LocalCodeChunk src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/index.html" lang="html" /></TabContent>
-    <TabContent><LocalCodeChunk src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/login.html" lang="html" /></TabContent>
-    <TabContent><LocalCodeChunk src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/private.html" lang="html" /></TabContent>
-    <TabContent><LocalCodeChunk src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/_site_map.html" lang="html" /></TabContent>
-</Fragment>
+  </Fragment>
+  <Fragment slot="tab-content">
+    <TabContent>
+      <LocalCodeChunk
+        src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/requirements.txt"
+        lang="html"
+      />
+    </TabContent>
+    <TabContent>
+      <LocalCodeChunk
+        src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/main.py"
+        lang="python"
+      />
+    </TabContent>
+    <TabContent>
+      <LocalCodeChunk
+        src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/index.html"
+        lang="html"
+      />
+    </TabContent>
+    <TabContent>
+      <LocalCodeChunk
+        src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/login.html"
+        lang="html"
+      />
+    </TabContent>
+    <TabContent>
+      <LocalCodeChunk
+        src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/private.html"
+        lang="html"
+      />
+    </TabContent>
+    <TabContent>
+      <LocalCodeChunk
+        src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/_site_map.html"
+        lang="html"
+      />
+    </TabContent>
+  </Fragment>
 </Tabs>
 
 ## Code walk through
@@ -167,9 +197,9 @@ In the following section I will walk through the key parts of code and describe 
 
 In order to keep our example simple our app will not use an external database. Instead, we will just use [pydantic](https://pydantic-docs.helpmanual.io) models to define some dummy data.
 
-One key item it point out is the use of [passlib](https://passlib.readthedocs.io/en/stable/). When a we create our user we hash the password. Imagine that you were storing data about your users in a database. It is important to hash the password so that if data was ever exposed to the public the passwords  would be hashed, and not readable to the public.
+One key item it point out is the use of [passlib](https://passlib.readthedocs.io/en/stable/). When a we create our user we hash the password. Imagine that you were storing data about your users in a database. It is important to hash the password so that if data was ever exposed to the public the passwords would be hashed, and not readable to the public.
 
-We have also created a function called `get_user`. This function will be used in many places throughout to access users from our *"database"*.
+We have also created a function called `get_user`. This function will be used in many places throughout to access users from our _"database"_.
 
 ```python
 from typing import List
@@ -375,7 +405,6 @@ FastAPI comes with a class out of the box named [`OAuth2PasswordBearer`](https:/
 
 In order to use a similar approach that works with web apps I made a small modification to FastAPIs implementation of `OAuth2PasswordBearer`. Instead of getting the `authorization` from the `request` header, we get it from the `request` cookie.
 
-
 <Tabs>
 <Fragment slot="tab-headers">
     <TabHeader>My implementation</TabHeader>
@@ -383,7 +412,6 @@ In order to use a similar approach that works with web apps I made a small modif
 </Fragment>
 <Fragment slot="tab-content">
 <TabContent>
-
 
 ```python
 class OAuth2PasswordBearerWithCookie(OAuth2):
@@ -519,7 +547,7 @@ def authenticate_user(username: str, plain_password: str) -> User:
 
 The above function `authenticate_user` is only called when a user first logs in. Our next function `decode_token` will be called to grant an already logged in user access to an endpoint. This function will decode the JWT so that we can get the required information from it. In our use cases, we need to decode the token so that we can figure out who the user is. There are a few key things to point out:
 
-- We the line `token = token.removeprefix("Bearer").strip()` removes the string *"Bearer"* from the start of token string. This will be necessary when we are call `decode_token()` from within the `get_current_user_from_cookie()` function.
+- We the line `token = token.removeprefix("Bearer").strip()` removes the string _"Bearer"_ from the start of token string. This will be necessary when we are call `decode_token()` from within the `get_current_user_from_cookie()` function.
 
 ```python
 from fastapi import HTTPException, status
@@ -559,9 +587,10 @@ decoded_jwt = jwt.decode(encoded_jwt, key="secret-key")
 print(decoded_jwt)
 # {'username': 'sam', 'admin': True}
 ```
+
 <Callout title="Tip">
-You can see the cookies that are currently set in your browser using your browser's built in developer tools.
-![screenshot](./imgs/cookie.png)
+  You can see the cookies that are currently set in your browser using your
+  browser's built in developer tools. ![screenshot](./imgs/cookie.png)
 </Callout>
 
 #### Getting the user from JWT
@@ -666,7 +695,6 @@ We achieve this in our API endpoint by attempting to get the current user from t
 <Fragment slot="tab-content">
 <TabContent>
 
-
 ```python
 from fastapi.responses import HTMLResponse
 
@@ -689,14 +717,16 @@ def index(request: Request):
 </TabContent>
 <TabContent>
 
-<LocalCodeChunk src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/index.html" lang="html" />
+<LocalCodeChunk
+  src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/index.html"
+  lang="html"
+/>
 
 </TabContent>
 </Fragment>
 </Tabs>
 
 Then on the templating side we render different content based on if `user` is `None` or not:
-
 
 #### Private page
 
@@ -753,7 +783,10 @@ def index(request: Request, user: User = Depends(get_current_user_from_token)):
 </TabContent>
 <TabContent>
 
-<LocalCodeChunk src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/private.html" lang="html" />
+<LocalCodeChunk
+  src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/private.html"
+  lang="html"
+/>
 
 </TabContent>
 </Fragment>
@@ -790,7 +823,10 @@ def login_get(request: Request):
 </TabContent>
 <TabContent>
 
-<LocalCodeChunk src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/login.html" lang="html" />
+<LocalCodeChunk
+  src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/login.html"
+  lang="html"
+/>
 
 </TabContent>
 </Fragment>
@@ -800,7 +836,7 @@ def login_get(request: Request):
 
 The "post" side of logging in is a bit more complicated. There are a few things happening here:
 
-- We create a class `LoginForm` to handle the logic of validating the form data. In the event that the submitted form data is not valid we will re-render the *"templates/login.html"* with the same form data and an error message.
+- We create a class `LoginForm` to handle the logic of validating the form data. In the event that the submitted form data is not valid we will re-render the _"templates/login.html"_ with the same form data and an error message.
 - In the event that the form is valid, we will attempt to validate the users credentials. The line `login_for_access_token(response=response, form_data=form)` will attempt to log the user in, and if successful set a cookie with the users data encoded.
 - Notice that we we validate the form our response is `response = RedirectResponse("/", status.HTTP_302_FOUND)`. This will redirect our user to the home page. It is important that you include `status.HTTP_302_FOUND`. If you do not, FastAPI will send a post request against `"/"`. We have not defined a post request endpoint for `"/"`. By using `status.HTTP_302_FOUND` FastAPI knows to send a get request (this part was tricky and took me a lot of googling to figure out 🕵️).
 
@@ -862,7 +898,10 @@ async def login_post(request: Request):
 </TabContent>
 <TabContent>
 
-<LocalCodeChunk src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/login.html" lang="html" />
+<LocalCodeChunk
+  src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/login.html"
+  lang="html"
+/>
 
 </TabContent>
 </Fragment>
@@ -899,12 +938,14 @@ def login_get():
 </TabContent>
 <TabContent>
 
-<LocalCodeChunk lang="html" src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/_site_map.html" />
+<LocalCodeChunk
+  lang="html"
+  src="/blog-assets/2022-04-14-fastapi-webapp-with-auth/templates/_site_map.html"
+/>
 
 </TabContent>
 </Fragment>
 </Tabs>
-
 
 ## Wrap up
 

@@ -3,14 +3,14 @@ author: Sam Edwardes
 date: 2024-09-11
 description: My lighting talk "Beautiful Reporting with Quarto" at PyCascades Seattle 2024.
 keywords:
-- python
-- quarto
-- PyCascades 2024
-- Sam Edwardes Talk
+  - python
+  - quarto
+  - PyCascades 2024
+  - Sam Edwardes Talk
 tags:
-- python
-- quarto
-- talks
+  - python
+  - quarto
+  - talks
 title: Beautiful Reporting with Quarto Lighting Talk at PyCascades Seattle 2024
 ---
 

@@ -5,14 +5,12 @@ description: Here are a handful of videos that inspired me to get out there, buy
 image: https://i.imgur.com/Pxrgm1T.png
 keywords: []
 tags:
-- surfing
-- outdoors
+  - surfing
+  - outdoors
 title: The Best Great Lake Surfing Videos
 ---
 
 Here are a handful of videos that inspired me to get out there, buy a surfboard and surf the Great Lakes.
-
-
 
 ## Favourites
 

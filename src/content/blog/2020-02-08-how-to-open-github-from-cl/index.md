@@ -4,14 +4,12 @@ date: 2020-02-08
 description: During my Masters of Data Science I was often working on many GitHub repos at the same time. Most of our homework was graded on GitHub.com, so it was important to ensure that after pushing my local repo to GitHub.com that everything rendered correctly.
 keywords: []
 tags:
-- command line
-- data science
+  - command line
+  - data science
 title: How to Open GitHub.com Repo from the Command Line
 ---
 
 During my Masters of Data Science I was often working on many GitHub repos at the same time. Most of our homework was graded on GitHub.com, so it was important to ensure that after pushing my local repo to GitHub.com that everything rendered correctly.
-
-
 
 I realized there was no quick way to open the repo on GitHub.com from the command line. This started to become annoying because I would constantly have to navigate to the repo in my browser.
 
@@ -34,6 +32,6 @@ gopen(){
 - Restart your command line.
 - Test that it is working by navigating in the command line to a directory with a remote repo. Type `gopen` into the command line, and it should open your remote repo in your default browser!
 
-*Note I am working on a Mac, these instructions may not work for Linux or Windows users.*
+_Note I am working on a Mac, these instructions may not work for Linux or Windows users._
 
 ![screencast](https://i.imgur.com/rMNNld4.gif)

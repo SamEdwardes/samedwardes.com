@@ -65,7 +65,7 @@ class OAuth2PasswordBearerWithCookie(OAuth2):
     """
     This class is taken directly from FastAPI:
     https://github.com/tiangolo/fastapi/blob/26f725d259c5dbe3654f221e608b14412c6b40da/fastapi/security/oauth2.py#L140-L171
-    
+
     The only change made is that authentication is taken from a cookie
     instead of from the header!
     """
@@ -88,10 +88,10 @@ class OAuth2PasswordBearerWithCookie(OAuth2):
         )
 
     async def __call__(self, request: Request) -> Optional[str]:
-        # IMPORTANT: this is the line that differs from FastAPI. Here we use 
-        # `request.cookies.get(settings.COOKIE_NAME)` instead of 
+        # IMPORTANT: this is the line that differs from FastAPI. Here we use
+        # `request.cookies.get(settings.COOKIE_NAME)` instead of
         # `request.headers.get("Authorization")`
-        authorization: str = request.cookies.get(settings.COOKIE_NAME) 
+        authorization: str = request.cookies.get(settings.COOKIE_NAME)
         scheme, param = get_authorization_scheme_param(authorization)
         if not authorization or scheme.lower() != "bearer":
             if self.auto_error:
@@ -113,8 +113,8 @@ def create_access_token(data: Dict) -> str:
     expire = dt.datetime.utcnow() + dt.timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(
-        to_encode, 
-        settings.SECRET_KEY, 
+        to_encode,
+        settings.SECRET_KEY,
         algorithm=settings.ALGORITHM
     )
     return encoded_jwt
@@ -131,7 +131,7 @@ def authenticate_user(username: str, plain_password: str) -> User:
 
 def decode_token(token: str) -> User:
     credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED, 
+        status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials."
     )
     token = token.removeprefix("Bearer").strip()
@@ -143,7 +143,7 @@ def decode_token(token: str) -> User:
     except JWTError as e:
         print(e)
         raise credentials_exception
-    
+
     user = get_user(username)
     return user
 
@@ -152,7 +152,7 @@ def get_current_user_from_token(token: str = Depends(oauth2_scheme)) -> User:
     """
     Get the current user from the cookies in a request.
 
-    Use this function when you want to lock down a route so that only 
+    Use this function when you want to lock down a route so that only
     authenticated users can see access the route.
     """
     user = decode_token(token)
@@ -162,7 +162,7 @@ def get_current_user_from_token(token: str = Depends(oauth2_scheme)) -> User:
 def get_current_user_from_cookie(request: Request) -> User:
     """
     Get the current user from the cookies in a request.
-    
+
     Use this function from inside other routes to get the current user. Good
     for views that should work for both logged in, and not logged in users.
     """
@@ -173,21 +173,21 @@ def get_current_user_from_cookie(request: Request) -> User:
 
 @app.post("token")
 def login_for_access_token(
-    response: Response, 
+    response: Response,
     form_data: OAuth2PasswordRequestForm = Depends()
 ) -> Dict[str, str]:
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or password")
     access_token = create_access_token(data={"username": user.username})
-    
-    # Set an HttpOnly cookie in the response. `httponly=True` prevents 
+
+    # Set an HttpOnly cookie in the response. `httponly=True` prevents
     # JavaScript from reading the cookie.
     response.set_cookie(
-        key=settings.COOKIE_NAME, 
-        value=f"Bearer {access_token}", 
+        key=settings.COOKIE_NAME,
+        value=f"Bearer {access_token}",
         httponly=True
-    )  
+    )
     return {settings.COOKIE_NAME: access_token, "token_type": "bearer"}
 
 

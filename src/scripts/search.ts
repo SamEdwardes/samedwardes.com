@@ -21,7 +21,7 @@ async function getSearchIndex() {
 interface SearchIndexInterface {
   title: string;
   description: string;
-  tags: string[]
+  tags: string[];
   keywords: string[];
   date: string;
   slug: string;
@@ -41,7 +41,8 @@ async function doSearch(searchTerm: string) {
   const searchResults = fuse.search(searchTerm);
 
   // Update the page with search results
-  const searchResultHTML = document.querySelector<HTMLElement>("#search-results");
+  const searchResultHTML =
+    document.querySelector<HTMLElement>("#search-results");
   if (searchResultHTML === null) {
     console.error("Search results container not found");
     return;
@@ -52,11 +53,11 @@ async function doSearch(searchTerm: string) {
 
   // Update the page with search results
   searchResults.forEach((result) => {
-    const date = new Date(result.item.date)
-    const humanReadableDate = date.toLocaleDateString('en-CA', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
+    const date = new Date(result.item.date);
+    const humanReadableDate = date.toLocaleDateString("en-CA", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
 
     // Update with new results
@@ -82,7 +83,7 @@ async function doSearch(searchTerm: string) {
 // Update search box on page load
 window.addEventListener("DOMContentLoaded", () => {
   const urlParams = DOMPurify.sanitize(
-    new URLSearchParams(window.location.search).get("q") || ""
+    new URLSearchParams(window.location.search).get("q") || "",
   );
   const search = document.querySelector("#search") as HTMLInputElement;
   if (search) {

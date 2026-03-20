@@ -4,10 +4,10 @@ date: 2019-11-15
 description: I love using Plotly to build interactive visualizations. The syntax is very similar across R and Python, and plots looks great.
 keywords: []
 tags:
-- viz
-- python
-- dashboards
-- data science
+  - viz
+  - python
+  - dashboards
+  - data science
 title: How to Deploy a Containerized Python Dash App to Heroku
 ---
 
@@ -33,7 +33,7 @@ GitHub repo here:
 
 ## Getting Started
 
-*Note: many ideas were taken from [https://medium.com/@ksashok/](https://medium.com/@ksashok/containerise-your-python-flask-using-docker-and-deploy-it-onto-heroku-a0b48d025e43) for this README.*
+_Note: many ideas were taken from [https://medium.com/@ksashok/](https://medium.com/@ksashok/containerise-your-python-flask-using-docker-and-deploy-it-onto-heroku-a0b48d025e43) for this README._
 
 ### Step 1: setting up files locally
 
@@ -86,7 +86,7 @@ I chose to use a docker image ([amancevice/pandas](https://hub.docker.com/r/aman
 
 `Requirements.txt`
 
--  At this stage I have not yet tagged the libraries with specific versions. It seems to be working without the tags fow now.
+- At this stage I have not yet tagged the libraries with specific versions. It seems to be working without the tags fow now.
 
 ### Step 4: Building the docker image
 
@@ -141,6 +141,7 @@ You should now be able to visit your app and see it in action. You can visit min
 ## Using Containers vs. Virtual Environments
 
 There are two ways I have deployed apps to Heroku:
+
 - Using conda virtual environments (e.g. [Canadian election sentiment analysis](https://github.com/SamEdwardes/sentiment-cdn-election))
 - Using containers (e.g. this project)
 

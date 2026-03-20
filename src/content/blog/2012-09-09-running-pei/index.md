@@ -5,8 +5,8 @@ description: The summer of 2013 I and my friends Cory Babiak, Taylor Jenkins, an
 image: https://i.imgur.com/H07yZro.jpg
 keywords: []
 tags:
-- running
-- outdoors
+  - running
+  - outdoors
 title: Running Across PEI
 ---
 
@@ -14,11 +14,11 @@ The summer of 2013 I and my friends Cory Babiak, Taylor Jenkins, and Jose Pauig 
 
 ![pei-start-water](https://i.imgur.com/4UPms8m.png)
 
-*Start of the trail - Tignish, PEI*
+_Start of the trail - Tignish, PEI_
 
 ![pei-finish-truck](https://i.imgur.com/HiZ9VTH.jpg)
 
-*Start of the trail - Elmira, PEI*
+_Start of the trail - Elmira, PEI_
 
 ## Blog Post Index
 

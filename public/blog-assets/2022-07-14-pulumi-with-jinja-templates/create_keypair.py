@@ -11,7 +11,7 @@ def main():
 
     with open("key.pem", "w") as f:
         f.write(private_key.decode())
-   
+
     with open("key.pub", "w") as f:
         f.write(public_key.decode())
 

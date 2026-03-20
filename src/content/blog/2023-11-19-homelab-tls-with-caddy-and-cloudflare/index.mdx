@@ -3,22 +3,22 @@ author: Sam Edwardes
 date: 2023-11-19
 description: Caddy and Cloudflare make it easy to get TLS certificates for your homelab. In this blog post I will walk you through how to set up Caddy and Cloudflare for automated TLS!
 keywords:
-- homelab
-- cloudflare
-- tls
-- caddy
-- ssl
-- https
+  - homelab
+  - cloudflare
+  - tls
+  - caddy
+  - ssl
+  - https
 tags:
-- linux
-- homelab
-- infrastructure
-- command line
-- tls
+  - linux
+  - homelab
+  - infrastructure
+  - command line
+  - tls
 title: Automatic Homelab HTTPS with Caddy and Cloudflare
 ---
 
-import Callout from '../../../components/Callout.astro'
+import Callout from "../../../components/Callout.astro";
 
 [Caddy](https://caddyserver.com) and [Cloudflare](https://www.cloudflare.com/application-services/products/dns/) make it easy to get TLS certificates for your homelab. In this blog post I will walk you through how to set up Caddy and Cloudflare for automated TLS!
 
@@ -46,15 +46,20 @@ Lastly, set up the required DNS records to point to the internal IP address of y
 ![Cloudflare DNS records](./imgs/cloudflare-dns-records.png)
 
 <Callout title="Note">
-This may seem a bit strange. How will Cloudflare no what to do with `100.118.49.101`? This is an internal IP address that is only accessible from within your homelab. The trick is that Cloudflare does not care! We just need the DNS name `edwardes.xyz` to resolve to this IP address. When I am on my home network it will resolve to my server hosting Caddy. When I am not inside my home network it will still resolve to `100.118.49.101`, but this IP address will mean nothing to the outside world.
+  This may seem a bit strange. How will Cloudflare no what to do with
+  `100.118.49.101`? This is an internal IP address that is only accessible from
+  within your homelab. The trick is that Cloudflare does not care! We just need
+  the DNS name `edwardes.xyz` to resolve to this IP address. When I am on my
+  home network it will resolve to my server hosting Caddy. When I am not inside
+  my home network it will still resolve to `100.118.49.101`, but this IP address
+  will mean nothing to the outside world.
 </Callout>
-
 
 ## Setting up Caddy
 
 Next we will install Caddy in our homelab. Caddy is able to automatically provision HTTPS certificates for you. If you have public facing website, you can do with with very little configuration. Since we are setting up private services in our homelab we have a little bit of extra work to do. You will need to install Caddy with the CloudFlare module https://github.com/caddy-dns/cloudflare.
 
-1. Get the URL to download Caddy with the Cloudflare module already enabled. To get the URL for this, go to https://caddyserver.com/download?package=github.com%2Fcaddy-dns%2Fcloudflare. Make sure you have `caddy-dns/cloudflare` selected in the list of plugins and that you have selected your desired operating system from the **Platform** dropdown.  h Copy the URL for the download.
+1. Get the URL to download Caddy with the Cloudflare module already enabled. To get the URL for this, go to https://caddyserver.com/download?package=github.com%2Fcaddy-dns%2Fcloudflare. Make sure you have `caddy-dns/cloudflare` selected in the list of plugins and that you have selected your desired operating system from the **Platform** dropdown. h Copy the URL for the download.
 
 ![Caddy download page](./imgs/caddy-download.png)
 
@@ -92,6 +97,7 @@ test.edwardes.xyz {
 }
 EOF
 ```
+
 <Callout title="Note">
 This section is the crux of the configuration:
 
@@ -102,6 +108,7 @@ This section is the crux of the configuration:
 ```
 
 Caddy will use the Cloudflare module for the ACME DNS challenge. This is required because our homelab server is not publicly accessible.
+
 </Callout>
 
 4. Create an API token in Cloudflare that has the permissions to manage DNS records for your site.

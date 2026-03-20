@@ -4,17 +4,19 @@ date: 2022-02-15
 description: You may think I am crazy, but I really enjoy setting up my computer. I am the kind of person who likes to wipe their computer clean every so often and start fresh with a clean slate. This blog post is an update to an earlier blog post from 2020. A lot has changed since then, so here is a look at my current setup.
 keywords: []
 tags:
-- data science
-- mac
+  - data science
+  - mac
 title: The Ultimate Data Science Setup for Mac (2022 update)
 ---
 
-import Callout from '../../../components/Callout.astro'
+import Callout from "../../../components/Callout.astro";
 
 You may think I am crazy, but I really enjoy setting up my computer. I am the kind of person who likes to wipe their computer clean every so often and start fresh with a clean slate. This blog post is an update to an earlier [blog post](/2020/06/08/datascience-setup) from 2020. A lot has changed since then, so here is a look at my current setup.
 
 <Callout title="Feedback?">
-Like what you see here? Or have some tools you think that I should have included? I would love to hear from you on twitter (https://twitter.com/TheReaLSamlam).
+  Like what you see here? Or have some tools you think that I should have
+  included? I would love to hear from you on twitter
+  (https://twitter.com/TheReaLSamlam).
 </Callout>
 
 ## TL/DR
@@ -73,7 +75,7 @@ Throughout this blog post we will use `brew install` where ever possible to inst
 
 ## ~/.zshrc
 
-If you are using the *zsh* shell (now the default on mac) you will save your configurations and environment variables in the *~/.zshrc* file. Below is my *~/.zshrc* file. If there are any programs that you choose to no install just delete the associated lines from this file.
+If you are using the _zsh_ shell (now the default on mac) you will save your configurations and environment variables in the _~/.zshrc_ file. Below is my _~/.zshrc_ file. If there are any programs that you choose to no install just delete the associated lines from this file.
 
 ```bash title="~/.zshrc"
 # ------------------------------------------------------------------------------
@@ -112,33 +114,33 @@ eval "$(starship init zsh)"
 
 ## Python
 
-Search *"how to install python"* on Google and you will find many differing opinions. My current approach is:
+Search _"how to install python"_ on Google and you will find many differing opinions. My current approach is:
 
-- Use *pyenv* to manage my python versions (e.g. enables me to have both Python `3.9` and `3.10` on my computer).
-- Use *venv* for creating virtual environments.
-- Use *poetry* for managing dependencies in projects.
-- Use *pipx* to install system wide packages and command line tools.
+- Use _pyenv_ to manage my python versions (e.g. enables me to have both Python `3.9` and `3.10` on my computer).
+- Use _venv_ for creating virtual environments.
+- Use _poetry_ for managing dependencies in projects.
+- Use _pipx_ to install system wide packages and command line tools.
 
 ### pyenv
 
 #### Installation
 
-*pyenv* (https://github.com/pyenv/pyenv>) allows you to manage multiple versions of Python on your computer. To install I like to use the pyenv install script from https://github.com/pyenv/pyenv-installer:
+_pyenv_ (https://github.com/pyenv/pyenv>) allows you to manage multiple versions of Python on your computer. To install I like to use the pyenv install script from https://github.com/pyenv/pyenv-installer:
 
 ```bash
 curl https://pyenv.run | bash
 ```
 
-The script installs "*pyenv and friends*" which includes:
+The script installs "_pyenv and friends_" which includes:
 
-- *pyenv*
-- *pyenv-doctor*
-- *pyenv-installer*
-- *pyenv-update*
-- *pyenv-virtualenv*
-- *pyenv-which-ext*
+- _pyenv_
+- _pyenv-doctor_
+- _pyenv-installer_
+- _pyenv-update_
+- _pyenv-virtualenv_
+- _pyenv-which-ext_
 
-Follow the instructions from the terminal output to configure *pyenv*. For me, I added the following line to my *~/.zshrc* file:
+Follow the instructions from the terminal output to configure _pyenv_. For me, I added the following line to my _~/.zshrc_ file:
 
 ```bash title="~/.zshrc"
 export PATH="$HOME/.pyenv/bin:$PATH"
@@ -146,9 +148,9 @@ eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 ```
 
-#### Using *pyenv*
+#### Using _pyenv_
 
-Now that *pyenv* is installed, you can start to install different versions of python. Check all of the available versions using the `pyenv install --list` command:
+Now that _pyenv_ is installed, you can start to install different versions of python. Check all of the available versions using the `pyenv install --list` command:
 
 ```bash
 pyenv install --list
@@ -346,7 +348,7 @@ You should consider upgrading via the '/Users/samedwardes/tmp/toy-project/venv/b
 
 </details>
 
-Nice! You have a brand new canvas to start  your next python project on. While the virtual environment is activated, anything you pip install will only be installed into the virtual environment.
+Nice! You have a brand new canvas to start your next python project on. While the virtual environment is activated, anything you pip install will only be installed into the virtual environment.
 
 First I will update pip to the most current version.
 
@@ -374,7 +376,7 @@ wheel      0.37.1
 
 </details>
 
-Since I do this often, I have included a little helper function in my *~/.zshrc* file to automate the creation and updating of new virtual environments.
+Since I do this often, I have included a little helper function in my _~/.zshrc_ file to automate the creation and updating of new virtual environments.
 
 ```bash title="~/.zshrc"
 py_new_env() {
@@ -489,7 +491,7 @@ You can see that the first one we created (`venv`) is using `python3.10`, and th
 
 #### venv vs. pyenv
 
-When I first started using these tools I would often get them mixed up. What is *venv* doing? What is *pyenv* doing? Do I need both?
+When I first started using these tools I would often get them mixed up. What is _venv_ doing? What is _pyenv_ doing? Do I need both?
 
 - `pyenv` controls your python version (e.g. 3.10 vs. 3.9).
 - `venv` isolates your project dependencies (the things you pip install).
@@ -498,7 +500,7 @@ When I first started using these tools I would often get them mixed up. What is 
 
 poetry is a tool for python dependency management and packaging. From their website [https://python-poetry.org/](https://python-poetry.org/):
 
-> *Python packaging and dependency management made easy*
+> _Python packaging and dependency management made easy_
 
 #### Installation
 
@@ -508,7 +510,7 @@ To install poetry run the following command:
 curl -sSL https://install.python-poetry.org | python3 -
 ```
 
-Follow the instructions from the terminal output to configure poetry. For me, I added the following line to my *~/.zshrc* file:
+Follow the instructions from the terminal output to configure poetry. For me, I added the following line to my _~/.zshrc_ file:
 
 ```bash title="~/.zshrc"
 export PATH="$HOME/.poetry/bin:$PATH"
@@ -552,7 +554,7 @@ tree
 
 </details>
 
-Your directory now has a new file, *pyproject.toml*. This file is used to keep track of the dependencies required for your project.
+Your directory now has a new file, _pyproject.toml_. This file is used to keep track of the dependencies required for your project.
 
 ```bash
 cat pyproject.toml
@@ -579,9 +581,9 @@ build-backend = "poetry.core.masonry.api"
 
 </details>
 
-Go ahead and manually update the projects description in *pyproject.toml*. Too add a dependency use the `poetry add` command. This command essentially replaces `pip install`. When you use `poetry add` a few things happen:
+Go ahead and manually update the projects description in _pyproject.toml_. Too add a dependency use the `poetry add` command. This command essentially replaces `pip install`. When you use `poetry add` a few things happen:
 
-- The new package is added to your *pyproject.toml* file.
+- The new package is added to your _pyproject.toml_ file.
 - The poetry dependency resolver verifies the version requirements.
 - A virtual environment is created by poetry.
 
@@ -631,7 +633,7 @@ tree
 
 </details>
 
-The new *poetry.lock* file contains a detailed description of all the packages you are using (this includes requests, and all of the packages that requests depends on). The *pyproject.toml* file has been automatically updated to include requests as a dependency.
+The new _poetry.lock_ file contains a detailed description of all the packages you are using (this includes requests, and all of the packages that requests depends on). The _pyproject.toml_ file has been automatically updated to include requests as a dependency.
 
 ```bash
 cat pyproject.toml
@@ -744,7 +746,7 @@ build-backend = "poetry.core.masonry.api"
 
 </details>
 
-As you can see, black has been added as *dev-dependency*. When you publish your package to PyPi it will not include black as a requirement, but it will include requests.
+As you can see, black has been added as _dev-dependency_. When you publish your package to PyPi it will not include black as a requirement, but it will include requests.
 
 ### poetry vs venv
 
@@ -763,7 +765,7 @@ If you are unsure about which tool to use, just choose one and get started! You 
 
 On no, another python tool 🤯!
 
-Yes, it is a lot to take in. But hopefully you will begin to find these tools useful as you continue your python journey. From the *pipx* website (https://pypa.github.io/pipx/):
+Yes, it is a lot to take in. But hopefully you will begin to find these tools useful as you continue your python journey. From the _pipx_ website (https://pypa.github.io/pipx/):
 
 > pipx — Install and Run Python Applications in Isolated Environments
 >
@@ -776,7 +778,7 @@ brew install pipx
 pipx ensurepath
 ```
 
-I use *pipx* to install command line tools that I always want to be available to me:
+I use _pipx_ to install command line tools that I always want to be available to me:
 
 ```bash
 pipx install cowsay
@@ -820,23 +822,23 @@ Install the latest version of R from [CRAN](https://cran.r-project.org/):
 
 ![cran-homepage](https://imgur.com/kLHQ02Q.png)
 
-*Select "Download R for macOS.*
+_Select "Download R for macOS._
 
 ![download-correct-version-of-r](https://imgur.com/y4akbAT.png)
 
-*If you are using a newer Mac with an M1 chip select the second option for **Apple silicon arm64**. Otherwise, choose the first option for **Intel 64-bit**.*
+_If you are using a newer Mac with an M1 chip select the second option for **Apple silicon arm64**. Otherwise, choose the first option for **Intel 64-bit**._
 
 ![installer-r](https://imgur.com/sbOiv8K.png)
 
-*Click on the link and follow the instructions as prompted. Select all of the default configuration options.*
+_Click on the link and follow the instructions as prompted. Select all of the default configuration options._
 
 ### Installing XQaurtz
 
-In order to use R on your Mac OS you will also need to install *XQuartz* (https://www.xquartz.org/). From R for macOS page on CRAN:
+In order to use R on your Mac OS you will also need to install _XQuartz_ (https://www.xquartz.org/). From R for macOS page on CRAN:
 
-> *Note: the use of X11 (including tcltk) requires XQuartz to be installed since it is no longer part of OS X. Always re-install XQuartz when upgrading your macOS to a new major version.*
+> _Note: the use of X11 (including tcltk) requires XQuartz to be installed since it is no longer part of OS X. Always re-install XQuartz when upgrading your macOS to a new major version._
 
-You can install XQuartz using *homebrew*:
+You can install XQuartz using _homebrew_:
 
 ```bash
 brew install --cask xquartz
@@ -864,7 +866,7 @@ Every nerds favourite place to be... the terminal. As a data scientist / develop
 
 > ![iterm2-screenshot](https://iterm2.com/img/screenshots/split_panes.png)
 
-*Image from https://iterm2.com/features.html*
+_Image from https://iterm2.com/features.html_
 
 To install run the following command:
 
@@ -880,7 +882,7 @@ brew install --cask iterm2
 >
 > ![starship-gif](https://raw.githubusercontent.com/starship/starship/master/media/demo.gif)
 
-*Gif from https://starship.rs/guide/*
+_Gif from https://starship.rs/guide/_
 
 I really like starship because:
 
@@ -898,13 +900,13 @@ brew install starship
 
 ### exa
 
-From the *exa* website (https://the.exa.website/)
+From the _exa_ website (https://the.exa.website/)
 
-> *A modern replacement for `ls`.*
+> _A modern replacement for `ls`._
 >
 > ![exa-image](https://github.com/ogham/exa/raw/master/screenshots.png)
 
-*Image from https://github.com/ogham/exa*
+_Image from https://github.com/ogham/exa_
 
 It has defaults that I prefer, and has a nice coloured output. Run the following to install:
 
@@ -914,9 +916,9 @@ brew install exa
 
 ### bat
 
-From the *bat* repo (https://github.com/sharkdp/bat):
+From the _bat_ repo (https://github.com/sharkdp/bat):
 
-> *A cat clone with wings.*
+> _A cat clone with wings._
 >
 > ![bat screenshot](https://camo.githubusercontent.com/7b7c397acc5b91b4c4cf7756015185fe3c5f700f70d256a212de51294a0cf673/68747470733a2f2f696d6775722e636f6d2f724773646e44652e706e67)
 
@@ -928,9 +930,9 @@ brew install bat
 
 ### just
 
-From the *just* repo (https://github.com/casey/just):
+From the _just_ repo (https://github.com/casey/just):
 
-> *`just` is a handy way to save and run project-specific commands.*
+> _`just` is a handy way to save and run project-specific commands._
 
 `just` is very similar to the ubiquitous `make` command. It is inspired by `make`, but focuses on just being a command runner as opposed to a build tool. To install just run the following command:
 
@@ -940,13 +942,13 @@ brew install just
 
 ### bpytop
 
-From the *bpytop* GitHub repo (https://github.com/aristocratos/bpytop):
+From the _bpytop_ GitHub repo (https://github.com/aristocratos/bpytop):
 
 > Resource monitor that shows usage and stats for processor, memory, disks, network and processes.
 >
 > ![bpytop-screenshot](https://github.com/aristocratos/bpytop/raw/master/Imgs/main.png)
 
-To install *bytop* use homebrew:
+To install _bytop_ use homebrew:
 
 ```bash
 brew install bpytop
@@ -1000,7 +1002,7 @@ A nice text editor for markdown (https://typora.io/). Typora costs $14.99 but is
 
 You can manage and install fonts using homebrew. The website https://www.nerdfonts.com/ provides many fun fonts that include glyphs (icons). When you use these fonts with tools like [starship](#starship) your terminal output will look much better!
 
-I use the *Fira Code Nerd Font* which is recommended by starship:
+I use the _Fira Code Nerd Font_ which is recommended by starship:
 
 ```bash
 brew tap homebrew/cask-fonts

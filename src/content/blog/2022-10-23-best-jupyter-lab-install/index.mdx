@@ -4,15 +4,14 @@ date: 2022-10-23
 description: Installing and managing your Python environment can be tricky. After many years of experimentation, here is my advice on the best way to install Jupyter Lab (and notebook).
 keywords: []
 tags:
-- data science
+  - data science
 title: The Best Way to Install Jupyter Lab (it's Pipx)
 ---
 
-import Callout from '../../../components/Callout.astro'
-import Tabs from '../../../components/Tabs.astro'
-import TabHeader from '../../../components/TabHeader.astro'
-import TabContent from '../../../components/TabContent.astro'
-
+import Callout from "../../../components/Callout.astro";
+import Tabs from "../../../components/Tabs.astro";
+import TabHeader from "../../../components/TabHeader.astro";
+import TabContent from "../../../components/TabContent.astro";
 
 Installing and managing your Python environment can be tricky, as this famous [XKCD](https://xkcd.com/1987/) comic has aptly pointed out. After many years of experimentation, here is my advice on the best way to install Jupyter Lab (and notebook).
 
@@ -41,7 +40,7 @@ jupyter-lab
 
 ## The basic approach
 
- The official Jupyter Lab installation [instructions](https://jupyter.org/install) are simple:
+The official Jupyter Lab installation [instructions](https://jupyter.org/install) are simple:
 
 ```bash
 pip install jupyterlab
@@ -181,7 +180,9 @@ pipx list
 ```
 
 <Callout title="Tip">
-The other commands are installed whether you use `--include-deps` or not. The difference is that when I use `--include-deps`, these other commands are also added to the `PATH`.
+  The other commands are installed whether you use `--include-deps` or not. The
+  difference is that when I use `--include-deps`, these other commands are also
+  added to the `PATH`.
 </Callout>
 
 ### Step 3: install common dependencies (optional)
@@ -254,7 +255,7 @@ Notice how I used `--display-name ${PWD}` and `--name ${PWD##*/}`. These flags d
 
 - `--display-name ${PWD}` sets the name you see in the Jupyter Lab user interface to the name of my projects directory. I like this for helping me stay organized. I want to know if this kernel is associated with this project. I can delete the kernel once the project is complete.
 - `--name ${PWD##*/}` sets the "actual name" of the kernel to my current directory. `--name` is the name you see when you call `jupyter kernelspec list`. Again, I do this to try and make it easy for me to keep track of and manage my kernels.
-</Callout>
+  </Callout>
 
 When you start Jupyter Lab again, you will also see two kernels to choose from:
 

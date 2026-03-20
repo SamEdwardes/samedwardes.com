@@ -4,7 +4,7 @@ date: 2023-02-13
 description: I always forget how to exec into a pod in Kubernetes without knowing the pod name. This is a quick reminder for myself.
 keywords: []
 tags:
-- kubernetes
+  - kubernetes
 title: kubectl exec Into a Pod Without Knowing the Pod Name
 ---
 

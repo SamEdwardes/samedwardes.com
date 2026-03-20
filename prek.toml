@@ -12,5 +12,5 @@ hooks = [
 repo = "local"
 hooks = [
   { id = "check", name = "check", language = "system", entry = "bun run check" },
-  { id = "format", name = "format", language = "system", entry = "bun run format" },
+  { id = "format", name = "format", language = "system", entry = "bun run format", pass_filenames = true },
 ]

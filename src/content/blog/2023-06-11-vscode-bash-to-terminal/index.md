@@ -3,11 +3,11 @@ author: Sam Edwardes
 date: 2023-06-11
 description: VS Code has a built in feature that allows you to send code directly from the editor to the terminal. By default, it is not assigned to any shortcut. You can assign it to a shortcut by adding the following to your `keybindings.json` file.
 keywords:
-- VS Code
-- Terminal
-- Shortcuts
+  - VS Code
+  - Terminal
+  - Shortcuts
 tags:
-- command line
+  - command line
 title: How to Send and Execute Code from The Editor to Terminal in VS Code
 ---
 
@@ -19,12 +19,12 @@ VS Code has a built in feature that allows you to send code directly from the ed
 
 ```json
 [
-    // Send selected bash code to terminal
-    {
-        "key": "shift+enter",
-        "command": "workbench.action.terminal.runSelectedText",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'shellscript'"
-    }
+  // Send selected bash code to terminal
+  {
+    "key": "shift+enter",
+    "command": "workbench.action.terminal.runSelectedText",
+    "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'shellscript'"
+  }
 ]
 ```
 

@@ -10,7 +10,7 @@ from pulumi_command import remote
 
 # ------------------------------------------------------------------------------
 # Helper functions
-# ------------------------------------------------------------------------------    
+# ------------------------------------------------------------------------------
 
 def create_template(path: str) -> jinja2.Template:
     with open(path, 'r') as f:
@@ -43,7 +43,7 @@ def main():
         public_key=Path("key.pub").read_text(),
         tags=tags | {"Name": "keypair-for-pulumi"},
     )
-    
+
     # Make security groups
     security_group = ec2.SecurityGroup(
         "security group",
@@ -52,7 +52,7 @@ def main():
         egress=[{"protocol": "All", "from_port": -1, "to_port": -1, 'cidr_blocks': ['0.0.0.0/0'], "description": "Allow all outbound traffic"}],
         tags=tags
     )
-    
+
     # Create a new ec2 instance
     server = ec2.Instance(
         "EC2 instance",
@@ -67,15 +67,15 @@ def main():
 
     # Create a connection that will be used to SSH into the ec2 instance
     connection = remote.ConnectionArgs(
-        host=server.public_dns, 
-        user="ubuntu", 
+        host=server.public_dns,
+        user="ubuntu",
         private_key=Path("key.pem").read_text()
     )
 
     # Render a template on the ec2 instance
     local_file_path = "templates/template.env"
     remote_file_path = "~/.env"
-    
+
     command_render_template = remote.Command(
         "copy .env",
         create=pulumi.Output.concat(
@@ -90,10 +90,10 @@ def main():
                     availability_zone=args['availability_zone'],
                     cpu_core_count=args['cpu_core_count']
                 )
-            ), 
+            ),
             f'" > {remote_file_path}'
         ),
-        connection=connection, 
+        connection=connection,
         opts=pulumi.ResourceOptions(depends_on=[server]),
         triggers=[hash_file(local_file_path)]
     )

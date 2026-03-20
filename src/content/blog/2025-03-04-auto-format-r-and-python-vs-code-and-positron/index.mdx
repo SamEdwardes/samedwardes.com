@@ -4,12 +4,12 @@ description: Automatically format Python and R code in VS Code or Positron using
 author: Sam Edwardes
 date: 2025-03-04
 tags:
-- tools
-- python
-- r
+  - tools
+  - python
+  - r
 ---
 
-import Callout from '../../../components/Callout.astro'
+import Callout from "../../../components/Callout.astro";
 
 VS Code and Positron include a feature that allows you to take specific actions when saving a file. I have configured VS Code and Positron to automatically format my Python and R code when I save a file. Auto formatting is a great way to ensure your code is consistently formatted correctly.
 
@@ -24,9 +24,7 @@ To enable this behviour, add the following to your VS Code configuration file. T
 {
   "[r]": {
     "editor.formatOnSave": true,
-    "editor.rulers": [
-      80
-    ],
+    "editor.rulers": [80],
     "editor.tabSize": 4
   },
   "[python]": {
@@ -35,9 +33,7 @@ To enable this behviour, add the following to your VS Code configuration file. T
     },
     "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnSave": true,
-    "editor.rulers": [
-      80
-    ],
+    "editor.rulers": [80],
     "editor.tabSize": 4
   },
   "ruff.nativeServer": "on",

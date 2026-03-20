@@ -3,12 +3,12 @@ author: Sam Edwardes
 date: 2024-09-28
 description: My workflow for adding links I save in Notion to my blog.
 keywords:
-- notion
-- blog
+  - notion
+  - blog
 tags:
-- notion
-- blog
-- astro
+  - notion
+  - blog
+  - astro
 title: Using a Notion Database to Generate a Dynamic Links Page on My Blog
 ---
 
@@ -28,11 +28,11 @@ I would need to build a few things to make this all work:
 - A query that gets only the links I want to share publicly. The query should be able to optionally filter links based on a search field, tags, and other meta-data. See the [GitHub Repo](https://github.com/SamEdwardes/samedwardes.com/blob/b15a1dbd527dd029af06c3653c24139646f195c8/src/pages/links/partials/grid.astro#L17-L65) for the final query.
 
 - I'd like to create a page that displays all the links. Since I have a lot of links, the page will also need pagination.
-  
+
   ![Screenshot of my final links page](imgs/links-page-screenshot.png)
 
 - A component to make each link look good.
-  
+
   ![Screenshot of a link component](imgs/component-screenshot.png)
 
 You can see the final implementation of my code here: <https://github.com/SamEdwardes/samedwardes.com/tree/main/src/pages/links>.
@@ -46,12 +46,11 @@ By default, all links are private. If I want to share a link, I must opt-in to m
 
 Whenever someone visits <https://samedwardes.com/links>, a query is sent to the Notion API to render a page with all my links dynamically. If desired, the user can search all of my links through my website, which will modify the query and update the page.
 
-
 ## Astro
 
 My website is built on Astro. As of August 2024, the entire site is statically generated except for `/links`. One of the parts I like about Astro is that you can opt to have some pages server-side rendered while other pages can be statically rendered. The `/links` page has to be server-side rendered every time because the links could change at any moment.
 
-You can see how I implemented the links page here: <https://github.com/SamEdwardes/samedwardes.com/blob/main/src/pages/links/index.astro>. 
+You can see how I implemented the links page here: <https://github.com/SamEdwardes/samedwardes.com/blob/main/src/pages/links/index.astro>.
 
 ```bash
 .
@@ -158,7 +157,6 @@ const notionTags = database.properties["Public Tags"].multi_select.options.map(
     </div>
   </section>
 </DefaultLayout>
-
 ```
 
 ### `src/pages/links/partials/grid.astro`
@@ -358,8 +356,8 @@ const pageLinks = fullOrPartialPages.results
     <BrutalCard class="bg-gray-200 col-span-full">End of links</BrutalCard>
   )
 }
-
 ```
+
 ## htmx
 
 I use [htmx](https://htmx.org/) to handle the pagination. I could not find a clean way to do this in just Astro, and I was already familiar with htmx so I thought I would give it a try. The end result is pretty easy to reason about and maintain.
@@ -370,43 +368,42 @@ The easiest way to understand the htmx implementation is to review the code: <ht
 - When a filter changes, the entire grid is "reset" and replace with an updated query.
 
 ```html title="src/pages/links/index.astro"
-  <section
-    hx-get="/links/partials/grid"
-    hx-swap="innerHTML"
-    hx-target="#notion-links-grid"
-    hx-trigger="load"
-  >
-    <!-- Filters -->
-    <div>
-      <!-- Tags -->
-      <div
-        class="grid grid-cols-2 gap-4 pb-4"
-        hx-get="/links/partials/grid"
-        hx-swap="innerHTML"
-        hx-target="#notion-links-grid"
-        hx-trigger="change"
-        hx-include="[name='tags'], [name='search']"
-      >
-
-...
-
-    <!-- Link cards -->
+<section
+  hx-get="/links/partials/grid"
+  hx-swap="innerHTML"
+  hx-target="#notion-links-grid"
+  hx-trigger="load"
+>
+  <!-- Filters -->
+  <div>
+    <!-- Tags -->
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-      id="notion-links-grid"
+      class="grid grid-cols-2 gap-4 pb-4"
+      hx-get="/links/partials/grid"
+      hx-swap="innerHTML"
+      hx-target="#notion-links-grid"
+      hx-trigger="change"
+      hx-include="[name='tags'], [name='search']"
     >
-      <div class="col-span-full animate-pulse">
-        <BrutalCard class="bg-gray-100">Loading Links...</BrutalCard>
+      ...
+
+      <!-- Link cards -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+        id="notion-links-grid"
+      >
+        <div class="col-span-full animate-pulse">
+          <BrutalCard class="bg-gray-100">Loading Links...</BrutalCard>
+        </div>
       </div>
     </div>
-
-
+  </div>
+</section>
 ```
 
 The `grid.astro` partial handles the pagination. When the bottom of the page is reached, the query is triggered again to get the next page.
 
 ```astro title="src/pages/links/partials/grid.astro"
-
 {
   fullOrPartialPages.next_cursor ? (
     <BrutalCard

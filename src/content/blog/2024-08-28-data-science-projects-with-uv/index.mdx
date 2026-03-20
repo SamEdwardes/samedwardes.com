@@ -3,15 +3,15 @@ author: Sam Edwardes
 date: 2024-08-28
 description: How I use uv to manage a Python data science project. uv can replace pyenv, poetry, and pipx.
 keywords:
-- python
-- uv
-- pip
+  - python
+  - uv
+  - pip
 tags:
-- python
+  - python
 title: Managing Data Science Projects with uv
 ---
 
-import Callout from '../../../components/Callout.astro'
+import Callout from "../../../components/Callout.astro";
 
 <Callout title="Update: 2025-04-03">
 
@@ -57,9 +57,8 @@ As someone who works in data science, here is how I plan to integrate uv into my
 ## TL/DR
 
 <Callout title="uv version">
-uv is rapidly changing! This blog post was written using version `0.4.9`.
+  uv is rapidly changing! This blog post was written using version `0.4.9`.
 </Callout>
-
 
 <br></br>
 
@@ -162,7 +161,7 @@ dependencies = []
 
 **README.md**
 
-*Note: the README is empty.*
+_Note: the README is empty._
 
 ```markdown title="README.md"
 ...
@@ -279,7 +278,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/f9/9b/335f9764261e915ed497fcdeb11df5dfd6f7bf257d4a6a2a686d80da4d54/requests-2.32.3-py3-none-any.whl", hash = "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6", size = 64928 },
 ]
 ```
-
 
 You can read more about the lock file here [https://docs.astral.sh/uv/guides/projects/#uvlock](https://docs.astral.sh/uv/guides/projects/#uvlock).
 

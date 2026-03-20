@@ -26,54 +26,54 @@ class Dog(Document):
     owner: str
     image_url: str = "imgs/placeholder_square.jpeg"
 
-   
+
 # --------------------------------------------------------------------------
 # Step 2: Create demo data
-# --------------------------------------------------------------------------   
+# --------------------------------------------------------------------------
 async def create_data():
     """A helper function to insert demo/starter data into your database."""
     # Create some breeds
     min_pin = Breed(
-        name="Miniature Pinscher", 
+        name="Miniature Pinscher",
         description="A wee bit crazy 🤪",
-        country_of_origin="Germany", 
+        country_of_origin="Germany",
         average_weight=10,
         image_url="imgs/breeds/min-pin.png"
     )
-    
+
     golden = Breed(
         name="Golden Retriever",
         description="Your everyday average good boy 😇",
-        country_of_origin="United States", 
+        country_of_origin="United States",
         average_weight=50,
         image_url="imgs/breeds/golden.png"
     )
-    
+
     # Create some dogs
     roo = Dog(
-        name="Roo", 
-        breed=min_pin, 
+        name="Roo",
+        breed=min_pin,
         owner="Sam",
         image_url="imgs/dogs/roo.png",
         description="A feisty little guy who is not afraid to speak his mind."
     )
-    
+
     pepper = Dog(
-        name="Pepper", 
-        breed=min_pin, 
+        name="Pepper",
+        breed=min_pin,
         owner="Allie",
         image_url="imgs/dogs/pepper.png",
         description="Roo's twin brother. Name is pronounced as 'Peppa'."
     )
-    
+
     buddy = Dog(
-        name="Buddy", 
-        breed=golden, 
+        name="Buddy",
+        breed=golden,
         owner="Olivia",
         image_url="imgs/dogs/buddy.png",
         description="Your everyday average good boy."
     )
-    
+
     # Insert data into the database.
     for document in [min_pin, golden, roo, pepper, buddy]:
         await document.insert()
@@ -90,15 +90,15 @@ templates = Jinja2Templates(directory="templates")
 async def app_init():
     client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://localhost:27017")
     database_names = await client.list_database_names()
-    
+
     if "dogs" not in database_names:
         create_demo_data = True
     else:
         create_demo_data = False
-    
+
     app.db = client.dogs
     await init_beanie(database=app.db, document_models=[Breed, Dog])
-    
+
     if create_demo_data:
         print("Creating demo data...")
         await create_data()

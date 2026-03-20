@@ -4,8 +4,8 @@ date: 2023-01-09
 description: I often want to create new users in Linux for testing. Creating new users without interaction can be challenging to automate because the `passwd` command provides no way for you to pass in a plain text password. It will prompt you for a password which is OK for interactive sessions but not suitable for automation (e.g. creating new users in Pulumi).
 keywords: []
 tags:
-- linux
-- bash
+  - linux
+  - bash
 title: How to Set Linux User Passwords Without Interaction
 ---
 

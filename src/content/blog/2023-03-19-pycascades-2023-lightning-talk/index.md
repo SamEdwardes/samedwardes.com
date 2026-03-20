@@ -3,12 +3,12 @@ author: Sam Edwardes
 date: 2023-03-19
 description: My lighting talk "Do Everything with Pydantic" for PyCascades 2023 in Vancouver.
 keywords:
-- PyCascades 2023
-- Sam Edwardes Talk
-- Pydantic Lighting Talk
+  - PyCascades 2023
+  - Sam Edwardes Talk
+  - Pydantic Lighting Talk
 tags:
-- python
-- talks
+  - python
+  - talks
 title: Do Everything with Pydantic - Lightning Talk PyCascades 2023
 ---
 

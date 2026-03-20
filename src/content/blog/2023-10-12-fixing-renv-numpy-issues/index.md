@@ -3,14 +3,14 @@ author: Sam Edwardes
 date: 2023-10-12
 description: Reticulate is an R library that lets you execute Python code from within R. Recently, I attempted to use reticulate to access numpy from Python. Numpy was installed, but I kept getting an error message.
 keywords:
-- r
-- reticulate
-- NumPy
-- Python
+  - r
+  - reticulate
+  - NumPy
+  - Python
 tags:
-- linux
-- r
-- data science
+  - linux
+  - r
+  - data science
 title: How to Fix renv Numpy Issues
 ---
 
@@ -24,8 +24,6 @@ pythonhome:     /usr/home/sam.edwardes/rstudio-demos/applications/shiny-for-r-wi
 version:        3.10.11 (main, Jun  4 2023, 22:34:21) [GCC 11.3.0]
 numpy:           [NOT FOUND]
 ```
-
-
 
 However, I know that numpy was installed:
 

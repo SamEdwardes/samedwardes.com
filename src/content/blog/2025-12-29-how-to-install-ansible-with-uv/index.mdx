@@ -4,11 +4,11 @@ description: The official Ansible docs show how to install Ansible with pipx. He
 author: Sam Edwardes
 date: 2025-12-29
 tags:
-- tools
-- python
-- command line
-- homelab
-- infrastructure
+  - tools
+  - python
+  - command line
+  - homelab
+  - infrastructure
 ---
 
 The official Ansible [docs](https://docs.ansible.com/projects/ansible/latest/installation_guide/intro_installation.html) show how to install Ansible with pipx.
@@ -18,7 +18,6 @@ pipx install --include-deps ansible
 ```
 
 uv has no equivalent to --include-deps. To ensure that all the required packages are installed, use the following command:
-
 
 ```bash
 uv tool install ansible-core --with ansible

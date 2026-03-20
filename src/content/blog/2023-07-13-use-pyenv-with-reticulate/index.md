@@ -3,13 +3,13 @@ author: Sam Edwardes
 date: 2023-07-13
 description: The reticulate package allows you to execute Python code from R. If you use pyenv to install Python the default options will not work with reticulate.
 keywords:
-- reticulate
-- pyenv
-- R
-- python
+  - reticulate
+  - pyenv
+  - R
+  - python
 tags:
-- python
-- r
+  - python
+  - r
 title: How to use pyenv with reticulate
 ---
 

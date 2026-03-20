@@ -3,18 +3,17 @@ author: Sam Edwardes
 date: 2024-04-21
 description: uv is "an extremely fast Python package installer and resolver, written in Rust" from https://astral.sh. Recently, I have started using uv in my day-to-day Python workflows. After a few weeks of usage I am sold! uv will be my go-to package manager for Python projects moving forward. It is MUCH faster than pip and I really like the new workflow it provides me with `uv pip compile` and `uv pip sync`.
 keywords:
-- python
-- uv
-- pip
+  - python
+  - uv
+  - pip
 tags:
-- python
+  - python
 title: Replacing pip with uv for Python projects
 ---
 
-import Tabs from '../../../components/Tabs.astro'
-import TabHeader from '../../../components/TabHeader.astro'
-import TabContent from '../../../components/TabContent.astro'
-
+import Tabs from "../../../components/Tabs.astro";
+import TabHeader from "../../../components/TabHeader.astro";
+import TabContent from "../../../components/TabContent.astro";
 
 uv is "an extremely fast Python package installer and resolver, written in Rust" from https://astral.sh. Recently, I have started using uv in my day-to-day Python workflows. After a few weeks of usage I am sold! uv will be my go-to package manager for Python projects moving forward. It is MUCH faster than pip and I really like the new workflow it provides me with `uv pip compile` and `uv pip sync`.
 
@@ -56,7 +55,6 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 
 ### Creating a virtual environment
 
-
 <Tabs>
 <Fragment slot="tab-headers">
     <TabHeader>uv</TabHeader>
@@ -82,7 +80,6 @@ pip install --upgrade pip wheel setuptools
 </Fragment>
 </Tabs>
 
-
 ### Installing first package
 
 Define your initial requirements.
@@ -92,7 +89,6 @@ pandas
 ```
 
 Then install the requirements and the transitive dependencies.
-
 
 <Tabs>
 <Fragment slot="tab-headers">
@@ -121,7 +117,6 @@ pip install -r requirements.in
 </TabContent>
 </Fragment>
 </Tabs>
-
 
 ### Adding new packages
 
@@ -172,7 +167,6 @@ With pip, we need to remove the package from requirements.txt and delete the cur
 rich
 htmx
 ```
-
 
 <Tabs>
 <Fragment slot="tab-headers">

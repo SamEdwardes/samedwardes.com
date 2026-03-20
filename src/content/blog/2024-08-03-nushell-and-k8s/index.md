@@ -3,9 +3,9 @@ author: Sam Edwardes
 date: 2024-08-03
 description: How to use nushell with kubectl
 keywords:
-- kubernetes
+  - kubernetes
 tags:
-- kubernetes
+  - kubernetes
 title: Using nushell with kubectl
 ---
 
@@ -160,7 +160,6 @@ kubectl get pods -Ao json | from json | get items | flatten | select kind name n
 ```
 
 This is pretty verbose. But, I like that I can read the command and pretty easily parse out what is happening. I am also very new to nushell, so there is probably a more efficient way to do this.
-
 
 ## Wrap up
 

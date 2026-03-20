@@ -5,16 +5,16 @@ description: |
 author: Sam Edwardes
 date: 2025-07-03
 tags:
-- tools
-- linux
-- command line
+  - tools
+  - linux
+  - command line
 ---
 
 I recently switched from using the ZHS Shell to [Fish Shell](https://fishshell.com/) on my Mac. After several weeks of using Fish as my default shell, I am very happy with the change and plan to keep using Fish.
 
 ## Why change from ZSH to Fish
 
-Primarily, I like learning and playing around with new tools. But there are also some practical elements. 
+Primarily, I like learning and playing around with new tools. But there are also some practical elements.
 
 ### Less configuration
 
@@ -65,7 +65,7 @@ bindkey -M menuselect '\e[Z' vi-up-line-or-history
 
 ### Consistent environment on remote machines
 
-I spend a lot of time in Docker containers or remote Linux servers. Configuring these environments requires a lot of effort to get a similar experience to the Shell on my Mac. Now, if I want to use Fish on a remote server or container, I can quickly install it: 
+I spend a lot of time in Docker containers or remote Linux servers. Configuring these environments requires a lot of effort to get a similar experience to the Shell on my Mac. Now, if I want to use Fish on a remote server or container, I can quickly install it:
 
 ```bash
 curl -sS https://webi.sh/fish | sh; \
@@ -74,7 +74,7 @@ source ~/.config/envman/PATH.env
 
 ## What I like about Fish
 
-### PATH management 
+### PATH management
 
 Fish has an intuitive function to manage what’s on your PATH: [https://fishshell.com/docs/current/cmds/fish_add_path.html](https://fishshell.com/docs/current/cmds/fish_add_path.html).
 
@@ -83,7 +83,7 @@ fish_add_path path ...
 fish_add_path [(-g | --global) | (-U | --universal) | (-P | --path)] [(-m | --move)] [(-a | --append) | (-p | --prepend)] [(-v | --verbose) | (-n | --dry-run)] PATHS ...
 ```
 
-I  like how this helps me avoid adding the same path multiple times, and the syntax is clear. With ZSH, my PATH management looked like this. 
+I like how this helps me avoid adding the same path multiple times, and the syntax is clear. With ZSH, my PATH management looked like this.
 
 ```bash
 # PATH management in ZSH
@@ -101,11 +101,11 @@ fish_add_path ~/.local/share/chezmoi/.chezmoiscritps
 ...
 ```
 
-### Function and Alias Management 
+### Function and Alias Management
 
-Rethinking functions and aliases was the most challenging part about switching to Fish. Fish does not have **aliases** in the same way that ZSH and Bash do. Instead, you can define **abbreviations**, which are snippets that auto-expand, or you can define functions. 
+Rethinking functions and aliases was the most challenging part about switching to Fish. Fish does not have **aliases** in the same way that ZSH and Bash do. Instead, you can define **abbreviations**, which are snippets that auto-expand, or you can define functions.
 
-At first, I did not like this approach. I missed my aliases, and it felt burdensome to create a new file for each function (you don’t have to, but Fish [docs](https://fishshell.com/docs/current/tutorial.html#autoloading-functions) suggests this is a best practice). After giving it a try for a few days, though, I now prefer this approach. 
+At first, I did not like this approach. I missed my aliases, and it felt burdensome to create a new file for each function (you don’t have to, but Fish [docs](https://fishshell.com/docs/current/tutorial.html#autoloading-functions) suggests this is a best practice). After giving it a try for a few days, though, I now prefer this approach.
 
 Some of my old aliases I have converted to abbreviations. Things that are one-liners are good candidates for abbreviations. I prefer them over aliases because my Shell history is now more searchable:
 
@@ -150,10 +150,10 @@ For more details, see the Fish tutorial: [https://fishshell.com/docs/current/tut
 
 ## But Fish is not POSIX compliant!
 
-This is true… but it is not a deal breaker for me. The break from POSIX compliance means they can improve many things, like having an easier and more predictable syntax. Also, you can still run Bash/ZHS scripts from Fish. 
+This is true… but it is not a deal breaker for me. The break from POSIX compliance means they can improve many things, like having an easier and more predictable syntax. Also, you can still run Bash/ZHS scripts from Fish.
 
 ```
-# run a script 
+# run a script
 zsh hello.zsh
 bash hello.sh
 
@@ -162,7 +162,7 @@ zsh
 exit
 ```
 
-I plan to use Fish from now on, but I will never assume someone else is using Fish. If I am writing code that others will use I will probably choose Bash. If it is just for me, then I can use Fish. 
+I plan to use Fish from now on, but I will never assume someone else is using Fish. If I am writing code that others will use I will probably choose Bash. If it is just for me, then I can use Fish.
 
 ## My config
 
@@ -475,12 +475,12 @@ function update --description "update brew, fish, fisher and mac app store"
 end
 ```
 
-## Other helpful resources 
+## Other helpful resources
 
 - Official docs: [https://fishshell.com/](https://fishshell.com/)
 - Examples:
-	- [https://github.com/jorgebucaran/cookbook.fish](https://github.com/jorgebucaran/cookbook.fish)
-	- [https://github.com/EnclaveConsulting/Fish-Shell-argparse-Examples](https://github.com/EnclaveConsulting/Fish-Shell-argparse-Examples)
+  - [https://github.com/jorgebucaran/cookbook.fish](https://github.com/jorgebucaran/cookbook.fish)
+  - [https://github.com/EnclaveConsulting/Fish-Shell-argparse-Examples](https://github.com/EnclaveConsulting/Fish-Shell-argparse-Examples)
 - Blog posts:
-	- [https://travisbrady.github.io/posts/moving-to-fish-shell/](https://travisbrady.github.io/posts/moving-to-fish-shell/)
-	- [https://reckoning.dev/blog/fish-shell/](https://reckoning.dev/blog/fish-shell/)
+  - [https://travisbrady.github.io/posts/moving-to-fish-shell/](https://travisbrady.github.io/posts/moving-to-fish-shell/)
+  - [https://reckoning.dev/blog/fish-shell/](https://reckoning.dev/blog/fish-shell/)

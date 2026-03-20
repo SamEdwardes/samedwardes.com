@@ -3,11 +3,11 @@ author: Sam Edwardes
 date: 2023-04-15
 description: I always forget these commands... so here is my list of helpful commands to get information about your server.
 keywords:
-- Linux server info
-- How to get external ip address
-- How to get linux server info
+  - Linux server info
+  - How to get external ip address
+  - How to get linux server info
 tags:
-- linux
+  - linux
 title: How to Get Basic Info About Your Linux Server
 ---
 

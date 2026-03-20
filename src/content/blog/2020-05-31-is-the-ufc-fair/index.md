@@ -4,8 +4,8 @@ date: 2020-05-31
 description: When a UFC match ends with a knock-out or submission there is never any doubt who the better fighter was. But only 54% of fights end with a knock-out or submission. The other 45% of fights go to the judges score cards.
 keywords: []
 tags:
-- sports
-- data science
+  - sports
+  - data science
 title: Is UFC Judging Fair?
 ---
 
@@ -14,8 +14,6 @@ doubt who the better fighter was. But only 54% of fights end with a
 knock-out or submission. The other 45% of fights go to the judges score
 cards.
 
-
-
 ![](https://i.imgur.com/h66XXPU.png)
 
 Given that the outcome of so many fights are determined by the judges
@@ -23,11 +21,11 @@ their ability to fairly score a fight is an important part of the sport.
 One win or loss can make or break a fighter’s career. But judging is
 tricky business. It is frequently the subject of public scrutiny:
 
-  - [The Bleacher Report’s 10 Most Controversial Judging Decisions in
-    UFC History
-    (2014)](https://bleacherreport.com/articles/2072171-the-10-most-controversial-judging-decisions-in-ufc-history#slide0)
-  - [UFC commentator Joe Rogan on the issues with
-    judging](https://www.youtube.com/watch?v=U8ZO5k5Gykk)
+- [The Bleacher Report’s 10 Most Controversial Judging Decisions in
+  UFC History
+  (2014)](https://bleacherreport.com/articles/2072171-the-10-most-controversial-judging-decisions-in-ufc-history#slide0)
+- [UFC commentator Joe Rogan on the issues with
+  judging](https://www.youtube.com/watch?v=U8ZO5k5Gykk)
 
 How can we assess if judging in the UFC is fair? Are the judges really
 selecting the better performing fighter? Are they correctly applying the
@@ -43,27 +41,27 @@ they should be scoring.
 #### What are the rules?
 
 The system is confusing, but here are the basics. Judges score each
-round on a “*10-Point Must System*”. The [official MMA
+round on a “_10-Point Must System_”. The [official MMA
 rules](http://www.abcboxing.com/wp-content/uploads/2016/08/juding_criteriascoring_rev0816.pdf)
 describe scoring as follows:
 
->   - “*A 10 –10 round in MMA is when both fighters have competed for
->     whatever duration of time in the round and there is no difference
->     or advantage between either fighter.*”
->   - “*A 10 –9 Round in MMA is when one combatant wins the round by a
->     close margin.*”
->   - "“*A 10 –8 Round in MMA is when one fighter wins the round by a
->     large margin.*”
+> - “_A 10 –10 round in MMA is when both fighters have competed for
+>   whatever duration of time in the round and there is no difference
+>   or advantage between either fighter._”
+> - “_A 10 –9 Round in MMA is when one combatant wins the round by a
+>   close margin._”
+> - "“_A 10 –8 Round in MMA is when one fighter wins the round by a
+>   large margin._”
 
 The official rules also provide additional guidance on what constitutes
 winning:
 
-> “*Effective Striking/Grappling shall be considered the first priority
+> “_Effective Striking/Grappling shall be considered the first priority
 > of round assessments. Effective Aggressiveness is a ‘Plan B’ and
 > should not be considered unless the judge does not see ANY advantage
 > in the Effective Striking/Grappling realm. Cage/Ring Control (‘Plan
 > C’) should only be needed when ALL other criteria are 100% even for
-> both competitors. This will be an extremely rare occurrence.*”
+> both competitors. This will be an extremely rare occurrence._”
 
 #### What are the judges scoring?
 
@@ -77,28 +75,28 @@ greater importance. My hypothesis is that if the judging is fair, the
 weights assigned by logistic regression should be aligned with what the
 judges are supposed to score.
 
-For example, based on my reading of the rules *effective striking*
+For example, based on my reading of the rules _effective striking_
 should be very important criteria for a judge in selecting the winner.
 Although there is no perfect way to report effective striking as a
 single number, the number of strikes landed is probably a good proxy.
 
 The data collected has several features including:
 
-  - `Stirkes` - The number of strikes landed
-  - `Take-downs` - The number of successful take-downs
-  - `Submissions` - The number of submissions attempted
-  - `Pass` - The number of of guard passes
+- `Stirkes` - The number of strikes landed
+- `Take-downs` - The number of successful take-downs
+- `Submissions` - The number of submissions attempted
+- `Pass` - The number of of guard passes
 
 Below is an example of the data:
 
-| fighter\_1\_name | fighter\_2\_name | fighter\_1\_str | fighter\_2\_str | fighter\_1\_td | fighter\_2\_td | fighter\_1\_sub | fighter\_2\_sub | fighter\_1\_pass | fighter\_2\_pass | winner     |
-| :--------------- | :--------------- | --------------: | --------------: | -------------: | -------------: | --------------: | --------------: | ---------------: | ---------------: | :--------- |
-| Alistair Overeem | Walt Harris      |              68 |              25 |              1 |              0 |               0 |               0 |                3 |                0 | fighter\_1 |
-| Claudia Gadelha  | Angela Hill      |              84 |              90 |              1 |              0 |               0 |               0 |                1 |                0 | fighter\_1 |
-| Dan Ige          | Edson Barboza    |              79 |              80 |              1 |              0 |               0 |               0 |                0 |                0 | fighter\_1 |
-| Krzysztof Jotko  | Eryk Anders      |              66 |              41 |              0 |              0 |               0 |               0 |                0 |                0 | fighter\_1 |
-| Song Yadong      | Marlon Vera      |             101 |              92 |              0 |              2 |               0 |               0 |                0 |                1 | fighter\_1 |
-| Miguel Baeza     | Matt Brown       |              37 |              33 |              0 |              0 |               0 |               0 |                1 |                0 | fighter\_1 |
+| fighter_1_name   | fighter_2_name | fighter_1_str | fighter_2_str | fighter_1_td | fighter_2_td | fighter_1_sub | fighter_2_sub | fighter_1_pass | fighter_2_pass | winner    |
+| :--------------- | :------------- | ------------: | ------------: | -----------: | -----------: | ------------: | ------------: | -------------: | -------------: | :-------- |
+| Alistair Overeem | Walt Harris    |            68 |            25 |            1 |            0 |             0 |             0 |              3 |              0 | fighter_1 |
+| Claudia Gadelha  | Angela Hill    |            84 |            90 |            1 |            0 |             0 |             0 |              1 |              0 | fighter_1 |
+| Dan Ige          | Edson Barboza  |            79 |            80 |            1 |            0 |             0 |             0 |              0 |              0 | fighter_1 |
+| Krzysztof Jotko  | Eryk Anders    |            66 |            41 |            0 |            0 |             0 |             0 |              0 |              0 | fighter_1 |
+| Song Yadong      | Marlon Vera    |           101 |            92 |            0 |            2 |             0 |             0 |              0 |              1 | fighter_1 |
+| Miguel Baeza     | Matt Brown     |            37 |            33 |            0 |            0 |             0 |             0 |              1 |              0 | fighter_1 |
 
 #### Assessing Fairness Visually
 
@@ -128,16 +126,16 @@ whether the blue fighter wins or losses. The first model will only use
 the features that the judges should consider: striking, take-downs,
 passes, and submissions.
 
-| term       | estimate | p.value |
-| :--------- | -------: | ------: |
-| blue\_str  |     2.28 |    0.00 |
-| red\_str   |   \-2.31 |    0.00 |
-| blue\_td   |     0.60 |    0.00 |
-| red\_td    |   \-0.34 |    0.00 |
-| blue\_sub  |     0.05 |    0.52 |
-| red\_sub   |     0.00 |    0.96 |
-| blue\_pass |     0.62 |    0.00 |
-| red\_pass  |   \-0.68 |    0.00 |
+| term      | estimate | p.value |
+| :-------- | -------: | ------: |
+| blue_str  |     2.28 |    0.00 |
+| red_str   |   \-2.31 |    0.00 |
+| blue_td   |     0.60 |    0.00 |
+| red_td    |   \-0.34 |    0.00 |
+| blue_sub  |     0.05 |    0.52 |
+| red_sub   |     0.00 |    0.96 |
+| blue_pass |     0.62 |    0.00 |
+| red_pass  |   \-0.68 |    0.00 |
 
 The table above is the output of the logistic regression model. The
 estimate (also known as the coefficient) tells us the effect each
@@ -146,7 +144,7 @@ standard deviation increase in the number of strikes landed by blue,
 they increase their **log odds** of winning by 2.28. Another way to
 interpret the coefficient is that for each additional 1 standard
 deviation increase in the number of strikes landed by blue, they
-increase their **odds** of winning by 877.67% (*(e^2.28 - 1) x 100*).
+increase their **odds** of winning by 877.67% (_(e^2.28 - 1) x 100_).
 The p-value tells us whether or not each coefficient is statistically
 significant (smaller p-values mean the model is more confident the
 relationship is not due to chance).
@@ -154,14 +152,14 @@ relationship is not due to chance).
 The table above can help us finally answer the question “is UFC judging
 fair?”. The results of the logistic regression reveal that:
 
-  - As you might expect, the **most important feature is striking**. The
-    more strikes you can land, the more likely you are to win over your
-    opponent. Conversely, the more you get hit, the more likely you are
-    to lose.
-  - The next most important feature associated with winning are
-    **passes**, and then **take-downs**.
-  - **Submissions** were identified as not being statistically
-    significant at significance level of 0.05.
+- As you might expect, the **most important feature is striking**. The
+  more strikes you can land, the more likely you are to win over your
+  opponent. Conversely, the more you get hit, the more likely you are
+  to lose.
+- The next most important feature associated with winning are
+  **passes**, and then **take-downs**.
+- **Submissions** were identified as not being statistically
+  significant at significance level of 0.05.
 
 We can think of the results of the logistic regression as a proxy for
 what judges actually care about. Further we can test the model to see
@@ -189,22 +187,22 @@ add three additional features: weight, height, and reach. If the judges
 are being fair, theses features should not effect the outcome of the
 fight.
 
-| term                 | estimate | p.value |
-| :------------------- | -------: | ------: |
-| blue\_str            |     2.23 |    0.00 |
-| red\_str             |   \-2.21 |    0.00 |
-| blue\_td             |     0.60 |    0.00 |
-| red\_td              |   \-0.32 |    0.00 |
-| blue\_sub            |     0.04 |    0.63 |
-| red\_sub             |   \-0.03 |    0.75 |
-| blue\_pass           |     0.69 |    0.00 |
-| red\_pass            |   \-0.66 |    0.00 |
-| blue\_height\_inches |   \-0.02 |    0.70 |
-| red\_height\_inches  |     0.01 |    0.85 |
-| blue\_weight\_lbs    |     0.00 |    0.99 |
-| red\_weight\_lbs     |   \-0.01 |    0.48 |
-| blue\_reach\_inches  |     0.02 |    0.65 |
-| red\_reach\_inches   |     0.03 |    0.50 |
+| term               | estimate | p.value |
+| :----------------- | -------: | ------: |
+| blue_str           |     2.23 |    0.00 |
+| red_str            |   \-2.21 |    0.00 |
+| blue_td            |     0.60 |    0.00 |
+| red_td             |   \-0.32 |    0.00 |
+| blue_sub           |     0.04 |    0.63 |
+| red_sub            |   \-0.03 |    0.75 |
+| blue_pass          |     0.69 |    0.00 |
+| red_pass           |   \-0.66 |    0.00 |
+| blue_height_inches |   \-0.02 |    0.70 |
+| red_height_inches  |     0.01 |    0.85 |
+| blue_weight_lbs    |     0.00 |    0.99 |
+| red_weight_lbs     |   \-0.01 |    0.48 |
+| blue_reach_inches  |     0.02 |    0.65 |
+| red_reach_inches   |     0.03 |    0.50 |
 
 Interestingly, the three “unfair” features are all considered the least
 important. They have a small coefficient, and a high p-value suggesting
@@ -216,20 +214,20 @@ performance.
 
 So is the UFC fair?
 
-  - Judges do reward striking, passes.
-  - Judges do not reward submission attempts.
-  - Judges do not reward height, reach, or weight.
-  - 85.32% of the times the judges are applying the rules consistently.
+- Judges do reward striking, passes.
+- Judges do not reward submission attempts.
+- Judges do not reward height, reach, or weight.
+- 85.32% of the times the judges are applying the rules consistently.
 
 The analysis above is an attempt to answer the question, but I think the
 results are far from conclusive:
 
-  - Does rewarding striking, passes, and take-downs in that order align
-    with judging rules?
-  - Is 85.32% consistency good enough?
-  - Are there other confounding variables that judges are considering
-    that are not present in the model (fighter reputation, audience
-    reaction, etc.)?
+- Does rewarding striking, passes, and take-downs in that order align
+  with judging rules?
+- Is 85.32% consistency good enough?
+- Are there other confounding variables that judges are considering
+  that are not present in the model (fighter reputation, audience
+  reaction, etc.)?
 
 Personally, I think this analysis provides comfort that the judges are
 doing an OK job. If you land more strikes, you will probably win. If you
@@ -241,11 +239,11 @@ judging, or something that cannot be observed in the data we have?
 Hopefully further analysis and the collection of additional data can
 help better answer this question.
 
------
+---
 
 ### Reference
 
-  - You can find the complete code behind the analysis here:
-    <https://github.com/SamEdwardes/ufc-fairness/blob/master/blog/is_the_ufc_fair.Rmd>.
-  - The data used can be found here:
-    <https://github.com/SamEdwardes/ufc-data>.
+- You can find the complete code behind the analysis here:
+  <https://github.com/SamEdwardes/ufc-fairness/blob/master/blog/is_the_ufc_fair.Rmd>.
+- The data used can be found here:
+  <https://github.com/SamEdwardes/ufc-data>.

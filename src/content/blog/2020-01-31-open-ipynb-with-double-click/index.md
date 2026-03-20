@@ -4,8 +4,8 @@ date: 2020-01-31
 description: Jupyter Notebooks are an awesome tool. The standard way to open a Jupyter Notebook is from the command line.
 keywords: []
 tags:
-- jupyter
-- data science
+  - jupyter
+  - data science
 title: How to Open Jupyter Notebooks with a Double Click (Mac OS)
 ---
 
@@ -31,21 +31,17 @@ My code is just a slightly modified version of an example I found from Stack Ove
 
    ![Imgur](https://i.imgur.com/gS9qBZi.png)
 
-
 2. Click on Application
 
    ![Imgur](https://i.imgur.com/qkuxAw0.png)
-
 
 3. Drag and drop `Run Shell Script` into the workflow area
 
    ![Imgur](https://i.imgur.com/ylrzvIi.png)
 
-
-4. Set *Pass inputs* drop down menu to `as arguments`.
+4. Set _Pass inputs_ drop down menu to `as arguments`.
 
    ![Imgur](https://i.imgur.com/Ablq5mT.png)
-
 
 5. Copy and paste in the code below:
 
@@ -57,17 +53,13 @@ My code is just a slightly modified version of an example I found from Stack Ove
 
    ![Imgur](https://i.imgur.com/DI0sOxq.png)
 
-
-6. Save the file as `jupyter_lab_open` and choose *File Format* `Application`. The the file to your Applications folder.
+6. Save the file as `jupyter_lab_open` and choose _File Format_ `Application`. The the file to your Applications folder.
 
    ![Imgur](https://i.imgur.com/0qPWZmX.png)
 
-
-7. Find a Jupyter Notebook in your finder that you wish to open. Right click on the file and click on *Get Info*. Click the *Open with* dropdown menu and select `other`. Then navigate to your applications folder and select `jupyter_lab_open`. Click *Change All...* so that all `.ipynb` files when double clicked on are opened with Jupyter lab.
+7. Find a Jupyter Notebook in your finder that you wish to open. Right click on the file and click on _Get Info_. Click the _Open with_ dropdown menu and select `other`. Then navigate to your applications folder and select `jupyter_lab_open`. Click _Change All..._ so that all `.ipynb` files when double clicked on are opened with Jupyter lab.
 
    ![Imgur](https://i.imgur.com/7YRp1cK.png)
-
-
 
 Now, when ever you click on a file with extension `.ipynb` it should open up the document in Jupyter Lab.
 

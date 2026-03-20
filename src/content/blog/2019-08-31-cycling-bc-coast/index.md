@@ -5,15 +5,13 @@ description: With a few spare days between finishing work and starting a masters
 image: https://i.imgur.com/J1WCO79.jpg
 keywords: []
 tags:
-- cycling
-- camping
-- outdoors
+  - cycling
+  - camping
+  - outdoors
 title: Cycle Touring the BC Coast
 ---
 
 With a few spare days between finishing work and starting a masters program at UBC I was keen to experience some adventure before going back to school. Since moving to Vancouver 1 year ago, I had been imagining some of the cycle touring trips I may do. BC's West coast holds so many potential options.
-
-
 
 ![map](https://i.imgur.com/gLDxE2a.png)
 
@@ -25,10 +23,10 @@ I ended up deciding on the route above. In only 3 days of riding, this route wou
 - 3 days and 2 nights
 
 | Day | Start          | Finish         | Distance (KM) | Saddle Time | Avg. Speed (KM/Hour) |
-|-----|----------------|----------------|---------------|----------------------|----------------------|
-| 1   | Vancouver      | Fanny Bay      | 116.98        | 07:03                | 16.59                |
-| 2   | Fanny Bay      | Dan Bosch Park | 78.73         | 04:55                | 16.01                |
-| 3   | Dan Bosch Park | Vancouver      | 110.9         | 07:18                | 15.19                |
+| --- | -------------- | -------------- | ------------- | ----------- | -------------------- |
+| 1   | Vancouver      | Fanny Bay      | 116.98        | 07:03       | 16.59                |
+| 2   | Fanny Bay      | Dan Bosch Park | 78.73         | 04:55       | 16.01                |
+| 3   | Dan Bosch Park | Vancouver      | 110.9         | 07:18       | 15.19                |
 
 ## Blog Post Index
 
@@ -63,13 +61,11 @@ After enjoying a nice breakfast and a long ferry ride I was ready to continue on
 
 As the day went on a began to look for potential places to camp. I decided I would target [Rosewall Creek Provincial Park](https://goo.gl/maps/3HDj77DZv6LBTe8c8) as my camp site which was just off highway 19A. Unfortunately, about 10 KM out highway 19A was closed to all vehicles, so I was required to detour up to the main highway 19. It looked like highway 19 was going to connect with the park, but it never did.
 
-
 With the light fading, I was becoming tired, hungry, and was eager to find a place to camp. I decided I would just bite the bullet and find a decent paid camping ground or place to stay. My closest option was [Lighthouse RV Park](https://goo.gl/maps/evKZFfgFrYVVffKSA) which was about 8 KM away. Finally, after a long day of riding I reached the RV park. The park was filled with mostly RV's, but the owner let me set up my tent in a grassy field beside a fire pit and picnic bench. It ended up being a great camp site.
 
 ![camp site night 1](https://i.imgur.com/lvT2igq.jpg)
 
 ![camp site water view](https://i.imgur.com/puBaCWi.jpg)
-
 
 ### Day 2
 
@@ -101,7 +97,6 @@ It was probably one of the nicest campsites I have ever had. Unfortunately my ir
 
 ![tent and Ruby Lake at sunset](https://i.imgur.com/cCSaCxU.jpg)
 
-
 ### Day 3
 
 After a restless night and little sleep I was tired and ready to head home. Day 3 saw me cycle 110.9 KM with 7:18 of saddle time. After departing first thing in the morning from Dan Bosch Park I started to cycle South towards the Langdale ferry terminal (Gibsons). The ride for the most part was enjoyable, but traffic steadily picked up the further south I travelled.
@@ -128,18 +123,18 @@ Overall I was very happy with the route I chose and would recommend the same rou
 - 3 days and 2 nights
 
 | Day | Start          | Finish         | Distance (KM) | Saddle Time | Avg. Speed (KM/Hour) |
-|-----|----------------|----------------|---------------|----------------------|----------------------|
-| 1   | Vancouver      | Fanny Bay      | 116.98        | 07:03                | 16.59                |
-| 2   | Fanny Bay      | Dan Bosch Park | 78.73         | 04:55                | 16.01                |
-| 3   | Dan Bosch Park | Vancouver      | 110.9         | 07:18                | 15.19                |
+| --- | -------------- | -------------- | ------------- | ----------- | -------------------- |
+| 1   | Vancouver      | Fanny Bay      | 116.98        | 07:03       | 16.59                |
+| 2   | Fanny Bay      | Dan Bosch Park | 78.73         | 04:55       | 16.01                |
+| 3   | Dan Bosch Park | Vancouver      | 110.9         | 07:18       | 15.19                |
 
 **Day 1:**
 
 - 116.98 KM with 7:03 of saddle time.
 - Kitsilano, Vancouver to Horesehoe Bay ferry terminal.
-    - I took Marine Drive instead of Highway 1.
-    - Although bikes are allowed on Highway 1, and there is a big shoulder, it is a very busy highway.
-    - Marine drive does have a lot of hills. But it is a very scenic ride with much less traffic. I would recommend taking this route.
+  - I took Marine Drive instead of Highway 1.
+  - Although bikes are allowed on Highway 1, and there is a big shoulder, it is a very busy highway.
+  - Marine drive does have a lot of hills. But it is a very scenic ride with much less traffic. I would recommend taking this route.
 - Took the ferry to Nanaimo.
 - From there, rode north in the direction of Comox (Little River Terminal).
 - Camped at the [Lighthouse RV Park](https://goo.gl/maps/evKZFfgFrYVVffKSA) in Fanny Bay.
@@ -159,8 +154,8 @@ Overall I was very happy with the route I chose and would recommend the same rou
 - 110.9 KM with 7:18 of saddle time.
 - Continued from Dan Bosch Park south down the Sunshine Coast Highway to the Langdale ferry terminal.
 - Took several detours along the way that were recommended to me on Reddit:
-    - At [Halfmoon Bay](https://goo.gl/maps/QfHgA4q8KbVJVrbr7) took a right to stay along the coast and cycled along Redrooffs Rd. At this point the highway was starting to get a little bit busy, so it was a much welcomed break from the traffic.
-    - At [Roberts Creek](https://goo.gl/maps/prrBYtEKpyaxsnjH7) took a right onto Roberts Creek Rd. which then turns into Lower Rd. This was also a much needed break from the ever increasing traffic.
+  - At [Halfmoon Bay](https://goo.gl/maps/QfHgA4q8KbVJVrbr7) took a right to stay along the coast and cycled along Redrooffs Rd. At this point the highway was starting to get a little bit busy, so it was a much welcomed break from the traffic.
+  - At [Roberts Creek](https://goo.gl/maps/prrBYtEKpyaxsnjH7) took a right onto Roberts Creek Rd. which then turns into Lower Rd. This was also a much needed break from the ever increasing traffic.
 - Took the ferry from Langdale back to Horseshoe Bay.
 - Cycled back home to Kitsilano via Marine Drive.
 

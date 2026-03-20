@@ -4,11 +4,11 @@ author: Sam Edwardes
 date: 2024-06-23
 description: How to use DuckDB to query books, highlights, and annotations from a Kobo eReader.
 keywords:
-- duckdb
-- kobo
+  - duckdb
+  - kobo
 tags:
-- duckdb
-- data
+  - duckdb
+  - data
 ---
 
 I have a Kobo eReader that I use for most of my reading. After finishing a recent book, I wanted to review all the highlights and annotations I had made. Kobo provides a built-in way to do this, but the device is rather slow, and the screen is small. This made it challenging to quickly review all my notes.
@@ -28,7 +28,6 @@ To find the database, you will need to connect your Kobo to your computer. One m
 ## Reading Kobo Data into DuckDB
 
 You can read the sqlite database directly into DuckDB. Use the `-readonly` flag to ensure tha you don't accidentally write to the database.
-
 
 ```bash
 duckdb -readonly /Volumes/KOBOeReader/.kobo/KoboReader.sqlite
@@ -165,7 +164,6 @@ SHOW TABLES;
 │        33 rows        │
 └───────────────────────┘
 ```
-
 
 ```sql
 DESCRIBE Bookmark;
