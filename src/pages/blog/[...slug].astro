@@ -1,4 +1,5 @@
 ---
+import { render } from "astro:content";
 import H1 from "../../components/H1.astro";
 import BrutalButton from "../../components/BrutalButton.astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
@@ -16,7 +17,7 @@ export async function getStaticPaths() {
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   );
   return sortedBlogEntries.map((entry, i) => ({
-    params: { slug: entry.slug },
+    params: { slug: `/blog/${entry.id}` },
     props: {
       entry,
       // Previous post
@@ -35,7 +36,7 @@ export async function getStaticPaths() {
 
 // 2. For your template, you can get the entry directly from the prop
 const { entry, prevPost, nextPost } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content, headings } = await render(entry);
 ---
 
 <DefaultLayout
@@ -90,7 +91,7 @@ const { Content, headings } = await entry.render();
       {
         prevPost ? (
           <BrutalButton
-            href={`/blog/${prevPost.slug}`}
+            href={`/blog/${prevPost.id}`}
             class="bg-yellow-400 font-bold prose"
           >
             <div>Previous Post</div>
@@ -103,7 +104,7 @@ const { Content, headings } = await entry.render();
       {
         nextPost ? (
           <BrutalButton
-            href={`/blog/${nextPost.slug}`}
+            href={`/blog/${nextPost.id}`}
             class="text-right bg-yellow-400 font-bold prose"
           >
             <div>Next Post</div>

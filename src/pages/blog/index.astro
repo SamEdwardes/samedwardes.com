@@ -18,7 +18,7 @@ const blogEntries = (
       blogEntries.map((blogPostEntry) => (
         <li class="pb-8">
           <a
-            href={`/blog/${blogPostEntry.slug}`}
+            href={`/blog/${blogPostEntry.id}`}
             class:list={[
               "text-2xl font-bold text-primary",
               "hover:text-primary hover:drop-shadow-lg hover:underline",
@@ -42,7 +42,7 @@ const blogEntries = (
               ))}
             </div>
             <a
-              href={`/blog/${blogPostEntry.slug}`}
+              href={`/blog/${blogPostEntry.id}`}
               class:list={[
                 "font-bold text-primary",
                 "hover:text-primary hover:drop-shadow-lg hover:underline",

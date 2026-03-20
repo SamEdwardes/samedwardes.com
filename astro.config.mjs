@@ -19,16 +19,14 @@ export default defineConfig({
     mdx(),
   ],
   // Netlify
-  output: "hybrid",
+  output: "static",
   adapter: netlify(),
-  experimental: {
-    env: {
-      schema: {
-        NOTION_TOKEN: envField.string({
-          context: "server",
-          access: "secret",
-        }),
-      },
+  env: {
+    schema: {
+      NOTION_TOKEN: envField.string({
+        context: "server",
+        access: "secret",
+      }),
     },
   },
   // Redirects
