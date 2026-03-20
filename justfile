@@ -2,17 +2,17 @@
 default:
     @just --list
 
-# bun run dev
+# npm run dev
 run:
-    bun run dev
+    npm run dev
 
-# bun run build
+# npm run build
 build:
-    bun run build
+    npm run build
 
-# bunx prettier
+# npx prettier
 format:
-    bunx prettier --write src/components src/pages src/layouts
+    npx prettier --write src/components src/pages src/layouts
 
 pre-commit:
     just format

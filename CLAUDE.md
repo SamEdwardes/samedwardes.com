@@ -1,4 +1,4 @@
 ## Rules
 
-- Always use bun. Never use npm.
-- Always use bunx. Never use npx.
+- Always use npm. Never use bun.
+- Always use npx. Never use bunx.

@@ -11,6 +11,6 @@ hooks = [
 [[repos]]
 repo = "local"
 hooks = [
-  { id = "check", name = "check", language = "system", entry = "bun run check" },
-  { id = "format", name = "format", language = "system", entry = "bun run format", pass_filenames = true },
+  { id = "check", name = "check", language = "system", entry = "npm run check" },
+  { id = "format", name = "format", language = "system", entry = "npm run format", pass_filenames = true },
 ]
