@@ -17,7 +17,7 @@ export async function getStaticPaths() {
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   );
   return sortedBlogEntries.map((entry, i) => ({
-    params: { slug: `/blog/${entry.id}` },
+    params: { slug: entry.id },
     props: {
       entry,
       // Previous post

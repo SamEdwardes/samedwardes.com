@@ -1,5 +1,5 @@
 import { defineConfig, envField } from "astro/config";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import expressiveCode from "astro-expressive-code";
 import mdx from "@astrojs/mdx";
 import netlify from "@astrojs/netlify";
@@ -10,7 +10,6 @@ export default defineConfig({
   site: "https://samedwardes.com",
   // Integrations
   integrations: [
-    tailwind(),
     expressiveCode({
       frames: {
         extractFileNameFromCode: false,
@@ -28,6 +27,9 @@ export default defineConfig({
         access: "secret",
       }),
     },
+  },
+  vite: {
+    plugins: [tailwindcss()],
   },
   // Redirects
   redirects: {

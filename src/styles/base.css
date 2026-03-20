@@ -1,8 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "daisyui" {
+  themes: light --default;
+}
 
-/* Register your custom font family and tell the browser where to find it. */
+@theme {
+  --font-sans:
+    "Atkinson Hyperlegible", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+:root {
+  --color-primary: #3c7dc1;
+}
+
 @font-face {
   font-family: "Atkinson Hyperlegible";
   src: url("/fonts/Atkinson-Hyperlegible-Regular-102.woff") format("woff");
