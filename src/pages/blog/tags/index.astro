@@ -1,0 +1,38 @@
+---
+import DefaultLayout from "../../../layouts/DefaultLayout.astro";
+import H1 from "../../../components/H1.astro";
+import BrutalPill from "../../../components/BrutalPill.astro";
+import { getCollection } from "astro:content";
+
+const toTagSlug = (tag: string) => tag.toLowerCase().replace(/\s+/g, "-");
+
+const allEntries = await getCollection("blog", ({ data }) => data.draft !== true);
+
+const tagCounts = new Map<string, { name: string; count: number }>();
+for (const entry of allEntries) {
+  for (const tag of entry.data.tags ?? []) {
+    const slug = toTagSlug(tag);
+    if (!tagCounts.has(slug)) {
+      tagCounts.set(slug, { name: tag, count: 0 });
+    }
+    tagCounts.get(slug)!.count++;
+  }
+}
+
+const tags = [...tagCounts.values()].sort((a, b) => a.name.localeCompare(b.name));
+---
+
+<DefaultLayout metaTitle="Blog Tags">
+  <H1>Blog Tags</H1>
+  <div class="flex flex-row flex-wrap gap-3 mt-4">
+    {
+      tags.map(({ name, count }) => (
+        <a href={`/blog/tags/${toTagSlug(name)}`}>
+          <BrutalPill class="bg-yellow-400">
+            {name} ({count})
+          </BrutalPill>
+        </a>
+      ))
+    }
+  </div>
+</DefaultLayout>

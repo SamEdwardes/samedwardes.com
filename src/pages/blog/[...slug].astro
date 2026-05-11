@@ -2,10 +2,13 @@
 import { render } from "astro:content";
 import H1 from "../../components/H1.astro";
 import BrutalButton from "../../components/BrutalButton.astro";
+import BrutalPill from "../../components/BrutalPill.astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
 
 import { getCollection } from "astro:content";
 import TableOfContents from "../../components/TableOfContents.astro";
+
+const toTagSlug = (tag: string) => tag.toLowerCase().replace(/\s+/g, "-");
 
 export const prerender = true;
 
@@ -56,6 +59,16 @@ const { Content, headings } = await render(entry);
     {entry.data.date.getDate()},
     {entry.data.date.getFullYear()}
   </div>
+  <!-- Tags -->
+  {entry.data.tags && entry.data.tags.length > 0 && (
+    <div class="flex flex-row flex-wrap gap-2 mt-2">
+      {entry.data.tags.map((tag) => (
+        <a href={`/blog/tags/${toTagSlug(tag)}`}>
+          <BrutalPill class="bg-yellow-400">{tag}</BrutalPill>
+        </a>
+      ))}
+    </div>
+  )}
   <section class="grid grid-cols-12 gap-8 mt-4">
     <!-- Article content -->
     <article

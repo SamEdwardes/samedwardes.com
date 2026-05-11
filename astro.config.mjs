@@ -33,8 +33,7 @@ export default defineConfig({
   },
   // Redirects
   redirects: {
-    // TODO: create replacement pages for these
-    "/tags": "/",
+    "/tags": "/blog/tags",
     "/projects": "/",
     "/outdoors": "/",
     "/outdoors": "/",
