@@ -1,0 +1,80 @@
+---
+import DefaultLayout from "../../../layouts/DefaultLayout.astro";
+import H1 from "../../../components/H1.astro";
+import BrutalPill from "../../../components/BrutalPill.astro";
+import { getCollection } from "astro:content";
+
+export const prerender = true;
+
+const toTagSlug = (tag: string) => tag.toLowerCase().replace(/\s+/g, "-");
+
+export async function getStaticPaths() {
+  const toTagSlug = (tag: string) => tag.toLowerCase().replace(/\s+/g, "-");
+  const allEntries = await getCollection("blog", ({ data }) => data.draft !== true);
+
+  const tagMap = new Map<string, typeof allEntries>();
+  for (const entry of allEntries) {
+    for (const tag of entry.data.tags ?? []) {
+      const slug = toTagSlug(tag);
+      if (!tagMap.has(slug)) tagMap.set(slug, []);
+      tagMap.get(slug)!.push(entry);
+    }
+  }
+
+  return [...tagMap.entries()].map(([slug, posts]) => ({
+    params: { tag: slug },
+    props: {
+      tagName: posts[0].data.tags!.find((t) => toTagSlug(t) === slug)!,
+      posts: posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
+    },
+  }));
+}
+
+const { tagName, posts } = Astro.props;
+---
+
+<DefaultLayout metaTitle={`Tag: ${tagName}`}>
+  <H1>Posts tagged "{tagName}"</H1>
+  <ul>
+    {
+      posts.map((post) => (
+        <li class="pb-8">
+          <a
+            href={`/blog/${post.id}`}
+            class:list={[
+              "text-2xl font-bold text-primary",
+              "hover:text-primary hover:drop-shadow-lg hover:underline",
+            ]}
+          >
+            {post.data.title}
+          </a>
+          <div class="text-light text-gray-500">
+            {post.data.date.toLocaleString("default", { month: "long" })}
+            {post.data.date.getDate()},
+            {post.data.date.getFullYear()}
+          </div>
+          <div>{post.data.description}</div>
+          <div class="flex flex-row justify-between pt-2">
+            <div class="flex flex-row flex-wrap gap-2">
+              <div class="font-bold">Tags: </div>
+              {post.data.tags?.map((tag) => (
+                <a href={`/blog/tags/${toTagSlug(tag)}`}>
+                  <BrutalPill class="bg-yellow-400">{tag}</BrutalPill>
+                </a>
+              ))}
+            </div>
+            <a
+              href={`/blog/${post.id}`}
+              class:list={[
+                "font-bold text-primary",
+                "hover:text-primary hover:drop-shadow-lg hover:underline",
+              ]}
+            >
+              Read more
+            </a>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</DefaultLayout>
