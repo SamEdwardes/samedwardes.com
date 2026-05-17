@@ -9,14 +9,14 @@ const navItems = [
   { href: "/about", label: "About" },
 ];
 const currentUrl = Astro.url;
-const isActive = (href: string) => {
+const matches = (href: string) => {
   if (href === "/") return currentUrl.pathname === "/";
-  if (href.indexOf("/", 1) !== -1) {
-    // Multi-segment path: match exactly or as a prefix
-    return currentUrl.pathname === href || currentUrl.pathname.startsWith(href + "/");
-  }
-  return `/${currentUrl.pathname.split("/")[1]}` === href;
+  return currentUrl.pathname === href || currentUrl.pathname.startsWith(href + "/");
 };
+const activeHref = navItems
+  .filter((item) => matches(item.href))
+  .sort((a, b) => b.href.length - a.href.length)[0]?.href;
+const isActive = (href: string) => href === activeHref;
 ---
 
 <nav
@@ -83,8 +83,7 @@ const isActive = (href: string) => {
                   "text-white hover:text-slate-200 rounded-md px-3 py-2 text-xl font-bold",
                   {
                     "text-yellow-400 drop-shadow-2xl underline underline-offset-8 decoration-4":
-                      `/${currentUrl.pathname.split("/")[1]}` == item.href &&
-                      item.label != "samedwardes.com",
+                      isActive(item.href) && item.label != "samedwardes.com",
                   },
                 ]}
                 href={`${item.href}`}
