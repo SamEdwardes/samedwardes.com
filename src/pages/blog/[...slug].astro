@@ -60,15 +60,17 @@ const { Content, headings } = await render(entry);
     {entry.data.date.getFullYear()}
   </div>
   <!-- Tags -->
-  {entry.data.tags && entry.data.tags.length > 0 && (
-    <div class="flex flex-row flex-wrap gap-2 mt-2">
-      {entry.data.tags.map((tag) => (
-        <a href={`/blog/tags/${toTagSlug(tag)}`}>
-          <BrutalPill class="bg-yellow-400">{tag}</BrutalPill>
-        </a>
-      ))}
-    </div>
-  )}
+  {
+    entry.data.tags && entry.data.tags.length > 0 && (
+      <div class="flex flex-row flex-wrap gap-2 mt-2">
+        {entry.data.tags.map((tag) => (
+          <a href={`/blog/tags/${toTagSlug(tag)}`}>
+            <BrutalPill class="bg-yellow-400">{tag}</BrutalPill>
+          </a>
+        ))}
+      </div>
+    )
+  }
   <section class="grid grid-cols-12 gap-8 mt-4">
     <!-- Article content -->
     <article

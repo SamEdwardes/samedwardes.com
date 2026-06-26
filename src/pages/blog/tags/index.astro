@@ -6,7 +6,10 @@ import { getCollection } from "astro:content";
 
 const toTagSlug = (tag: string) => tag.toLowerCase().replace(/\s+/g, "-");
 
-const allEntries = await getCollection("blog", ({ data }) => data.draft !== true);
+const allEntries = await getCollection(
+  "blog",
+  ({ data }) => data.draft !== true,
+);
 
 const tagCounts = new Map<string, { name: string; count: number }>();
 for (const entry of allEntries) {
@@ -19,7 +22,9 @@ for (const entry of allEntries) {
   }
 }
 
-const tags = [...tagCounts.values()].sort((a, b) => a.name.localeCompare(b.name));
+const tags = [...tagCounts.values()].sort((a, b) =>
+  a.name.localeCompare(b.name),
+);
 ---
 
 <DefaultLayout metaTitle="Blog Tags">

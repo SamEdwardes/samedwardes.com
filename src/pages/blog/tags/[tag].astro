@@ -10,7 +10,10 @@ const toTagSlug = (tag: string) => tag.toLowerCase().replace(/\s+/g, "-");
 
 export async function getStaticPaths() {
   const toTagSlug = (tag: string) => tag.toLowerCase().replace(/\s+/g, "-");
-  const allEntries = await getCollection("blog", ({ data }) => data.draft !== true);
+  const allEntries = await getCollection(
+    "blog",
+    ({ data }) => data.draft !== true,
+  );
 
   const tagMap = new Map<string, typeof allEntries>();
   for (const entry of allEntries) {
@@ -25,7 +28,9 @@ export async function getStaticPaths() {
     params: { tag: slug },
     props: {
       tagName: posts[0].data.tags!.find((t) => toTagSlug(t) === slug)!,
-      posts: posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
+      posts: posts.sort(
+        (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+      ),
     },
   }));
 }
@@ -50,8 +55,7 @@ const { tagName, posts } = Astro.props;
           </a>
           <div class="text-light text-gray-500">
             {post.data.date.toLocaleString("default", { month: "long" })}
-            {post.data.date.getDate()},
-            {post.data.date.getFullYear()}
+            {post.data.date.getDate()},{post.data.date.getFullYear()}
           </div>
           <div>{post.data.description}</div>
           <div class="flex flex-row justify-between pt-2">

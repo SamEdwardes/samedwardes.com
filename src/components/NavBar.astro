@@ -11,7 +11,9 @@ const navItems = [
 const currentUrl = Astro.url;
 const matches = (href: string) => {
   if (href === "/") return currentUrl.pathname === "/";
-  return currentUrl.pathname === href || currentUrl.pathname.startsWith(href + "/");
+  return (
+    currentUrl.pathname === href || currentUrl.pathname.startsWith(href + "/")
+  );
 };
 const activeHref = navItems
   .filter((item) => matches(item.href))
