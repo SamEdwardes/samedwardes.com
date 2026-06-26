@@ -1,0 +1,92 @@
+---
+title: prek for Data Science
+description: I recently changed from using Pre-Commit to using Prek
+author: Sam Edwardes
+date: 2026-06-26
+tags:
+  - tools
+  - python
+  - r
+  - data science
+  - command line
+---
+
+I previously [wrote](/blog/2025-03-20-pre-commit-for-data-science) about using pre-commit for data science. I installed pre-commit and started using it for most projects. Recently I learned about [prek](https://prek.j178.dev/) which is a [pre-commit](https://pre-commit.com) compatible tool to run git hooks that is fast and built on rust. This podcast [Talk Python Mono Repo]() is where I first learned prek and is a good resource to learn more. Why use prek over pre-commit?
+
+- Faster installation of hooks.
+- Faster execution of hooks.
+
+## Installation
+
+```bash
+uv tool install prek
+```
+
+## Helpful prek hooks
+
+```toml title="prek.toml"
+# Generic hooks that are useful for most projects.
+[[repos]]
+repo = "https://github.com/pre-commit/pre-commit-hooks"
+rev = "v6.0.0"
+hooks = [
+  { id = "check-yaml" },
+  { id = "check-toml" },
+  { id = "check-json" },
+  { id = "end-of-file-fixer" },
+  { id = "trailing-whitespace" },
+  { id = "check-added-large-files" },
+]
+
+# Format R code
+[[repos]]
+repo = "https://github.com/posit-dev/air-pre-commit"
+rev = "0.8.2"
+hooks = [{ id = "air-format" }]
+
+# Python hooks for formatting and linting.
+[[repos]]
+repo = "https://github.com/astral-sh/ruff-pre-commit"
+rev = "v0.15.6"
+hooks = [
+  { id = "ruff-check", args = [
+    "--fix",
+    "--select",
+    "I,F401",
+  ] },
+  { id = "ruff-format" },
+]
+
+# Ensure that the requirements.txt stays in sync with the uv.lock file
+# on every commit. This is helpful for tools like Posit Connect that
+# don't support uv.lock.
+[[repos]]
+repo = "https://github.com/astral-sh/uv-pre-commit"
+rev = "0.10.11"
+hooks = [
+  { id = "uv-export", args = [
+    "--no-hashes",
+    "--output-file=requirements.txt",
+  ] },
+]
+
+# Format markdown.
+[[repos]]
+repo = "https://github.com/rvben/rumdl-pre-commit"
+rev = "v0.0.222"
+hooks = [{ id = "rumdl-fmt", args = ["--disable=MD013"] }]
+
+# Remove outputs from Jupyter Noteboks
+[[repos]]
+repo = "https://github.com/kynan/nbstripout"
+rev = "0.9.1"
+hooks = [{ id = "nbstripout" }]
+
+# For commands you want to run that don't have a defined pre-commit, you
+# can run custom commands.
+[[repos]]
+repo = "local"
+hooks = [
+  { id = "lint-and-fix", name = "lint and fix", language = "system", entry = "bun run lint --non-interactive --fix", pass_filenames = false },
+]
+```
