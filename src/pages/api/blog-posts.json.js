@@ -9,7 +9,7 @@ async function getPosts() {
 
   // return posts;
   return posts.map((post) => ({
-    slug: post.slug,
+    slug: post.id,
     title: post.data.title,
     description: post.data.description,
     tags: post.data.tags,
