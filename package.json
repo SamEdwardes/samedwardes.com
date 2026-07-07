@@ -11,6 +11,8 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@alpinejs/focus": "^3.15.12",
+    "@alpinejs/ui": "^3.15.12",
     "@astrojs/check": "^0.9.8",
     "@astrojs/mdx": "^5.0.2",
     "@astrojs/netlify": "^7.0.3",
@@ -19,10 +21,12 @@
     "@notionhq/client": "^2.3.0",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.2",
+    "alpinejs": "^3.15.12",
     "astro": "^6.0.7",
     "astro-expressive-code": "^0.41.7",
     "dompurify": "^3.3.3",
     "fuse.js": "^7.1.0",
+    "htmx.org": "^2.0.10",
     "marked": "^17.0.4",
     "sharp": "^0.34.5",
     "tailwindcss": "4",
@@ -30,6 +34,8 @@
     "vue": "^3.5.30"
   },
   "devDependencies": {
+    "@types/alpinejs": "^3.13.11",
+    "@types/alpinejs__focus": "^3.13.4",
     "@types/node": "^25.5.0",
     "daisyui": "^5.5.19",
     "husky": "^9.1.7",
