@@ -21,9 +21,7 @@ const activeHref = navItems
 const isActive = (href: string) => href === activeHref;
 ---
 
-<nav
-  class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 fixed z-[99] top-0 left-0 right-0"
->
+<nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sticky top-0 z-[99]">
   <div
     class:list={[
       "navbar bg-primary rounded-2xl shadow-lg border-2 border-gray-900 h-16",
