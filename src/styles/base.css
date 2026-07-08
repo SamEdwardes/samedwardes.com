@@ -14,25 +14,6 @@
   --color-primary: #3c7dc1;
 }
 
-@view-transition {
-  navigation: auto;
-}
-
-::view-transition-old(main-nav),
-::view-transition-new(main-nav) {
-  animation: none;
-  mix-blend-mode: normal;
-  height: 100%;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation: none !important;
-  }
-}
-
 @font-face {
   font-family: "Atkinson Hyperlegible";
   src: url("/fonts/Atkinson-Hyperlegible-Regular-102.woff") format("woff");

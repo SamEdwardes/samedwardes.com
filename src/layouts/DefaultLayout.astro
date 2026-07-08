@@ -18,26 +18,33 @@ import "../styles/base.css";
       title="samedwardes.com Blog"
       href="/rss.xml"
     />
-    <!-- Add the pro alpine JS stuff -->
-    <script
-      is:inline
-      defer
-      src="https://unpkg.com/@alpinejs/ui@3.14.1-beta.0/dist/cdn.min.js"
-    ></script>
-    <script
-      is:inline
-      defer
-      src="https://unpkg.com/@alpinejs/focus@3.14.1/dist/cdn.min.js"></script>
-    <script
-      is:inline
-      defer
-      src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
-    <!-- Add HTMX -->
-    <script
-      is:inline
-      src="https://unpkg.com/htmx.org@2.0.1"
-      integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/"
-      crossorigin="anonymous"></script>
+    <link
+      rel="preload"
+      href="/fonts/Atkinson-Hyperlegible-Regular-102.woff"
+      as="font"
+      type="font/woff"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Atkinson-Hyperlegible-Bold-102.woff"
+      as="font"
+      type="font/woff"
+      crossorigin
+    />
+    <!-- Bundle Alpine (core + focus + ui) and HTMX as same-origin assets -->
+    <script>
+      import Alpine from "alpinejs";
+      import focus from "@alpinejs/focus";
+      import ui from "@alpinejs/ui";
+      import htmx from "htmx.org";
+
+      window.htmx = htmx;
+      Alpine.plugin(focus);
+      Alpine.plugin(ui);
+      window.Alpine = Alpine;
+      Alpine.start();
+    </script>
     <!--Umami for analytics-->
     <script
       is:inline
@@ -47,7 +54,7 @@ import "../styles/base.css";
   </head>
   <body class="h-full">
     <NavBar />
-    <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-4 pt-32">
+    <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-4 pt-8">
       <div class:list={["container mx-auto", contentMaxWidth]}>
         <slot />
         <!-- your content is injected here -->
