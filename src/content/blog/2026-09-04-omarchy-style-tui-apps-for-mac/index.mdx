@@ -46,6 +46,8 @@ Creating the desktop TUI was not as hard as I thought. You only need three files
 
 **Contents/Info.plist**
 
+This is entirely boilerplate. You can reuse this for every TUI you create. Make sure to update the name in the second string to match the application. If you change the name of the script as well from something other than wrapper, you should update that as well.
+
 ```html title="Contents/Info.plist"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -60,6 +62,8 @@ Creating the desktop TUI was not as hard as I thought. You only need three files
 ```
 
 **Contents/MacOS/wrapper**
+
+This is the most important part of the application. The proper script will be slightly different for each application. My script does two main things. First, it launches BTOP with Alacritty. Second, it uses Raycast to center the window that was just launched. It's a bit flaky because it runs 0.4 seconds after the app launches so if the app takes too long it doesn't work. I find that it works most of the time.
 
 ```bash title="Contents/MacOS/wrapper"
 #!/bin/bash
@@ -80,12 +84,7 @@ exec /Applications/Alacritty.app/Contents/MacOS/alacritty \
 
 **Resources/icon.icns**
 
-```text title="Resources/icon.icns"
-Image binary would be here...
-```
-
-<Callout title="Creating the icon.icns">
-  I had Claude create the icon files for me. Here's an example prompt you could use to get started.
+I had Claude create the icon files for me. Here's an example prompt you could use to get started.
 
 ```md
 Make a macOS .icns for <NAME> from <SOURCE> and install it at
@@ -105,15 +104,6 @@ Make a macOS .icns for <NAME> from <SOURCE> and install it at
 
 <SOURCE> can be a URL, a file path, a tool name, or nothing at all if you want Claude to go find the logo.
 ```
-
-The fourth bullet is the one that earns its keep. Both mistakes I made today were invisible in the commands and obvious in the image: btop's black drop shadow vanished on a dark background, and the corner mask left a black fringe. Neither threw an error. Without an instruction to look, Claude ships them.
-
-Two smaller notes on wording:
-
-- "Tell me if you have to upscale" beats "don't upscale". A hard ban makes Claude stall when the only logo in existence is 128px, which is the actual situation for Neovim's shipped PNG.
-- Naming the squircle numbers saves a round of guessing. Left to invent them, models tend to pick a corner radius that reads as a rounded rectangle rather than a macOS icon.
-
-</Callout>
 
 ## Configuring Alacritty
 
